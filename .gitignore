@@ -1,0 +1,25 @@
+node_modules/
+dist/
+.astro/
+.output/
+build/
+
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+.env
+.env.local
+.env.*.local
+
+.vscode/
+.idea/
+*.swp
+
+coverage/
+.nyc_output/
+
+# Scratch work — never commit working notes as though they were research
+scratch/
+*.tmp

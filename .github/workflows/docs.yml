@@ -1,0 +1,23 @@
+name: docs
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+jobs:
+  citations:
+    name: Citation and link check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Runs first because it is the cheapest check and catches the class of
+      # error that matters most here — a tax figure stated without a source.
+      # See docs/decisions/adr-0004-citation-discipline.md.
+      - name: Check citations and links
+        run: node scripts/check-citations.mjs
