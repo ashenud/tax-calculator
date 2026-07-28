@@ -1,0 +1,139 @@
+# Extracted from pn-it-2025-01.pdf with pdfplumber
+# NOT AUTHORITATIVE — the PDF is. Extraction loses table geometry and ligatures;
+# verify any quote against the PDF before relying on it.
+# Page markers below are load-bearing: cite the page you actually read.
+# Regenerate: python3 scripts/extract-sources.py
+
+
+
+===== page 1 =====
+                                                                                  
+                                                                                  
+                                                                                  
+          `                                                                       
+          PN/IT/2025-01                                                           
+          26.03.2025                                                              
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                INLAND       REVENUE          DEPARTMENT                          
+                                                                                  
+                             Notice  to the Taxpayers                             
+                                                                                  
+                                                                                  
+             Amendments     to the Inland Revenue   Act, No. 24 of 2017           
+                                                                                  
+          Inland Revenue (Amendment) Act, No. 02 of 2025 has been certified on 20.03.2025 and
+          important changes made from such amendment Act to the Inland Revenue Act, No. 24 of
+          2017 (IRA) are as follows.                                              
+                                                                                  
+                                                                                  
+          1.   Personal Relief                                                    
+                                                                                  
+          Personal Relief which can be deducted in arriving at the taxable income of an individual
+          who is resident in Sri Lanka or a non-resident but a citizen in Sri Lanka for any year of
+          assessment (commencing from the Y/A 2025/2026) has been increased to Rs. 1,800,000.
+                                                                                  
+          2.   Revision of Income Tax Rates Effective from 01.04.2025             
+                                                                                  
+                                                                                  
+          2.1 Tax rates for resident and non - resident individuals               
+                                                                                  
+             (a) Normal progressive income tax rates                              
+                                                                                  
+                Taxable Income (LKR)       Tax Rate (%)                           
+                                                                                  
+                First 1,000,000                    6                              
+                                                                                  
+                Next 500,000                      18                              
+                                                                                  
+                Next 500,000                      24                              
+                                                                                  
+                                                                                  
+                Next 500,000                      30                              
+                                                                                  
+                Balance                           36                              
+                                                                                  
+                                                                                  
+                                                                                  
+             (b) Maximum income tax rate applicable for following gains and profits is 15%
+                                                                                  
+                 i. The gains and profits earned or derived from any service rendered in or
+                                                                                  
+                    outside Sri Lanka to any person to be utilized outside Sri Lanka, where the
+                    payment for such services is received in foreign currency and remitted
+                    through a bank to Sri Lanka (Service Exports).                
+                                                                                  
+                                                                                  
+                                          1                                       
+                                                                                  
+                                                                                  
+                                                                                  
+
+===== page 2 =====
+                                                                                  
+                                                                                  
+                                                                                  
+          `                                                                       
+                ii. The gains and profits earned or derived from any foreign source where such
+                    gains and profits are earned or derived in foreign currency and remitted
+                    through a bank to Sri Lanka (Foreign Sources).                
+                                                                                  
+                                                                                  
+             (c) Income from a business consisting of betting and gaming, manufacture and sale or
+               import and sale of any liquor or tobacco product = Tax Rate is 45% (flat rate).
+                                                                                  
+          2.2 Tax rates for companies -special tax rates                          
+                                                                                  
+            (a) Gains and profits from conducting betting and gaming = 45%        
+            (b) Gains and profits from the manufacture and sale or import and sale of any liquor or
+                                                                                  
+               tobacco product = 45%                                              
+            (c) Gains and profits from the export of any liquor or tobacco product (normal income
+               tax rate) = 30%                                                    
+            (d) Gains and profits from Service Exports (similar to conditions as mentioned above)
+                                                                                  
+               = 15%                                                              
+            (e) Gains and profits from Foreign Sources (similar to conditions as mentioned above)
+               = 15%                                                              
+          2.3 Withholding Tax / Advance Income Tax (AIT) rate                     
+                                                                                  
+             • Interest or discounts paid = 10%                                   
+                                                                                  
+                                                                                  
+          **Based on the revision of individual income tax rates and AIT rate, Advance Personal
+          Income Tax (APIT) Tables and withholding tax circulars will be issued in due course.
+                                                                                  
+          3.   Removal of Income Tax Exemptions                                   
+                                                                                  
+          Effective from April 1st 2025, income tax exemptions on service exports and foreign
+          sources income have been removed.                                       
+                                                                                  
+          4.   Changes for Income Tax Refunds Procedure                           
+                                                                                  
+                                                                                  
+           • If a resident individual claims a refund (by submitting a tax return) of up to Rs.
+             180,000 for a year of assessment starting from 2025/2026, the Commissioner-General
+             process the refund within three months of the claim, before a tax audit.
+                                                                                  
+             However, senior citizens (as defined in Section 195 of the IRA) are entitled to receive
+             quarterly refunds (quarters ending on June 30th, September 30th, December 31st, and
+                                                                                  
+             March 31st) if their claim is less than Rs. 45,000, prior to a tax audit.
+                                                                                  
+           • Effective from the year of assessment 2024/2025, Refund claims shall be applied by
+             the taxpayer within 30 months of the last date of the relevant year of assessment where
+             the taxpayer is required to file a tax return.                       
+                                                                                  
+          Commissioner General of Inland Revenue                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                          2                                       
+                                                                                  
+                                                                                  
+                                                                                  

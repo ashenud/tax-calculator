@@ -83,7 +83,7 @@ One file per year of assessment. Filenames use the start year and a two-digit en
     "personal": {
       "amount": 1800000,
       "appliesTo": ["resident", "non-resident-citizen"],
-      "src": "act-2-2025#s.14"
+      "src": "act-2-2025#s.5(3)"        // IRA Sch.5 para 2(a)(v)
     }
   },
 
@@ -95,52 +95,84 @@ One file per year of assessment. Filenames use the start year and a two-digit en
     "individual-normal": {
       "label": "Resident individual — normal rates",
       "bands": [
-        { "width": 1000000, "rateBp":  600, "src": "act-2-2025#sch.1" },
-        { "width":  500000, "rateBp": 1800, "src": "act-2-2025#sch.1" },
-        { "width":  500000, "rateBp": 2400, "src": "act-2-2025#sch.1" },
-        { "width":  500000, "rateBp": 3000, "src": "act-2-2025#sch.1" },
-        { "width":  null,   "rateBp": 3600, "src": "act-2-2025#sch.1" }
+        { "width": 1000000, "rateBp":  600, "src": "act-2-2025#s.3(1)(b)" },
+        { "width":  500000, "rateBp": 1800, "src": "act-2-2025#s.3(1)(b)" },
+        { "width":  500000, "rateBp": 2400, "src": "act-2-2025#s.3(1)(b)" },
+        { "width":  500000, "rateBp": 3000, "src": "act-2-2025#s.3(1)(b)" },
+        { "width":  null,   "rateBp": 3600, "src": "act-2-2025#s.3(1)(b)" }
       ]
-    },
+    }
+  },
 
+  // A rate CAP on `appliesToSchedule`, not a schedule of its own — see design notes.
+  "rateCaps": {
     "service-export-foreign": {
-      "label": "Service export / foreign source income — reduced rates",
-      "bands": [
-        { "width": 1000000, "rateBp":  600, "src": "act-2-2025#sch.1" },
-        { "width":  null,   "rateBp": 1500, "src": "act-2-2025#sch.1" }
-      ],
+      "label": "Service export / foreign source gains and profits — maximum rate",
+      "appliesToSchedule": "individual-normal",
       "maxRateBp": 1500,
-      "conditions": ["remitted-through-licensed-lk-bank"],
-      "src": "act-2-2025#sch.1"
+      "conditions": ["remitted-through-bank-to-sri-lanka"],
+      "src": "act-2-2025#s.3(1)(d)"     // IRA Sch.1 para 1(6)
     }
   },
 
   "conditions": {
-    "remitted-through-licensed-lk-bank": {
-      "question": "Were these earnings remitted to Sri Lanka through a licensed bank?",
-      "ifNotMet": "individual-normal",
+    "remitted-through-bank-to-sri-lanka": {
+      "question": "Were these earnings remitted through a bank to Sri Lanka?",
+      "ifNotMet": null,                 // cap simply does not apply; normal ladder stands
       "evidence": "Bank inward remittance advice",
-      "src": "act-2-2025#s.7"
+      "src": "act-2-2025#s.3(1)(d)"
+    }
+  },
+
+  // Components the Act rates separately, leaving "only the remainder" on the ladder
+  // [IRA Sch.1 para 1(2)(d), 2017].
+  "separatelyRated": {
+    "capital-gain": {
+      "label": "Gains on realisation of investment assets",
+      "rateBp": 1000,
+      "reliefEligible": false,          // [IRA Sch.5 para 2(a), 2017]
+      "verified": false,                // 2017 rate; superseded by Act 11/2026 — Q42
+      "src": "ira-2017#sch.1-para-1(2)(a)"
+    },
+    "terminal-benefit": {
+      "label": "Terminal benefits",
+      "selector": { "field": "serviceYears", "thresholdYears": 20 },
+      "tablesBySelector": {
+        "atOrBelow": [
+          { "width": 2000000, "rateBp":    0, "src": "ira-2017#sch.1-para-1(2)(b)(i)" },
+          { "width": 1000000, "rateBp":  500, "src": "ira-2017#sch.1-para-1(2)(b)(i)" },
+          { "width": null,    "rateBp": 1000, "src": "ira-2017#sch.1-para-1(2)(b)(i)" }
+        ],
+        "above": [
+          { "width": 5000000, "rateBp":    0, "src": "ira-2017#sch.1-para-1(2)(b)(ii)" },
+          { "width": 1000000, "rateBp":  500, "src": "ira-2017#sch.1-para-1(2)(b)(ii)" },
+          { "width": null,    "rateBp": 1000, "src": "ira-2017#sch.1-para-1(2)(b)(ii)" }
+        ]
+      },
+      "verified": false,                // 2017 tables — Q32
+      "src": "ira-2017#sch.1-para-1(2)(b)"
+    },
+    "special-business": {
+      "label": "Betting and gaming; liquor; tobacco",
+      "rateBp": 4500,
+      "src": "act-2-2025#s.3(1)(c)"
     }
   },
 
   "apit": { "tables": [], "src": "..." },
   "wht":  {
-    // "interest": { "rateBp": 1000, "src": "..." },
-    // "serviceFeeResidentIndividual": { "rateBp": 500, "monthlyThreshold": 0, "src": "..." }
+    "interest": { "rateBp": 1000, "src": "act-2-2025#s.3(3)" }
   },
-  "capitalGains":     { "rateBp": null, "src": "..." },
-  "terminalBenefits": { "bands": [], "src": "..." },
 
   "calendar": {
     "instalments": [
-      { "quarter": 1, "due": "2025-08-15", "src": "ira-2017#s.90" },
-      { "quarter": 2, "due": "2025-11-15", "src": "ira-2017#s.90" },
-      { "quarter": 3, "due": "2026-02-15", "src": "ira-2017#s.90" },
-      { "quarter": 4, "due": "2026-05-15", "src": "ira-2017#s.90" }
+      { "quarter": 1, "due": "2025-08-15", "src": "ira-2017#s.90(2)(a)" },
+      { "quarter": 2, "due": "2025-11-15", "src": "ira-2017#s.90(2)(a)" },
+      { "quarter": 3, "due": "2026-02-15", "src": "ira-2017#s.90(2)(a)" },
+      { "quarter": 4, "due": "2026-05-15", "src": "ira-2017#s.90(2)(a)" }
     ],
-    "finalPayment": { "due": "2026-09-30", "src": "ira-2017#s.90" },
-    "returnDue":    { "due": "2026-11-30", "src": "ira-2017#s.93" }
+    // Derived, not stored: period.to + 8 months [IRA s.93(1)].
+    "returnDueRule": { "monthsAfterYearEnd": 8, "src": "ira-2017#s.93(1)" }
   }
 }
 ```
@@ -157,16 +189,30 @@ line-for-line and can be checked against it by eye. Cumulative thresholds are de
 load time. Deriving is safe; transcribing cumulative totals by hand is where
 transcription errors hide. The final band has `width: null` — the balance.
 
-**Reduced rates are a schedule, not a discount.** The reduced treatment of service-export
-and foreign-source income is modelled as its own band table, not as a cap applied
-afterwards to a normal computation. `maxRateBp` is recorded alongside as a documented
-invariant the engine asserts, so a future band added above the cap fails loudly instead
-of quietly overcharging.
+**Reduced rates are a cap, not a schedule — corrected.** An earlier version of this spec
+modelled service-export and foreign-source income as its own band table. **That was
+wrong**, and it was wrong in a way that would have produced correct answers for the simple
+case and silently wrong ones for the mixed case.
+
+The Act says the specified gains and profits are taxed at "the **maximum rate** of 15%",
+*notwithstanding* the normal ladder [IRA Sch.1 para 1(6), ins. Act 2/2025 s.3(1)(d)]. The
+normal ladder still runs; the rate charged on that component is capped at 15%. So a
+`rateCap` entry names the schedule it modifies, and the engine applies
+`min(bandRateBp, maxRateBp)` to the capped component.
+
+The familiar "first Rs. 1,000,000 at 6%, balance at 15%" is a *consequence* of this — the
+6% band is under the cap and survives; every band above it collapses to 15%. Modelling it
+as two hardcoded bands would encode the output of the rule instead of the rule, and would
+break the moment a band moved.
+
+`ifNotMet` is `null` for a cap: an unmet condition means the cap does not apply and the
+normal ladder stands unmodified. For a genuine alternative *schedule* it would name the
+fallback.
 
 **Conditions are data, and they are questions.** `conditions` carries the human-facing
 question, the fallback schedule when the condition is not met, and the evidence the
 taxpayer needs. This is what lets the UI ask "were these earnings remitted through a
-licensed bank?" without the question being hardcoded — and it means the answer's
+bank?" without the question being hardcoded — and it means the answer's
 consequence (`ifNotMet`) is stated in the same place a maintainer updates the rule.
 
 **`status` distinguishes proposed from enacted.** Budget announcements are not law. A
@@ -175,6 +221,17 @@ consequence (`ifNotMet`) is stated in the same place a maintainer updates the ru
 **Superseded years are retained forever.** Amended and late returns are filed years
 afterwards. Deleting a year makes the tool useless to exactly the taxpayer most likely
 to need help.
+
+**Deadlines that are rules are stored as rules.** The return due date is "eight months
+after the end of the year of assessment" [IRA s.93(1)] — so the data carries
+`returnDueRule.monthsAfterYearEnd`, not a literal date. Storing the date means every new
+year needs a new entry and invites a stale one. Instalment dates *are* stored, because
+s.90(2)(a) names specific months rather than an offset.
+
+**`verified` is a first-class field.** Several values held here are 2017 text known to be
+superseded — the capital gains rate above all. The engine reads this flag and emits a
+warning for any unverified rate it actually applied. Removing the flag to make a warning
+go away is the failure this field exists to prevent.
 
 ## Validation
 

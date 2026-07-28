@@ -56,7 +56,20 @@ become the calculation engine's test fixtures verbatim. See
 - [`data-model.md`](spec/data-model.md) — the tax-year data file schema
 - [`calculation-engine.md`](spec/calculation-engine.md) — the computation pipeline
 - [`site-architecture.md`](spec/site-architecture.md) — Astro, routes, deployment
+- [`ui-design-system.md`](spec/ui-design-system.md) — tokens, type, colour, components
+- [`ui-behaviour.md`](spec/ui-behaviour.md) — flows, states, validation, accessibility
 - [`update-playbook.md`](spec/update-playbook.md) — the runbook for when the law changes
+
+**5a. How to build it** — [`prompts/`](prompts/)
+
+[`prompts/INDEX.md`](prompts/INDEX.md) is the ordered build sequence, P00 to P16, with
+live execution status. Start there when writing application code.
+
+```bash
+node scripts/prompt-status.mjs next     # what to run now
+/run-prompt                             # run it
+/build-status                           # where we are
+```
 
 **6. Why it is built that way** — [`decisions/`](decisions/)
 

@@ -37,8 +37,11 @@ A grep match drops you into the middle of a provision. Before concluding:
 
 - Read the **whole subsection**, plus the provisos that follow it. Sri Lankan drafting
   puts crucial conditions in provisos after the operative words.
-- Resolve **defined terms**. "Remitted", "licensed bank", "service rendered outside Sri
-  Lanka" are defined, and the definition may be narrower than ordinary usage.
+- Resolve **defined terms**. "Remitted", "bank", "utilized outside Sri Lanka" carry
+  weight, and a definition may be narrower than ordinary usage — or may not exist at all,
+  which is itself a finding. Do not import a qualifier the text does not have: the
+  foreign-income condition says "remitted through a bank", and the near-universal
+  secondary-source rendering as "licensed bank" is a gloss, not the statute.
 - Check the **schedule** if the section points at one. Rate tables usually live in
   schedules, and the schedules are amended independently of the sections.
 

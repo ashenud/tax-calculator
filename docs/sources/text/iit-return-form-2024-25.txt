@@ -1,0 +1,139 @@
+# Extracted from iit-return-form-2024-25.pdf with pdfplumber
+# NOT AUTHORITATIVE — the PDF is. Extraction loses table geometry and ligatures;
+# verify any quote against the PDF before relying on it.
+# Page markers below are load-bearing: cite the page you actually read.
+# Regenerate: python3 scripts/extract-sources.py
+
+
+
+===== page 1 =====
+                                                                                  
+                                                                     Form No. - Asmt_IIT_001_E
+                                                                                  
+                                                                                  
+                                                           Resident               
+                                                           Non - Resident         
+                                                           Senior Citizen Yes No  
+                  RETURN       OF   INCOME       - INDIVIDUAL                     
+                                                                                  
+                              YEAR OF ASSESSMENT: 2024/2025                       
+                                                                                  
+      Taxpayer Identification Number (TIN)                                        
+                                                                                  
+                                                 Address                          
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+      Date of Issue:                            Due Date:                         
+      Taxpayers are advised to refer the Guide before fill the Return and its Schedules. Visit IRD web portal
+      www.ird.gov.lk to download the Return with Schedules and Guide              
+      SECTION – 01: STATEMENT OF TAX CALCULATION                                  
+      PART A – INCOME LIABLE TO TAX                                               
+                                                                 Rs.         Cents
+                                                                                  
+      Employment Income                   (Schedule 1) 10                         
+      Business Income                     (Schedule 2) 20                         
+      Investment Income                   (Schedule 3) 30                         
+      Other Income                        (Schedule 4) 40                         
+      ASSESSABLE INCOME (10+20+30+40)               50                            
+                                                                                  
+      PART B – DEDUCTIONS FROM ASSESSABLE INCOME                                  
+      Reliefs                                                                     
+      Relief for Rent Income              (Schedule 3) 60                         
+      Relief on resident’s Solar panel    (Schedule 5) 70                         
+      Personal Relief                               80                            
+      Total Reliefs (60+70+80)                      90                            
+      Qualifying Payments                 (Schedule 5) 100                        
+      Total Deductions from Assessable Income (90+100) 110                        
+      TAXABLE INCOME (50-110)                       120                           
+      P ART C – CALCULATION OF TAX PAYABLE                                        
+      Tax on Terminal Benefits            (Schedule 8) 130                        
+      Tax on Gain on Realization of Investment Assets (Schedule 8) 140            
+      Tax on Balance Taxable Income       (Schedule 8) 150                        
+      Tax on Final Withholding Payments (WHT not deducted) (Schedule 8) 160       
+      Total Tax Payable (130+140+150+160)           170                           
+      Less: Tax Credits                   (Schedule 9) 180                        
+      Balance Tax Payable (If 170> 180, Then 170 – 180) 190                       
+      Refund Claimed (If 170< 180, Then 180 – 170)  200                           
+                                                                                  
+      PART D – EXEMPT INCOME / EXCLUDED INCOME                                    
+      Total Exempt/ Excluded Income (115+216+317)   210                           
+      Foreign Currency Remitted Amounts in to Sri Lanka during the                
+                                                   210A                           
+      year (406.a+406.b+406.c+406.d=406.e)                                        
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+
+===== page 2 =====
+                                                                                  
+                                                                                  
+       PART E – MANDATORY SCHEDULES                                               
+       Mark your Mandatory Schedules which are filled and attached to this form by marking ‘’’’ in the relevant cage in
+       the below table.                                                           
+                                                                                  
+        Sch. 1 Sch. 2 Sch. 3 Sch. 4  Sch. 5 Sch. 6 Sch. 7 Sch. 8 Sch. 9  Sch. 10  
+                                                                                  
+                                                                                  
+       SECTION – 02: DECLARATION                                                  
+       Whether the return or part of the return is prepared by an Approved Accountant or any other
+       person for a payment? YES          NO                                      
+                                                                                  
+       (If “Yes” fill PART -A and attach the certificate/s issued by such person.)
+      PART – A: DETAILS OF APPROVED ACCOUNTANT/ ANY OTHER PERSON                  
+                                                                                  
+       Name                                                                       
+                                                                                  
+                                                                                  
+       Designation                                                                
+       Telephone Number                          Mobile                           
+                                                                                  
+       E-Mail                                                                     
+                                                                                  
+       Date of the Certification D D / M M / Y Y Y Y                              
+      *If more than one person involved, use a separate sheet to fill the above details and attach to the return.
+                                                                                  
+      PART – B: DECLARATION OF THE TAXPAYER                                       
+                                                                                  
+      I declare to the best of my knowledge and belief that all particulars furnished in the Return of Income are true, correct and
+      complete. I am aware that making an incorrect, false, or misleading statement is an offence.
+                                                                                  
+       Full Name of the Declarant                                                 
+                                                                                  
+                                                                                  
+       Telephone Number                          Mobile                           
+                                                                                  
+       E - Mail                                                                   
+       Signature                                                                  
+                                                                                  
+       NIC Number/Passport                              OFFICIAL   FRANK          
+       Number                                                                     
+       Date                D D  / M  M  / Y  Y Y  Y                               
+        Filling of tax returns electronically is mandatory for every person.     
+        Return of Income is specified under Section 126 of the Inland Revenue Act, No. 24 of 2017, by the Commissioner
+        General of Inland Revenue                                                 
+        In terms of section 113(1B) of Inland Revenue Act, No 24 of 2017 a person shall file such person’s tax returns
+        electronically. IRD web portal (www.ird.gov.lk) e- services facilitate for submit the tax returns via online.
+        Declare income and other particulars for the year of assessment ended 31st March, 2025
+        Attach Tax Computation, Accounts if relevant & Any other documents required to be submitted
+        Duly completed Return of Income and attached documents should be submitted to the Inland Revenue Department on
+        or before 30th November, 2025                                             
+        Penalties are imposed on any person who has not submitted a Return or submitted an incorrect Return.
+        Penalties and interest shall be imposed for non-payment of taxes on due dates.
+        If marked “YES” for above in Section 02, attach a separate Certificate/s issued by the approved accountant or any other
+        person issued by specifying the extent to which he was involved, the documents examined by him and the information
+        relied upon by him. Such certificate shall deemed to be part and parcel of the Return of Income.
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  

@@ -1,8 +1,28 @@
 # 11 — Filing walkthrough
 
-> **Status:** unverified — research brief, not findings
-> **Sources:** none held
-> **Last reviewed:** 2026-07-27
+> **Status:** partial — e-filing obligation verified; the Y/A 2025/26 forms are not held
+> **Sources:** iit-return-form-2024-25.pdf, iit-return-guide-2024-25.pdf, iit-comprehensive-guide-2024-25.pdf
+> **Last reviewed:** 2026-07-28
+
+## Verified
+
+**E-filing is mandatory.** For a person, filing the IIT return electronically is mandatory
+from Y/A 2023/2024 under s.113(1)(B) of the Inland Revenue Act
+[IRA s.113(1)(B)]; [Guidelines for e-Filing IIT Return Y/A 2024/2025, p.1]. This settles
+Q24.
+
+**The return's structure**, from the Y/A 2024/2025 form
+[Asmt_IIT_001 Y/A 2024/2025, Section 01]:
+
+| Part | Contents |
+|---|---|
+| Section 01 Part A | Employment (Sch. 1), Business (Sch. 2), Investment (Sch. 3), Other (Sch. 4) → assessable income |
+| Section 01 Part B | Deductions from assessable income: reliefs, then qualifying payments |
+
+> **Caveat that limits everything above.** These forms are for **Y/A 2024/2025** — one
+> year before the service-export and foreign-source regime began. They do **not** show
+> where foreign-currency income is reported, and they cannot answer Q14. The Y/A 2025/2026
+> form is the priority missing document; see [`../sources/README.md`](../sources/README.md).
 
 ## What this document must establish
 
@@ -76,5 +96,6 @@ the underlying obligations.
 
 ## Open questions
 
-Q23, Q24 in [`12-open-questions.md`](12-open-questions.md). Q14 may be resolvable from
-the return form.
+Q23 in [`12-open-questions.md`](12-open-questions.md). Q24 is verified above. **Q14
+remains the prize** — the Y/A 2025/2026 return form is the most likely thing to settle
+how relief is allocated across rate schedules, and obtaining it unblocks the engine.

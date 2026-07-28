@@ -98,6 +98,44 @@ function linesWithFenceState(text) {
 /** A markdown table's delimiter row (|---|---|) carries no figures. */
 const isTableDivider = (s) => /^\s*\|?[\s:|-]+\|[\s:|-]*$/.test(s) && s.includes('-');
 
+/** A blockquote line — quoted source text. */
+const isQuote = (s) => /^\s*>/.test(s);
+
+/**
+ * Blockquotes hold verbatim statutory text. A figure inside one must NOT be
+ * annotated: inserting `[IRA s.x]` into a quote falsifies the quote, which is a
+ * worse outcome than a missing citation. Quoting the act is itself the strongest
+ * evidence there is.
+ *
+ * So blockquote lines are exempt — but only if the quote block is followed by a
+ * citation within a few lines. An unattributed quote is still a violation; it
+ * just gets reported against the line after the quote rather than inside it.
+ */
+function citedQuoteRanges(lines) {
+  const exempt = new Set();
+
+  for (let i = 0; i < lines.length; i++) {
+    if (!isQuote(lines[i].text) || lines[i].fenced) continue;
+
+    let end = i;
+    while (end + 1 < lines.length && (isQuote(lines[end + 1].text) || lines[end + 1].text.trim() === '')) {
+      if (isQuote(lines[end + 1].text)) end = end + 1;
+      else if (end + 2 < lines.length && isQuote(lines[end + 2].text)) end = end + 2;
+      else break;
+    }
+
+    // Look for a citation inside the quote or in the 3 lines following it.
+    const window = lines.slice(i, Math.min(end + 4, lines.length));
+    if (window.some((l) => RE_CITATION.test(l.text))) {
+      for (let j = i; j <= end; j++) exempt.add(lines[j].n);
+    }
+
+    i = end;
+  }
+
+  return exempt;
+}
+
 function findFigures(line) {
   const hits = [];
   for (const re of [RE_MONEY, RE_GROUPED, RE_PERCENT]) {
@@ -122,13 +160,17 @@ function checkCitations() {
     const rel = relative(ROOT, file);
     if (CITATION_EXEMPT.has(rel)) continue;
 
-    for (const { n, text, fenced } of linesWithFenceState(readFileSync(file, 'utf8'))) {
+    const lines = linesWithFenceState(readFileSync(file, 'utf8'));
+    const quoteExempt = citedQuoteRanges(lines);
+
+    for (const { n, text, fenced } of lines) {
       if (fenced || isTableDivider(text)) continue;
 
       const figures = findFigures(text);
       if (figures.length === 0) continue;
 
       if (RE_CITATION.test(text)) continue;
+      if (quoteExempt.has(n)) continue;
 
       if (RE_MARKER.test(text)) {
         marked.push({ rel, n, figures });
@@ -190,7 +232,7 @@ if (violations.length > 0) {
     console.error(`    ${v.text.slice(0, 100)}`);
   }
   console.error(
-    '\n  Every tax figure needs a citation on the same line, e.g. [IRA s.52, as amended by Act 2/2025 s.14].',
+    '\n  Every tax figure needs a citation on the same line, e.g. [IRA Sch.5 para 2(a)(v), ins. Act 2/2025 s.5(3)].',
   );
   console.error(
     '  If the figure is not yet verified, it belongs in docs/research/12-open-questions.md — not in prose.\n',

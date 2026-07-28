@@ -1,8 +1,8 @@
 # 00 — Overview of the system
 
-> **Status:** unverified — research brief, not findings
-> **Sources:** none held
-> **Last reviewed:** 2026-07-27
+> **Status:** partial — the pipeline shape is confirmed against the return form
+> **Sources:** iit-return-form-2024-25.pdf, ir-act-24-2017.pdf
+> **Last reviewed:** 2026-07-28
 
 ## What this document must establish
 
@@ -15,7 +15,11 @@ It is a map, not a rate table. No figures belong here — they live in
 
 ## The pipeline
 
-Working understanding, to be confirmed against the act:
+Confirmed against the structure of the Y/A 2024/2025 individual return, whose Section 01
+computes assessable income as the sum of the four heads (Part A) and then takes reliefs
+and qualifying payments as "deductions from assessable income" (Part B)
+[Asmt_IIT_001 Y/A 2024/2025, Section 01 Parts A–B]. The statutory basis for each step
+still needs locating in the act.
 
 ```
   employment income

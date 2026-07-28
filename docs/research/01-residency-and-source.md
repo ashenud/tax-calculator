@@ -1,10 +1,37 @@
 # 01 — Residency and source
 
-> **Status:** unverified — research brief, not findings
-> **Sources:** none held
-> **Last reviewed:** 2026-07-27
+> **Status:** partial — the residency test is verified; source rules are not
+> **Sources:** ir-act-24-2017.pdf
+> **Last reviewed:** 2026-07-28
 
-## What this document must establish
+## Verified: the residency test
+
+An individual is resident in Sri Lanka for a year of assessment if **any** of four limbs
+is satisfied [IRA s.69(1)]:
+
+| Limb | Test |
+|---|---|
+| (a) | resides in Sri Lanka [IRA s.69(1)(a)] |
+| (b) | present in Sri Lanka during the year, that presence falling within a period or periods amounting in aggregate to **183 days or more in any twelve-month period that commences or ends during the year** [IRA s.69(1)(b)] |
+| (c) | an employee or official of the Government of Sri Lanka whose spouse is posted abroad during the year [IRA s.69(1)(c)] |
+| (d) | employed on a Sri Lanka ship within the meaning of the Merchant Shipping Act, during the period so employed [IRA s.69(1)(d)] |
+
+### Two things the popular summary gets wrong
+
+**It is not only a day count.** Limb (a) — "resides in Sri Lanka" — is a separate,
+undefined test that stands on its own [IRA s.69(1)(a)]. Someone who lives in Sri Lanka but
+happens to have spent under 183 days there in a particular year is not thereby
+non-resident. Secondary summaries almost always reduce s.69 to the day count.
+
+**The twelve-month window is not the year of assessment.** The 183 days are counted over
+"any twelve month period that commences or ends during the year" [IRA s.69(1)(b)] — a
+rolling window that may straddle two years of assessment. A calculator that asks "how many
+days were you in Sri Lanka between 1 April and 31 March?" is asking the wrong question.
+
+This is why the calculator should ask the user a question it can answer honestly — where
+they live and work — rather than presenting a day-count box that invites a wrong answer.
+
+## What this document must still establish
 
 Who is taxed on what. Residency decides whether foreign income is in scope at all, and
 the source rules decide which schedule an item of income falls under. Both are upstream

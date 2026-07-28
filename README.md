@@ -38,23 +38,39 @@ rent, and claiming credit for tax already withheld.
 
 | | |
 |---|---|
-| Research documentation | scaffolded; awaiting primary sources |
+| Primary sources | Act 24/2017, Act 2/2025, PN/IT/2025-01 and the Y/A 2024/25 return forms held |
+| Research documentation | Y/A 2025/26 rates verified; conditions and compliance still open |
 | Claude agents / skills / commands | complete |
 | Implementation spec | complete |
 | Tax data files | not started |
 | Astro site | not started |
 
-### Primary sources are needed
+> **The repository does not hold the current law.** The Inland Revenue (Amendment) Act,
+> No. 11 of 2026 was published on 5 June 2026 and is not in `docs/sources/`. It changes
+> capital gains tax and other matters, and it governs Y/A 2026/27 — the year now in
+> progress. Nothing here should be described as current until it is obtained. See Q42 in
+> [`docs/research/12-open-questions.md`](docs/research/12-open-questions.md).
 
-The research documents cannot be completed until the legislation is committed to
-`docs/sources/`. Claude Code web sessions cannot reach `www.ird.gov.lk` — the egress
-policy blocks it — so the PDFs must be added to the repo by hand. See
-[`docs/sources/README.md`](docs/sources/README.md) for the exact list and why each one
-is needed.
+### What is verified
 
-Until then, every provisional figure lives in
-[`docs/research/12-open-questions.md`](docs/research/12-open-questions.md), labelled
-unverified. Nothing in this repo should be treated as settled while it sits there.
+The Y/A 2025/2026 personal relief and the normal individual rate ladder are confirmed
+against **two independent primary sources** — the Inland Revenue (Amendment) Act No. 2 of
+2025 and IRD's own public notice — which agree. The 15% maximum on service-export and
+foreign-source income is confirmed, along with the exact statutory wording of the
+remittance condition.
+
+### What is not
+
+The condition's *edges* — timing, partial remittance, payment intermediaries — are not
+answered by the statute, and they are what actually decide a consultant's liability. How
+relief is allocated when income spans two rate schedules is unresolved and blocks the
+calculation engine. Most of the compliance calendar is unverified.
+
+Every open item lives in
+[`docs/research/12-open-questions.md`](docs/research/12-open-questions.md). **Read that
+file before trusting anything here.** Claude Code web sessions cannot reach
+`www.ird.gov.lk`, so further primary sources must be added to `docs/sources/` by hand —
+see [`docs/sources/README.md`](docs/sources/README.md) for what is still needed.
 
 ## Reading order
 

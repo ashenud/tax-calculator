@@ -1,0 +1,1887 @@
+# Extracted from iit-return-guide-2024-25.pdf with pdfplumber
+# NOT AUTHORITATIVE — the PDF is. Extraction loses table geometry and ligatures;
+# verify any quote against the PDF before relying on it.
+# Page markers below are load-bearing: cite the page you actually read.
+# Regenerate: python3 scripts/extract-sources.py
+
+
+
+===== page 1 =====
+                                                          
+                                                          
+                                                          
+                                          Asmt_IIT_004_E  
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                  GUIDE TO  FILL THE                      
+           RETURN   OF INCOME,  SCHEDULES                 
+                                                          
+                          &                               
+       STATEMENT    OF ASSETS  AND LIABILITIES            
+                                                          
+                                                          
+                                                          
+                                                          
+                       INDIVIDUAL                         
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                   YEAR OF ASSESSMENT                     
+                                                          
+                      2024/2025                           
+                                                          
+                                                          
+                                                          
+                                                          
+
+===== page 2 =====
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+       This Guide contains;                               
+                                                          
+            A. GENERAL INSTRUCTIONS                       
+            B. INSTRUCTIONS TO COMPLETE THE               
+               RETURN FORM                                
+            C. INSTRUCTIONS TO COMPLETE THE               
+               STATEMENT OF ASSETS AND LIABILITIES        
+                                                          
+                                                          
+                    A. GENERAL INSTRUCTIONS               
+       1.  This set of documents comprises of two parts.  
+               I.  Return Form                            
+                   (i) Return of Income                   
+                                                          
+                   (ii) Return of Income - Schedules      
+               II. Statement of Assets and Liabilities (A/L)
+           Every individual Taxpayer should fill the Return Form (Return of
+           Income and Schedules) and the Statement of Assets and Liabilities.
+           Method of Filling                              
+                                                          
+           In terms of section 113 1 B of the IRA as amended by the Inland
+           Revenue (Amendment) Act , No. 04 of 2023, with effect from the
+           year of assessment commencing from April 1, 2023, e – filing of tax
+           returns (Electronically filing return) is mandatory for every
+           Individual Tax Payers.                         
+           Therefore, individuals are not entitled to furnish their Return of
+           Income in writing by using the printed specified forms.
+                                                          
+           Arrangements have been made for e - filing via the IRD web portal.
+           Please refer to the www.ird.gov.lk for further information.
+       2.  You may read this Guide before filling the Return of Income,
+           Schedules and Statement of Assets and Liabilities.
+       3.  Resident individuals and non-resident individuals are required to
+           declare the income from Employment, Business, Investment and
+           Other Income Source (including income from Supply of electricity
+           generated by solar panel at his premises) for the period from
+                                                          
+                                                          
+                                                          
+                                                          
+
+===== page 3 =====
+                                                          
+                                                          
+                                                          
+                                                          
+         01.04.2024 to 31.03.2025 in the Return for the year of assessment
+         2024/2025.                                       
+                                                          
+         4. The Assessable Income of a Resident Individual is the
+           individual’s income from Employment, Business, Investment or
+           Other Income Source (including income from Supply of
+           electricity generated by solar panel at his premises) for that year,
+           wherever the source arises and in the case of a non-resident
+           individual, the individual’s income from Employment, Business,
+           Investment or Other Income Source for that year, to the extent
+           that the income arises in or is derived from a source in Sri
+           Lanka.                                         
+      5. The Return may submit in the language of your choice. If you want
+         to change your language preference, you may contact Customer
+         Information Update Unit at the IRD Head Office, or any
+         Regional Office and update your taxpayer profile.
+      6. In case of any data filling cage in the Return or a Schedule is not
+         required to be filled, then nothing should be written in words such
+         as “not applicable or placing hyphen” in that cage.
+                                                          
+          If a part of a Schedule is not required/not relevant to you, write –
+         Not Applicable – across that Schedule or the part of that Schedule.
+         If the space provided to enter details in a Schedule is not enough,
+         add a note “Refer to the attachment” in that Schedule and provide
+         such details in the same format provided as a separate attachment.
+      Example for correct filling of data                 
+                                                          
+        (In the case where the taxpayer has only the business income)
+                                                          
+        SECTION – 01: STATEMENT OF TAX CALCULATION        
+        Part A –INCOME LIABLE TO TAX                      
+        Employment Income (Schedule 1) 10                 
+        Business Income (Schedule 2) 20 2 6 5 8 5 0 0 0 0 0
+        Investment Income (Schedule 3) 30                 
+        Other Income   (Schedule 4) 40                    
+        ASSESSABLE INCOME             2 6 5 8 5 0 0 0 0 0 
+                                50                        
+        (10+20+30+40)                                     
+                            3                             
+                                                          
+                                                          
+
+===== page 4 =====
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+       7. Every individual is advised to furnish the duly completed Return
+          (Return of Income and mandatory Schedules) and other required
+          documents to the IRD via web portal on or before 30th November,
+          2025.                                           
+       8. The IRD has also provided the online submission facility to submit
+          the Return of Income - Individual and mandatory Schedules via IRD
+          Web Portal e-Services facility.                 
+                                                          
+       9. Payment of Tax                                  
+          The tax for the year of assessment is to be paid in quarterly
+          installments as an installment payer as per the Statement of Estimated
+          Tax (SET) Payable submitted for the year of assessment, and the final
+          payment.                                        
+          The following table describes the due dates for quarterly tax payments
+          and the payment codes for the year of assessment 2024/2025.
+                                                          
+          Installment Due Date (on or before) Payment Code
+          1          15th of August, 2024 24251           
+                                                          
+          2          15th of November, 2024 24252         
+          3          15th of February, 2025 24253         
+                                                          
+          4          15th of May, 2025  24254             
+          Final      30th of September, 2025 24250        
+                                                          
+                                                          
+       The aggregate of four installments, the final payment and applicable tax
+       credits should be equal to the total tax liability of the year of assessment
+       2024/2025.                                         
+       10. Penalties, Interest and Imprisonment           
+          Furnishing an incorrect Return or failure to furnish a Return on or
+          before the due date or non-submission of Return will be subjected to
+          penalties or imprisonment.                      
+                                                          
+                                                          
+                             4                            
+                                                          
+                                                          
+                                                          
+
+===== page 5 =====
+                                                          
+                                                          
+                                                          
+                                                          
+      Failure to pay tax on due dates will be subjected to penalties and interest
+      as follows;                                         
+                                                          
+        Penalty for late filing of Return is equal to the greater of –
+         (i) 5% of the amount of the tax owing, plus a further 1% of the
+            amount of tax owing for each month or part of a month during
+            which the failure to file continues; and      
+                                                          
+         (ii) Rs. 50,000/- plus a further Rs. 10,000/- for each month or part
+            of a month after November 30, 2025.           
+        A penalty for making false or misleading statement is equal to the
+         greater of Rs. 50,000 or the amount by which would have the tax
+         payable reduced or refund increased, if it were determined based on
+         such statement.                                  
+        In case of failure to file a Return, an individual is liable to a fine not
+         exceeding 1 million Rupees or to imprisonment for a term not
+         exceeding one year or both such fine and imprisonment.
+                                                          
+        In case of failure to pay all or part of;        
+         - an instalment payment on the due date, an individual shall be
+           liable to pay a penalty of 10% of the amount of the tax due but
+           not paid.                                      
+                                                          
+         - tax due for a tax period on the due date or the due date specified
+           in the Notice of Assessment, an individual shall be liable to a
+           penalty of 20% of the tax due but not paid and 
+         - an interest of 1.5% per month or a part of a month of the late
+           period.                                        
+     11. Specified Form – Return Form is specified by the Commissioner
+        General of Inland Revenue (CGIR) under Section 126 of the Inland
+        Revenue Act, No. 24 of 2017 (hereinafter referred to as the IR Act)
+        and is required to declare income and other particulars for year of
+        assessment 2024/2025 (period from April 01, 2024 to March 31,
+        2025).                                            
+                                                          
+                                                          
+                                                          
+                            5                             
+                                                          
+                                                          
+                                                          
+
+===== page 6 =====
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+              B. INSTRUCTIONS TO COMPLETE THE             
+                       RETURN FORM                        
+      I.  INSTRUCTIONS TO  COMPLETE  THE  RETURN  OF      
+          INCOME                                          
+         This Part consists of two SECTIONS;             
+            SECTION 01 : STATEMENT OF TAX CALCULATION     
+            SECTION 02 : DECLARATION                      
+                                                          
+       SECTION 01 - STATEMENT OF TAX CALCULATION          
+                                                          
+          This Section comprises five PARTS;             
+            PART A – Income Liable to Tax                 
+            PART B – Deductions from Assessable Income    
+            PART C – Calculation of Tax Payable           
+            PART D – Exempt Income                        
+            PART E – Mandatory Schedules                  
+                                                          
+       Before filling SECTION 01 of the Return of Income, the relevant
+       Schedules should be filled.                        
+                                                          
+       As such, follow INSTRUCTIONS TO COMPLETE RETURN OF 
+       INCOME – SCHEDULES and then complete the remaining part of the
+       Return of Income as shown in the table below;      
+                                                          
+                                        Relevant          
+          Part of the Return of Income                    
+                                        Cage              
+          PART A                                          
+          ASSESSABLE INCOME           - Cage 50           
+          PART B                                          
+          Total Reliefs               - Cage 90           
+          Total Deductions from Assessable Income - Cage 110
+          TAXABLE INCOME              - Cage 120          
+                                                          
+                                                          
+                             6                            
+                                                          
+                                                          
+                                                          
+
+===== page 7 =====
+                                                          
+                                                          
+                                                          
+                                                          
+          PART C                                          
+          Total Tax Payable           - Cage 170          
+          Balance Tax Payable         - Cage 190          
+          Refund Claimed              - Cage 200          
+          PART D                                          
+          Total Exempt / Excluded Income - Cage 210       
+          PART E                                          
+          Mandatory Schedules                             
+                                                          
+                                                          
+      SECTION 02 – DECLARATION                            
+        Where a Return or part of a Return was prepared for a payment by
+         any person, including by an approved accountant, mark “Yes”, if not,
+         mark “No”. If you marked “Yes” fill PART-A of the
+         DECLARATION, then attach the certificate/s issued by such person.
+         In a situation where, more than one person involved, use a separate
+         sheet to fill the above details and attach to the Return.
+                                                          
+        In terms of Section 126(4) of the IR Act, a taxpayer or the taxpayer’s
+         duly authorised agent shall sign the Return, attesting its accuracy and
+         completeness.                                    
+         Therefore, the taxpayer or the taxpayer’s duly authorised agent is
+         required to sign the Return indicating his/her name in PART B of the
+         DECLARATION.                                     
+                                                          
+        When you submit the return of income electronically and if you
+         enter the amounts in real cages of schedules correctly, no need
+         to calculate and fill the relevant cage in the return and fill the
+         related schedules manually. Amounts for these cages are
+         calculated correctly and filled automatically.   
+                                                          
+   II. INSTRUCTIONS TO COMPLETE THE RETURN OF INCOME -    
+      SCHEDULES                                           
+      1. The following Schedules are available in the IRD web portal -
+        www.ird.gov.lk                                    
+                                                          
+            Schedule 1 – Employment Income                
+                            7                             
+                                                          
+                                                          
+                                                          
+
+===== page 8 =====
+                                                          
+                                                          
+                                                          
+                                                          
+              Schedule 2 – Business Income                
+              Schedule 3 – Investment Income              
+              Schedule 4 – Other Income and Foreign Currency Remitted
+                                                          
+                      Amounts in to Sri Lanka             
+              Schedule 5 – Qualifying Payments & Expenditure Relief
+              Schedule 6 – WHT on Final withholding Payments
+              Schedule 7 – Advance Income Tax / Withholding Tax
+              Schedule 8 – Tax Calculation                
+              Schedule 9 – Tax Credits                    
+              Schedule 10 - Loss Adjustment               
+                                                          
+       From the above Schedules, select and complete only those Schedules that
+       are relevant to you.                               
+       Schedules, which are integral for filling of the Return, are considered as
+       Mandatory Schedules. The below table indicates some circumstances
+       where Schedule is to be considered as Mandatory Schedule.
+                                                          
+                                      Schedules           
+       Individual’s Income                                
+                             1  2 3 4 5  6 7  8 9  10     
+       1 Employment Income   √        √       √ √         
+       2 Only Business Income   √             √ √         
+       3 Business Income & Investment                     
+                                √ √      √    √ √         
+         income with final WHT                            
+       4 Only Investment Income with                      
+                                  √        √  √ √         
+         WHT /AIT                                         
+       5 Other Income with qualifying                     
+         payment and foreign currency                     
+                                    √ √       √ √         
+         remitted amounts in to Sri                       
+         Lanka during the year                            
+       6 Employment Income, Business                      
+         Income, Investment Income                        
+                             √  √ √ √    √ √  √ √         
+         and other income with final                      
+         WHT & WHT / AIT                                  
+                             8                            
+                                                          
+
+===== page 9 =====
+                                                          
+                                                          
+                                                          
+                                                          
+       7 Only Business income with                        
+                                √                  √      
+         B/F loss / during the year loss                  
+                                                          
+      SCHEDULE 5, SCHEDULE 6 and SCHEDULE 7 will be mandatory
+      to an individual if any qualifying payment (QP), WHT on final
+      withholding payment and advance income tax/withholding tax
+      respectively to be claimed/declared, in addition to the above marked
+      Schedules.                                          
+                                                          
+      2. Follow the steps given below to fill the Schedules.
+         STEP  1 - Select the Mandatory Schedules as for your income
+                source and tax claims.                    
+                                                          
+         STEP 2 – Complete Mandatory Schedules and take amounts in
+                Schedules to Return of Income as per the instructions
+                provided                                  
+                                                          
+              SCHEDULE 1- EMPLOYMENT INCOME               
+                                                          
+      1. Declare details of Income tax liable Employment income (Remuneration
+         and Terminal benefits – other deducting excluded or exempted income if
+         any) on actual basis in respective lines of columns 102, 103, 107 and 108
+         in part 1 of schedule 1.                         
+                                                          
+         Separate lines have been allocated to declare primary employment
+         income and terminal benefits named as *A and secondary employment
+         and terminal benefits named as *B.               
+                                                          
+         (If there is remuneration or terminal benefits received from more than
+         one secondary employment, you may use the additional rows provided
+         in schedule 1 – cage 101 & 106.                  
+      2. Period from April 01, 2024 period up to March 31, 2025.
+                                                          
+      3. Enter total of Column 104 into Cage 105 and total of Column 109
+         into Cage 110.                                   
+                                                          
+                            9                             
+                                                          
+                                                          
+                                                          
+
+===== page 10 =====
+                                                          
+                                                          
+                                                          
+                                                          
+       4. Take amount in Cage 110 of SCHEDULE 01 into Cage 802.1 of
+          SCHEDULE 8.                                     
+                                                          
+       5. Then enter the aggregate amounts of Cage 105 & Cage 110 into Cage
+          111 of this Schedule. Take amount in Cage 111 to Cage 10 -
+          EMPLOYMENT  INCOME of the Return of Income.     
+       6. Exempt / Excluded amounts - Declare details of Exempt/ Excluded
+          amounts related to Employment Income in PART II of SCHEDULE
+          1.                                              
+       (List of exempt / excluded amounts are provided in ANNEXURE 2 at the
+       end of this Guide)                                 
+                                                          
+       Finally enter total of exempt / Excluded employment income in Cage 115,
+       into Cage 210 - Total Exempt / Excluded Income of the Return of
+       Income.                                            
+                                                          
+       [If there is exempt / excluded business income (Cage 216 schedule 2),
+       and/or exempt / excluded investment income (Cage 317 schedule 3) as
+       well, aggregate these with exempt / excluded employment income (Cage
+       115) and take the total amount to Cage 210 - Total Exempt / Excluded
+       Income of the Return of Income.]                   
+                                                          
+                 SCHEDULE 2 – BUSINESS INCOME             
+                                                          
+       - Ascertain business income received from categories of sole
+         proprietorship, partner’s business income from partnership and
+         beneficiary’s business income from a trust separately.
+                                                          
+      1. Declare details of the above business income under respective lines of
+         Column 201, 202, 205, 206, 207, 210, 211 and 212 in PART 1 of
+         SCHEDULE 2.                                      
+      2. Take aggregate amounts in Cage 204, 209 and 214 into Cage 215.
+         Take amount in Cage 215 into Cage 20 -Business Income of the
+         Return of Income.                                
+      3. Exempt / Excluded amount - Declare details of exempt / excluded
+         amounts related to Business Income in PART II of SCHEDULE 2.
+                                                          
+                             10                           
+                                                          
+                                                          
+                                                          
+
+===== page 11 =====
+                                                          
+                                                          
+                                                          
+                                                          
+      (List of exempt / excluded Amounts are provided in ANNEXURE 2 at the
+      end of this Guide)                                  
+                                                          
+      Finally enter total of exempt / excluded business income in Cage 216, into
+      Cage 210 - Total Exempt Income of the Return of Income.
+      [If there is exempt / excluded employment Income (Cage 115), and/or
+      exempt / excluded investment income (Cage 317) as well, aggregate these
+      with exempt / excluded business income (Cage 216) and take the total
+      amount to Cage 210].                                
+                                                          
+                                                          
+              SCHEDULE 3 – INVESTMENT INCOME              
+                                                          
+      1. Ascertain investment income received from categories of sole
+         proprietorship, partner’s share of investment income from
+         partnership and beneficiary’s share of investment income
+         from a trust separately and enter into relevant cages of PART
+         1 of the SCHEDULE 3.                             
+      2. Then ascertain income from the following investment income
+         received from the above categories separately;   
+                                                          
+             Interest Income                             
+             Rent income                                 
+             Gain on realization of investment assets – capital gain
+             Dividend                                    
+             Any other investment income                 
+      3.                                                  
+                                                          
+           a. Dividend Income – Resident Person           
+              Gain & profit from dividends for the year of assessment
+              commencing on April 01, 2024. Such gain & profit shall be
+              taxed at the rate of 15%.                   
+                                                          
+           b. Dividend Income – Non – Resident Person     
+              Gain & profit form dividend for the year of assessment
+              commencing on April 01, 2024. Such gain & profit should
+              be taxed at the rate of 15%.                
+                            11                            
+                                                          
+                                                          
+                                                          
+
+===== page 12 =====
+                                                          
+                                                          
+                                                          
+                                                          
+       4. Take aggregate amounts in Cage 304, 309 and 314 into Cage 315.
+          Take amount in Cage 315 to Cage 30 of the Return of Income. This
+          amount will be the income from Investment Income.
+                                                          
+       5. Reliefs -                                       
+         Relief for Rent Income -                        
+                                                          
+          Relief of 25 percent of the total rental income can be deducted, in case
+          of an individual with rental income from an investment asset. Enter
+          this amount into Cage 316 of PART II of SCHEDULE 3. Then take
+          this amount to Cage 60 of the RETURN OF INCOME. 
+       6. Declare details of exempt amounts related to Investment
+          Income in PART III of SCHEDULE 3.               
+                                                          
+       (List of Exempt Amounts are in ANNEXURE 2 at the end of this Guide)
+       Finally enter total in Cage 115 (Exempt / Excluded Employment
+       Income) of SCHEDULE 1, Cage 216 (Exempt / Excluded Business
+       Income) of SCHEDULE 2 and Cage 317 (Exempt / Excluded
+       Investment Income) of SCHEDULE 3 into Cage 210 - Total Exempt /
+       Excluded Income of the Return of Income.           
+                                                          
+       7. Interest income / Dividend income / Rent / Winnings from lottery,
+          rewards, betting or gambling / Discount income / Other Investment
+          Income discount charge / Royalty / Premium or similar product
+          natural resources payment. In case of the above each every separate
+          source of interest income shall be considered on the actual basis.
+                                                          
+                  SCHEDULE 4 – OTHER INCOME               
+                                                          
+       1. Enter details of other income in the corresponding lines in
+          Column 401. Including the income from supply of electricity
+          to national grid.                               
+                                                          
+       2. Take amounts in Cage 403 into Cage 40 of the Return of Income.
+       3. Enter amount in 406 e into cage 210A of the return
+                                                          
+                                                          
+                             12                           
+                                                          
+                                                          
+                                                          
+
+===== page 13 =====
+                                                          
+                                                          
+                                                          
+                                                          
+       SCHEDULE 5 – QUALIFYING PAYMENTS & EXPENDITURE     
+                          RELIEF                          
+                                                          
+       A list of qualifying payments (QP) is available in ANNEXURE 3.
+       There are four sub schedules in SCHEDULE 5.       
+                                                          
+          SCHEDULE 5A – For qualifying payments made during the year
+           (as per Inland Revenue Act, No. 24 of 2017, Amendment Act,
+           No. 10 of 2021 & Amendment Act, No. 45 of 2022)
+                                                          
+          SCHEDULE 5B - For qualifying payments brought forward
+           from the year of assessment 2023/2024 (Out of QP made prior
+           to 01.04.2018 - as per Inland Revenue Act, No. 10 of 2006)
+          SCHEDULE 5C – For expenditure on solar panels fixing on
+           his premises by resident individual made during the year (as
+                                                          
+           per the Inland Revenue Amendment Act, No. 10 of 2021
+           (Maximum Rs. 600,000/- for each year or actual expenses
+           whichever is less)                             
+          SCHEDULE 5D – For expenditure on film industry (expenditure
+           on construction and equipping or upgrading a cinema should be
+           certified by the National Film Corporation of Sri Lanka as per the
+           Inland Revenue Amendment Act, No. 10 of 2021.) 
+                                                          
+                                                          
+      Qualifying Payments                                
+                                                          
+         1. Enter qualifying payments, if any, into relevant Cages of
+           SCHEDULE 5A and SCHEDULE 5B.                   
+         2. Take aggregate amounts in Column 503 and Column 507 of
+           SCHEDULE 5 to Cage 504 and Cage 509 respectively.
+         3. Take the amount in 523 of Schedule 5D into Cage 503.5 of
+           SCHEDULE 5A                                    
+                                                          
+         4. Then take the total of Cage 504 and Cage 509 to Cage 510, to arrive
+           at total deductible QP.                        
+                                                          
+                            13                            
+                                                          
+                                                          
+                                                          
+
+===== page 14 =====
+                                                          
+                                                          
+                                                          
+                                                          
+          5. Take amount in Cage 510 to Cage 100 of the Return of Income.
+            This amount will be the total amount of qualifying payments
+            deductible for the year of assessment.        
+                                                          
+                                                          
+        SCHEDULE 6 – WHT ON FINAL WITHHOLDING PAYMENTS    
+                                                          
+     Table of Final Withholding Payments, Non-Final Withholding Payments
+     and applicable tax rates are provided in ANNEXURE 4. 
+                                                          
+     1. The SCHEDULE 6 comprises of two sub schedules as follows;
+                                                          
+          Schedule 6A – Final Withholding Payments - WHT deducted by
+                                                          
+           the withholding agent                          
+          Schedule 6B - Final Withholding Payments - WHT failed to deduct
+                                                          
+           by the Withholding Agent                       
+     2. Schedule 6 A - Final Withholding Payments - WHT deducted by the
+       Withholding Agent –                                
+                                                          
+       Enter details of each final withholding payment on which withholding tax
+       has been deducted by the Withholding Agent, in given lines under
+       Columns 601 to 606. Enter Total Final WHT deducted in Cage 607.
+                                                          
+     3. Schedule 6 B - Final Withholding Payments - WHT failed to deduct
+       by the Withholding Agent                           
+                                                          
+       Enter details of WHT payments, though liable for deduction of WHT by
+       withholding Agent, but have not been deducted by the Agent, in given
+       lines under Columns 608 to 613 of SCHEDULE 6 B. Enter Total of
+       Column 612 into Cage 614.                          
+       Finally take the amount in Cage 614 to Cage 811 of SCHEDULE 8 -
+       TAX CALCULATION.                                   
+                                                          
+                                                          
+                                                          
+                             14                           
+                                                          
+                                                          
+                                                          
+
+===== page 15 =====
+                                                          
+                                                          
+                                                          
+                                                          
+            SCHEDULE 7 – ADVANCE INCOME TAX (AIT) /       
+                  WITHHOLDING TAX (WHT)                   
+                                                          
+      1. This Schedule comprises three sub schedules as follows;
+                                                          
+         6. Schedule 7A – AIT/WHT deducted by the Withholding Agent
+         7. Schedule 7B – WHT failed to be deducted by the Withholding
+           Agent                                          
+                                                          
+         8. Schedule 7C - AIT from Partnership            
+      2. Enter details of payments of which WHT had been deducted including
+         advance receipts as follows;                     
+                                                          
+         ADVANCE INCOME    SCHEDULE    RELEVANT           
+         TAX/WITHHOLDING                COLUMNS           
+           TAX PAYMENT                  /CAGE             
+      A. Advance Income Tax SCHEDULE 7A Columns 701 to 706
+         Withholding tax - deducted                       
+         by the Withholding Agent                         
+      B. Withholding tax - failed to SCHEDULE 7B Columns 712 to 717
+         be  deducted by the                              
+                                                          
+         Withholding Agent                                
+      C. AIT from Partnership SCHEDULE 7C Cage 723, 724   
+                                                          
+      3. Use separate rows for different sources and types (Eg. rent, service
+         fees, royalty, etc.) of receipts. When stating the source,
+         if the receipt is a Business Income, then indicate B,
+         if the receipt is an Investment Income, then indicate I.
+          When stating the type of the receipt, if the type of income is rent,
+          then indicate R.                                
+                                                          
+         Accordingly, different sources and types in Column 701 from line .1
+         to .5 would read as follows;                     
+                                                          
+           Eg. Rent income from a business – B-Rent       
+             Rent income from an investment – I-Rent      
+                            15                            
+                                                          
+                                                          
+                                                          
+
+===== page 16 =====
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+     4. Schedule 7 A – Advance Income Tax/ Withholding Tax - deducted by
+       the Withholding Agent                              
+                                                          
+      i. Enter details of each AIT/WHT deductions (including AIT/WHT on
+         advance payments) under given Columns from Column 701 to 706 of
+         Schedule 7 A                                     
+      ii. Enter Total of Cage 706 - total of AIT/WHT deducted by WHT
+         Agents in Cage 707. Enter AIT/WHT B/F on Advance Receipt from
+         Y/A 2022/2023 in Cage 708.                       
+      iii. Enter total of Cage 707 and Cage 708 into Cage 709.
+                                                          
+        If opted to;                                      
+           claim total AIT/ WHT in Y/A 2024/2025, enter amount in Cage
+             709 into Cage 710. Enter amount in Cage 710 into Cage 908 of
+             SCHEDULE 9 to claim the total credit. Then the amount of
+             Cage 711 will be Nil; or                     
+                                                          
+        If opted to;                                      
+           carry forward the WHT on Advance Receipts to be deducted in
+             future year of assessment, enter total WHT deducted during the
+             year of assessment in Cage 707. Brought forward AIT/WHT
+             deducted on advance receipt should be entered into Cage 708.
+             Deduct the relevant AIT/WHT claim for the year of assessment
+             2024/2025 (Cage 710) from the amount in Cage 709. Enter
+             amount in Cage 710 into Cage 908 of SCHEDULE 9 to claim
+             the credit. Balance amount in Cage 711 will be WHT carried
+             forward on Advance Receipt to next relevant year.
+       5. Schedule 7 B - Withholding Tax - failed to deduct by the
+         Withholding Agent                                
+                                                          
+                                                          
+         i. Enter details of WHT payments, though liable for deduction of
+            WHT by withholding Agent, but have not been deducted by the
+            Agent, in given lines under Column 712 to 717 of SCHEDULE
+            7 B.                                          
+                             16                           
+                                                          
+                                                          
+                                                          
+
+===== page 17 =====
+                                                          
+                                                          
+                                                          
+                                                          
+        ii. Enter Total of Column 717 - total of WHT paid by the
+           Withholdee in Cage 718. Enter WHT B/F on Advance Receipt
+           from Y/A 2023/2024 in Cage 719.                
+                                                          
+       iii. Enter total of Cage 718 and Cage 719 into Cage 720.
+       If opted to claim the total WHT in Y/A 2024/2025;  
+                                                          
+                enter amount in Cage 720 into Cage 721. Enter amount
+                 in Cage 721 into Cage 933 of SCHEDULE 9B to claim
+                 the credit. Then the amount of Cage 722 will be Nil; or
+       If opted to carry forward the WHT on Advance Receipts to be deducted
+       in future year of assessment;                      
+                enter total WHT paid by the withholdee during the year
+                 of assessment in Cage 718. Brought forward WHT paid
+                 by the withholdee on advance receipt during the year of
+                 assessment 2023/2024 should be entered into Cage 719.
+                                                          
+                deduct the relevant WHT claim for the year of
+                 assessment 2024/2025 (Cage 721) from the amount in
+                 Cage 720. Enter amount in Cage 721 into Cage 933 of
+                 SCHEDULE 9B to claim the credit. Balance amount in
+                 Cage 722 will be WHT carried forward on Advance
+                 Receipt to next relevant year.           
+    6. Schedule 7 C – AIT from Partnership                
+                                                          
+        i. AIT allocated by a partnership to partners should be declared in
+           this Schedule.                                 
+        ii. If you are a partner of a partnership, enter amount of AIT,
+           allocated from the Partnership in Cage 723. Enter AIT B/F on
+           Advance Receipt from the year of assessment 2023/2024 in
+           Cage 724. Enter total of Cage 723 and Cage 724 into Cage 725.
+                                                          
+           If opted to claim total AIT in Y/A 2024/2025;  
+                enter amount in Cage 725 into Cage 726. Enter amount
+                 in Cage 726 into Cage 907 of SCHEDULE 9 to claim
+                 the credit. Then the amount of Cage 727 will be Nil; or
+                                                          
+                            17                            
+                                                          
+                                                          
+                                                          
+
+===== page 18 =====
+                                                          
+                                                          
+                                                          
+                                                          
+                 If opted to carry forward the AIT on Advance Receipts to
+                 be deducted in future year of assessment;
+                                                          
+                 Deduct the relevant AIT claimed for the year of
+                  assessment 2024/2025 (Cage 726) from the amount in
+                  Cage 725. Enter amount in Cage 726 into Cage 907 of
+                  SCHEDULE 9 to claim the credit. Balance amount in
+                  Cage 727 will be the AIT carried forward on Advance
+                  Receipt to next relevant year.          
+                                                          
+                                                          
+                 SCHEDULE 8 - TAX CALCULATION             
+     1. This Schedule comprises seven parts, namely; A, B, C, D, E F and G.
+                                                          
+       a) Taxable Income                                  
+                                                          
+           Enter Cage 120 - Taxable Income from the Return of Income into
+           Cage 801 in this part A.                       
+       b) Calculation of Income Tax on Terminal Benefits  
+           i. Terminal benefits are taxed at concessionary rates or normal
+              progressive rates.                          
+                                                          
+               A list of terminal benefits liable to tax at concessionary
+                rates is provided in ANNEXURE 5 at the end of this
+                Guide.                                    
+               Concessionary Rates applicable for terminal benefits are
+                provided in ANNEXURE 6 at the end of this Guide.
+                                                          
+               Progressive Tax Rates are provided in ANNEXURE 7
+           ii. Enter Cage 110 of PART 1 of SCHEDULE 1 into line 802 in
+              Column .1 – Income of this Schedule.        
+                                                          
+          iii. Enter terminal benefits, which are liable to tax at
+              concessionary rate of tax, under the relevant lines (line
+              803.a, line 803.b and line 803.c) in Column .1- Income with
+              corresponding tax rate in Column .2 -Rate for which that
+              terminal benefit is liable to tax.          
+                             18                           
+                                                          
+                                                          
+                                                          
+
+===== page 19 =====
+                                                          
+                                                          
+                                                          
+                                                          
+         iv. Enter such part of terminal benefits, liable to tax at normal rate,
+             under line 804 in Column .1 - Income.        
+                                                          
+         v.  Then calculate the tax by applying either the relevant
+             concessionary tax rates or normal progressive tax rates as for
+             ANNEXURES 6 or 7 at the end of this Guide.   
+                                                          
+         vi. Enter such amount of tax pertaining to income relevant to
+             Cages 803 a, 803 b, 803 c and 804 into in the respective Cages
+             from Cages 803a .3, 803b.3, 803c.3 and 804.3 in Column .3.
+         vii. Finally enter aggregate amounts in Cages 803a.3, 803b.3,
+             803c.3 and 804.3 and enter such total in Cage 805. Take
+             amount in Cage 805 to Cage 130 of the Return of Income.
+      c) Tax on Gain on Realization of Investment Assets  
+                                                          
+          i. Gains on realization of Investment Assets (Capital Gain on
+             sale of investment assets) are taxed at 10 %.
+         ii. Enter capital gains on sale of investment assets from other than
+             from a partnership, in line 806 under Column .1 – Income.
+                                                          
+         iii. Enter the corresponding tax in line 806 in Column .3 – Tax.
+      d) Tax on Gain on Realization of Investment Assets from
+         Partnership                                      
+          i. Capital gains on sale of Investment Assets from partnership
+             are taxed at 10 %.                           
+                                                          
+         ii. Enter such capital gain on sale of investment assets from a
+             partnership, in line 807 under Column .1 – Income and the
+             relevant tax in same lines under Column .3 – Tax.
+         iii. Enter total of Cage 806.3 and Cage 807.3 into Cage 140 of
+             the Return of Income.                        
+                                                          
+      e)  Tax on Balance Taxable Income                   
+           Tax on Taxable Income from Betting & Gaming,  
+            Manufacture & sale or Import & sale of any Liquor or
+            Tobacco products                              
+                                                          
+                            19                            
+                                                          
+                                                          
+                                                          
+
+===== page 20 =====
+                                                          
+                                                          
+                                                          
+                                                          
+             - Applicable tax rate is 40%.                
+                                                          
+             - Enter taxable income in Cage 808.1 and Tax on such income
+              in Cage 808.3.                              
+                                                          
+            Tax on Balance Taxable Income to be taxed at the progressive
+            income tax rates                              
+                                                          
+            - Progressive income tax rates are applicable.
+            - Enter Taxable Income in Cage 809 A.1.       
+                                                          
+            - Apply progressive income tax rates given in ANNEXURE 7
+              at the end of this Guide.                   
+            - Enter such Tax in Cage 809A.3.              
+                                                          
+            - Enter aggregated amounts in Cage 808.3, Cage 809A.3, Cage
+              809B.3 into Cage 810.                       
+            - Finally take amount in Cage 810 to Cage 150 of the Return
+              of Income.                                  
+          f) Tax on Final Withholding Payments            
+                                                          
+            - Enter aggregate amount of Cage 614 of Schedule 6 into Cage
+              811.                                        
+            - Finally take amount in Cage 811 into Cage 160 of the Return
+              of Income.                                  
+                                                          
+                                                          
+                   SCHEDULE 9 - TAX CREDITS               
+       Enter available tax credits into relevant Cages in SCHEDULE 9.
+                                                          
+       a) Foreign Tax Credit (Cage 901)                   
+                                                          
+       If you are entitled to any foreign tax credit under Section 80 of the IR Act,
+       enter such amount in Cage 901 of SCHEDULE 9. Foreign tax credit
+       cannot be more than the amount of tax chargeable in Sri Lanka on such
+       income.                                            
+                                                          
+                             20                           
+                                                          
+                                                          
+                                                          
+
+===== page 21 =====
+                                                          
+                                                          
+                                                          
+                                                          
+      b) 60% of Self Assessed Tax refund claim (Cage 902A)
+                                                          
+                                                          
+      With effect from 01.04.2023, taxpayers shall be set off 60% of the
+      refundable amount against the subsequent income tax payable by the
+      taxpayer prior to a tax audit. Enter the refund claim amount in to Cage
+      902A as such                                        
+                                                          
+      c) APIT paid on Employment Income – Primary Employment
+         (Cage 903)                                       
+                                                          
+      Individuals who have employment Income from Primary Employment are
+      entitled to claim tax credit on APIT deducted by the Primary Employer.
+                                                          
+      Enter APIT deductions made by Primary Employer on Remunerations in
+      Cage 903A, 903B, 903C. Attach A.P.I.T. / T. 10(new) Certificates issued
+      by your Primary Employer.                           
+                                                          
+      d) APIT paid on Employment Income – Secondary Employment
+        (Cage 904)                                        
+                                                          
+                                                          
+      Individuals who have more than one employment, employments other
+      than Primary Employment are considered as Secondary Employment.
+      Enter APIT deductions made by each second employer on Remunerations
+      separately (Please attach A.P.I.T. / T. 10(new).    
+                                                          
+                                                          
+      e) Tax paid for Terminal Benefits (Cage 905)        
+      Tax deducted and paid can be claimed as a credit. Enter such amount in
+      Cage 905.                                           
+                                                          
+                                                          
+      f) Partner’s Share of Partnership Tax (Cage 906)    
+                                                          
+      Before filling this Cage, you have to fill SCHEDULE 9B
+                                                          
+                            21                            
+                                                          
+                                                          
+                                                          
+
+===== page 22 =====
+                                                          
+                                                          
+                                                          
+                                                          
+       -  With effect from 01.01.2020, partnerships are liable to pay income
+          tax on taxable income of the partnership.       
+                                                          
+       -  Enter balance share of partnership tax brought forward from Y/A
+          2023/2024 into Cage 922.                        
+       -  Enter partner’s share of partnership tax paid for 2024/2025 into Cage
+          923.                                            
+       -  Enter total partner’s share of partnership tax (Total of Cage 922 and
+          Cage 923) into Cage 924 and deductible amount for Y/A 2024/2025
+          into Cage 925.                                  
+                                                          
+       g) AIT from the Partnership (Cage 907)             
+                                                          
+       Take allocated amount in Cage 726 of SCHEDULE 7 C to Cage 907.
+       (Amount allocated from the Trust also can be entered)
+                                                          
+       h) Advance Income Tax Credit – AIT deducted by the withholding
+         agent. (Cage 908)                                
+       Take amount in Cage 710 of SCHEDULE 7 A to Cage 908
+                                                          
+                                                          
+       i) Tax paid on Gain on Realization of Investment Assets (Cage 909)
+                                                          
+       Enter paid amounts in Cage 909.                    
+                                                          
+                                                          
+       j) Tax paid on Gain on Realization of Investment Assets from the
+         Partnership (Cage 910)                           
+                                                          
+       Enter allocated amounts by the Partnership in Cage 910.
+                                                          
+       k) Installment Payments and AIT/WHT paid by Withholdee (Cage
+         911)                                             
+                                                          
+       Before filling this Cage, you have to fill SCHEDULE 9B
+                                                          
+         i. Enter instalment payments and final payment in the given rows.
+                             22                           
+                                                          
+                                                          
+                                                          
+
+===== page 23 =====
+                                                          
+                                                          
+                                                          
+                                                          
+        ii. Enter aggregated amount of Instalment payments and final
+           payment in Cage 932.                           
+                                                          
+       iii. Enter amounts of advance income tax/withholding tax payments
+           made by withholdee as per Cage 614 of Schedule 6 B & Cage
+           721 of Schedule 7 B into Cage 933.             
+       iv. Enter aggregate amount of Cage 932 & 933 into Cage 934.
+        v. Take amount in Cage 934 into Cage 911 of Schedule 9.
+                                                          
+                                                          
+      l) Enter aggregate amount from Cage 901 - Cage 911 into Cage 912.
+         Finally take amount in Cage 912 into Cage 180 of the Return of
+         Income.                                          
+                                                          
+                                                          
+               SCHEDULE 10 – LOSS ADJUSTMENT              
+      i. Losses incurred during the year of assessment or brought forward
+         losses should be declared in this Schedule.      
+                                                          
+      ii. Part 1A and 1B are provided to declare the business losses that would
+         have been taxed at the rate of 40% and progressive rates respectively
+         if the loss was a profit. The Part II and Part III are provided to declare
+         the investment and exempt losses respectively.   
+      iii. Enter B/F losses from Y/A 2018/2019, 2019/2020, 2020/2021 and
+         2021/2022, 2022/2023, 2023/2024 relevant to that line & current year
+         loss in the next line in Column 0.2.             
+      iv. Enter profit of the current Y / A, which is considered to set off the
+         losses, in Columns 0.3 to 0.7.                   
+                                                          
+      v. An asset owned by a person is used in the production of different gains
+         and profit from business (including losses) taxable at different tax
+         rates, the cost of, and consideration received for the asset shall be
+         apportioned among such gains and profits, according to the market
+         value of the parts of the assets used to produce respective gains and
+         profits.                                         
+                                                          
+                                                          
+                            23                            
+                                                          
+                                                          
+                                                          
+
+===== page 24 =====
+                                                          
+                                                          
+                                                          
+                                                          
+         C. INSTRUCTIONS TO COMPLETE THE STATEMENT OF     
+                    ASSETS AND LIABILITIES                
+                                                          
+                                                          
+       A*   - Denoted all the immovable property in Sri Lanka.
+                                                          
+       B*   - Denoted all the immovable property outside Sri Lanka.
+       A* 1 - The details about the resident place belongs to you as at
+            31.03.2021                                    
+                                                          
+       In terms of Section 126(2) of the Inland Revenue Act, No. 24 of 2017, the
+       Commissioner General may specify the information to be furnished on
+       the Return and attachments, if any, required to be filed with the Return.
+       Accordingly, you are required to furnish the value of (your) every Asset
+       and Liability (in or outside Sri Lanka) as at the last date of the year of
+       assessment, 31 March 2025 in the form Statement of Assets and
+       Liabilities, provided to you with the Return, and submit together with the
+       Return.                                            
+       (Please declare the acquisition cost or market value, if it is not an
+       acquisition)                                       
+                                                          
+                                                          
+       PART 01                                            
+                                                          
+       A. Immovable Properties:                           
+       Declare all your immovable properties (situated in or outside Sri Lanka)
+       as at 31.03.2025 with values.                      
+       B. Movable Properties:                             
+                                                          
+       Declare with values of all movable properties (in or outside Sri Lanka)
+       such as Motor Vehicles, Bank Deposits, and Shares/Stocks/Securities,
+       Cash in Hand, Loans given or Amounts receivable, Gold, Silver, Gems &
+       Jewellery etc., owned by you as at 31.03.2025.     
+       C. Properties held as a Part of Business           
+                                                          
+                                                          
+                                                          
+                             24                           
+                                                          
+                                                          
+                                                          
+
+===== page 25 =====
+                                                          
+                                                          
+                                                          
+                                                          
+      The values of properties as a part of a business i.e. the balance of capital
+      and current account as at 31.03.2025 should be declared. (Attach the
+      copies of the balance sheet, if applicable).        
+                                                          
+      D. Liabilities as at 31.03.2025                     
+      All the liabilities, including loans to be paid to a person or institution
+      during the year should be declared in this Part.    
+                                                          
+                                                          
+      PART 02                                             
+      A. Any other assets acquired or gift received during the year
+                                                          
+      Declare the total value of the assets including acquired properties and gifts
+      received.                                           
+      B. Disposal of assets including shares (sale/ transfer/ gift) during
+         the year                                         
+                                                          
+      Declare the total value of the assets disposed during the period from
+      01.04.2024 to 31.03.2025 (sales, exchanges, gifts). 
+                                                          
+                                                          
+                        ANNEXURES                         
+                                                          
+                                                          
+    ANNEXURE 1 – List of Available Reliefs                
+    Reliefs provided under paragraph 2 of the Fifth Schedule to the IRA:
+     a) Personal Relief - Relief granted under subparagraph (a) of paragraph
+        2 of Fifth Schedule to the IRA - Rs. 1,200,000 for the year of
+        assessment up to the aggregate assessable income (except gains from
+        the realization of investment assets).            
+                                                          
+     b) Rent Relief - Relief granted under subparagraph (c) of paragraph 2 of
+        the Fifth Schedule to the IRA – 25% of the total rental income for the
+        year of assessment.                               
+     c) Relief granted under subparagraph (g) of paragraph 2 of the Fifth
+        Schedule to the IRA – Resident individual who has acquired solar
+                                                          
+                            25                            
+                                                          
+                                                          
+                                                          
+
+===== page 26 =====
+                                                          
+                                                          
+                                                          
+                                                          
+         panels to fix on his premises and connected to the national grid, Rs.
+         600,000 for each year of assessment upto the total expenditure on such
+         solar panels or upto the amounts paid to a bank in respect of any loan
+         obtained to acquire such solar panels.           
+                                                          
+       Note: Above aggregate reliefs are deductible in arriving at the taxable
+       income of an individual who is resident in Sri Lanka for a year of
+       assessment subject to the provisions of IRA. However, non-resident
+       individuals but citizens in Sri Lanka can deduct the personal relief
+       mentioned under above paragraph (a) in arriving at the taxable income of
+       such individual.                                   
+                                                          
+       ANNEXURE 2 - List of Exempt Amounts (relevant to individuals)
+                                                          
+      (1) Exemptions available in the IR Act No. 24 of 2017 to the date.
+          a) Capital sums paid to a person as compensation or a gratuity in
+            relation to –                                 
+               a) personal injuries suffered by the person; or
+               b) the death of another person;            
+                                                          
+          b) The pension of a person where the pension income is paid by the
+            Government of Sri Lanka or a department of the Government of
+            Sri Lanka;                                    
+                                                          
+          c) An amount paid to an employee at the time of retirement from—
+                                                          
+              i) any pension fund or the Employees Trust Fund established
+                by the Employees Trust Fund Act, No.46 of 1980, as
+                represents income derived by that fund, for any period
+                commencing on or after April 1, 1987, from investments
+                made by it;                               
+                                                          
+              ii) a provident fund approved by the Commissioner General
+                or any regulated provident fund;          
+          d) The income of an individual entitled to privileges to the extent
+            provided for by –                             
+                                                          
+                             26                           
+                                                          
+                                                          
+                                                          
+
+===== page 27 =====
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+            i) a diplomatic immunities law or a similar law;
+                                                          
+            ii) an Act giving effect to the Convention on the Privileges and
+               Immunities of the United Nations and the Convention on
+               the Privileges and Immunities of the Specialized Agencies
+               of the United Nations; or                  
+                                                          
+            iii) regulations made under this Act relating to an international
+               organization, or a law or Act referred to in subparagraph (i)
+               or (ii);                                   
+                                                          
+         e) A gain made by a resident individual from the realization of an
+           investment asset that does not exceed Rs. 50,000 and where the
+           total gains made by the resident individual from the realization of
+           investment assets in the year of assessment do not exceed Rs.
+           600,000, except –                              
+                                                          
+            i. where the Commissioner-General is satisfied that an
+              investment asset has been realized in two or more parts, any
+              gain arising from the realizations shall be exempt under this
+              paragraph only if the total gain from the realization of all
+              parts does not exceed Rs. 50,000 and the total gains made by
+              the resident individual from the realization of investment
+              assets in the year of assessment do not exceed Rs. 600,000;
+                                                          
+            ii) in the case of the realization of an investment asset that is
+              jointly owned, this paragraph applies only if the total gain
+              made by all owners of the investment asset on realization of
+              the asset does not exceed Rs. 50,000and the total gains made
+              by the resident individual in the year of assessment do not
+              exceed Rs. 600,000;                         
+         f) A gain made by a resident individual on the realization of the
+           individual’s principal place of residence, provided it has been
+           owned by the individual continuously for the three years before
+                                                          
+                                                          
+                            27                            
+                                                          
+                                                          
+                                                          
+
+===== page 28 =====
+                                                          
+                                                          
+                                                          
+                                                          
+            being realized and lived in by the individual for at least two of
+            those three years (calculated on a daily basis);
+                                                          
+          g) Gain made on realization of an asset consisting of shares quoted
+            in any official list published by any stock exchange licensed by
+            the Securities and Exchange Commission of Sri Lanka;
+                                                          
+          h) Any prize received by a person as an award made by the President
+            of the Republic of Sri Lanka or by the Government in recognition
+            of an invention created, or any research undertaken, by such
+            person;                                       
+          i) Any sum received by any person from the President’s Fund
+            established by the President’s Fund Act, No. 7 of 1978 or national
+            Defence Fund established by the National Defenece Fund Act,
+            No. 9 pf 1985;                                
+                                                          
+          j) Any income earned by                         
+            (a) any non-resident person (other than a Sri Lankan permanent
+               establishment) by way of interest, discount or realization of
+               any gain on any sovereign bond denominated in local or
+               foreign currency                           
+                                                          
+            (b) any person by way of interest or discount paid or allowed,
+               as the case may be, on any sovereign bond denominated in
+               foreign currency, including Sri Lanka Development Bonds,
+            issued by or on behalf of the Government of Sri Lanka.
+                                                          
+          k) Any amount derived by a senior citizen from an annuity for life
+            for a period of not less than ten years purchased from a bank or
+            an insurance company registered under the Regulation of
+            Insurance Industry Act, No. 43 of 2000.       
+          l) A gain from the realization of Sri Lanka international sovereign
+            bonds issued by or on behalf of the Government of Sri Lanka and
+            received or derived by a commercial bank or authorized dealer
+            who made an aggregate investment not less than USD 100
+            Million in such bonds on or after April 1, 2021;
+                                                          
+                             28                           
+                                                          
+                                                          
+                                                          
+
+===== page 29 =====
+                                                          
+                                                          
+                                                          
+                                                          
+         m) Any winning from a lottery, the gross amount of which does not
+           exceed Rs. 500,000                             
+                                                          
+         n) Benefits received or derived by an employee of the government
+           of Sri Lanka from a road vehicle permit issued to that employee;
+                                                          
+         o) Any amount derived by a person from the sale of any gem on
+           which tax has been deducted at 2.5% under subsection (2) of
+           section 84 of the IR Act.                      
+         p) The interest accruing to or derived by any person outside Sri
+           Lanka on any loan granted to any person in Sri Lanka or to the
+           Government of Sri Lanka                        
+                                                          
+         q) any amount derived on or after April 1, 2018, by any non- resident
+           person as any payment for air craft, software licenses or as for
+           other related services from the Sri Lankan Airlines Limited
+                                                          
+                                                          
+         r) amounts derived by a non-resident person from engaging in a
+           project of the Government of Sri Lanka, if such project is
+           approved by the Minister taking into consideration the economic
+           benefits to the country, and is totally funded from foreign grants
+                                                          
+         s) The interest accruing to or derived by any person on moneys lying
+           to his credit in foreign currency in any foreign currency account
+           opened by him or on his behalf, in any commercial bank or in any
+           specialized bank, with the approval of the Central Bank of Sri
+           Lanka.                                         
+                                                          
+         t) The interest accruing to or derived by any person from a term
+           deposit account titled as “Special Deposit Account” opened and
+           maintained with an authorized dealer in Sri Lanka as prescribed
+           by regulations made by the Minister under section 29 read with
+           section 7 of the Foreign Exchange Act, No. 12 of 2017,
+           (excluding the subsequently renewed accounts), either in any
+                                                          
+                                                          
+                            29                            
+                                                          
+                                                          
+                                                          
+
+===== page 30 =====
+                                                          
+                                                          
+                                                          
+                                                          
+            designated foreign currency or in Sri Lanka Rupees on or after
+            April 8, 2020                                 
+                                                          
+          u) On or after October 1, 2022 a dividend paid by a resident
+            company which is engaged in any one or more of the following
+            businesses in accordance with the provisions of the PART IV of
+            the Finance Act No. 12 of 2012 and within the meaning of an
+            agreement entered into with the Board of Investment of Sri Lanka
+            established under the Board of Investment of Sri Lanka Law,
+            No.4 of 1978:-                                
+            (i) Entrepot trade involving import, minor processing and re-
+               export;                                    
+            (ii) Offshore business where goods can be procured from one
+               country or manufactured in one country and shipped to
+               another country without bringing the same into Sri Lanka;
+            (iii) Providing front end services to clients abroad;
+                                                          
+            (iv) Headquarters operations of leading buyers for management
+               of financial supply chain and billing operations;
+            (v) Logistic services such as bonded warehouse or multi- country
+               consolidation in Sri Lanka.                
+                                                          
+            On or after October 01, 2022 to a member to the extent that such
+            dividend payment is attributable to or derived from another
+            dividend received by the resident company or another resident
+            company which is subject to Advance Income Tax under sub
+            section (1A) of section 84A                   
+                                                          
+          v) Dividends from and gains on the realization of shares in a non-
+            resident company where derived by any person with respect to a
+            substantial participation in the non-resident company. (as defined
+            the substantial participation in paragraph (r) to the Third Schedule
+            to the IRA)                                   
+          w) Any service rendered in or outside Sri Lanka to any person to be
+            utilized outside Sri Lanka, where the payment for such services
+                                                          
+                                                          
+                             30                           
+                                                          
+                                                          
+                                                          
+
+===== page 31 =====
+                                                          
+                                                          
+                                                          
+                                                          
+           is received in foreign currency and remitted through a bank to Sri
+           Lanka;                                         
+                                                          
+         x) Any foreign source [other than gains and profits referred to in
+           subitem (b)] where such gains and profits earned or derived in
+           foreign currency and remitted through a bank to Sri Lanka,
+         y) Any amount derived by any non-resident person from laboratory
+           services or standards certification services.  
+    (2) As provided in the Gazette Notification No. 2064/53 dated April 1, 2018,
+       where the whole or any part of the profits and income of a person is
+       exempt from Income Tax under the provisions of sections 16C, 16D,
+       16E, 24A, of the Inland Revenue Act, No. 10 of 2006, for a period as
+       specified in those provisions and, if there is any unexpired part of that
+       period as at March 31, 2018, such part shall be continued to be exempted
+       from Income tax as if such provisions continued to have application.
+                                                          
+    (3) As per Extraordinary Gazette No. 2089/1–dated 17.09. 2018 if-
+                                                          
+           a. an enterprise has entered into an agreement with the Board
+              of Investment of Sri Lanka under section 17 of the Board of
+              Investment of Sri Lanka Law No. 4 of 1978 prior to April
+              01, 2018; and                               
+                                                          
+           b. the Agreement provides for the dividend paid by that
+              enterprise to be fully or partly exempt from income tax or to
+              be taxed at reduced rate of income tax, under the Inland
+              Revenue Act, No. 28 of 1979 or under the Inland Revenue
+              Act, No. 38 of 2000 or under the Inland Revenue Act, No.
+              10 of 2006 as the case may be, or for the basis for the
+              computation of income tax liability,        
+      such dividend paid by such enterprise shall continue to be exempt from
+      income tax payable under the Inland Revenue Act, No. 24 of 2017 or
+      liable for income tax calculated on the basis and at the rate provided under
+      that agreement.                                     
+                                                          
+                                                          
+                                                          
+                            31                            
+                                                          
+                                                          
+                                                          
+
+===== page 32 =====
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+       ANNEXURE 3 – List of Qualifying Payments           
+                                                          
+       a) Donations made in money to an approved charitable institution -
+          subject to the amount of one fourth of the total assessable income (one
+          third of the taxable income) or Rs. 75,000 or amount donated,
+          whichever is less.                              
+                                                          
+       b) Donations made in money or otherwise to the Government or any
+          specified institutions in the Fifth Schedule to the IR Act.
+                                                          
+       c) Any un-deducted balance of any qualifying payment brought forward
+          from the previous year of assessment according to the Inland Revenue
+          Act, No. 10 of 2006.                            
+                                                          
+       d) With effect from April 1, 2021 contribution made by a resident
+          individual in money or otherwise to establish a shop for a female
+          individual who is from a Samurdhi beneficiary family as
+          recommended and confirmed by the department of Samurdhi
+          Development                                     
+       e) Expenditure incurred on or after April 1, 2021, by any person
+                                                          
+           (i) In the production of a film at a cost of (including promotional
+               expenditure of such film) not less than five million rupees;
+                                                          
+          (ii) In the construction and equipping of a new cinema at a cost
+               of not exceeding twenty five million rupees;
+          (iii) In the Upgrading of a cinema at a cost of not exceeding ten
+               million rupees;                            
+                                                          
+          Providing that, the deduction under this subparagraph shall be
+          restricted to one third of the taxable income of the year of assessment,
+          and any amount which is not deducted in current year may be carried
+          forward and deducted in the next succeeding year and so on, subject
+          to the same restriction.                        
+                                                          
+                                                          
+                             32                           
+                                                          
+                                                          
+                                                          
+
+===== page 33 =====
+                                                          
+                                                          
+                                                          
+                                                          
+    ANNEXURE 4 – TABLE OF FINAL WITHHOLDING PAYMENTS,     
+                NON-FINAL WITHHOLDING PAYMENTS AND        
+                APPLICABLE TAX RATES                      
+                                                          
+                                                          
+         Type of Payment                      WHT         
+                                              Rate        
+      (a) Amounts paid as winnings from a lottery, reward, betting 14%
+         or gambling, other than amounts received in conducting a FINAL
+         business consisting of betting and gaming.       
+      (b)   9. Payments (other than interest) made to non-resident 14%
+              person that are subject to WHT (other than payment FINAL
+              derived through a Sri Lankan permanent      
+              establishment).                             
+      (c) Interest or discount paid to or treated as being derived by a 5%
+         non-resident person                  FINAL       
+      (d) Sale price of any gem sold at an auction 2.5%   
+      (e) Service fee payments exceeds Rs. 100,000 per calendar month to
+         a resident individual who is not an employee of the payer with
+         respect to following –                           
+         (a) for teaching, lecturing, examining, invigilating or
+           supervising an examination;                    
+                                              5%  on      
+         (b) as a commission or brokerage to a resident insurance, sales
+                                              full        
+           or canvassing agent; or                        
+                                              payment     
+         (c) for services provided by such individual in the capacity of
+           independent service provider such as doctor, engineer,
+           accountant, lawyer, software developer, researched,
+           academic or any individual service provider as may be
+           prescribed by regulation                       
+      (f) Interest of discount paid           5%          
+      (g) Rent payments to a resident person (if aggregate amount exceeds 10% on
+         Rs. 100,000 per calendar month)      full        
+                                              payment     
+      (h) Charge, natural resource payment or premium 14% 
+      (i) Royalty                             14%         
+      (j) D ividend (Dividend declared by a resident company on or after 15%
+         January 01, 2023 is a Final WHT)                 
+                            33                            
+
+===== page 34 =====
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+         ANNEXURE 5 – LIST OF TERMINAL BENEFITS LIABLE TO 
+                      TAX AT CONCESSIONARY RATES          
+                                                          
+          i. Amount received in commutation of a pension. 
+         ii. Amount received as a retiring gratuity.      
+                                                          
+         iii. Amount received as compensation for loss of office or
+             employment under a scheme which the commissioner general
+             considers to be uniformly applicable to all individuals employed
+             by the employer.                             
+         iv. Amount paid to a person at or after the time of retirement from
+             employment from the Employees’ Trust Fund, established by the
+             Employees’ Trust Fund Act, No. 46 of 1980.   
+        With respect to compensation for loss of office or employment which
+        has not been approved by the Commissioner General of Inland Revenue
+        (CGIR), payment from provident fund (which is not a regulated fund or
+        not an approved fund by the CGIR), other payments or any retirement
+        non-cash benefit are subject to Standard (Progressive) tax rates.
+                                                          
+                                                          
+        ANNEXURE 6– CONCESSIONARY RATES APPLICABLE FOR    
+                        TERMINAL BENEFITS                 
+                                                          
+           TOTAL  TERMINAL  BENEFITS TAX                  
+           FROM EMPLOYMENT           PAYABLE              
+                                                          
+           1st - Rs. 10,000,000      0%                   
+           2nd - Rs. 10,000,000      6%                   
+           On the balance            12%                  
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                             34                           
+                                                          
+                                                          
+                                                          
+
+===== page 35 =====
+                                                          
+                                                          
+                                                          
+                                                          
+        ANNEXURE 7 – STANDARD (PROGRESSIVE) INCOME TAX    
+                            RATES                         
+                                                          
+      Rates applicable for the year of assessment 2024/2025
+                       Taxable Income         Tax Rate    
+                       First - Not exceeding Rs. 500,000) 6%
+                       Second - Exceeding Rs. 500,000 but 12%
+       Year of assessment not exceeding Rs. 1,000,000     
+       2024/2025       Third - Exceeding Rs. 1,000,000 but 18%
+       (Form April 01st 2024 not exceeding Rs. 1,500,000  
+       to March 31st 2025) Fourth - Exceeding Rs. 1,500,000 24%
+                       but not exceeding Rs. 2,000,000    
+                                                          
+                       Fifth - Exceeding Rs. 2,000,000 but 30%
+                       not exceeding Rs. 2,500,000        
+                       Balance Amount           36%       
+      Other Special tax rates                             
+        Business consisting of betting and gaming, manufacture and sale or
+        import and sale of any liquor or tobacco products (other than buying
+        & selling) – 40%                                  
+                                                          
+      Special Notes                                       
+                                                          
+        In addition to the above guide lines, tax payers are hereby adviced to
+        follow the circulars related to the income tax issued by the
+        commissioner General of Inland Revenue from time to time which
+        have been published in the IRD web portal www.ird.gov.lk.
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                            35                            
+                                                          
+                                                          
+                                                          
+
+===== page 36 =====
+                                                          
+                                                          
+                                                          
+                                                          
+                      CONTACT DETAILS                     
+                                                          
+       Please contact IRD officers of the Secretariat or the relevant Regional
+       Office for more details.                           
+                                                          
+                                          0112135413      
+                                          0112135438      
+                                          0112135434      
+        Head Office     Secretariat                       
+                                          0112135441      
+                                          0112135433      
+                                          0112135430      
+        Metropolitan Branch Colombo City  0112504390      
+        Metropolitan Branch Colombo Central 0112505274    
+        Metropolitan Branch Colombo South 0112502564      
+        Nawam Mawatha   Unit 1 & 2        0112302249      
+        Regional Office Anuradhapura      0252235512      
+        Regional Office Badulla           0552222490      
+        Regional Office Batticaloa        0652222087      
+        Regional Office Dambulla          0662283655      
+        Regional Office Galle             0912222504      
+        Regional Office Gampaha           0332234246      
+        Regional Office Jaffna            0212222076      
+        Regional Office Kalutara          0342222216      
+        Regional Office Kandy             0812223590      
+        Regional Office Kegalle           0352222493      
+        Regional Office Kurunegala        0372222798      
+        Regional Office Maharagama - East 0112803127      
+        Regional Office Maharagama- West  0112803125      
+        Regional Office Matara            0412222933      
+        Regional Office Negombo           0312228322      
+        Regional Office Nuwara Eliya      0522222520      
+        Regional Office Rathnapura        0452222040      
+                        TAXES - FOR A BETTER FUTURE       
+                                                          
+                                                          
+                                                          
+                             36                           
+                                                          
+                                                          
+                                                          
+
+===== page 37 =====
+                                                          
+                                                          
+                                                          
+                                                          
+                        Illustrations                     
+                                                          
+      Example 01:                                         
+                                                          
+      Ms. Renuka Hettiarachchi is a CFO of company BOP. Her income for the year
+      of assessment 2024/2025 is as follows;              
+       Employment income Rs. 7,500,000                   
+                                                          
+       Business income Rs. 10,000,000 (after deducting the allowable expenses)
+       Gross Interest income from fixed deposits Rs, 8,000,000 (AIT has been
+        deducted at rate 5% respectively).                
+       Rent Income is Rs. 1,900,000 (AIT at 10% has been Deducted)
+       Other Income is Rs. 1,500,000                     
+       Income Rs. 200,000 from supplying electricity to national grid from
+        31.04.2024 to 31.03.2025 by solar panel installation.
+                                                          
+      Employment income includes the cash and non-cash benefits. And she has
+      donated Rs. 75,000 to purchase new equipment for District Hospital. In addition
+      to that she has spent total amount Rs. 800,000 to establish a shop for a lady from
+      Samurdhi beneficiary family during the Y/A. ( by cash Rs. 500,000 and by
+      providing materials – cement Rs. 300,000). As well as Ms. Renuka has installed
+      a solar panel to her residential place which is connected to the national grid at
+      cost of Rs. 2,000,000 on 01.08.2021 and she already deducted Rs. 1,800,000 as
+      qualifying payment during last three years of assessment by Rs. 600,000 for each
+      year. Furthermore to the above she spent Rs.15,000,000 to construct and
+      equipping the new cinema by purchasing the new equipment which was approved
+      by National Film Corporation of Sri Lanka during the year of Assessment.
+      Calculation of Income tax liability Ms. Renuka for the year assessment
+      2024/2025.                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                            37                            
+                                                          
+                                                          
+                                                          
+
+===== page 38 =====
+                                                          
+                                                          
+                                                          
+                                                          
+       Calculation of Income Tax Liability                
+                                                Rs.       
+        Employment Income                    7,500,000    
+        Business Income                      10,000,000   
+        Investment Income                                 
+          Interest Income                   8,000,000    
+          Rent Income                       1,900,000    
+          Other Income                      1,500,000    
+          Supply of electricity by           200,000     
+           solar pannel                                   
+        Assessable Income                    29,100,000   
+        Less – Reliefs                                    
+          Expenditure Relief     Not Applicable  -       
+          Rent Relief                       (475,000)    
+          Personal Relief                  (1,200,000)   
+          Solar Panel fixing (Only balance Rs. 200,000) (200,000)
+        Less – Qualifying payments                        
+          Donations                          (75,000)    
+          Establish a shop for a                         
+           Samurdhi female Cash 500,000/- Cement (800,000)
+                         300,000/-                        
+          New equipment for                              
+           Cinema                                         
+                                            (15,000,000)  
+        Taxable Income                       11,350,000   
+        Tax Liability    500,000 x 6% = 30,000            
+                         500,000 x 12% = 60,000           
+                         500,000 x 18% = 90,000           
+                         500,000 x 24% = 120,000          
+                         500,000 x 30% = 150,000          
+        Total Tax Liability Balance – 8,850,000 x 36%     
+                                    = 3,186,000 3,636,000 
+        Credits Available                                 
+        Less – APIT                          1,818,000    
+            WHT on Interest                   400,000     
+        Balance Tax Payable                               
+        (2024/2025)                          1,418,000    
+                             38                           
+                                                          
+                                                          
+                                                          
+
+===== page 39 =====
+                                                          
+                                                          
+                                                          
+                                                          
+      Example 2                                           
+                                                          
+      Professor Dimithri is attached to the Faculty of engineering, University of
+      Peradeniya Sri Lanka. Meanwhile, he is working as once of the Consultant to the
+      NARA and receive a monthly basis payment for his service renewed. Professor
+      Dimithri’s income for the year of assessment 2024/2025 is as follows;
+                                                          
+       Employment income from Faculty of engineering (primary employment) -
+        Rs. 9,000,000                                     
+       Consultancy fee income from NARA (secondary employment) – from
+        01.04.2024 to 31.01.2025 Rs. 5,000,000            
+       Gross Interest income is Rs, 4,500,000 (AIT has been deducted at 5%)
+       Rent income is Rs. 1,800,000 (from the commercial building rentout for the
+        business)                                         
+       Other income Rs. 360,000/- from suppling electricity to national grid from
+        01.04.2024 to 31.03.2025 by solar panel installation
+                                                          
+       Dividend income RS. 500,000 from the resident company in February 2025
+        (AIT excluded from investment income at 15% has been deducted/ Final
+        withholding payment)                              
+      Employment income included cash and non-cash benefits. He has spent Rs.
+      1,000,000 on Solar panel installation for his resident place which has been
+      connected National Grid during last year of assessment. He has also donated Rs.
+      250,000 to the Bogawantana Maha Vidyalaya. (Government School) to establish
+      a computer unit for the children. And donated Rs. 200,000 for approved charity
+      during this year.                                   
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+      Calculation of Income Tax Liability                 
+                                                          
+                            39                            
+                                                          
+                                                          
+                                                          
+
+===== page 40 =====
+                                                          
+                                                          
+                                                          
+                                                          
+                                                  Rs.     
+       Employment Income                      9,000,000   
+       Consultancy fee                        5,000,000   
+       Investment Income                                  
+       Interest Income                        4,500,000   
+       Rent Income                            1,800,000   
+       Other Income                            360,000    
+       Dividend Income                         500,000    
+                         (Excluded as tax paid at 15%)    
+       Assessable Income                      20,660,000  
+       Less - Reliefs                                     
+           Rent Relief                       (450,000)   
+           Expenditure relief Not Applicable      -      
+           B/F Solar Penal Fixing            (400,000)   
+           Personal Relief                  (1,200,000)  
+       Less – Qualifying payments                         
+                                                          
+           Donations    Approved Charity      (75,000)   
+           Donation to Govt.                 (250,000)   
+            School                                        
+       Taxable Income                         18,285,000  
+       Tax Liability       500,000 x 6% = 30,000          
+                           500,000 x 12% = 60,000         
+                           500,000 x 18% = 90,000         
+                           500,000 x 24% = 120,000        
+                           500,000 x 30% = 150,000        
+                         15,785,000 x 36% =5,682,600      
+       Total Tax Payable(2024/2025)           6,132,600   
+       Credits Available                                  
+           Less - APIT                       4,158,600   
+           AIT On Interest                    225,000    
+           AIT on Rent @ 10%                  180,000    
+           Quarterly Payment                  800,000    
+       Balance Tax Payable                     769,000    
+                                                          
+                                                          
+                                                          
+                             40                           
+                                                          
+                                                          
+                                                          

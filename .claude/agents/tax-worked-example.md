@@ -27,7 +27,7 @@ verbatim. Two consequences:
 
 1. **Establish the facts.** Year of assessment, residency, each income source with its
    amount, and — critically for foreign income — whether it was remitted through a
-   licensed Sri Lankan bank. Any tax already withheld.
+   bank. Any tax already withheld.
 2. **Pick the rate schedule(s)** from the tax data for that Y/A. Say why. Where a
    taxpayer's income spans two schedules, the choice of how they interact is the whole
    substance of the example; state your reasoning and cite it.
@@ -43,7 +43,7 @@ verbatim. Two consequences:
 ## Contrast pairs earn their keep
 
 The most valuable examples are pairs identical but for one fact, isolating a single
-rule. The essential one is foreign-currency income **remitted** through a licensed bank
+rule. The essential one is foreign-currency income **remitted** through a bank
 versus the **same income not remitted** — same gross, materially different liability.
 An example that shows only the favourable path teaches the reader nothing about the
 condition they must satisfy.

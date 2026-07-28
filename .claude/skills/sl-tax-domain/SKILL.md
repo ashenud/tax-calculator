@@ -38,7 +38,7 @@ income. When reviewing any computation, check this first.
 
 ```
 [IRA s.85(1)(a)]                              base act provision
-[IRA s.52, as amended by Act 2/2025 s.14]     amended provision — cite both
+[IRA Sch.5 para 2(a)(v), ins. Act 2/2025 s.5(3)]     amended provision — cite both
 [Act 2/2025 s.7]                              provision introduced by an amendment
 [PN/IT/2025-01, para 3]                       IRD public notice
 ```
@@ -74,7 +74,7 @@ the language default.
 There is no current rate. A figure without a year of assessment is malformed.
 
 **5. Describe the law; do not advise.**
-"The reduced rate applies where the income is remitted through a licensed bank" — yes.
+"The reduced rate applies where the income is remitted through a bank to Sri Lanka" — yes.
 "You should route your payments through a local bank to save tax" — no. This repo
 produces decision support, and the distinction is what keeps it that.
 
@@ -102,7 +102,7 @@ under two schedules is handled.
 ## Known traps
 
 - **The remittance condition.** Reduced-rate treatment of foreign-currency service
-  income turns on the earnings reaching Sri Lanka through a licensed bank. Income kept
+  income turns on the earnings reaching Sri Lanka through a bank. Income kept
   offshore does not qualify and falls back to the standard progressive ladder. Any
   document, persona or example touching foreign income must address this explicitly.
 - **Employer non-deduction does not discharge the employee.** If an employer fails to

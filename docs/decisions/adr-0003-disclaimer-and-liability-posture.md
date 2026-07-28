@@ -50,7 +50,7 @@ to IRD with a wrong return.
 **6. No advisory language.** The tool describes what the law provides and what the user's
 figures produce under it. It does not tell anyone what to do, and it does not suggest
 arrangements that would reduce their liability. "The reduced rate applies where earnings
-are remitted through a licensed bank" is a statement of law. "Route your payments through
+are remitted through a bank to Sri Lanka" is a statement of law. "Route your payments through
 a local bank to save tax" is advice, and this project does not give it.
 
 **7. The result shows its working.** Every pipeline step and every rate applied, with
