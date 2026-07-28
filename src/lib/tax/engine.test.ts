@@ -649,10 +649,15 @@ describe('result shape', () => {
       total: 0,
       excess: 0,
     });
+    // P06 owns this field and has now filled it. `instalments` is still empty, because
+    // this input carries no s.91/s.92 estimate and the engine will not substitute the
+    // liability it computed for the taxpayer's own estimate [IRA s.90(3)]; `returnDue`
+    // is derived regardless, because the filing deadline depends on nothing but the year
+    // [IRA s.93(1)] — 31 March 2026 plus the data's eight months.
     expect(result.schedule).toEqual({
       instalments: [],
       finalPayment: { due: '', amount: 0 },
-      returnDue: '',
+      returnDue: '2026-11-30',
     });
     expect(result.refusals).toEqual([]);
     expect(result.yearOfAssessment).toBe('2025/2026');

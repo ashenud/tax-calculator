@@ -1,8 +1,9 @@
 /**
- * The calculation engine — parts 1 (P04) and 2 (P05).
+ * The calculation engine — parts 1 (P04), 2 (P05) and 3 (P06).
  *
  * P04: partition, the single aggregate deduction, and the normal ladder.
  * P05: the separately-rated components, the maximum-rate cap, and the Q14 refusal.
+ * P06: credits (step 7) and the payment schedule (step 8).
  *
  * `docs/spec/calculation-engine.md` is authoritative for everything in here. Where this
  * file and that document disagree, the document is right and this file is a bug.
@@ -18,12 +19,18 @@
  *   3. **Every step is retained.** `TaxResult` carries the full working so a failing
  *      fixture is diagnosable to the step that diverged.
  *
- * ## Scope of this slice
+ * ## Scope
  *
- * Implemented: steps 1, 2, 3, 4, 5 and 6.
+ * Implemented: steps 1 to 8 — the whole pipeline in `docs/spec/calculation-engine.md`.
  *
- * Deliberately **not** implemented here (P06 owns them):
- *   - credits (step 7) and the payment schedule (step 8)
+ * Two things the schedule deliberately does **not** do, because neither can be done
+ * purely or honestly from what this repository holds:
+ *
+ *   - it never tells the user an instalment date has passed (`late-instalment` in
+ *     `docs/spec/ui-behaviour.md`). That needs today's date, which is the UI's to supply;
+ *     an engine that reads the clock cannot be pinned by a fixture.
+ *   - it never states a due date for the final payment. Whether one exists separately
+ *     from the fourth instalment is Q22, recorded `unverified`.
  *
  * Where a year's data declares no rate for a component this computation needs, the
  * engine never invents one: the component is recorded with `tax: 0` and a **blocking**
@@ -41,6 +48,7 @@
 
 import type {
   Band,
+  Instalment,
   RateCap,
   RateSchedule,
   SeparatelyRatedComponent,
@@ -74,6 +82,40 @@ export type IncomeTag = (typeof INCOME_TAGS)[number];
  * the tax-year data — the engine does not hardcode who gets what. */
 export type Residency = 'resident' | 'non-resident-citizen' | 'non-resident';
 
+/**
+ * Foreign tax paid on **one source** of income, or on **one gain**.
+ *
+ * It hangs off `IncomeItem` rather than off `TaxInput` because the credit is "calculated
+ * separately for each source and for each gain" and is capped per source
+ * [IRA s.81(1), docs/spec/calculation-engine.md step 7]. A single aggregate figure cannot
+ * express that: it would let foreign tax over the cap on one source be relieved against
+ * the Sri Lankan tax on another, which is exactly what a per-source cap prevents.
+ *
+ * Note this is independent of the `foreign-capped` tag. That tag is about the *rate* a
+ * source is charged at (the maximum-rate cap, [IRA Sch.1 para 1(6)]); this is about
+ * *credit* for tax another country already took. A source can have either, both or
+ * neither.
+ */
+export interface ForeignTaxPaid {
+  /**
+   * Foreign tax paid on this source, in integer Sri Lankan rupees. Converted to rupees
+   * by the caller: this engine holds one currency, and a conversion rate is neither in
+   * `docs/spec/` nor in any tax-year data file.
+   */
+  paid: number;
+  /**
+   * The date the foreign tax was paid, `YYYY-MM-DD`.
+   *
+   * Credit is allowed "only if the foreign tax was paid within two years of the end of
+   * the year the income was derived" [IRA s.81(2)]. The engine evaluates that window
+   * itself, from `taxYear.period.to` — the date arithmetic is exact, needs no clock, and
+   * keeps a question of law off the user, who would otherwise be asked to assert a legal
+   * conclusion ("yes, within two years") as an input. An unparseable or absent date
+   * throws rather than being read as either answer.
+   */
+  paidOn: string;
+}
+
 export interface IncomeItem {
   label: string;
   /** Integer rupees, gross of that head's deductions. */
@@ -95,6 +137,11 @@ export interface IncomeItem {
    * capped rate and the full ladder, so an absent answer throws.
    */
   conditions?: Readonly<Record<string, boolean>>;
+  /**
+   * Foreign tax already paid on this source or gain, for the credit under
+   * [IRA s.81(1)–(2)]. Omit it where no foreign tax was paid.
+   */
+  foreignTax?: ForeignTaxPaid;
 }
 
 export interface TaxInput {
@@ -113,9 +160,31 @@ export interface TaxInput {
    * combine, the engine warns if a year declares types it cannot interpret.
    */
   qualifyingPayments?: number;
-  /** Tax already collected. Not applied in this slice — P06 owns step 7. */
+  /**
+   * Tax already collected at source, in integer rupees [step 7].
+   *
+   * `apit` is Advance Personal Income Tax deducted by an employer and `ait` is Advance
+   * Income Tax / withholding on investment income; both are figures off the taxpayer's
+   * own certificates, taken as given.
+   *
+   * `foreign` is **not** read from here. The foreign tax credit is computed per source
+   * from `IncomeItem.foreignTax`, because s.81(1) caps it per source — see
+   * `ForeignTaxPaid`. The key is retained only so that an older caller passing it fails
+   * loudly (see the guard in `computeCredits`) instead of silently having its figure
+   * dropped.
+   */
   creditsPaid?: { apit?: number; ait?: number; foreign?: number };
-  /** The taxpayer's own s.91/s.92 estimate. Not used in this slice — P06 owns step 8. */
+  /**
+   * The taxpayer's own current estimate of tax payable for the year, filed under
+   * [IRA s.91] or assessed under [IRA s.92]. This is **A** in the instalment formula
+   * [IRA s.90(3)] and is an input in its own right: it is not the liability this engine
+   * computes, and the two routinely differ. That difference is what the final payment
+   * settles.
+   *
+   * Omitted means omitted. With no A there is no s.90(3) computation to perform, so no
+   * instalments are produced — the engine does not substitute the computed liability for
+   * the taxpayer's estimate. See `TaxResult.schedule`.
+   */
   estimatedTaxForInstalments?: number;
   /** Which schedule in `taxYear.rateSchedules` is the normal ladder. See
    * `NORMAL_LADDER_SCHEDULE_ID` for how this resolves when omitted. */
@@ -187,12 +256,44 @@ export interface TaxResult {
   taxableGain: number;
   components: ResultComponent[];
   grossTax: number;
+  /**
+   * Step 7. Each credit is retained separately, never only as a total, so a taxpayer can
+   * check each line against the certificate it came from.
+   *
+   * `excess` is `max(0, total − grossTax)` — the amount of credit that had nowhere to go.
+   * Whether it is refundable or carried forward is open (Q20), so it is surfaced rather
+   * than floored away into `taxPayable`.
+   */
   credits: { apit: number; ait: number; foreign: number; total: number; excess: number };
   taxPayable: number;
+  /**
+   * Step 8.
+   *
+   * **`instalments.length > 0` is the signal that a schedule was computed.** It is empty
+   * when the input carried no `estimatedTaxForInstalments`, because **A** in
+   * [IRA s.90(3)] is the taxpayer's own estimate and the engine will not invent one; when
+   * it is empty, `finalPayment` is a zeroed placeholder and must not be rendered as a
+   * payment of nil. `returnDue` is still derived, since the filing deadline depends on
+   * nothing but the year [IRA s.93(1)].
+   *
+   * When a schedule *was* computed:
+   *
+   *   - `instalments` sum exactly to the estimate — that is a property of the statutory
+   *     formula, not of any rounding this engine does.
+   *   - `instalments` **+ `finalPayment.amount` sum exactly to `taxPayable`**, so no
+   *     rupee of the liability is unaccounted for.
+   *   - `finalPayment.amount` is **signed**: positive is a balance still payable,
+   *     negative means the instalments driven by the estimate exceed the liability
+   *     actually computed, i.e. an overpayment. It is never clamped, because clamping
+   *     would hide the overpayment and break the sum above.
+   *   - `finalPayment.due` is `''`. Whether a final payment date exists separately from
+   *     the fourth instalment is **Q22, unverified** — the engine states no date it
+   *     cannot cite. A warning says so whenever a balance is actually payable.
+   */
   schedule: {
     instalments: { quarter: number; due: string; amount: number }[];
     finalPayment: { due: string; amount: number };
-    /** Derived from `period.to` + `returnDueRule.monthsAfterYearEnd` — P06. Empty here. */
+    /** Derived: `period.to` + `calendar.returnDueRule.monthsAfterYearEnd` [IRA s.93(1)]. */
     returnDue: string;
   };
   refusals: ResultRefusal[];
@@ -232,6 +333,35 @@ export const WARNING_CODES = {
   rateCapConditionNotMet: 'rate-cap-condition-not-met',
   /** The year declares qualifying payment types whose cap/rate semantics are unspecified. */
   qualifyingPaymentTypes: 'qualifying-payment-types-not-modelled',
+  /**
+   * Credits exceed the gross tax. `credits.excess` holds the surplus; whether it is
+   * refundable or carried forward is unresolved (Q20). Matches the code the UI already
+   * expects [docs/spec/ui-behaviour.md, "Warnings the UI must be able to render"].
+   */
+  excessCredit: 'excess-credit',
+  /**
+   * Foreign tax paid on a source exceeded the average Sri Lankan rate applied to that
+   * source, so the credit was capped at the Sri Lankan tax on it [IRA s.81(1)]. The
+   * difference is not relieved here, and the message names the source and both figures.
+   */
+  foreignCreditCapped: 'foreign-credit-capped',
+  /**
+   * Foreign tax on a source was paid more than two years after the end of the year of
+   * assessment, so no credit is allowed for it [IRA s.81(2)]. This *increases* the tax
+   * payable relative to what a taxpayer holding the receipt would expect, so it is said
+   * out loud rather than left to be inferred from a smaller number.
+   */
+  foreignCreditTimeLimit: 'foreign-credit-time-limit',
+  /**
+   * The instalments computed from the estimate exceed the liability actually computed,
+   * so the final payment is negative — an overpayment rather than a balance due.
+   */
+  estimateExceedsLiability: 'estimate-exceeds-liability',
+  /**
+   * A balance is payable after the instalments, but no date is stated for it: whether a
+   * final payment date exists separately from the fourth instalment is Q22, unverified.
+   */
+  finalPaymentDateUnresolved: 'final-payment-date-unresolved',
 } as const;
 
 export const REFUSAL_CODES = {
@@ -309,6 +439,106 @@ export function taxOnAmount(amount: number, rateBp: number): number {
     (BigInt(amount) * BigInt(rateBp)) / BASIS_POINT_DENOMINATOR,
     'taxOnAmount',
   );
+}
+
+// ---------------------------------------------------------------------------
+// Calendar arithmetic — integer arithmetic on calendar dates, never a Date object
+// ---------------------------------------------------------------------------
+
+/**
+ * Deliberately no JavaScript `Date` object anywhere in here. A `Date` is an instant in
+ * time resolved against a timezone, and "31 March 2026" is not an instant — it is a
+ * calendar date on a statute. Constructing one would make a statutory deadline depend on
+ * the machine's timezone, and `engine.test.ts` scans this file to keep every constructor
+ * and clock reading out of it.
+ */
+const DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31] as const;
+
+/** Gregorian: divisible by 4, except centuries, except those divisible by 400. */
+function isLeapYear(year: number): boolean {
+  return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+}
+
+function daysInMonth(year: number, month: number): number {
+  if (month === 2 && isLeapYear(year)) return 29;
+  const days = DAYS_IN_MONTH[month - 1];
+  if (days === undefined) throw new Error(`month out of range: ${month}`);
+  return days;
+}
+
+interface CalendarDate {
+  year: number;
+  month: number;
+  day: number;
+}
+
+function parseIsoDate(iso: string, label: string): CalendarDate {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  if (!match?.[1] || !match[2] || !match[3]) {
+    throw new Error(
+      `${label}: expected a date as YYYY-MM-DD, got ${JSON.stringify(iso)}`,
+    );
+  }
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  if (month < 1 || month > 12) {
+    throw new Error(`${label}: ${iso} has no month ${month}`);
+  }
+  if (day < 1 || day > daysInMonth(year, month)) {
+    throw new Error(
+      `${label}: ${iso} is not a real date — ${month === 2 ? 'February' : `month ${month}`} ${year} has ${daysInMonth(year, month)} days`,
+    );
+  }
+  return { year, month, day };
+}
+
+function formatIsoDate(date: CalendarDate): string {
+  return `${String(date.year).padStart(4, '0')}-${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}`;
+}
+
+/**
+ * Add whole calendar months to a date [used for IRA s.93(1) and s.81(2)].
+ *
+ * **The rule when the target month is shorter: clamp to its last day.** "Eight months
+ * after 31 March" is 30 November, not "31 November" and not 1 December — the month is
+ * advanced and the day is held, except that a day the target month does not have becomes
+ * that month's last day. This is the only reading that always yields a real date, and it
+ * keeps a month-end anchored to a month-end, which is what a year of assessment ending on
+ * the last day of March is.
+ *
+ * Leap years fall out of `daysInMonth` rather than being special-cased: 31 January plus
+ * one month is 29 February in 2024 and 28 February in 2023, from the same code path.
+ *
+ * Exported because the tax-year schema requires `period.to` to be 31 March, so the
+ * February and month-length edges this must survive cannot be reached through a
+ * schema-valid data file, and an untestable rule is an unverified one.
+ */
+export function addMonthsToIsoDate(iso: string, months: number, label = 'date'): string {
+  if (!Number.isInteger(months)) {
+    throw new Error(`${label}: months to add must be a whole number, got ${months}`);
+  }
+  const start = parseIsoDate(iso, label);
+  // Months since year 0, so the year rolls over by arithmetic rather than by a loop.
+  const totalMonths = start.year * 12 + (start.month - 1) + months;
+  if (totalMonths < 0) {
+    throw new Error(`${label}: adding ${months} months to ${iso} falls before year 0`);
+  }
+  const year = Math.floor(totalMonths / 12);
+  const month = totalMonths - year * 12 + 1;
+  return formatIsoDate({
+    year,
+    month,
+    day: Math.min(start.day, daysInMonth(year, month)),
+  });
+}
+
+/**
+ * `a <= b` for two `YYYY-MM-DD` strings. Fixed-width ISO dates order lexicographically
+ * exactly as they order chronologically, so no parsing — and no `Date` — is needed.
+ */
+function isoDateAtOrBefore(a: string, b: string): boolean {
+  return a <= b;
 }
 
 // ---------------------------------------------------------------------------
@@ -707,6 +937,316 @@ function capConditionsMet(
 }
 
 // ---------------------------------------------------------------------------
+// Step 7 — credits
+// ---------------------------------------------------------------------------
+
+export interface CreditsResult {
+  apit: number;
+  ait: number;
+  foreign: number;
+  total: number;
+  excess: number;
+}
+
+/** Every income item, with the head it came from, in input order. */
+function eachItem(input: TaxInput): { head: Head; index: number; item: IncomeItem }[] {
+  const out: { head: Head; index: number; item: IncomeItem }[] = [];
+  for (const head of HEADS) {
+    (input.income[head] ?? []).forEach((item, index) => out.push({ head, index, item }));
+  }
+  return out;
+}
+
+/**
+ * Which computed component an item's income was actually taxed in. This is what makes the
+ * s.81(1) cap per *source* computable: the cap is the Sri Lankan tax on that source, and
+ * the Sri Lankan tax on that source is a share of the tax on the pool it was taxed in.
+ *
+ * `cappedMet` is the set of `foreign-capped` items whose conditions were met in step 5.
+ * A foreign-capped item whose condition failed was taxed on the ordinary ladder, and its
+ * credit must be capped at the ladder rate it actually bore, not at the capped rate it
+ * did not get.
+ */
+function poolOf(item: IncomeItem, cappedMet: ReadonlySet<IncomeItem>): ComponentKind {
+  const kind = classify(item);
+  if (kind === 'ordinary') return 'ladder';
+  if (kind === 'foreign-capped') return cappedMet.has(item) ? 'capped' : 'ladder';
+  return kind;
+}
+
+/**
+ * Step 7. APIT, then AIT/WHT, then the foreign tax credit — each retained separately
+ * [docs/spec/calculation-engine.md step 7].
+ *
+ * ## The foreign tax credit, per source
+ *
+ * "calculated separately for each source and for each gain, capped at the average Sri
+ * Lankan rate applied to that foreign income" [IRA s.81(1)].
+ *
+ * For a source of `A` rupees taxed in a pool of `G` rupees bearing `T` of Sri Lankan tax,
+ * the average rate applied to that pool is `T / G`, and the Sri Lankan tax attributable
+ * to the source is:
+ *
+ * ```
+ * cap = floor(T * A / G)
+ * ```
+ *
+ * Three things follow, and each is the reason this is not done any other way:
+ *
+ *   - **It is an average, not a marginal, rate.** That is what the statute says, and it
+ *     is also what makes the figure computable at all: a marginal rate would require
+ *     deciding which band the foreign income occupies, which is the same unanswerable
+ *     ordering question the engine refuses on for Q14.
+ *   - **It is proportionate.** The single Fifth Schedule deduction has already reduced
+ *     `T`, so a source shares in that reduction in proportion to its size. Crediting
+ *     foreign tax against the *whole* pool's tax would let a foreign source wipe out Sri
+ *     Lankan tax on domestic income sitting in the same pool.
+ *   - **Sources never subsidise each other.** Because each source is capped on its own
+ *     `A`, foreign tax over the cap on one source cannot be relieved against the Sri
+ *     Lankan tax on another. Summing all foreign tax and capping once would allow exactly
+ *     that, and is the plausible wrong answer here.
+ *
+ * The credits are then `min(paid, cap)`, or nil where the two-year condition in s.81(2)
+ * is not met.
+ */
+function computeCredits(
+  input: TaxInput,
+  taxYear: TaxYearData,
+  components: readonly ResultComponent[],
+  cappedMet: ReadonlySet<IncomeItem>,
+  grossTax: number,
+  warnings: ResultWarning[],
+): CreditsResult {
+  const apit = input.creditsPaid?.apit ?? 0;
+  const ait = input.creditsPaid?.ait ?? 0;
+  assertMoney(apit, 'creditsPaid.apit');
+  assertMoney(ait, 'creditsPaid.ait');
+
+  if (input.creditsPaid?.foreign !== undefined) {
+    throw new Error(
+      `creditsPaid.foreign was given (${input.creditsPaid.foreign}), but the foreign tax credit is not a single aggregate figure: it is calculated separately for each source and for each gain, and capped separately for each [IRA s.81(1)]. Attach the foreign tax to the income it was paid on, as IncomeItem.foreignTax, so each source can be capped at the Sri Lankan tax on that source.`,
+    );
+  }
+
+  // The gross income behind each pool, which is the denominator of every share below.
+  const poolGross: Record<ComponentKind, number> = {
+    ladder: 0,
+    capped: 0,
+    'capital-gain': 0,
+    'terminal-benefit': 0,
+    'special-business': 0,
+  };
+  for (const { item } of eachItem(input)) {
+    poolGross[poolOf(item, cappedMet)] += item.amount;
+  }
+
+  // The end of the window in s.81(2), computed once: two years after the end of the year
+  // of assessment in which the income was derived.
+  const windowEnds = addMonthsToIsoDate(taxYear.period.to, 24, 'taxYear.period.to');
+
+  let foreign = 0;
+
+  for (const { head, index, item } of eachItem(input)) {
+    const foreignTax = item.foreignTax;
+    if (!foreignTax) continue;
+
+    const where = `income.${head}[${index}] (${item.label}).foreignTax`;
+    assertMoney(foreignTax.paid, `${where}.paid`);
+
+    if ((input.deductions?.[head] ?? 0) !== 0) {
+      // The cap is a share of the tax on the pool, in proportion to the source's own
+      // income. A head-level deduction belongs to some of that head's items and not
+      // others, and nothing in docs/spec/ says which — so the share, and therefore the
+      // cap, is not computable without a guess.
+      throw new Error(
+        `${where} is set and deductions.${head} is also set. The foreign tax credit is capped at the Sri Lankan tax on that source [IRA s.81(1)], which is that source's share of the tax on the income it was taxed with — and how a head's deductions are apportioned between its items is not specified in docs/spec/calculation-engine.md. The engine will not guess.`,
+      );
+    }
+
+    const pool = poolOf(item, cappedMet);
+    const component = components.find((c) => c.kind === pool);
+    const poolTax = component?.tax ?? 0;
+    const gross = poolGross[pool];
+
+    // floor(poolTax * amount / gross), in BigInt: the product of a tax figure and an
+    // income figure is well outside the range a float multiplies exactly.
+    const cap =
+      gross > 0 && poolTax > 0
+        ? toSafeNumber(
+            (BigInt(poolTax) * BigInt(item.amount)) / BigInt(gross),
+            `${where} cap`,
+          )
+        : 0;
+
+    if (!isoDateAtOrBefore(parseIsoDateForWindow(foreignTax.paidOn, where), windowEnds)) {
+      warnings.push({
+        code: WARNING_CODES.foreignCreditTimeLimit,
+        severity: 'warn',
+        message: `No foreign tax credit has been given for "${item.label}": the ${foreignTax.paid} rupees of foreign tax is recorded as paid on ${foreignTax.paidOn}, and credit is allowed only where the foreign tax was paid within two years of the end of the year of assessment in which the income was derived — on or before ${windowEnds} for ${taxYear.yearOfAssessment} [IRA s.81(2)]. Without that credit the tax payable is ${cap} rupees higher than it would otherwise have been.`,
+      });
+      continue;
+    }
+
+    const allowed = Math.min(foreignTax.paid, cap);
+    foreign += allowed;
+
+    if (foreignTax.paid > cap) {
+      warnings.push({
+        code: WARNING_CODES.foreignCreditCapped,
+        severity: 'warn',
+        message: `The foreign tax credit for "${item.label}" has been capped at ${cap} rupees, the Sri Lankan tax charged on that source, against ${foreignTax.paid} rupees of foreign tax actually paid. Credit is limited to the average Sri Lankan rate applied to that foreign income [IRA s.81(1)], so the remaining ${foreignTax.paid - cap} rupees is not relieved against Sri Lankan tax in this computation. Each source is capped on its own — foreign tax over the cap on one source is not relieved against the Sri Lankan tax on another.`,
+      });
+    }
+  }
+
+  const total = sumMoney([apit, ait, foreign], 'credits.total');
+  const excess = Math.max(0, total - grossTax);
+
+  if (excess > 0) {
+    warnings.push({
+      code: WARNING_CODES.excessCredit,
+      severity: 'warn',
+      message: `Credits of ${total} rupees exceed the gross tax of ${grossTax} by ${excess}. The tax payable is nil, but whether that excess is refundable or carried forward is not settled by the sources this project holds (Q20 in docs/research/12-open-questions.md), so no treatment of it has been assumed. Take it to IRD or to a qualified tax practitioner.`,
+    });
+  }
+
+  return { apit, ait, foreign, total, excess };
+}
+
+/** A date is a fact about the taxpayer's affairs, so a malformed one stops rather than
+ * being coerced into a window answer either way. */
+function parseIsoDateForWindow(iso: string, where: string): string {
+  return formatIsoDate(parseIsoDate(iso, `${where}.paidOn`));
+}
+
+// ---------------------------------------------------------------------------
+// Step 8 — the payment schedule
+// ---------------------------------------------------------------------------
+
+export interface ScheduleResult {
+  instalments: { quarter: number; due: string; amount: number }[];
+  finalPayment: { due: string; amount: number };
+  returnDue: string;
+}
+
+/**
+ * Step 8 [IRA s.90(3)]:
+ *
+ * ```
+ * instalment = (A − C) / B
+ *   A = the taxpayer's current estimated tax payable under s.91 or s.92
+ *   B = instalments remaining, including this one
+ *   C = tax already paid for the year before this instalment's due date
+ * ```
+ *
+ * Not a quarter each. The dates come from the data [IRA s.90(2)(a)], including the fourth,
+ * which falls in the **following** year of assessment.
+ *
+ * ## What C is here
+ *
+ * This function computes a payment **plan**, prospectively, from the estimate — it is not
+ * a record of what was paid. So `C` is the running total of the plan's own earlier
+ * instalments: before the first instalment nothing has been paid for the year, and each
+ * later instalment assumes the earlier ones were met. That is the only reading available
+ * to a computation that is told an estimate and nothing else.
+ *
+ * The alternative reading — `C` as amounts the taxpayer has *actually* paid so far, which
+ * would reshape the remaining instalments — is a real case (a taxpayer who underpaid an
+ * earlier quarter), and s.90(3) plainly covers it. It is not modelled, because it needs an
+ * input no prompt or spec in this repository defines, and inventing one now would have the
+ * UI built on a shape the spec has not settled. If it is added later, `C` is the single
+ * place it lands: seed `paid` from the amounts actually paid before each due date and the
+ * rest of this function is already correct.
+ *
+ * ## Why the instalments always sum to the estimate
+ *
+ * Flooring each division and carrying `C` forward is self-correcting: the last instalment
+ * has `B = 1`, so it is exactly `A − C`, the whole unpaid balance of the estimate. The
+ * rounding residue therefore lands on the final instalment, where the statute puts it,
+ * and never leaks. What reaches the final payment is the *other* residue — the gap
+ * between the estimate and the liability actually computed.
+ */
+function buildSchedule(
+  input: TaxInput,
+  taxYear: TaxYearData,
+  taxPayable: number,
+  warnings: ResultWarning[],
+  noteSource: (src: string) => void,
+): ScheduleResult {
+  // Derived, never stored and never read from the clock: "not later than eight months
+  // after the end of each year of assessment" [IRA s.93(1)], with the number of months
+  // itself coming from the data so a change in the law is a data change.
+  const returnDue = addMonthsToIsoDate(
+    taxYear.period.to,
+    taxYear.calendar.returnDueRule.monthsAfterYearEnd,
+    'calendar.returnDueRule',
+  );
+
+  const estimate = input.estimatedTaxForInstalments;
+  if (estimate === undefined) {
+    // No A, so no s.90(3) computation exists to perform. The engine does not substitute
+    // the liability it computed for the estimate the taxpayer is required to make: those
+    // are different figures, and four rupee amounts with statutory due dates attached are
+    // not something to derive from an assumption the taxpayer never made.
+    return { instalments: [], finalPayment: { due: '', amount: 0 }, returnDue };
+  }
+  assertMoney(estimate, 'input.estimatedTaxForInstalments');
+
+  const dates = taxYear.calendar.instalments;
+  let previous: Instalment | null = null;
+  for (const instalment of dates) {
+    parseIsoDate(instalment.due, `calendar.instalments[q${instalment.quarter}].due`);
+    if (previous && !(previous.due < instalment.due)) {
+      // C accumulates in the order this array is walked, so an out-of-order calendar
+      // silently produces the wrong instalment amounts. Stop instead.
+      throw new Error(
+        `calendar.instalments for ${taxYear.yearOfAssessment} are not in ascending date order: quarter ${previous.quarter} falls due ${previous.due} and quarter ${instalment.quarter} falls due ${instalment.due}. Each instalment is (A − C) / B, where C is what has been paid before that date [IRA s.90(3)], so the order is part of the arithmetic.`,
+      );
+    }
+    previous = instalment;
+  }
+
+  const total = BigInt(estimate);
+  let paid = 0n; // C
+  const instalments = dates.map((instalment, i) => {
+    const remaining = BigInt(dates.length - i); // B, including this one
+    // paid <= total always, because every amount below is a floor of a share of what is
+    // left; the final instalment has B = 1 and takes the balance exactly.
+    const amount = (total - paid) / remaining;
+    paid += amount;
+    noteSource(instalment.src);
+    return {
+      quarter: instalment.quarter,
+      due: instalment.due,
+      amount: toSafeNumber(amount, `instalment q${instalment.quarter}`),
+    };
+  });
+  noteSource(taxYear.calendar.returnDueRule.src);
+
+  // The instalments settle the estimate; the final payment settles the difference between
+  // the estimate and the liability actually computed. Signed on purpose — see TaxResult.
+  const finalAmount = taxPayable - toSafeNumber(paid, 'instalments total');
+
+  if (finalAmount > 0) {
+    warnings.push({
+      code: WARNING_CODES.finalPaymentDateUnresolved,
+      severity: 'warn',
+      message: `A balance of ${finalAmount} rupees remains after the ${instalments.length} instalment(s) computed from the estimate of ${estimate}. No date is shown for it: whether a final payment date exists separately from the last instalment (${instalments[instalments.length - 1]?.due}) is not established by the sources this project holds (Q22 in docs/research/12-open-questions.md). The return itself must be filed by ${returnDue} [IRA s.93(1)], but a filing deadline is not necessarily the deadline for paying. Confirm the date with IRD or a qualified tax practitioner.`,
+    });
+  }
+
+  if (finalAmount < 0) {
+    warnings.push({
+      code: WARNING_CODES.estimateExceedsLiability,
+      severity: 'warn',
+      message: `The instalments come to ${paid} rupees, computed from the estimated tax payable of ${estimate} [IRA s.90(3)], which is more than the ${taxPayable} rupees of tax this computation makes payable. The final payment is therefore shown as ${finalAmount} — an overpayment of ${-finalAmount} rupees rather than a balance due. Whether it is refunded or carried forward is not settled by the sources this project holds (Q20). Paying instalments on an estimate that later proves too high is normal; the estimate can be revised, which reshapes every remaining instalment.`,
+    });
+  }
+
+  return { instalments, finalPayment: { due: '', amount: finalAmount }, returnDue };
+}
+
+// ---------------------------------------------------------------------------
 // computeTax
 // ---------------------------------------------------------------------------
 
@@ -823,6 +1363,9 @@ export function computeTax(input: TaxInput, taxYear: TaxYearData): TaxResult {
   const foreignTotal = heads.taggedTotals['foreign-capped'];
   let capApplied: { capId: string; cap: RateCap } | null = null;
   let cappedEligible = 0; // gross foreign-capped income meeting every condition
+  // Which items those were, not just how much: step 7 needs to know which pool each
+  // source was actually taxed in to cap its foreign tax credit [IRA s.81(1)].
+  const cappedMetItems = new Set<IncomeItem>();
 
   if (foreignTotal > 0) {
     const resolved = resolveRateCap(ladderId, taxYear);
@@ -839,6 +1382,7 @@ export function computeTax(input: TaxInput, taxYear: TaxYearData): TaxResult {
       for (const item of heads.taggedItems['foreign-capped']) {
         if (capConditionsMet(item, resolved.capId, resolved.cap, taxYear)) {
           cappedEligible += item.amount;
+          cappedMetItems.add(item);
         } else {
           unmet += item.amount;
         }
@@ -889,6 +1433,12 @@ export function computeTax(input: TaxInput, taxYear: TaxYearData): TaxResult {
       // to show. See the refusal contract on `TaxResult`.
       components: [],
       grossTax: 0,
+      // Steps 7 and 8 do not run on this path, and must not. Credits are subtracted from
+      // a gross tax that was never computed, and a payment schedule reconciles to a
+      // liability that does not exist — either would put a figure on a refusal. Even the
+      // return due date, which is derivable from the year alone, is withheld here: a
+      // refusal renders as "no computation was performed", and a date beside it invites
+      // the reading that something was.
       credits: { apit: 0, ait: 0, foreign: 0, total: 0, excess: 0 },
       taxPayable: 0,
       schedule: { instalments: [], finalPayment: { due: '', amount: 0 }, returnDue: '' },
@@ -1055,9 +1605,22 @@ export function computeTax(input: TaxInput, taxYear: TaxYearData): TaxResult {
     'gross tax',
   );
 
-  // -- step 7: credits — P06. Zeroed, not omitted, so P06 extends the shape --
-  const credits = { apit: 0, ait: 0, foreign: 0, total: 0, excess: 0 };
+  // -- step 7: credits ------------------------------------------------------
+  // APIT, AIT/WHT, then the foreign tax credit, each retained separately so a taxpayer
+  // can check it against the certificate it came from. The excess is surfaced, never
+  // floored away: `taxPayable` is max(0, ...) but `credits.excess` keeps the surplus.
+  const credits = computeCredits(
+    input,
+    taxYear,
+    components,
+    cappedMetItems,
+    grossTax,
+    warnings,
+  );
   const taxPayable = Math.max(0, grossTax - credits.total);
+
+  // -- step 8: the payment schedule -----------------------------------------
+  const paymentSchedule = buildSchedule(input, taxYear, taxPayable, warnings, noteSource);
 
   return {
     yearOfAssessment: taxYear.yearOfAssessment,
@@ -1070,12 +1633,7 @@ export function computeTax(input: TaxInput, taxYear: TaxYearData): TaxResult {
     grossTax,
     credits,
     taxPayable,
-    // -- step 8: the payment schedule — P06. Present and empty, never absent.
-    schedule: {
-      instalments: [],
-      finalPayment: { due: '', amount: 0 },
-      returnDue: '',
-    },
+    schedule: paymentSchedule,
     refusals: [],
     warnings,
     sourcesUsed,
