@@ -152,20 +152,72 @@ the most likely thing to settle ordering.
 | Q26 | Penalty and interest rates | unknown | unverified |
 | Q27 | Employer non-deduction does not discharge the employee | strongly implied by s.90(1)(b), which makes such an employee an instalment payer in their own right; the express liability provision still needs locating | partial |
 | Q29 | Relief where the employer was at fault | unknown | unverified |
-| Q31 | Capital gains rate | unknown | unverified |
-| Q32 | Terminal benefit tables | unknown | unverified |
-| Q33 | Qualifying payments surviving for Y/A 2025/26 | unknown | unverified |
-| Q34 | Residency test details | 183 days, assumed | unverified |
+| Q31 | Capital gains — framework | verified for 2017 (investment asset definition, principal-residence exclusion, 10% rate, pre-commencement market value, relief unavailable against gains); **rate superseded** | partial |
+| Q32 | Terminal benefit tables | 2017 definition and both tables verified; currency for Y/A 2025/26 unknown | partial |
+| Q33 | Qualifying payments surviving for Y/A 2025/26 | 2017 Fifth Schedule para 1 verified; the schedule is known to have been restructured since | partial |
+| Q34 | Residency test | **verified** — four limbs, [IRA s.69(1)] | verified |
+
+## Newly opened by the third pass
+
+### The repository was working from stale law
+
+| # | Finding | Status |
+|---|---|---|
+| **Q42** | **Inland Revenue (Amendment) Act, No. 11 of 2026 exists and is not held.** Passed 19 May 2026, certified 3 Jun 2026, published 5 Jun 2026. Found by web search, not by anything in the documents held. | **critical, unverified** |
+| Q43 | Capital gains payment deadline and whether a separate return is required | unverified |
+| Q44 | Capital gains loss treatment — offset, carry forward, or lost | unverified |
+| Q45 | Base cost for inherited and gifted assets; valuation where no arm's-length price | unverified |
+| Q46 | Motor vehicle disposals reportedly removed from "other income" with effect from 1 Apr 2024 — retrospective, reaching filed returns | unverified |
+
+Reported changes under Act 11/2026 — **all unverified, from secondary reporting only**:
+individual and partnership CGT to 15% from 10%; trusts, unit trusts, mutual funds and NGOs
+to 10%; motor vehicle disposals as above; mandatory TIN verification for specified
+transactions from 1 Apr 2026; payments of Rs. 500,000 or more by approved payment methods;
+enhanced capital allowances. An IRD notice `SEC/PN/IT/2026/02` of 8 Jun 2026 appears to
+accompany it.
+
+**The consequence is larger than any single rate.** Y/A 2026/27 — the year currently in
+progress — is governed by law this repository does not hold, and the retrospective vehicle
+change reaches back to Y/A 2024/25. Nothing here may be described as current until Act
+11/2026 is obtained.
+
+### The foreign-currency relief that may still exist
+
+| # | Finding | Status |
+|---|---|---|
+| **Q47** | The 2017 Fifth Schedule carried a relief of Rs. 15,000,000 for a resident individual with foreign-currency income from services utilised outside Sri Lanka [IRA Sch.5 para 2(e), as enacted 2017]. Whether it survives to Y/A 2025/26 is unknown. | unverified |
+
+If it survives, it would relieve a large slice of persona p1's income **before** the capped
+ladder applies — changing that persona's answer by more than the 15% cap itself does.
+Neither Act 2/2025 nor PN/IT/2025-01 mentions it, and silence is not repeal. This needs the
+2018–2024 acts.
+
+### Structural evidence on Q14
+
+[IRA Sch.1 para 1(2)(d), as enacted 2017] shows the Act's own pattern for a specially-rated
+component: the component is taxed at its rate and "only the remainder of the individual's
+taxable income" goes on the normal ladder. Paragraph 1(6) — the 15% cap — has no equivalent
+limb and is drafted as a *maximum rate*, so this does not close Q14. It is the closest
+structural analogue in the same paragraph and is recorded as evidence, not as an answer.
 
 ## Priority order
 
-1. **Q14** — blocks the engine. Needs the Y/A 2025/26 return form.
-2. **Q10–Q13, Q41** — the remittance edges. The project's core value.
-3. **Q18, Q19, Q36, Q37** — the withholding picture, and whether consultancy fees are in
+1. **Q42 — Act No. 11 of 2026.** Nothing here is current until this is held. It also
+   governs Y/A 2026/27, the year in progress.
+2. **Q47** — the Rs. 15,000,000 foreign-currency relief. Could change persona p1's answer
+   more than the 15% cap does.
+3. **Q14** — blocks the engine for mixed income. Needs the Y/A 2025/26 return form.
+4. **Q10–Q13, Q41** — the remittance edges. The project's core value.
+5. **Q18, Q19, Q36, Q37** — the withholding picture, and whether consultancy fees are in
    scope at all. Needs the amendment acts and the WHT circular.
-4. **Q30, Q27–Q29** — persona p2.
-5. **Q21–Q23** — the compliance calendar, which is what both personas most need.
-6. Everything else.
+6. **Q32, Q33, Q43–Q46** — terminal benefits, qualifying payments and the capital gains
+   mechanics.
+7. **Q26, Q27, Q29, Q30** — persona p2's penalty and liability position.
+8. Everything else.
+
+Items 1, 2, 5 and 6 are all substantially blocked on the same two things: the **2018–2024
+amendment acts** and **Act No. 11 of 2026**. Obtaining those is worth more than any other
+research this project can do.
 
 ## Resolving these
 

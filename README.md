@@ -45,6 +45,12 @@ rent, and claiming credit for tax already withheld.
 | Tax data files | not started |
 | Astro site | not started |
 
+> **The repository does not hold the current law.** The Inland Revenue (Amendment) Act,
+> No. 11 of 2026 was published on 5 June 2026 and is not in `docs/sources/`. It changes
+> capital gains tax and other matters, and it governs Y/A 2026/27 — the year now in
+> progress. Nothing here should be described as current until it is obtained. See Q42 in
+> [`docs/research/12-open-questions.md`](docs/research/12-open-questions.md).
+
 ### What is verified
 
 The Y/A 2025/2026 personal relief and the normal individual rate ladder are confirmed

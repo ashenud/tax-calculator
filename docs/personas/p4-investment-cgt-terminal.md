@@ -1,7 +1,43 @@
 # P4 — Investment income, capital gains and terminal benefits
 
-> **Status:** unverified — the tax treatment below is provisional
+> **Status:** partial — the frameworks are verified; the rates are stale or superseded
 > **Related research:** [`../research/07-wht-ait-and-credits.md`](../research/07-wht-ait-and-credits.md), [`../research/08-capital-gains.md`](../research/08-capital-gains.md), [`../research/09-terminal-benefits.md`](../research/09-terminal-benefits.md)
+
+## What the sweep established
+
+Three findings change what this persona needs to be asked.
+
+**Priya's house may not be exempt.** The principal-residence exclusion is conditional: the
+property must have been owned continuously for the three years before disposal **and**
+lived in for at least two of those three years, counted daily
+[IRA s.195, definition of "investment asset"]. An inherited house she never lived in is
+squarely inside the charge. The calculator must ask about occupancy, not assume that "my
+home" means exempt — and the base cost of a pre-commencement asset is its market value at
+30 September 2017 [IRA transitional provisions], not what anyone paid for it.
+
+**Relief does not shelter a gain.** Personal relief "is not available to be deducted
+against gains from the realisation of investment assets"
+[IRA Sch.5 para 2(a), as enacted 2017]. So the gain is taxed on its own footing; it cannot
+be pooled with other income and covered by the relief.
+
+**Mohamed's length of service is a required input.** The terminal benefit tables are keyed
+to whether the period of contribution or employment exceeds twenty years, and the
+longer-service table is far more generous [IRA Sch.1 para 1(2)(b), as enacted 2017]. Also:
+his payment qualifies for the flat tables only if it falls within the listed categories —
+compensation for loss of office counts only under a scheme the Commissioner-General
+considers uniformly applicable to all employees [IRA Sch.1 para 1(3)(c), as enacted 2017],
+so an individually negotiated exit package may not qualify at all.
+
+## What is stale or superseded
+
+**The capital gains rate is out of date.** It has been changed by the Inland Revenue
+(Amendment) Act, No. 11 of 2026, which this repository does not hold — see Q42 in
+[`../research/12-open-questions.md`](../research/12-open-questions.md). Priya cannot be
+given a figure at all until that act is obtained.
+
+The terminal benefit tables and the withholding rates on interest, dividends and rent are
+2017 text and have very likely moved. This persona is the **least buildable** of the four
+until the missing amendment acts land.
 
 ## The people
 

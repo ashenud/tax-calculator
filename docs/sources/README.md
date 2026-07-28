@@ -80,10 +80,37 @@ rewriting it.
 
 ## Still missing
 
-The three core instruments are now held. What remains blocks specific questions in
-[`../research/12-open-questions.md`](../research/12-open-questions.md).
+### 0. Inland Revenue (Amendment) Act, No. 11 of 2026 — CRITICAL, and newly discovered
 
-### 1. Inland Revenue (Amendment) Acts, 2018–2024 — highest priority
+**This repository has been treating Act No. 2 of 2025 as the latest law. It is not.**
+
+A further amendment act was passed on 19 May 2026, certified 3 June 2026 and published
+5 June 2026. It was found by web search while sweeping capital gains — nothing in the
+documents held gives any hint of its existence, which is precisely the problem with
+working from a fixed set of PDFs.
+
+Reported to change, at minimum:
+
+- **Capital gains tax to 15% for individuals and partnerships** (from 10%), and 10% for
+  trusts, unit trusts, mutual funds and NGOs — which supersedes the rate in
+  [`../research/08-capital-gains.md`](../research/08-capital-gains.md)
+- **Motor vehicle disposals** no longer treated as "other income", with effect from
+  **1 April 2024** — retrospective, so it reaches years already filed
+- **TIN verification** mandatory for specified transactions from 1 April 2026
+- Payments of Rs. 500,000 or more to be made by approved payment methods
+- Enhanced capital allowances for qualifying investment
+
+None of the above is verified — it comes from secondary reporting and is recorded in the
+register as Q42–Q46, not in research prose. It is listed here to say what the document is
+needed for.
+
+**Until this act is held, no figure in this repository can be described as current**, and
+Y/A 2026/27 — the year now in progress — cannot be modelled at all.
+
+There is also an IRD notice `SEC/PN/IT/2026/02` dated 8 June 2026 which appears to be the
+department's statement on this act. Obtain both.
+
+### 1. Inland Revenue (Amendment) Acts, 2018–2024 — highest priority after the above
 
 **This gap is larger than it looks.** Act 2/2025 amends First Schedule ¶10(1)(d)(ii) to
 set the rate on interest, but in the 2017 base act that rate sits at ¶10(1)(b)(i). The
