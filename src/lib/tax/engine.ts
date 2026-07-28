@@ -1181,6 +1181,12 @@ function buildSchedule(
     taxYear.calendar.returnDueRule.monthsAfterYearEnd,
     'calendar.returnDueRule',
   );
+  // Noted here, not after the early return below: `returnDue` is computed and returned
+  // on every path, with or without an estimate, so its citation must be recorded on
+  // every path too. Deferring this call to after the instalment walk left `sourcesUsed`
+  // missing the returnDueRule source whenever no estimate was given — a date shown with
+  // no citation behind it [CLAUDE.md rule 1].
+  noteSource(taxYear.calendar.returnDueRule.src);
 
   const estimate = input.estimatedTaxForInstalments;
   if (estimate === undefined) {
@@ -1221,7 +1227,6 @@ function buildSchedule(
       amount: toSafeNumber(amount, `instalment q${instalment.quarter}`),
     };
   });
-  noteSource(taxYear.calendar.returnDueRule.src);
 
   // The instalments settle the estimate; the final payment settles the difference between
   // the estimate and the liability actually computed. Signed on purpose — see TaxResult.

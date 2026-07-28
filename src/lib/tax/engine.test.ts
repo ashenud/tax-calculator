@@ -906,6 +906,7 @@ describe('Y/A 2025/2026, from the committed data file', () => {
     expect(result.sourcesUsed).toEqual([
       'act-2-2025#s.5(3) — IRA Sch.5 para 2(a)(v); scope per PN/IT/2025-01 para 1',
       'act-2-2025#s.3(1)(b) — IRA Sch.1 para 1(1D)',
+      'ira-2017#s.93(1)',
     ]);
   });
 
