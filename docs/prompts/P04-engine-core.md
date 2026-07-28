@@ -1,7 +1,7 @@
 ---
 id: P04
 title: Engine part 1 — partition, deduction, the normal ladder
-status: pending
+status: in-progress
 depends: [P03]
 agent: engine-builder
 ---
