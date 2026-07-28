@@ -51,7 +51,7 @@ structure of the form's schedules should reveal how IRD expects the computation 
 
 ```
 Employment income (APIT deducted) + foreign freelance income
-├─ freelance income remitted through a licensed bank?
+├─ freelance income remitted through a bank to Sri Lanka?
 │  ├─ no  → both on the normal ladder — this case IS computable
 │  └─ yes → two schedules
 │           └─ how is relief allocated?  ← Q14, UNRESOLVED → refuse
@@ -68,7 +68,10 @@ while Q14 is open.
 2. Gross employment income, and APIT deducted
 3. Foreign freelance income, currency, and **how the money reached her** — the same
    question as persona p1, with the same real-world options
-4. Any Sri Lankan freelance clients — a third schedule question if so
+4. Any Sri Lankan freelance clients — a third schedule question if so. Do **not** assume
+   withholding was applied to those fees [IRA s.85(1)(a)]: that provision covers an
+   enumerated list which ordinary consultancy work probably falls outside. See
+   [`../research/07-wht-ait-and-credits.md`](../research/07-wht-ait-and-credits.md).
 5. Business expenses attributable to the freelance work
 6. Qualifying payments
 7. Any tax withheld overseas

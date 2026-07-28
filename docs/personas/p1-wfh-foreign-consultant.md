@@ -1,6 +1,6 @@
 # P1 — Work-from-home consultant paid in foreign currency
 
-> **Status:** unverified — the tax treatment below is provisional
+> **Status:** partial — the regime and the condition are verified; the edges that decide her case are not
 > **Related research:** [`../research/05-foreign-currency-service-income.md`](../research/05-foreign-currency-service-income.md)
 > **Priority:** highest
 
@@ -29,22 +29,31 @@ ladder would produce. If it does not — because her earnings sat offshore, or b
 Wise route breaks the chain — she owes considerably more. Same gross income, different
 answer, and nothing in her experience tells her the question exists.
 
-## What is uncertain
+## What is now settled
 
-Nearly all of it. The regime and its conditions are unverified —
-[`../research/12-open-questions.md`](../research/12-open-questions.md) Q4–Q13. Specifically
-unresolved and directly affecting her:
+The regime exists and the condition is statutory, not administrative practice. The
+exemption she remembers was removed with effect from 1 April 2025, and the reduced rate
+applies where the payment is received in foreign currency **and** remitted through a bank
+to Sri Lanka. The operative wording is quoted in
+[`../research/05-foreign-currency-service-income.md`](../research/05-foreign-currency-service-income.md).
+
+One correction worth carrying into the UI copy: the statute says "a bank", not "a
+**licensed** bank". The licensing qualifier is a secondary-source gloss that this project
+repeated until the Act was read.
+
+## What is still uncertain — and it is the part that decides her case
 
 - Whether personal relief applies against this income at all (Q6)
-- The exact wording of the remittance condition (Q8)
 - Whether **partial** remittance qualifies partially or fails entirely (Q11) — this is her
   actual situation
-- Whether a Wise or Payoneer balance settling into a local bank satisfies the condition
+- Whether a Wise or Payoneer balance settling into a local bank satisfies the condition (Q41)
 - Whether a foreign-currency account held at a Sri Lankan bank counts (Q13)
+- When remittance must occur (Q10), and what evidence IRD accepts (Q12)
 - Which exchange rate converts her USD invoices, and at what date
 
-Until these are settled from primary sources, the tool must not give her a figure it
-presents as reliable.
+Knowing the rule without knowing its edges does not yet give Nirmala an answer. The tool
+must not present her a figure as reliable until these are settled. See
+[`../research/12-open-questions.md`](../research/12-open-questions.md).
 
 ## Decision path
 
@@ -53,7 +62,7 @@ Resident in Sri Lanka for the Y/A?
 ├─ no  → different treatment; out of scope for this persona
 └─ yes → Income is service export / foreign source?
          ├─ no  → normal ladder (persona p3 territory if mixed)
-         └─ yes → Were the earnings remitted to Sri Lanka through a licensed bank?
+         └─ yes → Were the earnings remitted through a bank to Sri Lanka?
                   ├─ yes    → reduced schedule
                   ├─ no     → normal ladder — materially more tax
                   └─ partly → UNRESOLVED (Q11). Refuse; do not guess.
@@ -77,6 +86,9 @@ Phrased in terms of what actually happened to her money, not in statutory langua
    - Held in an overseas account
    - A mixture — and how much by each route
 5. Any income from Sri Lankan clients? (routes to p3)
+   — note that withholding on local client fees is narrower than commonly believed; see
+   the s.85(1)(a) scope finding in
+   [`../research/07-wht-ait-and-credits.md`](../research/07-wht-ait-and-credits.md)
 6. Business expenses — home office share, equipment, internet, software, bank charges on
    inward remittances
 7. Any tax withheld overseas?

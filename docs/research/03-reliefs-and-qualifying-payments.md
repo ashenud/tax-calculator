@@ -1,10 +1,41 @@
 # 03 — Reliefs and qualifying payments
 
-> **Status:** unverified — research brief, not findings
-> **Sources:** none held
-> **Last reviewed:** 2026-07-27
+> **Status:** partial — personal relief verified; qualifying payments not
+> **Sources:** pn-it-2025-01.pdf, iit-return-form-2024-25.pdf
+> **Last reviewed:** 2026-07-28
 
-## What this document must establish
+## Verified — personal relief, Y/A 2025/2026
+
+The relief is Rs. 1,800,000 [PN/IT/2025-01, para 1], deductible in arriving at the taxable
+income of an individual who is **resident in Sri Lanka, or a non-resident but a citizen of
+Sri Lanka**, for any year of assessment commencing from Y/A 2025/2026
+[PN/IT/2025-01, para 1].
+
+So a non-resident citizen receives the same relief as a resident — settling Q35.
+
+### Relief is applied once, against aggregated assessable income
+
+The Y/A 2024/2025 return form settles the ordering question directly. Its Section 01
+computes:
+
+- **Part A — income liable to tax:** employment (Schedule 1) + business (Schedule 2) +
+  investment (Schedule 3) + other (Schedule 4) = **assessable income**
+  [Asmt_IIT_001 Y/A 2024/2025, Section 01 Part A]
+- **Part B — deductions from assessable income:** reliefs, then qualifying payments
+  [Asmt_IIT_001 Y/A 2024/2025, Section 01 Part B]
+
+Relief is therefore deducted **once, from the aggregate**, not per head of income. This is
+the rule the engine already asserts, and it now has documentary support rather than
+assumption. It must stay covered by a fixture with income under two heads — applying
+relief twice is the most common error in this domain and produces an entirely plausible
+wrong answer.
+
+> **Still open:** whether relief is available against income taxed under the reduced
+> service-export / foreign-source schedule (Q6), and how it is allocated where income
+> spans two schedules (Q14). The 2024/25 return predates that regime, so it cannot answer
+> either. See [`12-open-questions.md`](12-open-questions.md).
+
+## What this document must still establish
 
 What is deducted between assessable income and taxable income, for whom, and once or
 repeatedly.
@@ -23,12 +54,14 @@ total assessable income.**
 
 **Personal relief**
 
-1. The amount for Y/A 2025/2026, and the amount for each prior year the tool supports.
-2. Which taxpayers get it: resident individuals, non-resident citizens, and anyone else.
-   Is a non-resident non-citizen excluded entirely?
+1. ~~The amount for Y/A 2025/2026~~ — **verified above.** Still needed: the amount for
+   each prior year the tool supports, which requires the 2018–2024 amendment acts.
+2. ~~Which taxpayers get it~~ — **verified above** for residents and non-resident
+   citizens. Still open: whether a non-resident non-citizen is excluded entirely.
 3. Whether it is proportioned for a part-year of residency.
-4. Whether it is applied against total assessable income or per head — and whether the
-   act says so explicitly or leaves it to be inferred.
+4. ~~Applied against total assessable income or per head~~ — **settled above** by the
+   return's structure. Still worth locating the statutory basis rather than relying on
+   the form alone.
 5. Whether it applies against income taxed under the reduced service-export/foreign
    schedule, or only against normal-rate income. **This is Q6, and it is central** — for a
    consultant with only foreign income, whether relief applies at all changes the
@@ -68,4 +101,5 @@ the current personal relief figure.
 
 ## Open questions
 
-Q1, Q6, Q33, Q35 in [`12-open-questions.md`](12-open-questions.md).
+Q6, Q33 in [`12-open-questions.md`](12-open-questions.md). Q1 and Q35 are verified and
+recorded above.

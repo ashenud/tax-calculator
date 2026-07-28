@@ -70,7 +70,7 @@ covered by the fixture suite — so it must come from `TaxResult` instead.
 
 **Questions come from data.** `ConditionQuestions.tsx` renders `taxYear.conditions`. When
 a future amendment adds a condition, it appears in the UI without a code change. Hard
--coding "were these earnings remitted through a licensed bank?" into a component would
+-coding "were these earnings remitted through a bank to Sri Lanka?" into a component would
 break the promise the data model exists to make.
 
 **Year of assessment is always explicit and always selectable.** Never inferred from the

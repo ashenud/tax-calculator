@@ -110,14 +110,14 @@ One file per year of assessment. Filenames use the start year and a two-digit en
         { "width":  null,   "rateBp": 1500, "src": "act-2-2025#sch.1" }
       ],
       "maxRateBp": 1500,
-      "conditions": ["remitted-through-licensed-lk-bank"],
+      "conditions": ["remitted-through-bank-to-sri-lanka"],
       "src": "act-2-2025#sch.1"
     }
   },
 
   "conditions": {
-    "remitted-through-licensed-lk-bank": {
-      "question": "Were these earnings remitted to Sri Lanka through a licensed bank?",
+    "remitted-through-bank-to-sri-lanka": {
+      "question": "Were these earnings remitted through a bank to Sri Lanka?",
       "ifNotMet": "individual-normal",
       "evidence": "Bank inward remittance advice",
       "src": "act-2-2025#s.7"
@@ -166,7 +166,7 @@ of quietly overcharging.
 **Conditions are data, and they are questions.** `conditions` carries the human-facing
 question, the fallback schedule when the condition is not met, and the evidence the
 taxpayer needs. This is what lets the UI ask "were these earnings remitted through a
-licensed bank?" without the question being hardcoded — and it means the answer's
+bank?" without the question being hardcoded — and it means the answer's
 consequence (`ifNotMet`) is stated in the same place a maintainer updates the rule.
 
 **`status` distinguishes proposed from enacted.** Budget announcements are not law. A

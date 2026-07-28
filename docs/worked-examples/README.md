@@ -1,7 +1,8 @@
 # Worked examples
 
 > **Status:** format defined; no examples written yet
-> **Blocked on:** verified rate tables — see [`../research/12-open-questions.md`](../research/12-open-questions.md)
+> **Now unblocked:** normal-ladder cases for Y/A 2025/2026 — the rates are verified
+> **Still blocked:** anything touching the reduced foreign-income schedule
 
 Fully computed cases: a taxpayer's facts, the computation line by line with citations,
 and the resulting liability and payment schedule.
@@ -19,16 +20,30 @@ flawed document — it produces a test that permanently asserts a wrong answer a
 fail correct code. Worse, once a test passes, the wrong figure acquires the authority of
 being tested.
 
-## Why no examples exist yet
+## What can and cannot be written now
 
-Every rate is unverified. An example written against an unverified rate table would bake
-a provisional number into the test suite, where its provisional status would quietly
-disappear.
+**Can be written.** The Y/A 2025/2026 personal relief and normal individual ladder are
+verified from two independent primary sources — see
+[`../research/04-rate-tables.md`](../research/04-rate-tables.md). Examples on the normal
+ladder can be written with real citations and `verified: true`:
 
-Examples get written once
-[`../research/04-rate-tables.md`](../research/04-rate-tables.md) is verified, or — if
-written earlier out of necessity — with a prominent warning at the top of the file and a
-corresponding row in [`../research/12-open-questions.md`](../research/12-open-questions.md).
+- income below the relief threshold
+- each normal-ladder band boundary
+- salary with no APIT deducted (persona p2), for the tax figure itself
+- relief applied once across two heads of income
+
+**Cannot be written.** Anything depending on the reduced service-export / foreign-source
+schedule. The 15% maximum is verified, but the band structure beneath it is not stated in
+the sources held, and whether personal relief applies against that income is open (Q6). An
+example would have to invent the intermediate bands — baking a guess into the test suite
+where its provisional status would quietly disappear.
+
+Anything spanning both schedules is blocked on Q14, and anything asserting an instalment
+date is blocked on Q21–Q23.
+
+If an example must be written before its rates are verified, it carries a prominent
+warning at the top of the file, `verified: false`, and a row in
+[`../research/12-open-questions.md`](../research/12-open-questions.md).
 
 ## File naming
 
@@ -60,7 +75,7 @@ input:
         amount: 6000000
         schedule: service-export-foreign
         conditions:
-          remitted-through-licensed-lk-bank: true
+          remitted-through-bank-to-sri-lanka: true
     employment: []
     investment: []
   deductions:
@@ -92,7 +107,7 @@ expected:
     - unverified-rate-table
 ---
 
-# P1 — consultancy income remitted through a licensed bank
+# P1 — consultancy income remitted through a bank to Sri Lanka
 
 ## Facts
 
@@ -153,7 +168,7 @@ suite.
 The most valuable examples come in pairs identical but for one fact, isolating a single
 rule.
 
-The essential pair is foreign-currency income **remitted** through a licensed bank versus
+The essential pair is foreign-currency income **remitted** through a bank versus
 the **same income not remitted** — same gross, materially different liability. An example
 showing only the favourable path teaches nothing about the condition the taxpayer has to
 satisfy, which is the thing they most need to understand.

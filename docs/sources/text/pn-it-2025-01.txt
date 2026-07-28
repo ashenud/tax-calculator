@@ -1,0 +1,32 @@
+# Extracted from pn-it-2025-01.pdf
+# NOT AUTHORITATIVE — the PDF is. Extraction is lossy; verify any quote
+# against the PDF before relying on it. Regenerate: node scripts/extract-sources.mjs
+
+` 1  PN/IT/2025-01 26.03.2025  INLAND REVENUE DEPARTMENT Notice to the Taxpayers  Inland Revenue (Amendment) Act, No. 02 of 2025 has been certified on 20.03.2025 and important changes made from such amendment Act to the Inland Revenue Act, No. 24 of 2017 (IRA) are as follows. 1. Personal Relief Personal Relief which can be deducted in arriving at the taxable income of an individual who is resident in Sri Lanka or a non-resident but a citizen in Sri Lanka for any year of assessment (commencing from the Y/A 2025/2026) has been increased to Rs. 1,800,000. 2. Revision of Income Tax Rates Effective from 01.04.2025 2.1 Tax rates for resident and non - resident individuals  (a) Normal progressive income tax rates Taxable Income (LKR) Tax Rate (%) First 1,000,000 6 Next 500,000 18 Next 500,000 24 Next 500,000 30 Balance 36  (b) Maximum income tax rate applicable for following gains and profits is 15% i. The gains and profits earned or derived from any service rendered in or outside Sri Lanka to any person to be utilized outside Sri Lanka, where the payment for such services is received in foreign currency and remitted through a bank to Sri Lanka (Service Exports). Amendments to the Inland Revenue Act, No. 24 of 2017en-GB ` 2  ii. The gains and profits earned or derived from any foreign source where such gains and profits are earned or derived in foreign currency and remitted through a bank to Sri Lanka (Foreign Sources). (c) Income from a business consisting of betting and gaming, manufacture and sale or import and sale of any liquor or tobacco product = Tax Rate is 45% (flat rate). 2.2 Tax rates for companies -special tax rates  (a) Gains and profits from conducting betting and gaming = 45% (b) Gains and profits from the manufacture and sale or import and sale of any liquor or tobacco product = 45% (c) Gains and profits from the export of any liquor or tobacco product (normal income tax rate) = 30% (d) Gains and profits from Service Exports (similar to conditions as mentioned above) = 15% (e) Gains and profits from Foreign Sources (similar to conditions as mentioned above) = 15% 2.3 Withholding Tax / Advance Income Tax (AIT) rate  Interest or discounts paid = 10% **Based on the revision of individual income tax rates and AIT rate, Advance Personal Income Tax (APIT) Tables and withholding tax circulars will be issued in due course.  3. Removal of Income Tax Exemptions  Effective from April 1st 2025, income tax exemptions on service exports and foreign sources income have been removed. 4. Changes for Income Tax Refunds Procedure  If a resident individual claims a refund (by submitting a tax return) of up to Rs. 180,000 for a year of assessment starting from 2025/2026, the Commissioner-General process the refund within three months of the claim, before a tax audit.  However, senior citizens (as defined in Section 195 of the IRA) are entitled to receive quarterly refunds (quarters ending on June 30th, September 30th, December 31st, and March 31st) if their claim is less than Rs. 45,000, prior to a tax audit.  Effective from the year of assessment 2024/2025, Refund claims shall be applied by the taxpayer within 30 months of the last date of the relevant year of assessment where the taxpayer is required to file a tax return. Commissioner General of Inland Revenue  ,/0135789GUh"AEINPRVdrÿÿ ADILPRTdrÿÿÿãÿãÿãÿãÿãÿãÿãÿãÿãÿã@@RIH<;:9876543210/.-,+*+# Ð#°+°CXÀ<Y °-,KS#KQZX8!!Y-,°%Ð#É°°°<°-,°°°%I°8°-,KS#KQZX E`D!!Y-,KSX°%°%Id°%°%Idh°@a °bj°%°%a°#D!°%#°ö°%°%# 9/YÌ!!-,°CX°%F#Eda!°%°%JY°#D#°ì#°ì-,°CX °`E°QX °` E h°UX° `D!!!!Y °` E h°UX¸ÿà`D°KPX E° `D!Y!!!YY!Y-,KS#KQZX8!!Y-,KTX8!!Y-,KRX}zY-@ßàÔÕ{|{|@{9p?pÑÒvwmploknÏnnÿkknrjjOj_jojtugji i¯f¿fÏffi¯h¿hÏhehee0e@ePepeeÿeehqszC!yC!¸ÿÀ³×"$9¸ÿÀ³×9¸ÿÀ³×9¸ÿÀ³×9¸ÿÀ³×9¸ÿÀ³Â""9¸ÿÀ@Â9Ð+ÐQ+¸ÿÀ³Q9¸ÿÀ³Q	9¸ÿÀ@'b9d dPdpd coccc?cpcccÀcðca°+¸ÿÀ³`	9¸ÿÀ³T9¸ÿÀ·T	9ÉÈ+¸ÿÀ³È !9¸ÿÀ·È9ÍÌ	+¸ÿÀ³Ì%%9¸ÿÀ³Ì9¸ÿÀ³Ì9¸ÿÀ³Ì9¸ÿÀ³O9¸ÿÀ³O	9¸ÿÀ³N	
+9¸ÿÀ³M 9¸ÿÀ@H999PHHàH¸ÿÀ³H9¸ÿÀ@H9@¢9¢H+¸ÿÀ³£&E°*Ea°,E`D++++++++++++utsst++++uts+t++++ts++++s++++++++++++++s++++++++++++stu+++++++++++++++t+++++++++++++++++sts++++++++++++CXY++°°#KSB++st+st+sts++s+sts+++++s+++++±	2+K°PRBK°RK°P[°#BK°ÈRK°6P[°#B=*=!?ÿÖÿçÿßþ7ÿöþ{ÿëTÿöÿî¦X7¦Á1"{Nn'í´D¢ÞJ+ÿuÿÕÿþÝ=
+ÿ#ÿÃÿö>ÿÂhH9eHâÚÇXá0ýÓ4ø>-'^sX3¯KdF--/]]
+~ 
+@o
+k	¦¦?ýÀ?ýÀ++MíýÀí10_^]]! !!53#4&##326B÷G&þÏþñûÜß,jfRcG=þTçöþL/ßûàbvHû!JD}=@	ådt¸ÿà@MH H H¤		¤¤  @kK@Kd0¦­¦¬?äýÀ?äýÀ+/Mäýä+MýÀýÀÖíÖ_^]í9/^]ýÀ210+++]]!!53#5!#&&##32653#4&##2$73}úÇ-íô¸ÿà@l
+
+/?O_ÿ@H
+ P`p	pm
+¦?Àí2?À9++_^]3/]993/]999/+]q33.M+}Ä.+}Ä810]]!#5!#6654#5!~þ`þ¾þ:kL+É®Ù2þÞüF//üÁÝ.c²/+ÿåüV"n@E$--££	@$h#	f"§!ª§§Öª§?íæ?íõí?íæ?ýÔí2++MííýÀÀä10_^]]]]!!"5#"&54632#5!273%&#"32üþrY|~²ßÒ§yLvýºB&2%0_aùÀ¿ñBAMT50ccÄycc+https://www.verisign.com/rpa0U%0
++0UÀ0	*H÷-óOc`,Úõ$R³ë³¼gÂ#íFÏM¾ó|z 02h»2ð¸;'{>¤!
+Åå@WÅ%è¯¯j©å;Ëé#öcc!W`i7»K<Vÿ[û¤f
+¦ÒVWï¶;^wÚö¾®þ°ÍÖ§r\<Ê¼ð£"0³É³ wß£¨0¥0¢U0[Ðpïir#Q~²MÿË¡r0p1+0cÿÖð~¸Å«7,äzä¨wãv Ðj?ÁÒ6àA¨5jjÛ5áÔä¨EÈZ38nMb·
+¢ÓÕT?FÍU¦pÛ:u§Ò 0É0± jOÀÞªÔØ@¨¾æ0	*H÷0p1+0cc0$0U%0
++0¢U0[Ðpïir#Q~²MÿË¡r0p1+0c0	+7
+SubCA0UF0Uÿ0ÿ0	*H÷EXâAü¿Hww®ÙæÅW´½´¹_¡Ej9Yù¹'-Mü¢ä88d"Bß¹/*Ï·ÖÊë*¿à|ÛQ=ô"ÓÔÀmD_ddÄ©,Û7J·èÔavváÙ%ÿ$VT¡:>¼î¥Ky_µIú^2i:T­uMßdç0<ÛdIDûûÄBqæ =Eîk¬B½º³VäûÕ¢*ØN¢U¾'p¦¢lÿT¼K¦¡±fz©§ËÀGë¦³é1S=*¿ÿsHÜ'Cücèî$[¾6Ñè1õ2Ù^ßyzº0¬iJû¿TY00÷ 
+aC40	*H÷0¦10	UUS10U
+Washington10URedmond10U
+Microsoft Corporation1+0cc¡t¤r0p1+0cÜ
+ÇCãzH]¸@lnÅÜøï¾!
+/:µí§Îqh#á³ä}¸G¥+ÄXË²l_ýÓ,Äo¸#²ÿ<òEtò	ÝoÀ+¯Vïe3¡êgNôK«éÜúß`fG]Ë,pÌ{NÙ¸nþbBù|¢«
+Ð#®M{'o&¾hú¦?#ëÈ»1#00µ0¦10	UUS10U
+Washington10URedmond10U
+Microsoft Corporation1+0ccá[Tv/M#/HoldingsHoldingsHoldingsHoldingsÆb³TUÅDEJ;Â~ØÓ×ÈØñÌk©cccccß<»­úg0!Uÿ000
++70U
+0@06
++7
+ÿ#0 CPScc2á~nè®,ÇNJRÿ°W£úÞÉÅRw×d

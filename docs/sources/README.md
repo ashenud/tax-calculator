@@ -20,51 +20,95 @@ verified, no matter how many search results agree on it.
 Every PDF gets a row before it is used. Fill in `SHA-256` with
 `sha256sum <file> | cut -c1-16` so a document can't be silently swapped.
 
-| File | Document | Source URL | Retrieved | SHA-256 (first 16) | Status |
+| File | Document | Source | Retrieved | SHA-256 (first 16) | Status |
 |---|---|---|---|---|---|
-| _(none yet)_ | | | | | |
+| `ir-act-24-2017.pdf` | Inland Revenue Act, No. 24 of 2017. Certified 24 Oct 2017 | ird.gov.lk | 2026-07-28 | `e857f11ec026b424` | in force, as amended |
+| `ir-amendment-act-2-2025.pdf` | Inland Revenue (Amendment) Act, No. 2 of 2025. Certified 20 Mar 2025; gazette supplement 21 Mar 2025; in operation 1 Apr 2025 | parliament.lk | 2026-07-28 | `0dff13924d408a62` | in force |
+| `pn-it-2025-01.pdf` | IRD Public Notice PN/IT/2025-01, 26 Mar 2025 — Notice to the Taxpayers | ird.gov.lk | 2026-07-28 | `b0faa89a25880bc3` | in force |
+| `iit-return-form-2024-25.pdf` | Return of Income — Individual, Y/A 2024/2025 (`Asmt_IIT_001_E`) | ird.gov.lk | 2026-07-28 | `6b8777035b55b99d` | superseded for Y/A 2025/26 |
+| `iit-return-guide-2024-25.pdf` | Guide to fill the Return of Income, Schedules & Statement of Assets and Liabilities — Individual, Y/A 2024/2025 (`Asmt_IIT_004_E`) | ird.gov.lk | 2026-07-28 | `97fd00d9e2fcab83` | superseded for Y/A 2025/26 |
+| `iit-comprehensive-guide-2024-25.pdf` | Guidelines for e-Filing Individual Income Tax (IIT) Return, Y/A 2024/2025 | ird.gov.lk | 2026-07-28 | `4f987143f6c8aff5` | superseded for Y/A 2025/26 |
+
+### Notes on specific documents
+
+**`pn-it-2025-01.pdf` was downloaded with a `_T` suffix** (`PN_IT_2025-01_26032025_T.pdf`),
+which on the IRD site usually denotes the Tamil edition. **It is the English text** —
+confirmed by reading it. Do not re-download it looking for an English version.
+
+**`ir-amendment-act-2-2025.pdf` was downloaded as `6379.pdf`**, the parliament.lk bill
+number. Confirmed as Act No. 2 of 2025 by its title page. Note the Act states that the
+**Sinhala text prevails in case of inconsistency**; this repo works from the English text
+and that limitation should be recorded against any finely-worded conclusion.
+
+**The IIT forms are Y/A 2024/2025** — one year before the service-export and
+foreign-source regime began. They do **not** show where foreign-currency income is
+reported on the return. The Y/A 2025/2026 form is listed under "Should have" below.
 
 ### Status values
 
 - **in force** — currently operative law
 - **in force, as amended** — base act still operative but modified; amendments must be read alongside
 - **superseded** — retained for historical years of assessment only
+- **superseded for Y/A N** — still authoritative for its own year, not for later ones
 - **draft/bill** — not yet law; may not be cited as authority
 
-## Required documents
+## Extracted text — an index, not an authority
 
-### Must have — research is blocked without these
+`node scripts/extract-sources.mjs` writes a plain-text form of each PDF to
+`docs/sources/text/`. This is what makes the acts greppable, and therefore what makes
+`tax-rule-verifier` able to work at all.
 
-**1. `ir-act-24-2017.pdf` — Inland Revenue Act, No. 24 of 2017**
-The base act. Everything else amends it. Section numbers in citations refer to this act.
-`https://www.ird.gov.lk/en/publications/Acts_Income%20Tax_2017/IR_Act_No_24_2017_E.pdf`
+**The PDF is authoritative. The text is not.** Extraction drops ligatures, destroys table
+layout, and mangles some embedded fonts. The failure is silent — text that has lost a
+"not", or merged two columns of a rate table, still reads perfectly fluently. Locate a
+provision in the text; **read it in the PDF before quoting it as evidence.**
 
-**2. `ir-amendment-act-2-2025.pdf` — Inland Revenue (Amendment) Act, No. 2 of 2025**
-The act that makes the changes this project exists to explain: the personal relief
-increase, the restructured rate bands, and the reduced-rate treatment of service-export
-and foreign-source income from 1 April 2025. **Without this file the Y/A 2025/26 rate
-tables cannot be verified at all.**
-`https://www.parliament.lk/uploads/acts/gbills/english/6379.pdf`
+Regenerate after adding a document. `--check` verifies the text is present without
+rewriting it.
 
-**3. `pn-it-2025-01.pdf` — IRD Public Notice PN/IT/2025-01, 26 March 2025**
-The department's own statement of how it will administer the 2025 changes.
-`https://www.ird.gov.lk/en/Lists/Latest%20News%20%20Notices/Attachments/666/PN_IT_2025-01_26032025_E.pdf`
+## Still missing
 
-### Should have — needed for specific research documents
+The three core instruments are now held. What remains blocks specific questions in
+[`../research/12-open-questions.md`](../research/12-open-questions.md).
+
+### 1. Inland Revenue (Amendment) Acts, 2018–2024 — highest priority
+
+**This gap is larger than it looks.** Act 2/2025 amends First Schedule ¶10(1)(d)(ii) to
+set the rate on interest, but in the 2017 base act that rate sits at ¶10(1)(b)(i). The
+schedule was **re-lettered by an amendment nobody in this repo holds.**
+
+Two consequences:
+
+- Any citation to the base act's First Schedule lettering is **stale** and may point at
+  the wrong item.
+- Q18 and Q19 cannot be closed. The base act's service-fee threshold may have been
+  amended, moved, or repealed in the interim, and we would not know.
+
+Relevant acts include Nos. 10 of 2021, 45 of 2022 and 4 of 2023, but the full list should
+be confirmed rather than assumed.
+
+### 2. The WHT / AIT circular promised by PN/IT/2025-01
+
+PN/IT/2025-01 ¶2.3 states that following the rate revisions, "Advance Personal Income Tax
+(APIT) Tables and withholding tax circulars **will be issued in due course**." That
+circular is the only thing that settles the current service-fee withholding threshold —
+Q18, Q19.
+
+### 3. Other documents
 
 | Document | Unblocks |
 |---|---|
-| Inland Revenue (Amendment) Acts of 2018–2024 | `04-rate-tables.md` for prior years; the history in `05-foreign-currency-service-income.md` |
-| APIT tables / instructions for Y/A 2025/26 | `06-apit.md` |
-| WHT & AIT circular or notice, current | `07-wht-ait-and-credits.md` — **needed to settle the service-fee threshold conflict** |
-| IRD Tax Calendar 2026 | `10-compliance-calendar.md` |
-| IIT return form + guide to completion, Y/A 2025/26 | `11-filing-walkthrough.md`, and the field mapping in `../spec/data-model.md` |
-| Statement of Estimated Tax (SET) form + guide | `10-compliance-calendar.md` |
+| APIT tables / instructions, Y/A 2025/26 | `06-apit.md`; Q30 (mandatory vs elective deduction) |
+| **IIT return form + guide, Y/A 2025/2026** | `11-filing-walkthrough.md`; may resolve **Q14** (relief allocation across schedules) by showing how IRD structures the computation. The 2024/25 forms held here predate the 15% regime. |
+| IRD Tax Calendar 2026 | `10-compliance-calendar.md`; Q21–Q23 |
+| Statement of Estimated Tax (SET) form + guide | `10-compliance-calendar.md`; Q25 |
+| Regulations under IRA s.85(1)(a)(v) | Whether ordinary consultancy fees are within the service-fee withholding at all — see `07-wht-ait-and-credits.md` |
 
 ### Nice to have
 
-Gazettes on exemptions relevant to service exporters; IRD guidance on evidencing
-inward remittance through a licensed bank.
+IRD guidance on evidencing inward remittance through a bank (Q12); gazettes on
+exemptions relevant to service exporters; the Sinhala text of Act 2/2025, which prevails
+over the English in case of inconsistency.
 
 ## Adding a document
 
@@ -72,9 +116,11 @@ inward remittance through a licensed bank.
 2. Commit the PDF here under the naming convention: lowercase, hyphenated,
    `<instrument>-<number>-<year>.pdf`.
 3. Add a row to the register above, including the SHA-256 prefix and status.
-4. Mark any superseded document's row as `superseded`; do not delete it — historical
+4. Run `node scripts/extract-sources.mjs` and commit the generated text, so the document
+   is greppable by agents.
+5. Mark any superseded document's row as `superseded`; do not delete it — historical
    years of assessment still need it.
-5. Run `/verify-rates` against the claims in
+6. Run `/verify-rates` against the claims in
    [`../research/12-open-questions.md`](../research/12-open-questions.md) that the new
    document should settle, and move whatever it confirms into the research prose.
 
