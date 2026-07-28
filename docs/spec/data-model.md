@@ -124,23 +124,55 @@ One file per year of assessment. Filenames use the start year and a two-digit en
     }
   },
 
+  // Components the Act rates separately, leaving "only the remainder" on the ladder
+  // [IRA Sch.1 para 1(2)(d), 2017].
+  "separatelyRated": {
+    "capital-gain": {
+      "label": "Gains on realisation of investment assets",
+      "rateBp": 1000,
+      "reliefEligible": false,          // [IRA Sch.5 para 2(a), 2017]
+      "verified": false,                // 2017 rate; superseded by Act 11/2026 — Q42
+      "src": "ira-2017#sch.1-para-1(2)(a)"
+    },
+    "terminal-benefit": {
+      "label": "Terminal benefits",
+      "selector": { "field": "serviceYears", "thresholdYears": 20 },
+      "tablesBySelector": {
+        "atOrBelow": [
+          { "width": 2000000, "rateBp":    0, "src": "ira-2017#sch.1-para-1(2)(b)(i)" },
+          { "width": 1000000, "rateBp":  500, "src": "ira-2017#sch.1-para-1(2)(b)(i)" },
+          { "width": null,    "rateBp": 1000, "src": "ira-2017#sch.1-para-1(2)(b)(i)" }
+        ],
+        "above": [
+          { "width": 5000000, "rateBp":    0, "src": "ira-2017#sch.1-para-1(2)(b)(ii)" },
+          { "width": 1000000, "rateBp":  500, "src": "ira-2017#sch.1-para-1(2)(b)(ii)" },
+          { "width": null,    "rateBp": 1000, "src": "ira-2017#sch.1-para-1(2)(b)(ii)" }
+        ]
+      },
+      "verified": false,                // 2017 tables — Q32
+      "src": "ira-2017#sch.1-para-1(2)(b)"
+    },
+    "special-business": {
+      "label": "Betting and gaming; liquor; tobacco",
+      "rateBp": 4500,
+      "src": "act-2-2025#s.3(1)(c)"
+    }
+  },
+
   "apit": { "tables": [], "src": "..." },
   "wht":  {
-    // "interest": { "rateBp": 1000, "src": "..." },
-    // "serviceFeeResidentIndividual": { "rateBp": 500, "monthlyThreshold": 0, "src": "..." }
+    "interest": { "rateBp": 1000, "src": "act-2-2025#s.3(3)" }
   },
-  "capitalGains":     { "rateBp": null, "src": "..." },
-  "terminalBenefits": { "bands": [], "src": "..." },
 
   "calendar": {
     "instalments": [
-      { "quarter": 1, "due": "2025-08-15", "src": "ira-2017#s.90" },
-      { "quarter": 2, "due": "2025-11-15", "src": "ira-2017#s.90" },
-      { "quarter": 3, "due": "2026-02-15", "src": "ira-2017#s.90" },
-      { "quarter": 4, "due": "2026-05-15", "src": "ira-2017#s.90" }
+      { "quarter": 1, "due": "2025-08-15", "src": "ira-2017#s.90(2)(a)" },
+      { "quarter": 2, "due": "2025-11-15", "src": "ira-2017#s.90(2)(a)" },
+      { "quarter": 3, "due": "2026-02-15", "src": "ira-2017#s.90(2)(a)" },
+      { "quarter": 4, "due": "2026-05-15", "src": "ira-2017#s.90(2)(a)" }
     ],
-    "finalPayment": { "due": "2026-09-30", "src": "ira-2017#s.90" },
-    "returnDue":    { "due": "2026-11-30", "src": "ira-2017#s.93" }
+    // Derived, not stored: period.to + 8 months [IRA s.93(1)].
+    "returnDueRule": { "monthsAfterYearEnd": 8, "src": "ira-2017#s.93(1)" }
   }
 }
 ```
@@ -189,6 +221,17 @@ consequence (`ifNotMet`) is stated in the same place a maintainer updates the ru
 **Superseded years are retained forever.** Amended and late returns are filed years
 afterwards. Deleting a year makes the tool useless to exactly the taxpayer most likely
 to need help.
+
+**Deadlines that are rules are stored as rules.** The return due date is "eight months
+after the end of the year of assessment" [IRA s.93(1)] — so the data carries
+`returnDueRule.monthsAfterYearEnd`, not a literal date. Storing the date means every new
+year needs a new entry and invites a stale one. Instalment dates *are* stored, because
+s.90(2)(a) names specific months rather than an offset.
+
+**`verified` is a first-class field.** Several values held here are 2017 text known to be
+superseded — the capital gains rate above all. The engine reads this flag and emits a
+warning for any unverified rate it actually applied. Removing the flag to make a warning
+go away is the failure this field exists to prevent.
 
 ## Validation
 

@@ -22,6 +22,11 @@ jobs:
       - name: Check citations and links
         run: node scripts/check-citations.mjs
 
+      # The prompt index is generated from the prompt files' front matter. A stale
+      # index claiming "done" for something half-built is worse than no index.
+      - name: Check build-prompt index is in sync
+        run: node scripts/prompt-status.mjs --check
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:

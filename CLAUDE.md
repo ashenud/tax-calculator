@@ -105,14 +105,34 @@ Use the right one; they have deliberately different powers.
 | `tax-rule-verifier` | Confirming or refuting one specific claim | Read-only, adversarial, quotes the source |
 | `tax-data-updater` | Applying new law to tax data files | Diffs every changed value against the prior year |
 | `tax-worked-example` | Producing a new worked example / fixture | Emits the machine-readable fixture format |
+| `app-builder` | Scaffold, schema, loader, CI, deployment | No tax logic, no components |
+| `engine-builder` | The calculation engine and its fixtures | Highest-risk code in the repo |
+| `ui-builder` | Tokens, components, pages, the calculator | Bound by the ADR-0003 invariants |
 
 Research and verification are separate agents on purpose. An agent that checks its own
 research will confirm its own mistakes.
 
+## Building the application
+
+The build runs as an ordered sequence of prompts in [`docs/prompts/`](docs/prompts/),
+P00 to P16, each self-contained with its own acceptance criteria.
+
+```bash
+node scripts/prompt-status.mjs next     # what to run now
+/run-prompt                             # execute it, verify, set status
+/build-status                           # progress
+```
+
+`status:` in each prompt's front matter is the single source of truth;
+`docs/prompts/INDEX.md` is generated from it and CI fails if it drifts.
+
+**`done` means the acceptance checks actually passed.** Marking a prompt done with failing
+tests poisons every prompt after it, because the next one starts by trusting yours.
+
 ## Current status
 
-Phase 1 (this phase): research foundation and tooling. **No application code yet.**
-The Astro site is built in a later phase from `docs/spec/`.
+Phase 1: research foundation and tooling — **complete**. Phase 2: the Astro site, built
+from `docs/spec/` via `docs/prompts/`. **No application code yet.**
 
 Before writing research prose, confirm `docs/sources/` actually contains the acts. If
 it is empty, the honest output is a research *brief* saying what must be checked — not
