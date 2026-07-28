@@ -1,7 +1,7 @@
 ---
 id: P01
 title: Design tokens, base layout, and the ADR-0003 invariants
-status: pending
+status: in-progress
 depends: [P00]
 agent: ui-builder
 ---
