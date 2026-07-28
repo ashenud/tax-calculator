@@ -40,7 +40,7 @@ unfinished.
 |---|---|---|---|---|---|
 | ☑ | `P00` | [Project scaffold — Astro, React, TypeScript, Tailwind, Vitest](P00-scaffold.md) | done | — |  |
 | ☑ | `P01` | [Design tokens, base layout, and the ADR-0003 invariants](P01-design-tokens-shell.md) | done | P00 |  |
-| ☐ | `P02` | [Tax-year schema, loader and build-time validation](P02-tax-data-schema.md) | pending | P00 |  |
+| ◐ | `P02` | [Tax-year schema, loader and build-time validation](P02-tax-data-schema.md) | in-progress | P00 |  |
 | ☐ | `P03` | [Y/A 2025/2026 tax data file](P03-data-2025-26.md) | pending | P02 | waiting on P02 |
 | ☐ | `P04` | [Engine part 1 — partition, deduction, the normal ladder](P04-engine-core.md) | pending | P03 | waiting on P03 |
 | ☐ | `P05` | [Engine part 2 — separately-rated components, the rate cap, and refusal](P05-engine-components.md) | pending | P04 | waiting on P04 |
