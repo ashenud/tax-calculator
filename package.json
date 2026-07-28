@@ -1,0 +1,40 @@
+{
+  "name": "sri-lanka-tax-calculator",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Static site helping individuals in Sri Lanka compute income tax and prepare their return",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "vitest run",
+    "typecheck": "astro check && tsc --noEmit",
+    "lint": "eslint . && prettier --check \"src/**/*.{ts,tsx,astro,css}\""
+  },
+  "dependencies": {
+    "@astrojs/react": "6.0.1",
+    "@tailwindcss/vite": "4.3.3",
+    "astro": "7.1.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "tailwindcss": "4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@eslint/js": "10.0.1",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "eslint": "10.8.0",
+    "eslint-plugin-astro": "3.0.1",
+    "prettier": "3.9.6",
+    "prettier-plugin-astro": "0.14.1",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.65.0",
+    "vitest": "4.1.10"
+  }
+}

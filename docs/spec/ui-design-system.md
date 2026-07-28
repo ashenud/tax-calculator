@@ -19,18 +19,47 @@ Two consequences that override normal aesthetic preference:
 
 ## Stack
 
+Versions below are **as actually installed at P00**, not aspirational.
+
 | Layer | Choice | Note |
 |---|---|---|
-| Framework | **Astro 6** | static output; guidance pages ship zero JS |
-| Islands | **React 19** | only the calculator hydrates |
-| Styling | **Tailwind CSS v4.3** | CSS-first config via `@theme` |
-| Integration | **`@tailwindcss/vite`** | `@astrojs/tailwind` does not support Astro 6 |
+| Framework | **Astro 7.1.4** | static output; guidance pages ship zero JS |
+| Islands | **React 19.2.8** via `@astrojs/react` 6.0.1 | only the calculator hydrates |
+| Styling | **Tailwind CSS 4.3.3** | CSS-first config via `@theme` |
+| Integration | **`@tailwindcss/vite` 4.3.3** | see below — `@astrojs/tailwind` is doubly unusable |
+| Language | **TypeScript 6.0.3** | **not 7.x** — see below |
+| Tests | **Vitest 4.1.10** | `passWithNoTests` until P04 |
+| Lint/format | ESLint 10.8.0, typescript-eslint 8.65.0, Prettier 3.9.6 | |
 | Primitives | **Radix UI** | headless, accessible; we style them |
 | Icons | **Lucide** | tree-shakeable |
 | Fonts | system stack + one variable display face, self-hosted | no external font CDN — CSP and offline |
 
-> Versions are as at 2026-07-28. Confirm current stable before scaffolding; a spec that
-> pins a stale version is worse than one that says to check.
+### Two constraints found by installing, not by reading
+
+**`@astrojs/tailwind` cannot be used.** It peers `astro: ^3 || ^4 || ^5` *and*
+`tailwindcss: ^3.0.24` — so it supports neither our Astro nor our Tailwind. This is a
+harder fact than the earlier draft of this spec claimed. `@tailwindcss/vite` peers
+`vite: ^5.2 || ^6 || ^7 || ^8`, and Astro 7 ships Vite `^8`, so it is compatible.
+
+**TypeScript is pinned below 7.** `npm install` hard-fails on 7.x: `@astrojs/check` peers
+`typescript: ^5 || ^6`, and typescript-eslint peers `>=4.8.4 <6.1.0`. Latest 6.x installs
+clean. Revisit when `@astrojs/check` supports 7.
+
+`eslint-plugin-jsx-a11y` is **not installed** — its latest peers `eslint: ^3…^9` and blocks
+ESLint 10. It is a `peerOptional` of `eslint-plugin-astro`, so dropping it resolved the
+conflict without downgrading ESLint. Accessibility linting is P15's scope; this is a gap to
+close there, not a decision to leave unexamined.
+
+> An earlier version of this spec named Astro 6 and was already stale within hours of being
+> written. Confirm current stable before scaffolding rather than trusting these numbers —
+> and when they change, update this table from what installed.
+
+### Two operational notes for CI
+
+- Node must be **≥ 22.22.3**; `eslint-plugin-astro` emits an EBADENGINE warning below that.
+- **Astro telemetry is on by default.** Given this project's "nothing leaves the browser"
+  posture, set `ASTRO_TELEMETRY_DISABLED=1` in CI (P16). It was not disabled locally because
+  that writes to global user config outside the repo.
 
 ## Tokens
 

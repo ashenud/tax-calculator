@@ -1,0 +1,6 @@
+/*
+ * Tailwind v4 entry point. This is wiring only — design tokens, the colour
+ * scale, typography and the base layer belong to P01 (design tokens and shell)
+ * and should be added here or alongside, not inlined into components.
+ */
+@import 'tailwindcss';
