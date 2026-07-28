@@ -6,10 +6,22 @@
 
 ## Verified — personal relief, Y/A 2025/2026
 
-The relief is Rs. 1,800,000 [PN/IT/2025-01, para 1], deductible in arriving at the taxable
-income of an individual who is **resident in Sri Lanka, or a non-resident but a citizen of
-Sri Lanka**, for any year of assessment commencing from Y/A 2025/2026
-[PN/IT/2025-01, para 1].
+The relief is Rs. 1,800,000 [IRA Sch.5 para 2(a)(v), ins. Act 2/2025 s.5(3)], deductible in
+arriving at the taxable income of an individual who is **resident in Sri Lanka, or a
+non-resident but a citizen of Sri Lanka**, for any year of assessment commencing on or
+after 1 April 2025 [PN/IT/2025-01, para 1].
+
+The operative words, inserted as a new item (v):
+
+> "Rs. 1,800,000, for each year of assessment commencing on or after April 1, 2025"
+
+[IRA Fifth Schedule para 2(a)(v), as inserted by Act 2/2025 s.5(3)]
+
+**Where it sits structurally matters.** Personal relief is not a free-standing deduction —
+it lives in the **Fifth Schedule**, which s.52(1) deducts as "the aggregate qualifying
+payments referred to in the Fifth Schedule" in arriving at taxable income [IRA s.52(1)].
+Relief and qualifying payments are therefore one deduction step in the Act's scheme, not
+two, and the engine should model them that way.
 
 So a non-resident citizen receives the same relief as a resident — settling Q35.
 

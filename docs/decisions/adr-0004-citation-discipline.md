@@ -28,7 +28,7 @@ that look cited, sound right, and cannot be traced to anything.
 
 ```
 [IRA s.85(1)(a)]                              base act
-[IRA s.52, as amended by Act 2/2025 s.14]     amended — cite both
+[IRA Sch.5 para 2(a)(v), ins. Act 2/2025 s.5(3)]     amended — cite both
 [PN/IT/2025-01, para 3]                       IRD notice
 ```
 
@@ -84,3 +84,19 @@ Only `tax-rule-verifier` reading the actual document catches that — which is w
 verifier is read-only, adversarial, separate from the author, and required to produce a
 verbatim quote. If it cannot quote the provision, the verdict is `not-found`, and
 `not-found` on a figure everyone believes is the correct and useful answer.
+
+### This is not hypothetical — it happened here
+
+The example citation used throughout this repository, including in `CLAUDE.md` as the
+canonical format, was `[IRA s.52, as amended by Act 2/2025 s.14]`. It was written before
+the Act had been read.
+
+**Act 2/2025 has six sections.** There is no s.14, and the Act never mentions relief or
+s.52 at all: the Rs. 1,800,000 figure sits in the Fifth Schedule, inserted by s.5(3)
+[IRA Sch.5 para 2(a)(v), ins. Act 2/2025 s.5(3)]. The fabricated citation passed
+`check-citations.mjs` in eight files for two commits, and was propagated into two agent
+definitions and a skill as the pattern to imitate.
+
+It was caught only by reading the Act. That is the entire argument for the verifier being
+a separate agent that must produce a verbatim quote — and a reminder that a
+well-formatted citation is evidence of nothing.

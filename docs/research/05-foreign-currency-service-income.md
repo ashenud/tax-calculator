@@ -14,24 +14,50 @@ where a remittance condition is satisfied.
 
 ### The operative wording
 
-Reproduced verbatim, because everything turns on it. Two limbs.
+IRA First Schedule paragraph 1, new subparagraph (6), inserted by Act 2/2025 s.3(1)(d).
+Reproduced verbatim, because everything turns on it:
 
-**Service exports** — the gains and profits earned or derived from
+> "(6) Notwithstanding anything to the contrary in the provisions of subparagraph (1D), an
+> individual's following gains and profits shall be taxed at the maximum rate of 15% with
+> effect from April 1, 2025: –
+>
+> (a) the gains and profits earned or derived from any service rendered in or outside Sri
+> Lanka to any person to be utilized outside Sri Lanka, where the payment for such
+> services is received in foreign currency and remitted through a bank to Sri Lanka;
+>
+> (b) the gains and profits earned or derived from any foreign source where such gains and
+> profits are earned or derived in foreign currency and remitted through a bank to Sri
+> Lanka."
 
-> "any service rendered in or outside Sri Lanka to any person to be utilized outside Sri
-> Lanka, where the payment for such services is received in foreign currency and remitted
-> through a bank to Sri Lanka"
+[IRA First Schedule para 1(6), as inserted by Act 2/2025 s.3(1)(d)]
 
-[Act 2/2025 s.3; PN/IT/2025-01, para 2.1(b)(i)]
+### It is a rate cap, not a separate schedule
 
-**Foreign sources** — the gains and profits earned or derived
+This is the structural point, and it corrects an earlier assumption in this project.
 
-> "from any foreign source where such gains and profits are earned or derived in foreign
-> currency and remitted through a bank to Sri Lanka"
+Subparagraph (6) does not create its own band ladder. It says that **notwithstanding the
+normal ladder in (1D)**, the specified gains and profits are taxed at a **maximum rate**
+of 15% [IRA First Schedule para 1(6), as inserted by Act 2/2025 s.3(1)(d)]. The normal
+ladder still runs; the rate charged on that component is capped.
 
-[Act 2/2025 s.3; PN/IT/2025-01, para 2.1(b)(ii)]
+That explains the formulation circulating in secondary sources, namely
+first Rs. 1,000,000 at 6% then balance at 15% [IRA Sch.1 para 1(6), ins. Act 2/2025 s.3(1)(d)].
+It is not a separate table; it is the (1D) ladder with every rate above the cap reduced to it:
 
-Both limbs attract a maximum rate of 15% [Act 2/2025 s.3].
+| (1D) band rate | Capped rate for these gains and profits |
+|---|---|
+| 6% | 6% — below the cap, unaffected [IRA Sch.1 para 1(6), ins. Act 2/2025 s.3(1)(d)] |
+| 18%, 24%, 30%, 36% | 15% in each case [IRA Sch.1 para 1(6), ins. Act 2/2025 s.3(1)(d)] |
+
+The distinction matters for the data model: the reduced treatment must be modelled as a
+**cap applied to the normal schedule**, not as an independent band table. See
+[`../spec/data-model.md`](../spec/data-model.md).
+
+### The exemption removal
+
+The prior exemption sat in the Third Schedule paragraph (u), subparagraphs (iii) and (iv).
+Act 2/2025 s.4 closed both by inserting "but prior to April 1, 2025"
+[IRA Third Schedule para (u)(iii)–(iv), as amended by Act 2/2025 s.4]; [PN/IT/2025-01, para 3].
 
 ### What this wording establishes
 
@@ -41,6 +67,11 @@ Both limbs attract a maximum rate of 15% [Act 2/2025 s.3].
 - For the service-export limb, the service must be **utilised outside Sri Lanka** —
   where the service is *rendered* may be in or outside Sri Lanka, so a consultant working
   from home in Colombo for an overseas client is within the limb on that point.
+- The provision operates on **"gains and profits"**, i.e. a component of income, and caps
+  the rate charged on it. It does not carve that component out of the taxable-income
+  computation, so personal relief is deducted as normal in arriving at taxable income —
+  see Q6 in [`12-open-questions.md`](12-open-questions.md), which this narrows without
+  fully closing.
 
 ### What it does not establish
 
@@ -60,10 +91,12 @@ timing rule. So the following remain **open** — see
 These are the questions an actual consultant has, and the statute does not answer them.
 They need the WHT circular, IRD guidance, or the Y/A 2025/2026 return form.
 
-> **A standing limitation.** Act 2/2025 provides that the **Sinhala text prevails** in
-> case of inconsistency with the English. This repository works from the English text.
-> Any conclusion resting on fine wording — which is most of this document — carries that
-> caveat.
+> **A note on the prevailing text, correcting an earlier statement here.** Act 2/2025 s.6
+> provides that in the event of inconsistency between the **Sinhala and Tamil** texts, the
+> Sinhala text prevails [Act 2/2025 s.6]. It says nothing about the English text, which is
+> what this repository works from. An earlier draft of this document said the Sinhala text
+> prevailed over the English; that was wrong. The English remains an official language
+> text of the Act, so conclusions drawn from its wording stand on their own footing.
 
 ## Why this document matters more than the others
 

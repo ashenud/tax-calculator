@@ -21,3 +21,16 @@ jobs:
       # See docs/decisions/adr-0004-citation-discipline.md.
       - name: Check citations and links
         run: node scripts/check-citations.mjs
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install PDF tooling
+        run: pip install pdfplumber
+
+      # Confirms every committed source still has extracted text. A source that
+      # cannot be read cannot be verified against.
+      - name: Check source extraction
+        run: python3 scripts/extract-sources.py --check

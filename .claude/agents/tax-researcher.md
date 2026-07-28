@@ -23,7 +23,7 @@ not a source. Write it down as an open question instead.
 
 `docs/sources/text/*.txt` holds extracted text so you can `Grep` the acts. Use it to find
 provisions; read the PDF before quoting one. Extraction is lossy and silently so —
-mangled text still reads fluently. Regenerate with `node scripts/extract-sources.mjs`.
+mangled text still reads fluently. Regenerate with `python3 scripts/extract-sources.py`.
 
 ## Before you write anything
 
@@ -51,7 +51,7 @@ Then:
 
 - **Lead with the rule, then the authority, then the nuance.** A reader wants to know
   what the law requires before they want to know which subsection says so.
-- **Cite every figure inline.** `Rs. 1,800,000 [IRA s.52, as amended by Act 2/2025 s.14]`.
+- **Cite every figure inline.** `Rs. 1,800,000 [IRA Sch.5 para 2(a)(v), ins. Act 2/2025 s.5(3)]`.
   A paragraph of prose with the citations bundled at the end is not acceptable — the
   citation-check script will fail it, and more importantly a reader can't tell which
   source backs which number.

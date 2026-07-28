@@ -36,9 +36,11 @@ which on the IRD site usually denotes the Tamil edition. **It is the English tex
 confirmed by reading it. Do not re-download it looking for an English version.
 
 **`ir-amendment-act-2-2025.pdf` was downloaded as `6379.pdf`**, the parliament.lk bill
-number. Confirmed as Act No. 2 of 2025 by its title page. Note the Act states that the
-**Sinhala text prevails in case of inconsistency**; this repo works from the English text
-and that limitation should be recorded against any finely-worded conclusion.
+number. Confirmed as Act No. 2 of 2025 by its title page. It is a short act — six
+sections, amending IRA s.150 and the First, Third and Fifth Schedules. Section 6 provides
+that where the **Sinhala and Tamil** texts are inconsistent, the Sinhala prevails
+[Act 2/2025 s.6]; it says nothing about the English text. An earlier note here claimed
+Sinhala prevailed over English — that was wrong.
 
 **The IIT forms are Y/A 2024/2025** — one year before the service-export and
 foreign-source regime began. They do **not** show where foreign-currency income is
@@ -54,14 +56,24 @@ reported on the return. The Y/A 2025/2026 form is listed under "Should have" bel
 
 ## Extracted text — an index, not an authority
 
-`node scripts/extract-sources.mjs` writes a plain-text form of each PDF to
+`python3 scripts/extract-sources.py` writes a plain-text form of each PDF to
 `docs/sources/text/`. This is what makes the acts greppable, and therefore what makes
 `tax-rule-verifier` able to work at all.
 
-**The PDF is authoritative. The text is not.** Extraction drops ligatures, destroys table
-layout, and mangles some embedded fonts. The failure is silent — text that has lost a
-"not", or merged two columns of a rate table, still reads perfectly fluently. Locate a
-provision in the text; **read it in the PDF before quoting it as evidence.**
+**The PDF is authoritative. The text is not.** Even a good extractor loses table geometry
+and ligatures. The failure is silent — text that has lost a "not", or merged two columns
+of a rate table, still reads perfectly fluently. Locate a provision in the text; **read it
+in the PDF before quoting it as evidence.**
+
+> **Why this script uses pdfplumber, and why that matters.** The first version was
+> dependency-free, parsing FlateDecode streams with zlib. It silently dropped about
+> **two-thirds** of the Inland Revenue Act and **three-quarters** of Act 2/2025 —
+> including, precisely, First Schedule paragraph 1(6), the provision that sets the 15%
+> maximum rate for individuals. It also reported the e-Filing guide as an unreadable scan
+> when 112 of its 124 pages carry text. Nothing about its output looked wrong.
+>
+> If extraction is ever changed, re-run the verification pass. A lossy extractor does not
+> announce itself; it hands you a plausible half of a statute.
 
 Regenerate after adding a document. `--check` verifies the text is present without
 rewriting it.
@@ -116,7 +128,7 @@ over the English in case of inconsistency.
 2. Commit the PDF here under the naming convention: lowercase, hyphenated,
    `<instrument>-<number>-<year>.pdf`.
 3. Add a row to the register above, including the SHA-256 prefix and status.
-4. Run `node scripts/extract-sources.mjs` and commit the generated text, so the document
+4. Run `python3 scripts/extract-sources.py` and commit the generated text, so the document
    is greppable by agents.
 5. Mark any superseded document's row as `superseded`; do not delete it — historical
    years of assessment still need it.
@@ -128,4 +140,4 @@ over the English in case of inconsistency.
 
 A citation points at a provision, not at a document. `[IRA s.85(1)(a)]` is a citation;
 "per the Inland Revenue Act" is not. When a provision has been amended, cite both the
-base section and the amending act: `[IRA s.52, as amended by Act 2/2025 s.14]`.
+base section and the amending act: `[IRA Sch.5 para 2(a)(v), ins. Act 2/2025 s.5(3)]`.

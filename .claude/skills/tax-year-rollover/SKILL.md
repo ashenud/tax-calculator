@@ -50,7 +50,7 @@ verdict.
 
 | Field | Prior | New | Verdict | Citation |
 |---|---|---|---|---|
-| `reliefs.personal.amount` | 1200000 | 1800000 | changed | [IRA s.52, as amended by Act 2/2025 s.14] |
+| `reliefs.personal.amount` | 1200000 | 1800000 | changed | [IRA Sch.5 para 2(a)(v), ins. Act 2/2025 s.5(3)] |
 | `rateSchedules.individual-normal.bands[1].rate` | 1200 | 1800 | changed | [IRA First Schedule, as amended by Act 2/2025] |
 | `wht.interest.rate` | 1000 | 1000 | confirmed unchanged | [IRA s.84, unamended by Act 2/2025] |
 | `calendar.returnDue` | 2025-11-30 | 2026-11-30 | changed (rolled) | [IRA s.93(1)] |

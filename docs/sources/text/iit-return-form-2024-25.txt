@@ -1,491 +1,139 @@
-# Extracted from iit-return-form-2024-25.pdf
-# NOT AUTHORITATIVE — the PDF is. Extraction is lossy; verify any quote
-# against the PDF before relying on it. Regenerate: node scripts/extract-sources.mjs
-
-RETURN OF INCOME - INDIVIDUAL YEAR OF ASSESSMENT: 2024/2025  Taxpayer Identification Number (TIN)  Address  Date of Issue: Due Date: Taxpayers are advised to refer the Guide before fill the Return and its Schedules. Visit IRD web portal www.ird.gov.lk to download the Return with Schedules and Guide  SECTION  01: STATEMENT OF TAX CALCULATION PART A  INCOME LIABLE TO TAX  Rs. Cents  Employment Income (Schedule 1) 10  Business Income (Schedule 2) 20  Investment Income (Schedule 3) 30  Other Income (Schedule 4) 40  ASSESSABLE INCOME (10+20+30+40) 50  PART B  DEDUCTIONS FROM ASSESSABLE INCOME Reliefs  Relief for Rent Income (Schedule 3) 60  (Schedule 5) 70  Personal Relief  80  Total Reliefs (60+70+80)  90  Qualifying Payments (Schedule 5) 100  Total Deductions from Assessable Income (90+100) 110  TAXABLE INCOME (50-110) 120  PART C  CALCULATION OF TAX PAYABLE Tax on Terminal Benefits (Schedule 8) 130  Tax on Gain on Realization of Investment Assets (Schedule 8) 140  Tax on Balance Taxable Income (Schedule 8) 150  Tax on Final Withholding Payments (WHT not deducted) (Schedule 8) 160  Total Tax Payable (130+140+150+160) 170  Less: Tax Credits (Schedule 9) 180  Balance Tax Payable (If 170> 180, Then 170  180) 190  Refund Claimed (If 170< 180, Then 180  170) 200  PART D  EXEMPT INCOME  / EXCLUDED INCOME Total Exempt/ Excluded Income (115+216+317) 210  Foreign Currency Remitted Amounts in to Sri Lanka during the year (406.a+406.b+406.c+406.d=406.e) 210A  Form No. - Asmt_IIT_001_E  Resident Non - Resident Senior Citizen Yes  No  PART E  MANDATORY SCHEDULES  Mark your Mandatory Schedules which are filled and attached to this form by marking  in the below table.  Sch. 1 Sch. 2 Sch. 3 Sch. 4 Sch. 5 Sch. 6 Sch. 7 Sch. 8 Sch. 9 Sch. 10  SECTION  02: DECLARATION  Whether the return or part of the return is prepared by an Approved Accountant or any other person for a payment?  YES  NO  fill PART -A and attach the certificate/s issued by such person.)  PART  A: DETAILS OF APPROVED ACCOUNTANT/ ANY OTHER PERSON  Name  Designation  Telephone Number  Mobile  E-Mail  Date of the Certification D D / M M / Y Y Y Y *If more than one person involved, use a separate sheet to fill the above details and attach to the return.  PART  B: DECLARATION OF THE TAXPAYER  I declare to the best of my knowledge and belief that all particulars furnished in the Return of Income are true, correct and complete. I am aware that making an incorrect, false, or misleading statement is an offence.  Full Name of the Declarant  Telephone Number  Mobile  E - Mail  Signature  NIC Number/Passport Number  Date D D / M M / Y Y Y Y  Filling of tax returns electronically is mandatory for every person.  Return of Income is specified under Section 126 of the Inland Revenue Act, No. 24 of 2017, by the Commissioner General of Inland Revenue  In terms of section 113(1B) of Inland Revenue Act, No 24 of 2017 a person  returns electronically. IRD web portal (www.ird.gov.lk) e- services facilitate for submit the tax returns via online.  Declare income and other particulars for the year of assessment ended 31st March, 2025  Attach Tax Computation, Accounts if relevant & Any other documents required to be submitted  Duly completed Return of Income and attached documents should be submitted to the Inland Revenue Department on or before 30th November, 2025  Penalties are imposed on any person who has not submitted a Return or submitted an incorrect Return.  Penalties and interest shall be imposed for non-payment of taxes on due dates.  sued by the approved accountant or any other person issued by specifying the extent to which he was involved, the documents examined by him and the information relied upon by him.  Such certificate shall deemed to be part and parcel of the Return of Income.  OFFICIAL FRANK }ÇV+ÇQÇV$ÿ÷ÿ÷,$ÿ÷ÿ÷,$ÿ÷ÿ÷,!"*"*T"" ..\$!!!$$+!$$!!!."!$!	.\	%%#22d'$"$$!''!0$''$!$$2$$"&76l*'$''$! $$!!,@C4%&""""""""""&"0-00-  ! "!!"#"" """'56#"$' '<:''RS¦A./**********/*<8<<73@A 7P<A3@<.7<<S<<*.%.%*.-C.*.% .*='*'**1BC,*,0'%030'9.3/,@++[\¸H34..........4.B>BB=9GH$=WBH9HB3=BB\BC.3+-=?ALakr ­1Ù@  / D"%Ìûÿÿÿãÿãÿãÿãÿãÿãÿãÿãÿãÿãÿãÿcÿcÿ¤þü°ëÎàë¨àwÞ¦å=u¿Àvw@BUT@?>=<;:987543210/.-,+*.2ð¿þÿÀü³2@¸ý³2@AùPù°±À±oõõÿÀ¯²-12¹ÿÀ¯³
-2Aï ïï ï ï@ïÿÀï³2@¸ç²2¹ÿÀß²042¹ÿÀß³2PAÜÉÒ#âÒÇÒÆÈÿÀ¤³2A££yA	>%>²*»³M±f¸@ fL*+&¸¶f¸@i*Rh* gfïÿ8ÿÃ/@ª¶ÎÓ×åFMÖ~³ÿ{/h¥¹õ	 37x{Àá#Xb¯ÿyÿ!$]ehj·Ïâëí /7?PÄÏW\@«ÂüÂþÑþà!$0MM]fz|¸¸ÃÚ/=JP_f|£¦¶ÇÐéïù»ÅÏÐ*DÌ!Úûaýþ¿þïÿÿ+ÿ3ÿÿÿÛÿí%?CZk§´ÍÕÖßßßäðöû"#',?WXw¤Æáäü""*6J\ìü
-#AxÒúy22«µðä%ÌüýÞþþiþþÿ54BHJWdqqrvwzz¯¯²»ÈÌÏÏÛÜßäääéëôýþ"#07C[`exxxx{¡¦ÑÒÓßãõ-AGJP[]]_c´´ÎÖÛâú'Eg°´ÔÕ&AHkÇÑ2HI_c¡£ÂÊäÿ¢¸è
-6PT©»Üÿ' Mááþþèàþ þ$Ü2oy>@Û­+Näæ/Mí10!5!yý¹GoÏZÿç§4"´I¸@ 	0		o+Nü]Mí?í102#"&546FabEEaa4bEEaaEEbÿá?k6@?¯¯,¼E+ôíNöMí?<?<.+}Ä10#?þC¿kúvJÿäµh+J@	%	F¿^/! $ä2hè@$®¬'
-
- ´
-¸`¶/°¸"²¸ÿÀ³4¸$´¸ô@ÜÓ¿¿ºX+Nä]qö]qMôý]ä??í+C\X@@?@?@?@9++++Yý]C\X¹ÿÀ³?¸ÿÀ³?¸ÿÀ³?¸ÿÀ²?++++Yä9999]9999É10]]!!554&#"'6632!26673Püâo^U%6Ügª`Jeþ¬%lA*"$µ.iÀ¸`§I¹þµ+E!ÿãh+Ï@h+y+©¦º-?¸@	!A	`!Ì&ÎÿÀ³4¸ÿÀ³4¸Î¶@¸´ 
-º¶¸
-·Ó
-8I·
-
-¸\@""""""¸	´¸ï¶ ¿¸"³¸@
-Ü¸È³Ñ»"õ@@P $Ñ""@4"#õñ+Nô+rMäöqíäôä?í]í?<ý]C\X@@?@?@?@?++++YþqC\X¹ÿÀ³?¸ÿÀ³?¸ÿÀ³?¸ÿÀ³?¸ÿÀ²?+++++Yí]qC\X@"@?"@?"@?"@?"@?"@?++++++Y.+}Ä9910q]r]q!!#"'&5463232654$!"8{eýê3Yºþþ¦Y>A+'Pa=,'Rsþ þô6LþþÃ}ï>,8+B D*xT°ÜLÿäÂh'Ï@	fv
-¸ÿø@4*$Ç?"	&½Ê	µ&&¸
-´"Ü¸á³À@
-*	¨	¸	ÈD#'»³''¸
-@Ñ¸
-@*#ÜÑ@42'B+I'&Ú ÞÁß{þþ¥ÖþxípU¶WFûºFûºÅ}ÿåk".@	® º#D¶ä@
-
-	º#.@# 
-0&p&& &Ð&à&%& &@&P&&&°&m+Nq]ôMýí]?<<<?<ý]<ý<999]9]9.+}Ä.+}]Ä+9999íÀíÀ]íÀíÀ<<<<10]]+!!56673!5327654'&''Tþ!9.jþ=I^EåéF-">ýpO jÊÐB+9%%c:û¨8HIUYe0¨Ç,Ô,æè"öø"ø0H&%$$' 	"" "#0%$. 01*%$	.%%	$.*.  Þ3$1'''-23¸³!=X++Nô<Mý]äNöMCX¶...Mé]±.MíYôí]?<í?<í9/í9/99999++<<<10Cy@2+-!#%"&%&,%# /" /+./!$/!#/"#-*/+<++++++++++]]C\X@z0é-&,+09"Y,,Ö]]Y]!!526654&&#5!226654&&326654&&ÁNp{þàýO^CD]éÂpýáHG76PHXÏ-@[dy%#8npn9"%S¥]b@tZZs<ýþM267GS_<QÿáWk$¹ÿ³	
-4¸ÿ³	
-4¸ÿ³	
-4¸ÿ@Y	
-4	6Mkkyy§¨¥ÇË
-&CA·»
-/&hwvvº7$Z¸@Z!©jj	_/p&&%n¹2+NCX@	
+# Extracted from iit-return-form-2024-25.pdf with pdfplumber
+# NOT AUTHORITATIVE — the PDF is. Extraction loses table geometry and ligatures;
+# verify any quote against the PDF before relying on it.
+# Page markers below are load-bearing: cite the page you actually read.
+# Regenerate: python3 scripts/extract-sources.py
 
 
-MôMé]³
-MôMíYN]ö]Mä?í?í99ìôííôíÉ10KSy±2Cy@$&%		&
-%
-%%	%+++++*++]q]q++++#&&#"3267#"$54$323267W',ðÔ1?\ÄÕvr÷¥Ùþ¯·ËYÂ\ /kþ*¸Äv¹¶þÕpuwk®F¸Â\À>$/3qL+@\	
-4#	
-4	
-4+	
-4ghg%''%$-.¼!=++??<íí<ô<9/<ííí<Nô<Mí]ý]<<<N]ö]<Mææ9/<+íìõ]íìõ]íìõ++10]qq326673#&&##33!532767654&&##5!#&&'&#3'ZrO##©k'C9-ý;-;$C9-x45¼S!nà++NôMCX¶  Mé]±	MíYN+ö<Mí]?í?í9/<9999ìôííôí+]++]+10KSy±ECy@2 *&&'%'$'%#	%!B *	%
-'% BC?*%Ò¸¯@>
-&0'@' '=X+N]ô<Mý]<ôôý???<ý<ô]<999+++10]]!532767654&&##5!#"3326673ûL-;$C9-Ó;;$#`qli/Üþ$%"f|h4'%%"fü h9	L¤ 
-	
-4	
-4¸ÿ³	
-4¸ÿ³	
-4¸ÿ³	
-4¸ÿ@d	
-4	
-4	
-4¦¦ÇÇ	Æ××	
-	ffxwvv¶¶×ðV55	nX+NôMCX@M@/ ?  Mé]N]öqMé]@M@/ ?  MíN]öqMíY?í?í10KSy±QCy@<%&&	%&%%%%%%
-%%++<+<+++++*+++++]q]C\X´9¸ÿô@999¸ÿè²9¸ÿì²9¸ÿè²9	¸ÿì±9++++++++Y++++++++q]$! '&"32765&DÈþþÈ8ºaOzUgEXbd_þnþÒþþÄþüøÄ.L¾þÜþ¥¦t2@ân4¥L$Ï¹ ÿø²9 ¸ÿø@\9O&öö ù"* "" "# "#..!!Þ`/&&-P`}%&¼!=++Nô]r<Mý]<M]ö]Mí]?<?<9/íí+++<<10Cy@##!/!/"$/ /++++*]]++3!526654&&#5! 32654&#%,*/'*/+-/ÿø@9+9>+++Y]]3!526654&&#5!2!326654&# D]ýJ^CD]vöälE|F@ _ÿ}00@0P0p0 00>#/"!	'/"/++<+<++++]qr]qr!#"326654&'&#5!#"#"'&&54&&0¼#O;7~`nM&-RÕ9L?ôÓ°`l@VL%!:týh¶vNc®Ø!	#¸ÿÀ·-I4#º.@ @-I4`"#l!m¸,++Nô]+MýýNEeDæ+?<?<<<9999M.+}Ä.+}]Ä+íÀíÀíÀ]íÀ<<±CTX· 4
-]+Y10qrr]q+#&&'5!#"6654&'&#5²J:*Sþ-!þ/T9OX .!0 +GL%C2¹ûô6ÃD	%%1ký]YmJ.%ÿáîL1@³	ø	 §°Ã	! 1*01@	U**	
-1 
-	3A
-½ ]+Y10]]]qqrq]##&&'5!'.#5!6654&'5î&49þW'þ°þ%þBD6@LG/1
-Õ8.2A?E-÷Ý#8OL%$%û¡jüS§F%%'&{ýnvO"%%
-!vý~EZB? ?++++Y!56654'&'3!56767&'&&'5!#"7654&&#5!av]O6ýkO.8ÆÏ]0/Aý÷Y3Cxþ§U4.¡":.E¨n:=ó;H+,%+,A*&I;?UrÌn
-2kDPZ
-y;'!-2iOk«^j71EL3HFqB*þ@!%JCK9GQ67.#+ÿäL'Q@F$¸î@#&&r""@Nq+ö]qC\X¹ÿÀ³!?¸ÿÀ³ ?¸ÿÀ²?+++Y<ý]<9/]r++C\X¹'´&¸³	¸ÿÀ@2?@"4i¸ÿÀ¶2?¸ÿÀ³4¸ÿÀ@5/"?"_"ï"" 6;dS;'¸ÿÀ@!A?ð'/'À'Ð''¸ÿÀ³7:4'¸ÿÀ³/14'¸ÿÀ³"$4'¸ÿÀ@	!4'-N+Nô++++]q+<Mý]<+++++++]qrô]]qr+++++++++++<ý]<?<<<?í?<99+++++<<]C\X¹!ÿÀ³?!¸ÿÀ@	?@?!¸ÿÀ@?@?@?@?¸ÿÀ²!?++++++++Y]10]r]++6632!567654&&#"!567654&'5ÃMEX}L,;þ&;'>LýãQCd þk5$$!e¡t;!7Eþd"$$ k¶j4%*#lÛ@?$¸î´"$¸î´#$»î#ÿÀ@464¯@
-	¸ÿÀ@464  @±CTX@!*@$$#
-ß0ï000D
-Ú	¸p³ÃÉ+GMãÊk]GJ"=_!ª'þJÃ"/t@//#$¸î@"$Å#$¸î@#-%&%'++++++++CX@;$@?G4#@?G4&,tp|#p'+#"$¦©"ª$¶¼$Dq]]++Y%3!567654&'5!67632#"'&'327654'&#"¯0Fýë>.B13IVg©X[­jMC27Vb6#49&@eA_þ¤H4%%!`Ûc7%{H /åë{"¤z9TìòY;KnÃ?@?@?@?@?+++++Y?íC\Xµ?¸ÿâ³?¸ÿâ³?¸ÿâ²?++++Y?íC\X¹ÿµ@????++++Yìôí]+íôíì+C\X@/@
-?/@	?/@?+++Yôí]++íôíC\Xµ%-?¸ÿÐ³?¸ÿà@	?%-?¸ÿÓ@	?%-?%¸ÿñ³?%¸ÿä· ?!?+++++++++Yq10q]]]+#&&#"#"'&#"#332654&'&'&546323267"=A=þCSO{*'>}'  4& %&@¸ÿv³ ¸ÿs@i, +,,F  ^	^F	, ë û  +'+ 
-,'&
-	,.¸ÿ²,5.¸ÿÀ³784.¸ÿÀ³ !4.¸ÿÀ@4.@4.`.¯..'u ¸-¶@`p»- 	ÿÀ@2?		ÿ	0	@	P		-.¸V³!ÁU¸,++Nô]q+Mý]ýýNEeDæ]r+++++?<<<?<<<<<999]q99M.+}Ä.+q}Ä.+q}Ä.+}Ä++íÀí+ÀíÀ]íÀ]íÀíÀ<<10q]]+qC\X¹ÿà³?¸ÿà³?¸ÿø@
-999+++++Y#&'&'5!"'&&'5!654&'5!äÿû4ù8'3Ø0$ 
--/ß8x&7.6+þú®ýR¦/ %%UþmK41/¸@j$Ê$è$$?@!+¢ý$_?$$'^yý[#$$'cyc¾o4Y+2I!&7 1&u6Ak&7é@/$¸î@f"%$#"$##$##%''
-/i*,`d$LHD@ $<,$$,<X40NJvrrbfFB~z62njRV:>V>V>"^ZZzjZZjzf"
-*..&"f/ÞÍ9/ÍÐÍ9///ÐÍÍ99//ÍÐÍÍÐÍÍÐÍÍÐÍÍ9/ÍÐÍ/Í9/ÍÐÍÎ9///Í99//ÍÐÍÍÐÍÐÍÍÐÍÍÐÍÍ9/ÍÐÍ10#"5432'#"5432#"5432#"5432#"5432#"5432#"5432#"5432#"5432#"5432#"5432#"5432#"5432%#"5432#"5432'#"5432Ô04400440÷3131$0440þ72222­3113R3113ý222204400440ý®0422$0440È2222þ\2222÷311322222220113þ×331ß222331V113ý{113½2/5ýH113004 331ß222þ331è113þÙ404.1131þËu3T¼cc´/ÍÜÍ/íÞí10#"'&5476324'&#"32763WTUXXUTWÝ?XX?ä¬d__d¬¬d``d¬/þÅþÆ.ÿçT&²¸c@/ÜÝ2ÍÝÄ/ÎÎýÌ3107!5327654'&#"'%333çþB!N	31#E Bg?yýÃCþñT<·¸c·¸s·
-K/ÍÜíÌ2í9/ÞÍ2/í2/3Í910!567654&#"'6323276767.þ¤vD4U1*@ÂWDMo7>YÕª!e4DRÊ/5S`{>m	'þóuT'vµ'&&$¸c@
-¸c@1ø&å&Ö&Ç&&¦&¶&w&&&@P`K /ÍÍÜí9/]3]]]]]]Í9/3/3/íÎ9/Í2/í9]10#"543232654'567654&#"'632pbÄN>0+F97FzJA1>3$9+h4&lþèuU C±¸c@f7GW
-¸c@/ÜÍÍ9/3Í2/í2/Þ2]]í310632#"'&547674#"32KW-Ga9=PGp}SY¬ð¾`!\>38@|5:h{C<LPßwfýÏÖ+*éþæU
-$@
-		¸s±
-/ÜíÍ/ÝÍ9ÞÍ310##"#7þïuÚN"7->Uý/<
-5åþïuQ	8	H		¸c@	/ÍÜÍ9/3Í2/í3]]3Þí2/1056767#"'&5476324#"3276¬ðKW-Ga9=PGp}SYÚ\>`!3ßwf"8@|69h{C<LPéyÖ+Bÿè¡í+2¹
-@%%%-¸
-·"&&¸?í?í/í]9/]í102#".54>"32654.íPaD+6k¡jn¤l57lr'6"/"J>
-+í-Mfqx7`ºZZº_a¹WS6t·JUVF,çæ$XYTA'LÖ:·¸	@ 0 
-¸?ýÄ?ýÄ/]ÞÆý]ÜÆ10732>54&##5!#"33!LM36LH<Ê?DP63Ný0$ 3@!bB6$$5Cý!@3 $@¦íþ9þ<+S¥úÿÿCÿä³cû´?555ÿÿ?þ·þ©²¸?55ÿÿgÿäÒhÿÿÿçÃhÿ`ÿÿ2hÿÿÿãhûÿÿ3­hÿÿEÿä³LÿÿLÿäÂhÿÿÿä¥LÖÿÿHÿä¸cÿÿ?ÿä·hÿÿ*#lL%kNc@J[VVOC:@0M*
 
-P eOOO*#"  R==O^ M#O^+F550+
-	
-?ÄþÄÄÄ?33/íí?ÄÄýÄÄ9/3/]ÎÍÄý]ÄÌ9/Ä9/ýÍÄÌ9ÞÍ39/910#!5>5!!52>5#5354>32>3#"&54654&##3!!54.54>54&#"O{:5ýú'&þ/3}}#;PY^,E`A&%KC93T=!L=0;
-	{ýZ2-8<Eýd 1"$$.Aþè@-$$+C0obTU`3	
-0C%&
-?ÄÄýÄÄÄÄÄ?33/3/íí?ÄÄýÄÄ9/3/ÎÍÄý]ÄÌ99//3Ä33ýÎÄ39/ýÄÌ9/99/910%!5>5!!52>5!!52>5#537>32>3235&&7>54.#"!667.54>54.#"ò-'þ&%þ%'+þè&$þ-3LxL=IP'3NkG8K&»þï =#
-3*+4	#þL3D&'@/ý;+\^fsNÿìî*F@&¸?íí?íí/í]ÞÄ9/í1072>54.##5!2#!%32654.##%4!0""{ÉNEÆýÏ!'Q}U3#
-3**¸µ&
-?íí?íí9///í99//]]/]ý]ÄÞÄ9/3/Í3Í9/]ÍÍ]1032>73#&&##332>73!52>54.#5!#.##²#3##2''1#þê:P1Nÿìî5X@'4 *7@'&,551,¸µ&"?3í2?33/í9/ÎýÄ/í]9/9/ý]Ì3/ÍÍ10#.#"326754&#5!"#".54>3232673%9Lb@DnN+*2#\1E=J<8NÐpØDPÉzB`H4	%BkK5 "5%&'5! 6ýÕ8.á%0$ýö /	80#+32LnO3'#3&.5##5-ýk0 ,Lf:f×.d@6*.- 0%0,"% F%%. " 
-+-¸?ÄýÄ?ÄÄÄüÄÄÄ9/]ý2ÌÞÄ9/]Î39ýÜÄ10!"3!52>5###3!52654.#5!¨¾Âü=ýsM@##DM{%2 #ý´ÿðÿçd×$h@9F/@1 &$F#"
-$"	¸?ýÄÄÄ?3/3/999ýÄ/ÎÌýÌ39/]]]Ì]]ýÌ3104.#5!"#3!5265'.'5!"<.hDC%ý+$>0þEB#%!3%##CHü¾ý´#5$##DG"#Hÿå¬ð'A@$@ °ÐA 0D3#?fJ=iM,Jih.I2Hþß¬î#7`@.@$N?. $0$@$$$90...@P]eHÿåXðD@V$$@@<p< <@<< <Ð<<<F4133@ 33333@9@!2b^?\D1%'A[rC_S1PfkfP1¼BqS.,þª9fK,L?+;+$7###7,Ý*	
+===== page 1 =====
+                                                                                  
+                                                                     Form No. - Asmt_IIT_001_E
+                                                                                  
+                                                                                  
+                                                           Resident               
+                                                           Non - Resident         
+                                                           Senior Citizen Yes No  
+                  RETURN       OF   INCOME       - INDIVIDUAL                     
+                                                                                  
+                              YEAR OF ASSESSMENT: 2024/2025                       
+                                                                                  
+      Taxpayer Identification Number (TIN)                                        
+                                                                                  
+                                                 Address                          
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+      Date of Issue:                            Due Date:                         
+      Taxpayers are advised to refer the Guide before fill the Return and its Schedules. Visit IRD web portal
+      www.ird.gov.lk to download the Return with Schedules and Guide              
+      SECTION – 01: STATEMENT OF TAX CALCULATION                                  
+      PART A – INCOME LIABLE TO TAX                                               
+                                                                 Rs.         Cents
+                                                                                  
+      Employment Income                   (Schedule 1) 10                         
+      Business Income                     (Schedule 2) 20                         
+      Investment Income                   (Schedule 3) 30                         
+      Other Income                        (Schedule 4) 40                         
+      ASSESSABLE INCOME (10+20+30+40)               50                            
+                                                                                  
+      PART B – DEDUCTIONS FROM ASSESSABLE INCOME                                  
+      Reliefs                                                                     
+      Relief for Rent Income              (Schedule 3) 60                         
+      Relief on resident’s Solar panel    (Schedule 5) 70                         
+      Personal Relief                               80                            
+      Total Reliefs (60+70+80)                      90                            
+      Qualifying Payments                 (Schedule 5) 100                        
+      Total Deductions from Assessable Income (90+100) 110                        
+      TAXABLE INCOME (50-110)                       120                           
+      P ART C – CALCULATION OF TAX PAYABLE                                        
+      Tax on Terminal Benefits            (Schedule 8) 130                        
+      Tax on Gain on Realization of Investment Assets (Schedule 8) 140            
+      Tax on Balance Taxable Income       (Schedule 8) 150                        
+      Tax on Final Withholding Payments (WHT not deducted) (Schedule 8) 160       
+      Total Tax Payable (130+140+150+160)           170                           
+      Less: Tax Credits                   (Schedule 9) 180                        
+      Balance Tax Payable (If 170> 180, Then 170 – 180) 190                       
+      Refund Claimed (If 170< 180, Then 180 – 170)  200                           
+                                                                                  
+      PART D – EXEMPT INCOME / EXCLUDED INCOME                                    
+      Total Exempt/ Excluded Income (115+216+317)   210                           
+      Foreign Currency Remitted Amounts in to Sri Lanka during the                
+                                                   210A                           
+      year (406.a+406.b+406.c+406.d=406.e)                                        
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
 
-*´:&ü?0	ª¦
-?1C´#7N1N:NCNLNUN^NgNpNyNNNO7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7O7`cÒ$ÿ7ÿÛ9ÿÛ:ÿÛ<ÿ´ÿ$ÿ$7ÿh$9þø$:ÿ$<ÿD$Yÿh$Zÿh$\ÿh¢â,úv04	DÊÎÛ/Microsoftiiihttp://en.wikipedia.org/wiki/MIT_Licensethe  Layout Logic Software Microsoftiiihttp://en.wikipedia.org/wiki/MIT_Licensethe ÒLayout Logic SoftwareÓiiihttp://en.wikipedia.org/wiki/MIT_Licensethe  Layout Logic Software 	¸*	¸,	¸.	¸0	¸2	¸4	¸6	¸<	¸B	¸H	¸N	»î	¿	Àr	Á	ÁÐ	Ã~	Äæ	ÅB	Æ	Æî	Ç	É$	Ê	Ì*	Íò	ÎN	Îª	Ï	Ð°Ô<ÿÿÛÿÛÿÛÿ´ÿÿÿÿÿÛÿ´ÿÛÿÿÿhþøÿÿDÿhÿhÿhÿhÿhþøÿÿDÿhÿ´ÿDÿhÿ6ÿÿDÿDÿDÿDÿÿDÿDÿDÿDÿDÿDÿÿDÿhÿ6ÿ¸ÿ¸ÿ¸ÿ¸ÿ¸ÿ¸ÿ¸ÿ¸ÿ¸ÿ¸ÿÛÿhÿDÿhÿhÿÛÿDÿDÿDÿÛÿhÿDÿDÿhÿhÿhÿÛÿÛÿÛþøÿhÿDþøÿ×ÿDÿDÿ´ÿhÿDÿDþøÿ¥ÿ¥ÿÛÿDÿ´ÿÿÿÿÿÛÿÛÿÛÿ´ÿÿ¦ÿ´ÿDÿDÿDÿDÿÿÿ´ÿDÿÿDÿÿDqÿÛÿDÿ´ÿÛÿÛÿÛ%ÿÿhþøÿÿDÿhÿåÿåÿhÿhÿ´ÿhÿDÿ3ÿ3þÿ3ÿ3þÿDÿDÿDÿDÿDÿ¸ÿ¸ÿ¸ÿ¸ÿ¸ÿhÿÛÿÛÿ´ÿþòÿþòÿºþòÿjÿºÿjÿËÿºÿËÿËÿNÿåÿNÿåÿçÿÿ¦ÿÿÿjÿÿ9þúÿÿhÿ°ÿÿkÿJÿÿ,ÿËÿºÿËÿËÿÿmþîÿþîÿ¨ÿ´ÿ¨ÿ¨ÿ¨ÿ9þîÿ¶ÿvÿ·ÿÿhÿÿjÿÿ9þúÿÿhÿ°ÿÿkÿJÿÿ,ÿÿËÿÏÿqÿ7ÿËÿ7ÿ¨ÿ\ÿÙÿÙÿ¨ÿÙÿÙÿÙÿÙÿ¨ÿÿÿ9þúÿÿkÿJÿÿ,ÿÿFþÓÿ/þÓþÓÿÿÛÿhÿFÿhÿÛÿÛÿFÿ\ÿFwÿ9ÿmÿ9ÿÛÿÛÿhÿÿÛÿÿhÿÿhÿÿÿmÿÛÿÛÿFÿFÿFÿ¶ÿ¨ÿÿmþîÿþîÿ¶ÿËÿ¨ÿ´ÿjÿ¨ÿ´ÿ¨ÿ9þîÿ¶ÿvÿ·ÿÙÿÿÿÙÿÿåÿåÿåÿ¶ÿ¨ÿÿmþîÿþîÿ¶ÿËÿ¨ÿ´ÿ¨ÿ¨ÿ¨ÿ9þîÿ¶ÿvÿ·ÿºÿºÿuÿÅÿÿÅÿºÿÏÿÏÿÿºÿÅÿÅÿãÿÅÿÅÿãÿãÿãÿ¨ÿ¨ÿÓÿÙÿÓÿÅÿÅÿÃÿÅÿÅÿåþåÿÿÍÿÍÿÿ$þÛÿRÿåÿâÿåÿÿËÿÍÿåÿÿÿëÿ¨ÿÿÅÿÝÿÍÿãÿhÿåÿhþòþyÿÿ,ÿ8ÿLÿÍÿÿÍÿÿLÿLÿþÉÿÍÿåÿÿÍÿÿÍÿÿÿ²ÿ~ÿÿLÿÍÿåÿ²ÿÍÿÍÿòÿòÿåÿ¸ÿáÿÍÿÿ²ÿ¼ÿÍÿåÿÍÿÐÿâÿ¸ÿÿ²ÿÍÿ²ÿåÿZÿÍÿÿÿÿÍÿåÿåÿÍÿåÿâÿÎÿåÿÍÿ²ÿ¸ÿÿÿÍÿÍÿ!ÿL3þËÿåÿÍÿåÿfÿLÿ²ÿfÿdÿ²ÿÿ²ÿ²ÿLÿÿ²ÿÿÿÿfÿÿ$þÛÿR3ÿå33ÿåÿåÿåÿÍÿÍÿÍÿÝÿãÿìÿÍÿÿÿfÿdÿÝÿÍÿãÿhÿåÿÿåÿ¦ÿÍÿ²ÿ²ÿÍÿåÿåÿâÿÎÿåÿÍÿ²ÿ¸ÿÍÿÍÿ×ÿhÿåÿåÿ²ÿåÿÿÍÿÍÿÍÿåÿÝÿÍÿãÿhÿåÿåÿåÿòÿÍÿÍÿåÿåÿåÿåÿåÿ²ÿåÿÿÿÍÿÿÿ`ÿÍÿÿåÿºÿ¿ÿ¨ÿì
-ÿëÿ°ÿL3þúÿ%ÿ¸þÍÿÙÿôÿÍÿÝÿÿÿ²ÿåÿÍ3ÿËÿÖÿaÿáÿÿÿÍÿåÿËÿÍÿåÿåÿÍÿåÿåÿâÿåÿÿËÿÍÿ3ÿÿËÿÿÿÿåÿåÿÓÿ²ÿÍÿÿ²ÿÍÿÍÿÿÍÿ¤ÿ²ÿ²ÿ²ÿÿÿ²ÿÿÿÿ²ÿ©ÿþ²ÿ²ÿLÿÿÍþyÿ1ÿåþòÿÿhÿåÿLÿ²ÿXÿXÿ;ÿ#ÿÿXÿXÿ²ÿXÿÿXÿXÿ#ÿXÿXÿ#ÿXÿXÿXÿ;ÿhþòþyÿÿ,ÿ8ÿÿLÿfÿÍÿdÿÿÿÿ~ÿÈÿÍÿÿ²ÿqÿåÿÁÿ²ÿ²ÿÍÿåÿåÿåÿÿÿÿëÿ¨ÿÿÅÿÿ¨ÿjÿÿ²ÿ®ÿ®ÿÍÿÍÿfÿmÿÿåÿÿÿëÿ¨ÿÿÅÿTÿÍÿ
-ÿÿjÿÍÿåÿºÿ¿ÿ¨ÿì
-ÿëÿ°ÿ²ÿfÿqÿÿÍÿFÿ²ÿÍÿåÿºÿ¿ÿ¨ÿì
-ÿëÿ°ÿåÿËÿÿ®ÿÍÿåÿÍÿÍÿ×ÿåÿ²ÿ²ÿ²ÿÍÿÍÿåÿÍÿÅÿåÿÝÿòÿÍÿºÿôÿ²ÿÍÿåÿÿÿåÿÿåÿÍÿÍ3ÿåÿÍÿ×ÿÍÿåÿåÿÍÿÛÿÍÿåÿÛÿÛÿãÿôÿÕÿòÿ×ÿÝÿËÿáÿÍÿÍÿåÿåÿÍÿãÿÍÿ°ÿåÿòÿåÿÍÿÅÿÍÿåÿÙÿåÿ²ÿÍÿËÿÙÿåÿÍÿáÿåÿåÿÍ3ÿåÿåÿåÿ×ÿfÿåÿÍÿåÿå3ÿåÿ3ÿå3ÿåÿåÿÿÁÿåÿÍÿåÿÍÿÁÿÍÿÍÿÍÿÍÿÍÿÉÿåÿåÿ²ÿÍÿåÿ²ÿÅÿÍÿ²ÿ²ÿÿ²ÿåÿ²ÿdÿÿÿÛÿîÿôÿ°ÿåÿÿÍÿÍÿåÿåÿôÿ°ÿ²ÿ3ÿ5ÿÍÿLÿ²ÿÍÿhÿhÿhþøÿÿDÿDÿDÿhÿDÿDÿvÿDÿDÿvÿ¸ÿ¸ÿ¸ÿ¸ÿhÿvÿhÿvÿvÿhÿÛÿÛþøÿÿâþøÿÿþøÿ×ÿ×ÿDÿ´ÿØÿDÿ´ÿ´ÿÿDÿDÿØÿDÿDÿDÿDÿhÿhÿËÿqÿ7ÿ~ÿ7ÿÿÿ>ÿºÿ·ÿ·ÿ¨ÿFÿFÿ/ÿhÿxÿâÿhÿxÿxÿmÿÛÿFÿxÿØÿFÿxÿxÿ4ÿ¶ÿËÿÿ©ÿÇÿåÿFÿFÿØÿFÿFÿFÿ:ÿ¶ÿ¨ÿËþåÿÍÿÎþåÿÍÿÍÿÎÿÍÿ~ÿ!ÿfÿåÿâÿåÿÿÿÿÍÿ®ÿâÿ±ÿaÿ£ÿÍÿãÿ¸þ²ÿÍÿÐÿLþ²ÿÍÿÍÿLÿÿ1þÉÿåÿÿLÿLÿLÿLÿÿLÿÍÿ²ÿòÿâÿ¸ÿåÿâÿÍÿÿÍÿ²ÿÿÍÿÿÿ²ÿ£ÿÿÿÿÞÿÿôÿÙÿWÿÍÿ3ÿÿ3ÿÿåÿÿÍÿÄÿÿÿ5ÿÍÿÍÿLÿîÿ5ÿÍÿÍÿLÿîá$*+,-.0148:;<=>?@CDFGHJÅ$$øøB888.eÿâK´,K xâÿñÃÎÿ .û"úxú_ÿâ-ÿñKÞKKÈné´´ÿEÚ¤.Xþ8ê½ÿN~ÿùÍ,ª¤ÿù,,«,ÿ±;ÿêªÂþ$´áðhxá,q´ x ªÂnþö´ðÿx,ÿÿyæµþÀ´ÂðÿùêÄ´^ÿ888.eÿâK´,K xâÿñÃÎÿ .û"úxú_ÿâ-ÿñKÞKKÈq>bÿj=;
-ÒÓÖ×ÚÛb>&56ïðñòHI2345:;>?ÆÇÒÓÖ×ÚÛ¿ÀÃÄ-Ünxÿñ	*_$þH¼cÂÒÿñJÿñ©ÒTÿñvc7n7þHmnþH*ÿñXNï	_ïþH´	_´ÿç®kÿç«þ¢Æþ¢î0m«nLmDLÿçDÃenL9ksÃmnµmRnµÿçn¨m¿n¨ÿçÔmSnÔÿçUQªü4kiÃ]mfÃ]ÿç-Qü-þHm$ÿç}üÁóQÿñQMü&ö9÷&ÿñþH'LÛ'þHUQªüUÿçHþHQ0üÿñc^×	cÿçìmnìÿçr¢ãþHDQüDö¡8üÇþHkþHm|m5ÃÿñLQDRLÿñüskÃ÷þHªÃþHHÿçÃþHUªUÿñüxQEüxÿçmÛÿçVÿñãmãÿñ"QDü"ÿñÿGÆ	
-Æÿñt
-Æö8¢ýmûýþH"""ìtìzì.ìNâÿââlÿÄÇÐÐVÐãÐ9ÐÐÐÐsÐÐÐªÐ9ÐªÐÞÐÀÐ*Ð+ÐÐkÐÕÐ'ÐnÐ^ÐÍÐéÐ
-ÐJÐÐ'Ð9ÐAÐtÐîÐÐsÐ*ÐÐ;ÐÐhÐ7ÐSÐ§Ð	ÐÐÅÐÐ	TÐ	VÐ	ÇÐqÐÐ«ÐÃÐ*ÐþÐßÐiÐÐÐÐkÐ¾Ð¨ÐiÐ»Ð$Ð{ÐMÐÛÐ0ÐÐÙÐ5ÐkÐÏÐÐðÐDÐÐûÐRÐÐÐãÐúÐqÐ/ÐKÐ©ÐËÐùÐÄÐÐÙÐÁÐãÐUÐBÐÃÐ_ÐßÐ©ÐæÐºÐ¼ÐÐÕÐïÐþÐ|ìîttzzBRXXz| ïò-àà7ââ8ää9çç:éé;ëë<öö=øù>ûû@ýýABCD	EGHIJKLMNOPQ!!R##S%%T''UV	ÂÄ
-÷÷ ½ÂÊÍç'wwB		C¹ÀDëîL¼¼¼¼¼¼¼¼¼¼¼¼¼¼P ¦¬²¸¾ÄÊÐÖÜâ ¦¬Äèîôú¬²Êú ¦¬Äè¬²²ô²$¦¬²**Ö06<BHNúÐèTZ`²âflrx`î~r¦¢è¨®´ºÀÖÜÆ`´¬Ì`²Ò*ÖÒ*ÖÒ*ÖØÞ¦¬²¦¬²`²âÆ`´¬Æ`´¬Æ`´¬Æ`´¬ ¦¬²¸¾ÄÐÖÜâ ¦¬ÄèîôúÜúè¬²ä²ôØ²$¦¬²*Ö0úÐèTZflrx`î~¦¢è¨®´ºÀÖÜÆ`´¬Ì`²èîôú ¦¬²²$`î~Ò*Öê ÖðÒÌö´üÒ¾*TÆ`Ü*`¸Ò*`¦Æ ¸¾ÄÊÐÖÜâ ¦¬ÄÌ`²`ÜX¸¥7 \yuuFF	Y	vóó"õõ#ïð$ ½ÂÊÍç'wwB		C¹ÀDëîLÍu	[	\	]	_	`	d	f	i	o	r	s	vïð**"^yuuFF	Y	vóó"õõ#ïð$ ½ÂÊÍç'wwB		C¹ÀDëîLÍu	[	\	]	_	`	d	f	i	o	r	s	vïð*"^*yuuFF	Y	vóó"õõ#ïð$ ½ÂÊÍç'wwB		C¹ÀDëîLÍu	[	\	]	_	`	d	f	i	o	r	s	vïð,,$`,yuuFF	Y	vóó"õõ#ïð$ ½ÂÊÍç'wwB		C¹ÀDëîLÍu	[	\	]	_	`	d	f	i	o	r	s	vïð,Z	Y	^	b	c	j	k	l	m	n	q	tóõ ½ÂÊÍç'wwB		C¹ÀDëîL||||||||||||||PHNTZ`flfrx~rxH~¢¨®´®ºrÀÆÌ~ÒØ¨lÞäÞê¨ÒxÒðöüØ~¢~¢®®¨lØØØØHNTZ`flfrx~ H~¢¨®®rÀ~ÒØÞäÞÒxÒðöüØ~TZ¨®ÞH¢&,28¢>DJNPV\bh`flfrx<ì¢ïGªJ°]m@F ½ÂÊÍç'wwB		C¹ÀDëîL¨P¨®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®®ÿVÿ8@F ½ÂÊÍç'wwB		C¹ÀDëîL¨P¨®®®®®®®®®®®´®®®®®®®®®®®®®¨®®®®®´´®®º®º¨®®®®®®®®®®´®®®®®®®®®®®ÀÀÀ´®®¨®®®Æ®®®ÌÀÀÒúæÿt2dÿ¦ÿâ.4¢¥¦©¯°ÏÒÓÕÚë  &ÿâDR	Z	p	u ½ÂÊÍç'wwB		C¹ÀDëîLPPPPHNTNTNTNTNTNTNTNTNTNTNTNZ`TNTNTNTNTNTNTNTNTNTNTNTNTNfNTNTNTNTNTNZ`Z`TNTNTNTNTNHNTNTNTNTNTNTNTNTNTNTNZ`TNTNTNTNTNTNTNTNTNTNTNTNTNTNZ`TNTNHNTNTNTNZ`TNTNTNTNTNTNTNúÈúÿúÿÈªúBL	Z	p ½ÂÊÍç'wwB		C¹ÀDëîL¬¬P¨®´º¨ÀÀ¨¨À¨ºÆÌÒ´´Ø¨¨Þ¨¨¨¨äêÆÆÆ¨¨ÆÆ¨ääää¨®´º¨Àð¨À¨ºÆÒ´Ø¨Þ¨¨¨äêöüüÆÆêê &ïÎJ¸4&<Ùµ]kMïÈÎÈËfÈàÈ!È&È0:	Z	p¢¥¦©¯°ÏÒÓÕÚë$$ &&&&  & & ,&ô,È@F	h ½ÂÊÍç'wwB		C¹ÀDëîL¨P¨®´º¨¢À¨¨¢®Æº¨¨ÌÀ¨ÒººÆ®ÒÆØ¨ÆÆÆ®®ººÒØØØØÒÆ´º¨¢Þ¨¢®Æº¨À¨ºº®ÒÆØ¨äêêð¨ÆºØöü¨öØÒØïJÜn7¸¥Ü&]V	Y	^	c	j	k	l	m	n	qóõ ½ÂÊÍç'wwB		C¹ÀDëîLÔÔÔÔÔÔÔÔÔÔÔÔP¨®´ºÀÆÌÀ¨ÒØÞäêÀðöüÞüüê  ØØ&&Þ¨®´ºÀÆö¨ÒØÞ&ÀöüüüêÆ®Þ¨ , 2  8>D´ºÀJc,Én7¾:P¸ß¨ÿñ´qM&õxvò¨Æ­27<EL`epÿÿ	ccmp4ccmp@ccmpLccmpXccmp^ccmpjccmpccmp¨ccmp²dlig¼dligÄdligÌdligÔdligÜdligädligìdligôdligúdligdlig
-dnomdnomdnomdnom$dnom*fina0fina6fina<finaBfinaHfracNfracXfracbfraclfracvinitinitinitinitinitisolisol¤isolªisol°isol¶liga¼ligaÊligaØligaæligaôlnumlnumlnumlnumlnumlocl locl&locl,locl2locl8locl>mediDmediJmediPmediVmedi\numrbnumrhnumrnnumrtnumrzonumonumonumonumonum pnum¨pnum®pnum´pnumºpnumÀrcltÆrcltÌrcltÒrcltØrcltÞrligärligêrligðrligörligürligsmcpsmcpsmcpsmcp&smcp0ss01:ss01@ss01Fss01Lss01RtnumXtnum`tnumhtnumptnumx	
-	
-	
-	
-	
-EE/0123456789:;<=>?@ABCDEEVHV°VÐW0WN.6>FNV^fnv~¦®¶¾ÆW8W¸XXXèYhYÀZ@Z[[p[ð\H\È] ] ]ø^x^Ð_P_ _ö$,4<DLT\dl``Üa¤b>bØcrdd¦e@eÚftgg	g gJgÎhRh^hhèili	i iªiªi¦i¢ii´i¼j.j´FLM³:ttzzBRXXz| ïò-¬®ü=?ACEGIKOSW[_cgkosw{¡¥©­±µ·º¼ÀÄÈÌÐÒÔ×Üàäèìðôøü#%'*,.0248:>@B\`dr±³·	!%',HJNRVZ^bfjnrvz ¤¨¬°´¶º»¿ÃÇËÏÑÓ×Ûßãçëïó÷ûÿ4:>\`d·	!+/37;?CGKOSW[_ck~¤¦¨¬°´ÆÊÎÒÖÚ£§«¯³·»¿Ã_c#,HJNRVZ^bfjnrvz ¤¨¬°´¶º»¿ÃÇËÏÑÓ×Ûßãçëïó÷ûÿ4:>\`dr·	!+/37;?CGKOSW[_ck~¤¦¨¬°´ÆÊÎÒÖÚ£§«¯³·»¿Ã_c#U·£	00UÈrdæ_ÏAVõAcìãºí5Þ8pTo;ì­E	0IÁ¾0ËvÉ÷swÑ»Ç í¨5ñqÂàtKÒÜëÖxþú­`=½¹®b¿Å±®Ö¯+ÓTû5ÚÍqæÿìqkËvtàQHÔñÈHL£5åYý|ÈæZãõÖ¦äÁÖÊÇýH§3!H2øÂ$¢²¾SÊnF.'¬OURä,ûj0nóY0ú~Ö³è!~øÒó·SmR´EHJGf'0&UMicrosoft Code Signing PCA 20110"0	*H÷0
-«ðúr.­ØnªM4ºò¶X!B*kéZPª¸8IºÃÝ7kÆØð8Â°È9Õ1BÓyd~`$l¯Iéh^ÒßS²
-,Ã¯Ù©+®z	¯×YÊ`éfvè2R&/ç«PÏ³D·]ØÄ.u«hóËmó:\¡ôFºà8d¬nd5x¦ c-Ó@øãÞÕ\y¥II_â%]Ó!K>RÄµW?$ðÑz[/Õ#ãp]QFw³øá¼¬_ÛÀ³½ÔUKç9¡é#I¼¸D|EäÁÃrzàrç$ß¿FÅïÂWÛìMI0§«ßì[¯üÝ°fâÁ{íÖíKçI,@7OÁáDÄ	LÅÔ¥C/t÷nøx X,]`>O3Ú°ÞNô°¼F lÒàÖ£í0é0	+70UHndåPÓª77"µm¨Êu0	+7
-SubCA0U0Uÿ0ÿ0U#0r-:1C¹Náê§Ç1Ñ#40ZUS0Q0O M KIhttp://crl.microsoft.com/pki/crl/products/MicRooCerAut2011_2011_03_22.crl0^+R0P0N+0Bhttp://www.microsoft.com/pki/certs/MicRooCerAut2011_2011_03_22.crt0U 00	+7.00?+3http://www.microsoft.com/pkiops/docs/primarycps.htm0@+042 Legal_policy_statement. 0	*H÷gò¥àTy.ÓØtg"ácB}ÒyÁe_.,>øÃrÑmþ¾?è
-Ê;¿G©£óiÛc¿"5¥]e}FPUØ|ÒKó<BRÐ°ýkã>.îÞe/ìö¡\ØÖ¡F½Yó¥	KHÐ6úþ++1ô6/y/56ý%0/%ÿ÷ÿ÷,%ÿ÷ÿ÷,%ÿ÷ÿ÷,+/.;$$!!!
-**#&3+$.,'%A8'7<ACV4%4""""""""---0--0<088#"$' ',#!,.*#4*/&/$#&%&*'*&2FF,*-0'%03/'9/4*4.&'/,@++1TG<MHA=1k]DL098OU]\wH#3H........===B==B$RB8=389..'*,AIMPRYak ­1Ù  / D"%Ìûÿÿÿãÿãÿãÿãÿãÿãÿãÿãÿãÿãÿãÿãÿcÿcÿ¤þèÖààè°àwÞ¦âc	ü¿À	ý	þ@BUT@?>=<;:987543210/.-,+*3ä'5¸²U7¼WÖ@.Þ¨V>40¸PdÚ[|ÿÂÿØÿôÿÿ-ÙtFNr¾Ý	µ8Km<\iz¨Æ"ÿòã+R0GôÉÿ¯ÿÁÿÕ,;;>Kk¥¸À!CÿAK_¦¾
-Üÿg%1]n¶ÀÐÓ
-P¼t{×	6HL\o¦¨¬°·¼À67E¶ýþ?:;[¸Åáø',4GI]¼ít2>ÿÿ\mp§Áöø5=VzøÖ	â¼jít[6«P¥þ@:HÛ³H +W"×ñXM±»r²¸´
-¸µ¿D	 ++ö<ý<Nô<Mý<?<ý<ü<ý<10!!%!!ü Àü@û ÀqÿäÐkk½îÆÅ@4#3
-
-,ýà 0|àQ+NôMýô]NEeDæ?Mýæ]?999910]FDFDID#6322#"&546p&10eQ+D"X°D_`CD__#½L6,j·þÎþÀ`CD__DC`QÑyk:±¸Õ¶
-Ì¸´Ì¸³?º"±2+ô]ôýöäí?<ý<10#676632#6632d1j;/;2ýP1zW/=EÑi-<H;,#\þ; 	
-4& 	
-4'4	
-4¸ÿà³	
-4¸ÿà³	
-4¸ÿÌ@2	
-4$*%$&,&*ÿÀ³?*¸ÿÀ³?*¸l².¸5±é+NöMý++ôäNôMý++?í?í910]++++++2#"&&54766"327676654&Õa=SZ9£UOJSEÍ©],3&GVB5'/¯
-ºó++<+]+<+À?<+?<ôí.+}Ä+9zú/äíÀíÀ}Ä10]]+!7>767654&#"'%þµ%+lýUfP3 Ä-73JýhûY3%%Dm¤	-5%{Ýhì@2ÆÁ&03500HHDDHHJHg»¨¼@û
-¸g@
-¸ÿÀ²9»o
-µ¸@Ú @` º0+Nö]Míö<??íí+±CTX´ ]Y999999.+}Ä99.]íìõÉ10]]q!!576654&#"'67632!2673Øý0Á¢SsVc%4Ss½\nþ°~e,/%Úµ¿a[rMj²ugÉtþá9VÿäÂh3Ð@*
-
-
-º0ô++<++<+ÀNô]Mä+zð]/+zÁ/+zñ/+zÀ/+zÐ/+zá]/ô]qä?+<ö]q<ý<?+<í.+}Ä.+}Ä10]]q!733##ßþE1,þð5\ã§ýþ¨¢ü^¨þÆâQý¯NÿãL!¾@%*..!99?5?	$##¸@
-!!!?¸o@!!@9¯¸o³¸@/"ß¼#±é+öí]Nä]?Mí?<ý]+<9/í].+}Ä99993±CTX@!++!==!]Y10]]!!#"&54632327654&'&'Cþ%<½tþìoi?+$U69L4FtdMzLêzlÍxþòS5,?E,BVxÍ5¸3@üÚO*$Ú
-_
-
-
-º+5±é+ö]íNôqMí?í?/í999999]íý10]]]632#"&547632767654'&#"vi]DqpäÀ» ¥þoD,A1'3,E}{ûªWD>%%YnÿºþFÿÌ¸ÿè³?¸ÿÀ²9¸ÿì±9++++Y!2!!72667654&'>54&32654&&=³MeoX¯µ¼îþÃýÌRG+ò%;c=_bR7±­2ß®CjLXHaP''¸7´"P¸@!`0/?ßï¸1@!""@?!!"+*¸i³"!%'G&@?0&&¸b@	-,
-8­++<+öq+í+Ä<+À?<íí?9/íí<íþ<.++}Ä<Ä+ô]<]/zø/äzð/äzø/ä.íõ].íõ]10]+]qr]C\X@"?"?9+++Y676673#654&&'!726767&&'7!#.#F.KzP
-8¹Y++<+]+<+À?<?<.++}Ä+9íÀíÀíÀíÀY10++]rq++7!"!7267654&Z_$ø$d
-ý_e^&ú8'%%Pü\$%%MdP/O»,@ÿÀ¶?¸8µ	G ¸±·/?O¸0@	**
-¸'±++<<++ö]íí+ô]+í+]<<+ÀÀ?<<<<<?<<í9.++}Ä.++}Ä.+}Ä.+}Ä99+9íÀíÀíÀíÀíÀ±CTX@«­»½]Y10]]]]+]!"!7267#!76767&&#7dÛbf$ú<X	ý[mh$ÿüøG»ù@	@O_¸Í´ %%¸@/?OÅ$	$
-8++<<+++ô]í]ö]qääí+<<+ÀÀ?<?<?<<<í.++}Ä.+}Ä.++}ÄíÀíÀíÀíÀzø/ä+9±CTX´
-]Y10]]q]654&'7!#3!727667&&'7Ú¨¿?M®
-Rk%þµ&ýàþùGN	þF	9*P5HHLüx6*2<%%R|ûü{/%6A%%
-[VÙ;"%ÿÃ&L!*M@?@24¿¸b@1P0
-++<+rö]++ù+<+À99?<<<?9]/íí999.+++}Ä.+}Ä999+9999íÀíÀíÀíÀ}Ä<10]qC\X¹ÿò³?¸ÿò³?¸ÿö²9¸ÿì±9++++Y!7267654&'7!2!"'32654&#"Lx>býsb[&ü4_
-2ñÄrH·z1IUþZÀ!	#¼dRþeW&345<É&Ê'ÿ¸¿@ùü4ÿ?Ï¸¿@ù1ü&!'5-!5	$6
-*¸G®?ÀÐÿ 0_¿ï®G@7?`¸ÿÀ´4	º,4¶	
-¸±++<++öí/+qr+íô/]qrC\X@@?@?@7?+++Yôí+<+À?<?ý<ü<.++}ÄíÀíÀ10]C\X¹ÿò³?¸ÿè³?¸ÿè@??6969>+++++++Y!#654&'!7267#HCg$zþÒ>_	ý_g^'.ÒW'LþhsüU:I&O-edeivt³II%+&%$#$+%¸f@H@?+@	?+6,%%$¸,@	++++	¸,²	-»¡±·	@¸Í²,	±¹++zò]/+zñ/ä+zá/+</]+zá/?<?<<<99].++}Ä.+}Ä+.+}Ä99íÀíÀíÀíÀíÀíÀ10q]&'&'7!"6654&'7!33!76767rº/²@''
-dh++<+NôMíäNö]q++Mí+<+À?í?í?<ôí.++}Äzú/ä999<<}ÄÄ10]]q6632#"'654'&7%327>54&#"­Oj>xwÄ®Þ¥¸29Nþ¼/&5$9}T@*F4#?¿	À		DZþì|buB?¿à#?++++YMíqô+í?ízé/?í9]/í9910]]qq]3267#"&54$32'>54&#"@	WIF]sÚ§¿I¦TV*:°mIrXa]D0<nwA*KZDUv i¤HÆP=IE^s*-cB Czþ¸þFk8:@SÀ: ''6K $7$8 :8;;8GE7E8XT7T8c8¨Ð:556&3@,,¸å@
-6867777¸³6`¸@66@?4!;>f>#þ2þ¹þÚA,FË°J;4=2#8
-IuýuÿþF"4DR¹ÿì@>9Q99;"&;!P7ÿòk2@Ó0101*+Ó
-Ó@ ¸@`",§M
-H-#3L!,=##0%K^?33D"2ndÿL#4	TküNÔD"&&'; P
-#h++<+qN+Ðq+Mí+<+À?zé]/?<ôí.++}Äzú/äö]+++í99+910]q]+32767#"&547654'&7%þµ
-0;'_\?GBN9Qkûd']A,G2%RL&;ÿõËPÈ@­>EzY-W.Y<UFïRRßR$$&$&%7677HGF$F8FEGHX]N]Owx<9DR;<R¤©¦©-©<·ú<øF!EFFG$#'
-7	:F$Ó#Ä#Ô##¤6*//@?**/	::+;>>@?;;>FF+GJJ@?GGJNÓO~P3»A@&;ÿô4>@=+/*&*1<;%<1KK1\\1kk1||11¥1µ1õ1À5&#&,,:,05J,§'%
- 11- '*# -3;- C3Ó~/Ó~#9O¸Ì@,*Ó~Óë9*Ï**ÿ***0*@*¿*Ï*ß**4º¦,+Nô]qrMíô]íôíý]íüí]ôí?í?í<9/<9]/<<9999]910]r]q#&&#"#"'&#"#332654&'&'&54632327ú,%K.<-DPV:U8%1 #=f/7H/Uu%>Z-'þËx6& 80ªIOUMyg=E0/X]E2@l!'ÿä~g¹ÿâ²9¸ÿâ@94F#1CEµJ9ÿäN*]@n**+>þP+
-3X
-ýB­:,N
-3G$4Doþþ¸fýòF"-10/.2@,¸ÿÀ@??P? °À¸@´O""¸ö@-*28¤§2¯202o2p22 22¸n³9#j+ö]qíö<ôä]ö]q+í]999999?íí?<ôí999910]]%67654&&54632#"&5463232767654'&'&#"44%k*aI47QK±ªmH+*9QI1=3"6	$-EZ.0/§»Ï/¶0²/9$»@/Q²f/¸&@	U//U
-¸/±S++<<++öýäöíääôí+<<+ÀÀ?ýä]?<<ý<?<?ýä?zé]/.+}Ä.+}Ääzò/íöí9993+999<}Ä10]]32767#"&547!#"&5463232767#76767632#"&547654'&#"!27*±,
-.?!\[>O?H¦þärVÖ[QA4-3
-	*2>ÑTG%ge·|qC0.@ <+=0/GmCm?¸/³9$¸@³/Ó
-¸@²§»Ï/1²0²»²/&@Q//Q
-ìè++<<++ö+íôäôýöíöíôôä+<<+ÀÀ?í??<ý<??íää]í].+}Ä.++}Ä3+9999999<<<<10]qq]32767#"&547!#"&5463232767#7267>327&'&547654'&#"´þÆ-	26%ZZ>P@K¢þétVÔ\P@303	7&²MI²O=F´i,
-1Ëór9AeQ²'.þßu T6^>${kN @-#?@¸8³/3ÜÍí9/ÝÍ93/Í310'#"#7!þ#B~°--t·7ýI!,=ÅGÿä«ô3k@1g+:+9*G+*JsWDpP,5}ÐÊ0,þÀ+Q_i2>CG'!C6"MH37 /N?/ @9*3$,$5ofW1ZPa½\>n[lÞÐ¸[ýN¢z'80!=aywh AD3bþiÝÜ3@
-»oÑ²?3?3í2//33/Í33/910'!"#ÝüÚLþG_=!
-#¨Ü%ú²$.#	'/ycu,$f[*J;	]Rþ+$	
-	 #<2*&^2±,
-I,!M^?H¦þär,O&KÕ-A*+-3
-	4
-
-'QKBk$.#	'/ycu,$f[*J;	]Rþ+$%'KNS/ 3$¢þét,O&KÑ.A**03	
-"#Ì!&4' 6r}K`WRµdK	
-	!]1+$$.#	'/ycu,$f[*J;	]RþþºË6ÿ¹®ñ #Ã@A #!"!©!!!!+aqRA!!¸b@"	 #""	
-¸Ò?Ä?Äý2Ä2Ä2Ä29/ÄÝÄ/3/3/33+Á}Ä3/]]]]33/3/3+}Ô]]ÄÄÄÄÄÄ3/]310!766733!72>544''3Mkþ´/o:$	3&6P4HjN	!=V4<`RI$+5rxBg n:y¬ÔrCW<:`D%ÿ»×4Ò@x¿®?O_4.,--5&Þ¿Ï6+**&4Æ44+#&#&7&G&W&&@###A0!--44&*,¸Ñ¶#
-?Í2í2?í2Í9///Í99//]]]]/]Ì23]+}Ä]ÄÄÄ3/33/]]Í3]]]3/3Í9/]]]Í3/Í1032673#6654&##332>73!72>7654&#7!#4.##Þ!Nz*%%C=-Q"0/ %'¸Ñ¶
-?ý2Ä2?í2Í9///Í9//]Ì23]+}ÄÄÄÄ3/33/33/]]Í3/ÍÞ]Í21032>73#6654&##3!72>76654&#7!#4.##Ø'+J?2%%TIPAH	ýÕ
-'7&	½6C
-KJ"8X=r	6K,þ+"F9þã'7%aq'8.
-Äü:ýw
-0*$$HH|+$#ýµÿÄÿàú×$¹@	
-
-*$$AH"+#\ÿä¿ñ+W@4*
-*	$&:@P`-%#;X9#{I5M3 AH\þ¿ñ2F@@+3¸Ñ@
-"$	&
-?Äý2Ä2Ä2?í2Í9/3ÄÍ/Ì23]]]+}ÄÄÄÄ3/33/399//]]]]]9]+}Ä]]Î2í10%!72>7654&#7!2!#732>54&##r=?ýð
-"3$
-¿7@
-[Y,.Ql?A6
-þ I+KlE!S`!§ &$$1## ##?U1<YA-þ¸4;$¬I0M^/CLÿäÍñF@P$$:B@=P=p= ===H011322:22 222B8;BB%X%'@X6'B2 4E$&þ©8eL-'9'!60,5DU9Q{R*4zFrQ,"$$"5&Ý&>Q+MN&JlG%!+¸È©v-,,'.¸b@,'''	0+fvGW	%,-¸Ñ²?Ä?ÄÄýÄÄÄÄÄ9/3]]2Î2í22/399//ýÎ23/3333]]3]]3/3í22/310##&&'7!"'&&#7!"6654&'7!~'c1ýÓ%0þ^&b+&
-É	=*,â'5Û
-B0$+4
-L´MIüÊmýn/3##+0þGB@@##
-þ	dG¾#-6þ
-4Lö	ö
-'M'-	]
-4f0þò97$$9ÝÊ.$$JNý"*##
-î© ##@3þâ¥×+·@#$%%7@u@@¸b@0Z7 P*;&%%,G6æÙS:r¦lRuFO<*!5WBFlJ'T¡èuØµ#-" 3þè6¦UN2¶LH[j@L*P:P66&'%$+.6/D+2XD'GvT>{6	!#VT&5	'1224M"+7MPPXB66&'%$+.6/D+2XD'H²ki×dí¥X-C*G¤¼Õxýçô:6Qy`C$33,+0HPCC,38]þ%3J7=.8C"Z[[%""CDCHXCC]ML"S[[XSC%@D3G	@66&'%$+.6/D+2XD'IÂy%\cg2L$+B0üh-+1$$vïió1I# ,Om@g:*3&%Ed?VqAüx3&$$3M7ûs2ÆLGZ@J66&'%$+.6/D+2XD'tàEÑ]3?_E,
-3G*
-L0VvF+a_WB'	þl> /<<549np01-&'SE-!FlJþC-$%$.D*K:"-@'6|A3@;*3'$FfCf§Z#Hpþb5^M]nÿÚþgÌlV@P8695*!:!&R=E.,$!#4'P|þº8dSArhb21gq~J]¡wD þ7Pa6!@]<>i_V*4l^yÅK5_Q=mS1L:"
-X\	ýJ
-DP2!!=XÍ :.]ÓuA eÐ·#M9%U®Y0fgf/F''"	0-$%7`LaTÊj_¤xE@ÿ±æh¦²@A/,<$,'&eV.]J.3Z|IVrC\9]¦{HAv¨gH}iU ÿôk@%x#w-"-<ôMicrosoftiiihttp://en.wikipedia.org/wiki/MIT_Licensethe  Layout Logic Software Microsoftiiihttp://en.wikipedia.org/wiki/MIT_Licensethe ÒLayout Logic SoftwareÓiiihttp://en.wikipedia.org/wiki/MIT_Licensethe  Layout Logic Software ÿÛ
-2ÿÛ
-3ÿÛ
-4ÿÛ
-5ÿÛ
-6ÿÛ
-<ÿ
-=ÿ
->ÿ
-?ÿÛ
-@ÿÛ
-AÿÛ
-BÿÛ
-KÿÛ
-LÿÛ
-MÿÛ
-OÿÛ
-aÿÛ
-bÿÛ
-cÿÛ
-ÿ
-ùÿÛÿÛÿÛ	ÿÛ
-ÿÛÿÛÿÛÿÛÿÛÿÛ0ÿÛ1ÿÛ2ÿÛ3ÿÛDÿÛEÿÛFÿÛÿÛþúþúøùþÍûþôþÍÿ´
-þÍ
-þÍ
-þÍ
-þÍùÿ¦ûÿÙÿ¦
-ÿÿ
-ÿ§
-ÿ§
-ÿ§
-ÿ
-ÿ§
-¡ÿ
-£ÿ	ùÿ¦
-ÿuÿu
-ÿ
-ÿ
-ÿ
-ÿ
-¡ÿu
-£ÿu2ÿãÿÛ$ÿÁÿã
-.ÿã/ÿã1ÿã3ÿãÿã ÿã"ÿã&ÿãÿ´ÿá*ÿá
-.ÿÍ/ÿÍ1ÿÍ3ÿÍÿÍÿÍÿÍ ÿÍ"ÿÍÿÛ
-2ÿÛ
-3ÿÛ
-4ÿÛ
-5ÿÛ
-6ÿÛ
-<ÿ
-=ÿ
->ÿ
-?ÿÛ
-@ÿÛ
-AÿÛ
-BÿÛ
-KÿÛ
-LÿÛ
-MÿÛ
-OÿÛ
-aÿÛ
-bÿÛ
-cÿÛ
-ÿÿ ÿÿ ÿâÿâ«ÿ ±ÿ²ÿ
-ÿ
-"ÿ
-#ÿ
-$ÿ
-%ÿ
-&ÿ
-'ÿ
-<ÿ
-=ÿ
->ÿ
-ÿÿhÿ´ÿhÿÕÿÕ«ÿh±ÿ´²ÿ´
-ÿJ
-"ÿJ
-#ÿJ
-$ÿJ
-%ÿJ
-&ÿJ
-'ÿJ
-<ÿJ
-=ÿJ
->ÿJ
-ÿJÿDÿvÿDÿØÿØ«ÿD±ÿv²ÿv
-ÿh
-"ÿh
-#ÿh
-$ÿh
-%ÿh
-&ÿh
-'ÿh
-<ÿh
-=ÿh
->ÿh
-ÿhÿ
-ÿ´ÿ¶ÿÿh
-ÿh´ÿh¶ÿh
-ÿÙ
-ÿÙ
-ÿu
-ÿB
-ÿ
-ÿÙ
-¡ÿB
-£ÿBÿ,ÿ,«ÿ,
-ÿX
-ÿX
-ÿX
-ÿX
-ÿ¦
-ÿ¦
-ÿ¦
-ÿ
-ÿ¦
-¡ÿ
-£ÿ
-ÿ¦
-ÿ¦
-ÿ¦ÿÿ«ÿ
-ÿ
-ÿ
-ÿ
-ÿÿxÿxÿxÿìÿì«ÿx±ÿx²ÿx
-ÿ^
-ÿ^
-ÿÛ
-ÿ^
-ÿÛ
-ÿÛ
-ÿ^
-ÿÛ
- ÿÛÿFÿFÿFÿâÿâ«ÿF±ÿF²ÿF
-ÿh
-ÿh
-ÿÝ
-ÿh
-ÿÝ
-ÿh
-ÿÝ
-ÿ¦
-ÿ¦
-ÿ¦
-ÿ¦
-¡ÿu
-£ÿu
-ÿ
-¡ÿ
-£ÿÿFÿFÿFÿâÿâ«ÿF±ÿF²ÿF
-ÿh
-ÿh
-ÿÝ
-ÿh
-ÿÝ
-ÿ
-ÿÎ
-ÿh
-ÿÝ
- ÿÎ ÿÿ«ÿ
-§ÿå
-©ÿÍ
-ªÿÍ
-¬ÿf
-­ÿÍ
-±ÿÍ
-²ÿf
-³ÿÍ
-´ÿÍ
-µÿÍ
-¶ÿf
-·ÿÍ
-ºÿÍ
-¼ÿÍ
-½ÿf
-¾ÿÍ
-¿ÿÍ
-Àÿå
-ÁÿÍ
-ÂÿÍ
-Ãÿå
-ÈÿÍ
-ÊÿÍ
-ËÿÍ
-ÍÿÍ
-ÎÿÍ
-ÐÿÍ
-Ñÿå
-ÒÿÍÿÛ
-2ÿÛ
-3ÿÛ
-4ÿÛ
-5ÿÛ
-6ÿÛ
-<ÿ
-=ÿ
->ÿ
-?ÿÛ
-@ÿÛ
-AÿÛ
-BÿÛ
-KÿÛ
-LÿÛ
-MÿÛ
-OÿÛ
-aÿÛ
-bÿÛ
-cÿÛ
-ÿ
-ÿh
-"ÿh
-#ÿh
-$ÿh
-%ÿh
-&ÿh
-'ÿh
-<ÿh
-=ÿh
->ÿh
-ÿhDÿEFÿEGÿEHÿERÿESÿhTÿEXÿDYÿDZÿDoÿE ÿE°ÿEèÿEÿÿEÿEÿE
-ÿEÐÿD
-ÿT
-"ÿT
-#ÿT
-$ÿT
-%ÿT
-&ÿT
-'ÿT
-<ÿT
-=ÿT
->ÿT
-ÿTz$$*¹¹+ÃÃ,ÇÇ-ÑÑ.ÓÓ/ÖÖ0ÝÝ1ßß2áá3ãã4ññ5õ÷6ùù9ûû:;=
->BDEF!H$$K&&Làà7ââ8ää9çç:éé;ëë<öö=øù>ûû@ýýABCD	EGHIJKLMNOPQ!!R##S%%T''UmÿVÿ8úæÿt2ÿ¦ÿâúÈúÿúÿÈªúMïÈâÈ¬ÈÈSÈÈþ,Èn7ÜRFª__´âgâ³ÿñè¬ÊaþHÊkîÿñ8½v_85f½Ôô°¢5dxX_B5$vNû½\&3ª¶âúÙtø®ªv½5ÑªÜRxúþpª þp5¼¤úâDþ¢Ðú@þ¢Wÿñ®þ¢dþ¢:þ¢8þ¢@x¤þHò½¼ªþþ¢\æþ¢Âx*è½º5Æª°:ÿñ±5;vú&ÚÿÎþHÚ5Rª`Ëî_5ÔÜØØ¦üÜ[xmþ¢ôþp0~æþp_¨5:ÜsþpdþpèÜÛþp~þp^x0þp6þp`D_Zvªl5°° _ÿñÌÉ>Bÿñ$>ø|ÿñ4â,ÿñ*âÏLÿñ¼â+LÍÿñßâÏ¶Åÿñ¨$	Ç AÿñÞ__pÿñvÓ¨ÿñâ. â¸ÿñÿñâ¿ÿñD>/þH%ÿñøQktâÖªþHè_Ê_åÿñèâBôþHè$OøÿñÂúÞÙ&âÜÿñ²Q¶"ÿñ»$¯$Ì$®ÿñ0$øDÿñòâ®ÿñÔâôÿñXjmþHè; ÿñ~f¶ÿþHRÒÔÑþH âßLMÿñv$EøþHâ½¶ÿ[øÜØx~º|"ÇA«þHþiþH$LÙ´ÿñ¯þH¬â·uÿñ{¶Oÿñ9ÿñ'c^ÿj¨Üx£ÜKxâ4âöC$ÿñUpþHü5rÿñª	²°õÿj´ªë°ýÿjèâ	¦xOÿñâyxõþH?x»þHéâ
-Fxdÿñlâ\xØþH«xþHz½Ãx_µ°$5&ª°¨&hÿñ¢½o°î5,þHÈþH4ââr6xl	MÜhQ5¤ÜÕxÜÿñ5XkÖþH[5i2²äã«¦sÅG¦Õ¦Å¦ Å4¦¯¦¼µµÛ¦Ô¦[±qdødÿjÆ
-d
-Ð°i°ÌÐÐ.4:@FLRX.^^djpvvv|v ¦¬²¶¸¾¸¶Ähh¶¶Ê¶¶Ð¾ÖÖÜâjèîôúøøþþhx~~ ¢¥§©©­¯¶Â -OQ1VV4óó5	T	U6	W	W8øøþþhx~~ ¢¥§©©­¯¶Â -OQ1VV4óó5	T	U6	W	W8R²ÿtÿt2ÿÿLÿjÿ8ÿ¦ÿÿLÿFÿ2ü@þpÿBþHþÊþHÿ8þHÿþHÿþHÿ$þòÿþ ÿþ¢ÿ8þòþòþHþÞþHÿþpÿtþHþ¬þHÈ´ÿ~6<
-2þæTðú^"ÿìÿö`ÜX¸¥7.ÿÿ
- $ÕÖ
-*
-1
-6
-:
-
-
-"
-%
-5
-
-{
-$
-+
-#
-,
-ÆÔ
-*
-ÇR2Û*c@Ó-å¶|¡a	ÞÁ8ÕÉAêÝÊ&ØÚåj´uÐçtÙ.Ð1´»£	00Uäl9ÇX´F6eÄ·y0U#0#4øÙRFp
-í@ûvû³+°Ã5³0TUM0K0I G EChttp://crl.microsoft.com/pki/crl/products/MicrosoftTimeStampPCA.crl0X+L0J0H+0<http://www.microsoft.com/pki/certs/MicrosoftTimeStampPCA.crt0U%0
-+0	*H÷Þ¶Æ~Ùj´Jß6ì4Tôâ¢¢.DSÑ}/âcQ;·îNÛÅP*ÙÛ%Âôõg.çyõâuôNÌÇüç¿Gt÷0gÌK5`j!çÃ^«qF.'¬OURä,ûj0nóY0ú~Ö³è!~øÒó·SmR´EHJGf'0&UMicrosoft Code Signing PCA 20110"0	*H÷0
-«ðúr.­ØnªM4ºò¶X!B*kéZPª¸8IºÃÝ7kÆØð8Â°È9Õ1BÓyd~`$l¯Iéh^ÒßS²
-,Ã¯Ù©+®z	¯×YÊ`éfvè2R&/ç«PÏ³D·]ØÄ.u«hóËmó:\¡ôFºà8d¬nd5x¦ c-Ó@øãÞÕ\y¥II_â%]Ó!K>RÄµW?$ðÑz[/Õ#ãp]QFw³øá¼¬_ÛÀ³½ÔUKç9¡é#I¼¸D|EäÁÃrzàrç$ß¿FÅïÂWÛìMI0§«ßì[¯üÝ°fâÁ{íÖíKçI,@7OÁáDÄ	LÅÔ¥C/t÷nøx X,]`>O3Ú°ÞNô°¼F lÒàÖ£í0é0	+70UHndåPÓª77"µm¨Êu0	+7
-SubCA0U0Uÿ0ÿ0U#0r-:1C¹Náê§Ç1Ñ#40ZUS0Q0O M KIhttp://crl.microsoft.com/pki/crl/products/MicRooCerAut2011_2011_03_22.crl0^+R0P0N+0Bhttp://www.microsoft.com/pki/certs/MicRooCerAut2011_2011_03_22.crt0U 00	+7.00?+3http://www.microsoft.com/pkiops/docs/primarycps.htm0@+042 Legal_policy_statement. 0	*H÷gò¥àTy.ÓØtg"ácB}ÒyÁe_.,>øÃrÑmþ¾?è
-Ê;¿G©£óiÛc¿"5¥]e}FPUØ|ÒKó<BRÐ°ýkã>.îÞe/ìö¡\ØÖ¡F½Yó¥	KHÐ0°éhõ³û'ÿøÿø*'ÿøÿø*,""","0&--¦/#68¿&&&888<;;8<2
-88 88©1?©1
-¦
-0¦BB5¥ï;;;+¤&¡¡10&/&&F&pEk&F3+/+/]ý2ü2/ìí9/]ý2/?íí?ý2/9/íää]9/10#!"&5467>54&'&54763!2#"&'.#"3267>32#"&'&#à:!þ7&%#*p-0@ "kP3+//íü2/ô2/999]]?3íííí?3íííý9.+}Ä.+}Äì3/3/]3/}ÄÄ10]	#!"&54767654'#!"&5467654'.5463!2654'.543!2æ%'þr "-þ]%$
-
-È 0Ú	
-"
-üE1*7$.
-øKþh3'.,,	'±-DQ'ýÿï¦¦!%¡¡¥
-/
-
-,
-p+k
-,3+/+/]ííü2/ì?íí?íí9/10%3267>32#!"5467654'.5463!2ä9,*""W¤% %,7!	1'N:á@¨W9gf9yHG:@	6$¸ÿÀ@m	6¡$   558@=+03+/ý"N/@+Wh//¦	¦//	*¦¦¦$%!@	6¸ÿÀ@,	6 ! '¡./Ï².¡À².1.n0k.13+/+/ý]2ü2/ý]22ììì++?3ííí?3íí.+}Ä.10]#!"&547654&'.543!4'.5463!#2*þö
-4%P1	#ªý>,#I=++'Füõ>0!0?%ús7ÿîi1@}}
-o
-
-l3+/+/íí]?í?í102#"4#"3265,×þ÷ñåþø5Q"00!%-iÅþþãþªþ+6!8888ÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔÔ¨¨¨üüÜ?ÝÝÝeeeeeeeeeeeeeeeeeemmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm Æb³TUÅDEJ;Â~ØÓ×ÈØñÌk©cccccß<»­úg0!Uÿ000
-+70U
-0@06
-+7
-ÿ#0 CPScc
+===== page 2 =====
+                                                                                  
+                                                                                  
+       PART E – MANDATORY SCHEDULES                                               
+       Mark your Mandatory Schedules which are filled and attached to this form by marking ‘’’’ in the relevant cage in
+       the below table.                                                           
+                                                                                  
+        Sch. 1 Sch. 2 Sch. 3 Sch. 4  Sch. 5 Sch. 6 Sch. 7 Sch. 8 Sch. 9  Sch. 10  
+                                                                                  
+                                                                                  
+       SECTION – 02: DECLARATION                                                  
+       Whether the return or part of the return is prepared by an Approved Accountant or any other
+       person for a payment? YES          NO                                      
+                                                                                  
+       (If “Yes” fill PART -A and attach the certificate/s issued by such person.)
+      PART – A: DETAILS OF APPROVED ACCOUNTANT/ ANY OTHER PERSON                  
+                                                                                  
+       Name                                                                       
+                                                                                  
+                                                                                  
+       Designation                                                                
+       Telephone Number                          Mobile                           
+                                                                                  
+       E-Mail                                                                     
+                                                                                  
+       Date of the Certification D D / M M / Y Y Y Y                              
+      *If more than one person involved, use a separate sheet to fill the above details and attach to the return.
+                                                                                  
+      PART – B: DECLARATION OF THE TAXPAYER                                       
+                                                                                  
+      I declare to the best of my knowledge and belief that all particulars furnished in the Return of Income are true, correct and
+      complete. I am aware that making an incorrect, false, or misleading statement is an offence.
+                                                                                  
+       Full Name of the Declarant                                                 
+                                                                                  
+                                                                                  
+       Telephone Number                          Mobile                           
+                                                                                  
+       E - Mail                                                                   
+       Signature                                                                  
+                                                                                  
+       NIC Number/Passport                              OFFICIAL   FRANK          
+       Number                                                                     
+       Date                D D  / M  M  / Y  Y Y  Y                               
+        Filling of tax returns electronically is mandatory for every person.     
+        Return of Income is specified under Section 126 of the Inland Revenue Act, No. 24 of 2017, by the Commissioner
+        General of Inland Revenue                                                 
+        In terms of section 113(1B) of Inland Revenue Act, No 24 of 2017 a person shall file such person’s tax returns
+        electronically. IRD web portal (www.ird.gov.lk) e- services facilitate for submit the tax returns via online.
+        Declare income and other particulars for the year of assessment ended 31st March, 2025
+        Attach Tax Computation, Accounts if relevant & Any other documents required to be submitted
+        Duly completed Return of Income and attached documents should be submitted to the Inland Revenue Department on
+        or before 30th November, 2025                                             
+        Penalties are imposed on any person who has not submitted a Return or submitted an incorrect Return.
+        Penalties and interest shall be imposed for non-payment of taxes on due dates.
+        If marked “YES” for above in Section 02, attach a separate Certificate/s issued by the approved accountant or any other
+        person issued by specifying the extent to which he was involved, the documents examined by him and the information
+        relied upon by him. Such certificate shall deemed to be part and parcel of the Return of Income.
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  

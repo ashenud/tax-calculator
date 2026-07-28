@@ -1,5 +1,433 @@
-# Extracted from ir-amendment-act-2-2025.pdf
-# NOT AUTHORITATIVE — the PDF is. Extraction is lossy; verify any quote
-# against the PDF before relying on it. Regenerate: node scripts/extract-sources.mjs
+# Extracted from ir-amendment-act-2-2025.pdf with pdfplumber
+# NOT AUTHORITATIVE — the PDF is. Extraction loses table geometry and ligatures;
+# verify any quote against the PDF before relying on it.
+# Page markers below are load-bearing: cite the page you actually read.
+# Regenerate: python3 scripts/extract-sources.py
 
-en-USPARLIAMENT  OF  THE DEMOCRATIC en-USSOCIALIST  REPUBLIC  OFen-US SRI  LANKAen-US en-US en-USPRINTED AT THE DEPARTMENT OF GOVERNMENT PRINTING, SRI LANKAen-USTO BE PURCHASED AT THE GOVERNMENT PUBLICATIONS BUREAU, COLOMBO 5en-USPrice : Rs. 18.00en-US  en-USPostage Fee : Rs.en-US en-US150.00en-USINLAND REVENUE (AMENDMENT)en-GBACT, Nen-GBo. 2 OF 2025en-USen-US en-USPrinted on the Order of Governmenten-GBPublished as a Supplement to Part II of the en-GBen-GBen-GB of March 21, 2025en-USThis Act can be downloaded from en-USwww.documents.gov.lk3\223from April 1, 2023\224, of the words and April 1, 2025\224;(b) by the insertion immediately after subparagraph (1C) of that paragraph, of  \221\221(1D) Subject to the provisions of subparagraph (2), the taxable individual for a year of assessment commencing from April 1, 2025 shall  Taxable income Tax Payable Not exceeding 6% of the  Rs. 1,000,000 amount in  excess of Rs.0 Exceeding Rs. 60,000 plus  but not amount in  exceeding excess of  Rs. 1,500,000 Rs. 1,000,000 Exceeding Rs. 150,000 plus Rs. 1,500,000  24% of the  but not amount in exceeding excess of  Rs. 2,000,000 Rs. 1,500,000 Exceeding Rs. 270,000 plus Rs. 2,000,000  30% of the but not amount in exceeding excess of  Rs. 2,500,000 Rs. 2,000,000Inland Revenue (Amendment) Act No. 2 of 20252for a quarter prior to April 1, 2025, or with one hundred and eighty thousand rupees thousand rupees for any quarter\224; (2)  in subsection (3) of that section, by the substitution \223Prior to April 1, 2024, a refund\224; and (3) by the addition immediately after subsection (3) of \223(4) With regard to any year of assessment commencing on or after April 1, 2024, a refund or credit may be made under this section only if the taxpayer applies for such refund or credit \226 (a) within thirty months of the last date of the relevant year of assessment, a tax return under this Act; orwhere such refund or credit is made initiative.\224. 3. The First Schedule to the principal enactment is hereby  (1) in paragraph 1 of that Schedule \226(a) in subparagraph (1C) of that paragraph, by Amendment of the First Schedule to the principal enactmentInland Revenue (Amendment) Act No. 2 of 20251BE it enacted by the Parliament of the Democratic Socialist  1. (1) This Act may be cited as the Inland Revenue (Amendment) Act, No. 2 of 2025. (2) The provisions of this Act shall come into operation on April 1, 2025. 2. Section 150 of the Inland Revenue Act, No. 24 of 2017 (hereinafter referred to as the \223principal enactment\224) is  (1) in paragraph (a) of subsection (2A) of that section \226(a)  by the substitution for the words \223not exceeding one hundred thousand exceeding sixty thousand rupees for a year of assessment prior to April 1, 2025 or not exceeding one hundred and eighty thousand rupees for a year of assessment commencing on or after April 1, 2025,\224; and(b)  in the proviso to that paragraph, by the substitution for the words \223not exceeding exceeding sixty thousand rupees for a year Short title and the date of operationAmendment of section 150 of Act, No. 24 of 20177 4. The Third Schedule to the principal enactment is hereby  (1) in subparagraph (iii) of that paragraph, by the and  (2) in subparagraph (iv) of that paragraph, by the  5. The Fifth Schedule to the principal enactment is hereby  (1) in item (iii) of that subparagraph, by the substitution  (2) in item (iv) of that subparagraph, by the substitution 1, 2025; and\224; and  (3) by the addition immediately after item (iv) of that commencing on or after April 1, 2025,\224. 6.  In the event of any inconsistency between the Sinhala and Tamil texts of this Act, the Sinhala text shall prevail.Amendment of the Fifth Schedule to the principal enactmentSinhala text to prevail in case of inconsistencyAmendment of the Third Schedule to the principal enactment6derived from any service rendered in or outside Sri Lanka to any person to be utilized outside Sri Lanka, where the payment for such services is received in foreign currency and remitted through a bank to Sri  derived from any foreign source are earned or derived in foreign currency and remitted through a bank to Sri Lanka \226 15%; conducting betting and gaming \226 45%; and manufacture and sale or import and sale of any liquor or tobacco product other than the export of such product \226 45%.\224; and (3) by the repeal of item (d)(ii) of subparagraph (1) of paragraph 10 of that Schedule, and the substitution  \223(ii) interest or discount paid \226 10%;\224.5and remitted through a bank to Sri Lanka;derived from any foreign source are earned or derived in foreign currency and remitted through a bank to Sri Lanka.\224; (2) in paragraph 4 of that Schedule \226(a) in subparagraph (1) of that paragraph, by \223subparagraphs (2), (2A), (2B) and (3)\224, (2), (2A), (2B), (2C) and (3)\224;(b)  in subparagraph (2B) of that paragraph, by \223commencing on or after April 1, 2023,\224, or after April 1, 2023, but prior to April 1, 2025,\224; and (c) by the addition immediately after subparagraph (2B) of that paragraph, of \223(2C) Such part of the following includes in its taxable income for any year of assessment commencing on or after April 1, 2025, the gains and 4  Exceeding Rs. 420,000 plus  Rs. 2,500,000  36% of the amount  in excess of  Rs. 2,500,000  (c) by the repeal of item (c) of subparagraph (2) of that paragraph and the substitution  \223(c) the type of business income referred to in subparagraph (4) shall be taxed at the rate of \226 (i) 40%, prior to April 1, 2025; and1, 2025; and\224; and (d) by the addition immediately after subparagraph (5) of that paragraph, of the \223(6) Notwithstanding anything to the contrary in the provisions of subparagraph derived from any service rendered in or outside Sri Lanka to any person to be utilized outside Sri Lanka, where the payment for such services is received in foreign currency \224.
+
+
+===== page 1 =====
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+          PARLIAMENT     OF  THE  DEMOCRATIC              
+                SOCIALIST   REPUBLIC    OF                
+                                                          
+                       SRI  LANKA                         
+                                                          
+                                                          
+                                                          
+               INLAND REVENUE  (AMENDMENT)                
+                      ACT, No. 2 OF 2025                  
+                                                          
+                                                          
+                  [Certified on 20th of March, 2025]      
+                                                          
+                                                          
+                   Printed on the Order of Government     
+                                                          
+                                                          
+                                                          
+          Published as a Supplement to Part II of the Gazette of the Democratic
+               Socialist Republic of Sri Lanka of March 21, 2025
+                                                          
+                                                          
+                                                          
+                                                          
+              PRINTED AT THE DEPARTMENT OF GOVERNMENT PRINTING, SRI LANKA
+            TO BE PURCHASED AT THE GOVERNMENT PUBLICATIONS BUREAU, COLOMBO 5
+         Price : Rs. 18.00         Postage Fee : Rs. 150.00
+                                                          
+                                                          
+          This Act can be downloaded from www.documents.gov.lk
+                                                          
+                                                          
+                                                          
+
+===== page 2 =====
+                                                          
+                                                          
+                                                          
+                                                          
+              Inland Revenue (Amendment) Act No. 2 of 2025 1
+                  [Certified on 20th of March, 2025]      
+         L.D.-O. 82/2024                                  
+                                                          
+             An Act To Amend The Inland Revenue Act,      
+                     No. 24 Of 2017                       
+                                                          
+         BE it enacted by the Parliament of the Democratic Socialist
+         Republic of Sri Lanka as follows: -              
+                                                          
+           1. (1) This Act may be cited as the Inland Revenue Short title and
+         (Amendment) Act, No. 2 of 2025.   the date of    
+                                           operation      
+           (2) The provisions of this Act shall come into operation
+         on April 1, 2025.                                
+                                                          
+           2. Section 150 of the Inland Revenue Act, No. 24 of 2017 Amendment
+         (hereinafter referred to as the “principal enactment”) is of section 150
+                                           of Act, No.    
+         hereby amended as follows: -                     
+                                           24 of 2017     
+           (1) in paragraph (a) of subsection (2A) of that section –
+                (a) by the substitution for the words “not
+                   exceeding one hundred thousand         
+                   rupees,”, of the words and figures “not
+                   exceeding sixty thousand rupees for a  
+                   year of assessment prior to April 1, 2025
+                   or not exceeding one hundred and eighty
+                   thousand rupees for a year of assessment
+                   commencing on or after April 1, 2025,”;
+                   and                                    
+                                                          
+                (b) in the proviso to that paragraph, by the
+                   substitution for the words “not exceeding
+                   twenty five thousand rupees for any    
+                   quarter”, of the words and figures “not
+                   exceeding sixty thousand rupees for a year
+                   of assessment or fifteen thousand rupees
+                                                          
+                                                          
+                                                          
+
+===== page 3 =====
+                                                          
+                                                          
+                                                          
+                                                          
+           2    Inland Revenue (Amendment) Act No. 2 of 2025
+                                                          
+                     for a quarter prior to April 1, 2025, or with
+                     effect from April 1, 2025 not exceeding
+                     one hundred and eighty thousand rupees
+                     for a year of assessment or forty five
+                     thousand rupees for any quarter”;    
+                                                          
+             (2) in subsection (3) of that section, by the substitution
+                for the words “A refund”, of the words and figures
+                “Prior to April 1, 2024, a refund”; and   
+                                                          
+             (3) by the addition immediately after subsection (3) of
+                that section, of the following new subsection: -
+                                                          
+                       “(4) With regard to any year of    
+                     assessment commencing on or after April
+                     1, 2024, a refund or credit may be made
+                     under this section only if the taxpayer
+                     applies for such refund or credit –  
+                                                          
+                      (a) within thirty months of the last date
+                        of the relevant year of assessment,
+                        where the taxpayer is required to file
+                        a tax return under this Act; or   
+                                                          
+                      (b) within the time period specified
+                        by the Commissioner-General,      
+                        where such refund or credit is made
+                        on the Commissioner-General’s     
+                        initiative.”.                     
+                                                          
+            3. The First Schedule to the principal enactment is hereby Amendment
+           amended as follows: -             of the First 
+                                             Schedule to  
+                                             the principal
+             (1) in paragraph 1 of that Schedule –        
+                                             enactment    
+                 (a) in subparagraph (1C) of that paragraph, by
+                     the substitution for the words and figures
+                                                          
+
+===== page 4 =====
+                                                          
+                                                          
+                                                          
+                                                          
+              Inland Revenue (Amendment) Act No. 2 of 2025 3
+                                                          
+                   “from April 1, 2023”, of the words and 
+                   figures “from April 1, 2023, but prior to
+                   April 1, 2025”;                        
+                                                          
+                (b) by the insertion immediately after    
+                   subparagraph (1C) of that paragraph, of
+                   the following new subparagraph: -      
+                                                          
+                       ‘‘(1D) Subject to the provisions   
+                     of subparagraph (2), the taxable     
+                     income of a resident or non-resident 
+                     individual for a year of assessment  
+                     commencing from April 1, 2025 shall  
+                     be taxed at the following rates: -   
+                                                          
+                       Taxable income Tax Payable         
+                                                          
+                       Not exceeding 6% of the            
+                       Rs. 1,000,000 amount in            
+                                 excess of Rs.0           
+                       Exceeding Rs. 60,000 plus          
+                       Rs. 1,000,000 18% of the           
+                       but not   amount in                
+                       exceeding excess of                
+                       Rs. 1,500,000 Rs. 1,000,000        
+                       Exceeding Rs. 150,000 plus         
+                       Rs. 1,500,000 24% of the           
+                       but not   amount in                
+                       exceeding excess of                
+                       Rs. 2,000,000 Rs. 1,500,000        
+                       Exceeding Rs. 270,000 plus         
+                       Rs. 2,000,000 30% of the           
+                       but not   amount in                
+                       exceeding excess of                
+                       Rs. 2,500,000 Rs. 2,000,000        
+                                                          
+                                                          
+                                                          
+                                                          
+
+===== page 5 =====
+                                                          
+                                                          
+                                                          
+                                                          
+           4    Inland Revenue (Amendment) Act No. 2 of 2025
+                                                          
+                                                          
+                        Exceeding Rs. 420,000 plus        
+                        Rs. 2,500,000 36% of the amount   
+                                in excess of              
+                                Rs. 2,500,000             
+                                            ”.            
+                                                          
+                  (c) by the repeal of item (c) of subparagraph
+                    (2) of that paragraph and the substitution
+                    therefor, of the following item: -    
+                                                          
+                       “(c) the type of business income   
+                          referred to in subparagraph (4) 
+                          shall be taxed at the rate of – 
+                                                          
+                          (i) 40%, prior to April 1, 2025;
+                             and                          
+                                                          
+                          (ii) 45%, with effect from April
+                             1, 2025; and”; and           
+                                                          
+                 (d) by the addition immediately after    
+                    subparagraph (5) of that paragraph, of the
+                    following new subparagraph: -         
+                                                          
+                       “(6) Notwithstanding anything to the
+                     contrary in the provisions of subparagraph
+                     (1D), an individual’s following gains and
+                     profits shall be taxed at the maximum rate
+                     of 15% with effect from April 1, 2025: –
+                                                          
+                      (a) the gains and profits earned or 
+                        derived from any service rendered 
+                        in or outside Sri Lanka to any person
+                        to be utilized outside Sri Lanka, 
+                        where the payment for such services
+                        is received in foreign currency   
+                                                          
+                                                          
+
+===== page 6 =====
+                                                          
+                                                          
+                                                          
+                                                          
+              Inland Revenue (Amendment) Act No. 2 of 2025 5
+                                                          
+                      and remitted through a bank to Sri  
+                      Lanka;                              
+                                                          
+                    (b) the gains and profits earned or   
+                      derived from any foreign source     
+                      where such gains and profits        
+                      are earned or derived in foreign    
+                      currency and remitted through a     
+                      bank to Sri Lanka.”;                
+                                                          
+           (2) in paragraph 4 of that Schedule –          
+                                                          
+                (a) in subparagraph (1) of that paragraph, by
+                   the substitution for the words and figures
+                   “subparagraphs (2), (2A), (2B) and (3)”,
+                   of the words and figures “subparagraphs
+                   (2), (2A), (2B), (2C) and (3)”;        
+                                                          
+                (b) in subparagraph (2B) of that paragraph, by
+                   the substitution for the words and figures
+                   “commencing on or after April 1, 2023,”,
+                   of the words and figures “commencing on
+                   or after April 1, 2023, but prior to April 1,
+                   2025,”; and                            
+                                                          
+                (c) by the addition immediately after     
+                   subparagraph (2B) of that paragraph, of
+                   the following new subparagraph: -      
+                                                          
+                       “(2C) Such part of the following   
+                     gains and profits of a company which 
+                     includes in its taxable income for any
+                     year of assessment commencing on     
+                     or after April 1, 2025, the gains and
+                     profits of a company shall be taxed at
+                     the following rates: -               
+                                                          
+                                                          
+                                                          
+
+===== page 7 =====
+                                                          
+                                                          
+                                                          
+                                                          
+           6    Inland Revenue (Amendment) Act No. 2 of 2025
+                                                          
+                       (a) gains and profits earned or    
+                          derived from any service        
+                          rendered in or outside Sri Lanka
+                          to any person to be utilized    
+                          outside Sri Lanka, where the    
+                          payment for such services is    
+                          received in foreign currency and
+                          remitted through a bank to Sri  
+                          Lanka -15%;                     
+                                                          
+                       (b) gains and profits earned or    
+                          derived from any foreign source 
+                          where such gains and profits    
+                          are earned or derived in foreign
+                          currency and remitted through a 
+                          bank to Sri Lanka – 15%;        
+                       (c) gains and profits from         
+                          conducting betting and gaming   
+                          – 45%; and                      
+                                                          
+                       (d) gains and profits from the     
+                          manufacture and sale or import  
+                          and sale of any liquor or tobacco
+                          product other than the export of
+                          such product – 45%.”; and       
+             (3) by the repeal of item (d)(ii) of subparagraph (1) of
+                paragraph 10 of that Schedule, and the substitution
+                therefor, of the following item: -        
+                                                          
+                  “(ii) interest or discount paid –       
+                                                          
+                       (a) with effect from January 1, 2023,
+                         but prior to April 1, 2025 - 5%; 
+                                                          
+                       (b) with effect from April 1, 2025 –
+                         10%;”.                           
+                                                          
+                                                          
+                                                          
+
+===== page 8 =====
+                                                          
+                                                          
+                                                          
+                                                          
+              Inland Revenue (Amendment) Act No. 2 of 2025 7
+                                                          
+                                                          
+          4. The Third Schedule to the principal enactment is hereby Amendment
+                                           of the Third   
+         amended in paragraph (u) of that Schedule as follows: -
+                                           Schedule to    
+                                           the principal  
+                                           enactment      
+           (1) in subparagraph (iii) of that paragraph, by the
+              substitution for the words and figures “on or after
+              January 1, 2020;”, of the words and figures “on or
+              after January 1, 2020, but prior to April 1, 2025;”;
+              and                                         
+           (2) in subparagraph (iv) of that paragraph, by the
+              substitution for the words and figures “on or after
+              January 1, 2020;”, of the words and figures “on or
+              after January 1, 2020, but prior to April 1, 2025;”.
+          5. The Fifth Schedule to the principal enactment is hereby Amendment
+         amended in subparagraph (a) of paragraph 2 as follows: - of the Fifth
+                                           Schedule to    
+                                           the principal  
+           (1) in item (iii) of that subparagraph, by the substitution enactment
+              for the words and figures “April 1, 2022; and”, of
+              the words and figures “April 1, 2022;”;     
+           (2) in item (iv) of that subparagraph, by the substitution
+              for the words and figures “April 1, 2023,”, of the
+              words and figures “April 1, 2023, but prior to April
+              1, 2025; and”; and                          
+                                                          
+           (3) by the addition immediately after item (iv) of that
+              subparagraph, of the following new item: -  
+                                                          
+               “(v) Rs. 1,800,000, for each year of assessment
+                  commencing on or after April 1, 2025,”. 
+          6. In the event of any inconsistency between the Sinhala Sinhala text
+                                           to prevail in  
+         and Tamil texts of this Act, the Sinhala text shall prevail.
+                                           case of        
+                                           inconsistency  
+                                                          
+
+===== page 9 =====
+
+
+===== page 10 =====
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+               PRINTED AT THE DEPARTMENT OF GOVERNMENT PRINTING, SRI LANKA.
+                                                          

@@ -44,6 +44,15 @@ for the record.
 | Q15 | AIT on interest or discounts, from 1 Apr 2025 | 10% | [Act 2/2025 s.3, First Schedule para 10(1)(d)(ii)]; [PN/IT/2025-01, para 2.3] |
 | Q24 | E-filing mandatory | yes, from Y/A 2023/2024 | [IRA s.113(1)(B)]; [Guidelines for e-Filing IIT Return Y/A 2024/2025] |
 | Q35 | Non-resident citizens receive the same personal relief | yes | [PN/IT/2025-01, para 1] |
+| Q21 | Instalment dates | 15 Aug, 15 Nov, 15 Feb in the Y/A; 15 May of the next Y/A | [IRA s.90(2)(a)] |
+| Q23 | Filing deadline | eight months after the end of the Y/A — a rule, not a date | [IRA s.93(1)] |
+| Q25 | Instalment basis | `(A − C) / B` on the s.91/92 estimate, not the final liability | [IRA s.90(3)] |
+| Q28 | An employee whose employer need not withhold is an instalment payer | yes, expressly | [IRA s.90(1)(b)] |
+| Q30 | APIT deduction obligation | arises where the Commissioner-General specifies the circumstances, not directly from the Act | [IRA s.83(1)] |
+| — | Estimate due date | by the date for payment of the first instalment | [IRA s.91(1)] |
+| — | Personal relief provision | Fifth Schedule item (v), deducted via s.52(1) | [IRA Sch.5 para 2(a)(v), ins. Act 2/2025 s.5(3)]; [IRA s.52(1)] |
+| — | Exemption removal mechanism | Third Schedule para (u)(iii)–(iv) closed off at 1 Apr 2025 | [IRA Sch.3 para (u), as amended by Act 2/2025 s.4] |
+| — | Sinhala text prevails over the **Tamil** text — not over the English | correction to an earlier note here | [Act 2/2025 s.6] |
 | — | Commencement of Act 2/2025 | 1 April 2025 | [Act 2/2025 s.1(2)] |
 | — | Individual business income from betting/gaming, liquor or tobacco | 45% flat | [Act 2/2025 s.3]; [PN/IT/2025-01, para 2.1(c)] |
 | — | Service-export and foreign-source exemptions removed | from 1 Apr 2025 | [PN/IT/2025-01, para 3] |
@@ -101,19 +110,35 @@ The Act's phrase is "received in foreign currency and remitted through a bank to
 Lanka". It does not define "remitted", "bank", or the timing. These are questions for the
 WHT circular, IRD guidance, or the Y/A 2025/26 return form.
 
-### Schedule interaction — still blocks the engine
+### Schedule interaction — narrowed, still blocks the engine
 
 | # | Claim | Status |
 |---|---|---|
-| Q14 | How personal relief is allocated when income falls under both the normal and reduced schedules | **unresolved** |
+| Q6 | Personal relief is available against service-export / foreign-source income | **partially verified** |
+| Q14 | How the 15% cap and the normal ladder interact for mixed income | **narrowed, still unresolved** |
 
-The Y/A 2024/2025 return confirms relief is deducted from *aggregated* assessable income,
-which settles the once-only question. It does **not** settle how the resulting taxable
-income is then split across two rate schedules — that form predates the 15% regime.
+**Q6 — the second pass largely answers this.** The 15% is a **maximum rate** applied to
+"gains and profits", *notwithstanding* the ladder in subparagraph (1D)
+[IRA Sch.1 para 1(6), ins. Act 2/2025 s.3(1)(d)]. It modifies the rate only. Relief lives
+in the Fifth Schedule and is deducted under s.52(1) in arriving at taxable income
+[IRA s.52(1)], a step subparagraph (6) does not touch. So relief applies as normal. This
+is a structural reading rather than an express statement, so it stays `partially verified`
+until the Y/A 2025/26 return form or IRD guidance confirms it in terms.
 
-The **Y/A 2025/2026 return form** is the most likely thing to answer it. Until then the
-engine must refuse mixed cases per
+**Q14 — narrowed but not closed.** The important correction: this is **not** two competing
+schedules with relief to be divided between them. There is one ladder, and a cap on the
+rate charged to part of the income. That removes most of the candidate readings previously
+listed here.
+
+What remains genuinely open is **ordering**: when a taxpayer has both capped and uncapped
+income, which component occupies the lower bands? The Act does not say. For a taxpayer
+with only capped income the answer is unambiguous (6% on the first Rs. 1,000,000, then
+15%), so persona p1's pure case is computable; persona p3's mixed case is not.
+
+Until ordering is settled the engine must refuse **mixed** cases per
 [`../decisions/adr-0003-disclaimer-and-liability-posture.md`](../decisions/adr-0003-disclaimer-and-liability-posture.md).
+Pure-capped and pure-normal cases can now ship. The **Y/A 2025/2026 return form** remains
+the most likely thing to settle ordering.
 
 ### Reliefs, other heads, compliance
 
@@ -123,15 +148,10 @@ engine must refuse mixed cases per
 | Q16 | WHT on dividends | 15% | unverified |
 | Q17 | WHT on rent | 10% to a resident person per base act ¶10(1)(b)(iii); lettering suspect | unverified for 2025/26 |
 | Q20 | Excess credit refundable or carried forward | refunds exist; up to Rs. 180,000 processed within 3 months, senior citizens quarterly under Rs. 45,000 [PN/IT/2025-01, para 4] — general refundability of excess credit still unconfirmed | partial |
-| Q21 | Quarterly instalment dates | 15 Aug, 15 Nov, 15 Feb, 15 May | unverified |
-| Q22 | Final payment date | 30 September following Y/A end | unverified |
-| Q23 | Return filing deadline for Y/A 2025/26 | 30 November 2026 | unverified |
-| Q25 | Basis for instalments (SET estimate vs prior year) | assumed SET estimate | unverified |
+| Q22 | A final payment date separate from the fourth instalment | 30 September was assumed; s.90 shows a fourth instalment on 15 May instead — the assumption may be wrong | unverified |
 | Q26 | Penalty and interest rates | unknown | unverified |
-| Q27 | Employer non-deduction does not discharge the employee | assumed yes | unverified |
-| Q28 | Such an employee must pay by quarterly instalment | assumed yes | unverified |
+| Q27 | Employer non-deduction does not discharge the employee | strongly implied by s.90(1)(b), which makes such an employee an instalment payer in their own right; the express liability provision still needs locating | partial |
 | Q29 | Relief where the employer was at fault | unknown | unverified |
-| Q30 | Is APIT deduction mandatory or elective? | unknown | unverified |
 | Q31 | Capital gains rate | unknown | unverified |
 | Q32 | Terminal benefit tables | unknown | unverified |
 | Q33 | Qualifying payments surviving for Y/A 2025/26 | unknown | unverified |

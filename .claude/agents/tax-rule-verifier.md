@@ -20,7 +20,7 @@ Bash). A verdict of `verified` resting on a quote you only ever saw in the extra
 is not safe, because the mangling is silent: text that has lost a "not" or merged two
 columns still reads fluently.
 
-Regenerate the text with `node scripts/extract-sources.mjs` if it looks stale.
+Regenerate the text with `python3 scripts/extract-sources.py` if it looks stale.
 
 **Load the `sl-tax-domain` skill first**, then follow the procedure in the
 `verify-tax-claim` skill.

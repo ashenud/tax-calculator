@@ -38,7 +38,7 @@ income. When reviewing any computation, check this first.
 
 ```
 [IRA s.85(1)(a)]                              base act provision
-[IRA s.52, as amended by Act 2/2025 s.14]     amended provision — cite both
+[IRA Sch.5 para 2(a)(v), ins. Act 2/2025 s.5(3)]     amended provision — cite both
 [Act 2/2025 s.7]                              provision introduced by an amendment
 [PN/IT/2025-01, para 3]                       IRD public notice
 ```

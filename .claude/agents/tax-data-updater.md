@@ -24,7 +24,7 @@ with a verdict on each:
 
 | Field | Prior Y/A | New Y/A | Verdict | Citation |
 |---|---|---|---|---|
-| `reliefs.personal.amount` | 1200000 | 1800000 | changed | [IRA s.52, as amended by Act 2/2025 s.14] |
+| `reliefs.personal.amount` | 1200000 | 1800000 | changed | [IRA Sch.5 para 2(a)(v), ins. Act 2/2025 s.5(3)] |
 | `wht.interest.rate` | 1000 | 1000 | confirmed unchanged | [IRA s.84, unamended] |
 
 "Confirmed unchanged" means you looked. If you did not look, the verdict is

@@ -83,7 +83,7 @@ One file per year of assessment. Filenames use the start year and a two-digit en
     "personal": {
       "amount": 1800000,
       "appliesTo": ["resident", "non-resident-citizen"],
-      "src": "act-2-2025#s.14"
+      "src": "act-2-2025#s.5(3)"        // IRA Sch.5 para 2(a)(v)
     }
   },
 
@@ -95,32 +95,32 @@ One file per year of assessment. Filenames use the start year and a two-digit en
     "individual-normal": {
       "label": "Resident individual — normal rates",
       "bands": [
-        { "width": 1000000, "rateBp":  600, "src": "act-2-2025#sch.1" },
-        { "width":  500000, "rateBp": 1800, "src": "act-2-2025#sch.1" },
-        { "width":  500000, "rateBp": 2400, "src": "act-2-2025#sch.1" },
-        { "width":  500000, "rateBp": 3000, "src": "act-2-2025#sch.1" },
-        { "width":  null,   "rateBp": 3600, "src": "act-2-2025#sch.1" }
+        { "width": 1000000, "rateBp":  600, "src": "act-2-2025#s.3(1)(b)" },
+        { "width":  500000, "rateBp": 1800, "src": "act-2-2025#s.3(1)(b)" },
+        { "width":  500000, "rateBp": 2400, "src": "act-2-2025#s.3(1)(b)" },
+        { "width":  500000, "rateBp": 3000, "src": "act-2-2025#s.3(1)(b)" },
+        { "width":  null,   "rateBp": 3600, "src": "act-2-2025#s.3(1)(b)" }
       ]
-    },
+    }
+  },
 
+  // A rate CAP on `appliesToSchedule`, not a schedule of its own — see design notes.
+  "rateCaps": {
     "service-export-foreign": {
-      "label": "Service export / foreign source income — reduced rates",
-      "bands": [
-        { "width": 1000000, "rateBp":  600, "src": "act-2-2025#sch.1" },
-        { "width":  null,   "rateBp": 1500, "src": "act-2-2025#sch.1" }
-      ],
+      "label": "Service export / foreign source gains and profits — maximum rate",
+      "appliesToSchedule": "individual-normal",
       "maxRateBp": 1500,
       "conditions": ["remitted-through-bank-to-sri-lanka"],
-      "src": "act-2-2025#sch.1"
+      "src": "act-2-2025#s.3(1)(d)"     // IRA Sch.1 para 1(6)
     }
   },
 
   "conditions": {
     "remitted-through-bank-to-sri-lanka": {
       "question": "Were these earnings remitted through a bank to Sri Lanka?",
-      "ifNotMet": "individual-normal",
+      "ifNotMet": null,                 // cap simply does not apply; normal ladder stands
       "evidence": "Bank inward remittance advice",
-      "src": "act-2-2025#s.7"
+      "src": "act-2-2025#s.3(1)(d)"
     }
   },
 
@@ -157,11 +157,25 @@ line-for-line and can be checked against it by eye. Cumulative thresholds are de
 load time. Deriving is safe; transcribing cumulative totals by hand is where
 transcription errors hide. The final band has `width: null` — the balance.
 
-**Reduced rates are a schedule, not a discount.** The reduced treatment of service-export
-and foreign-source income is modelled as its own band table, not as a cap applied
-afterwards to a normal computation. `maxRateBp` is recorded alongside as a documented
-invariant the engine asserts, so a future band added above the cap fails loudly instead
-of quietly overcharging.
+**Reduced rates are a cap, not a schedule — corrected.** An earlier version of this spec
+modelled service-export and foreign-source income as its own band table. **That was
+wrong**, and it was wrong in a way that would have produced correct answers for the simple
+case and silently wrong ones for the mixed case.
+
+The Act says the specified gains and profits are taxed at "the **maximum rate** of 15%",
+*notwithstanding* the normal ladder [IRA Sch.1 para 1(6), ins. Act 2/2025 s.3(1)(d)]. The
+normal ladder still runs; the rate charged on that component is capped at 15%. So a
+`rateCap` entry names the schedule it modifies, and the engine applies
+`min(bandRateBp, maxRateBp)` to the capped component.
+
+The familiar "first Rs. 1,000,000 at 6%, balance at 15%" is a *consequence* of this — the
+6% band is under the cap and survives; every band above it collapses to 15%. Modelling it
+as two hardcoded bands would encode the output of the rule instead of the rule, and would
+break the moment a band moved.
+
+`ifNotMet` is `null` for a cap: an unmet condition means the cap does not apply and the
+normal ladder stands unmodified. For a genuine alternative *schedule* it would name the
+fallback.
 
 **Conditions are data, and they are questions.** `conditions` carries the human-facing
 question, the fallback schedule when the condition is not met, and the evidence the

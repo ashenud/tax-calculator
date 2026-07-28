@@ -16,7 +16,7 @@ Citation format:
 
 ```
 [IRA s.85(1)(a)]                                  base act
-[IRA s.52, as amended by Act 2/2025 s.14]         amended provision
+[IRA Sch.5 para 2(a)(v), ins. Act 2/2025 s.5(3)]         amended provision
 [PN/IT/2025-01, para 3]                           IRD public notice
 ```
 
