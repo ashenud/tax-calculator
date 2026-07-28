@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Tax return support">
+  <!--
+    Deliberately not a crest, seal, or anything resembling an official Inland
+    Revenue mark. ADR-0003 rules out output styled to look like an official
+    document, and the favicon is the first thing a user sees.
+    A ledger rule and a tick: a working, checked.
+  -->
+  <rect width="32" height="32" rx="7" fill="#0065b0" />
+  <g stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" fill="none">
+    <path d="M9 11h14" />
+    <path d="M9 16h8" />
+    <path d="M9 21.5l3.5 3.5L23 14.5" stroke-linejoin="round" />
+  </g>
+</svg>

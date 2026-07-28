@@ -1,12 +1,18 @@
-import { defineConfig } from 'vitest/config';
+/// <reference types="vitest/config" />
+import { getViteConfig } from 'astro/config';
 
-export default defineConfig({
+// `getViteConfig` rather than vitest's own `defineConfig`: P01 tests .astro
+// components (the ADR-0003 invariants) through Astro's Container API, and that
+// needs Astro's Vite plugin in the test pipeline to compile .astro files.
+// The engine tests from P04 onward are plain TypeScript and are unaffected.
+export default getViteConfig({
   test: {
-    // The engine and its fixtures are pure TypeScript — no DOM needed.
+    // No DOM needed. The engine and its fixtures are pure TypeScript, and the
+    // container renders components to an HTML string.
     environment: 'node',
     include: ['src/**/*.test.ts'],
-    // The scaffold ships no tests yet. An empty runner exits 0; a failing runner
-    // is not acceptable. P04 onward add the real suites.
+    // A failing runner is not acceptable; an empty one is fine while suites are
+    // still being added. P04 onward add the engine suites.
     passWithNoTests: true,
   },
 });

@@ -32,7 +32,7 @@ Versions below are **as actually installed at P00**, not aspirational.
 | Lint/format | ESLint 10.8.0, typescript-eslint 8.65.0, Prettier 3.9.6 | |
 | Primitives | **Radix UI** | headless, accessible; we style them |
 | Icons | **Lucide** | tree-shakeable |
-| Fonts | system stack + one variable display face, self-hosted | no external font CDN — CSP and offline |
+| Fonts | system stack for prose + **`@fontsource-variable/inter` 5.3.0** for figures, self-hosted | no external font CDN — CSP and offline. Latin subset only, 48 KB, `font-display: swap`. Prose stays on the system stack so first paint never waits on a download. |
 
 ### Two constraints found by installing, not by reading
 
@@ -71,30 +71,65 @@ or a size** — every value resolves to a token, so a theme change is one file.
 Semantic names, not literal ones. `--color-danger` survives a palette change; `--color-red`
 does not.
 
+The authority for the palette is `src/styles/global.css`. The sketch below is the shape
+of it; the values there are the ones that shipped, and they differ slightly from this
+draft because they were measured (see "Two constraints found by measuring", below).
+
 ```css
 @theme {
   --color-surface:        oklch(99% 0.002 260);
   --color-surface-raised: oklch(100% 0 0);
-  --color-border:         oklch(90% 0.005 260);
+  --color-surface-sunken: oklch(96.5% 0.004 260);
+
+  --color-border:         oklch(91% 0.005 260);   /* decorative rule only */
+  --color-border-strong:  oklch(63% 0.012 260);   /* UI component boundary */
+
   --color-text:           oklch(25% 0.01 260);
-  --color-text-muted:     oklch(52% 0.012 260);
+  --color-text-muted:     oklch(50% 0.012 260);
 
-  --color-accent:         oklch(52% 0.16 250);   /* interactive, links, focus */
-  --color-accent-contrast: oklch(99% 0 0);
+  --color-accent:         oklch(50% 0.142 250);   /* interactive, links */
+  --color-accent-contrast: oklch(100% 0 0);
+  --color-focus:          oklch(50% 0.142 250);   /* the focus ring */
 
-  --color-danger:         oklch(52% 0.19 27);    /* blocking refusal */
-  --color-caution:        oklch(62% 0.15 75);    /* unverified figure, unmet condition */
-  --color-positive:       oklch(52% 0.13 155);   /* nothing owed, condition met */
-  --color-info:           oklch(55% 0.09 230);
+  --color-danger:         oklch(52% 0.19 27);     /* blocking refusal */
+  --color-caution:        oklch(62% 0.131 75);    /* unverified figure, unmet condition */
+  --color-positive:       oklch(52% 0.115 155);   /* nothing owed, condition met */
+  --color-info:           oklch(52% 0.09 230);
 }
 ```
 
-Each status colour has a paired `-subtle` background and `-strong` text variant so a
-notice never relies on colour alone at low contrast.
+Each status colour has three roles, and they are **not** interchangeable:
+
+| Role | Token | Floor |
+|---|---|---|
+| icon, marker, border | `--color-<status>` | ≥ 3:1 on surface |
+| text | `--color-<status>-strong` | ≥ 4.5:1 on surface *and* on `-subtle` |
+| notice background | `--color-<status>-subtle` | the fill behind `-strong` |
 
 **Dark mode** via `@media (prefers-color-scheme: dark)` plus a `:root[data-theme]`
 override so an explicit toggle wins in both directions. Both themes must pass contrast —
 dark mode is not a filter over the light palette.
+
+### Two constraints found by measuring, not by choosing
+
+Both were found in P01 by computing the ratios rather than eyeballing the swatches.
+
+**A status colour cannot carry its own body text.** `--color-caution` measures **3.62:1**
+on `--color-surface` — fine for an icon or a rule, below the 4.5:1 floor for text. This is
+why the `-strong` variant exists and why "just use `--color-caution` for the warning copy"
+is wrong. `WarningList` and `UnverifiedBadge` (P09) must use `-strong` for text.
+
+**`--color-border` cannot be a control outline.** At **1.31:1** it is a divider and
+nothing more. Anything WCAG 1.4.11 counts as a UI component boundary — an input outline, a
+checkbox edge, the border of a control a user has to find — takes `--color-border-strong`
+(**3.42:1** light, **3.58:1** dark). `CurrencyField` (P08) depends on this.
+
+Every pair with a contrast obligation is measured in `src/styles/tokens.test.ts`, in both
+themes, on every commit. When a colour changes, the fix is the colour and never the floor.
+`src/lib/oklch.ts` does the OKLCH → sRGB and WCAG luminance maths; it is test-only and is
+not shipped to the browser. The same suite asserts that no token falls outside the sRGB
+gamut, because an out-of-gamut `oklch()` is clipped per channel by the compositor, which
+silently moves the ratio away from the one that was specified.
 
 ### Type
 

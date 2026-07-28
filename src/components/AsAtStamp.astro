@@ -1,0 +1,122 @@
+---
+/**
+ * The "as at" stamp required by ADR-0003 decision 2.
+ *
+ * Goes **beside every computed figure**, not only in the page footer, because
+ * screenshots are how these figures actually travel. A screenshot of a number
+ * with no year of assessment and no data-review date is an artefact that can be
+ * wrong for years without anybody being able to tell.
+ *
+ * Two deliberate design choices, both of which are the point of the component:
+ *
+ *  1. `yearOfAssessment` is REQUIRED and has no default. Deriving it from the
+ *     system clock is prohibited by CLAUDE.md rule 5 and ADR-0003. In July 2026
+ *     a user could be filing 2025/26, estimating 2026/27, or amending 2023/24;
+ *     all three are ordinary and only one matches the clock.
+ *
+ *  2. `dataReviewedOn` is REQUIRED and has no default. Defaulting it to the
+ *     build date would claim the tax data was checked on a day nobody checked
+ *     it. It comes from the tax-year data file's own review date.
+ *
+ * Both are validated below and throw at build time rather than rendering
+ * "Invalid Date" or an empty stamp to a user.
+ */
+
+interface Props {
+  /** Year of assessment as `YYYY/YYYY`, e.g. `2025/2026`. Never inferred. */
+  yearOfAssessment: string;
+  /** ISO `YYYY-MM-DD` — the day the underlying tax data was last reviewed. */
+  dataReviewedOn: string;
+  /** Extra classes from the consuming layout. Never a colour or a size. */
+  class?: string;
+}
+
+const { yearOfAssessment, dataReviewedOn, class: className } = Astro.props;
+
+if (!/^\d{4}\/\d{4}$/.test(yearOfAssessment)) {
+  throw new Error(
+    `AsAtStamp: yearOfAssessment must be "YYYY/YYYY" (Sri Lanka's Y/A runs ` +
+      `1 April to 31 March). Received: ${JSON.stringify(yearOfAssessment)}`,
+  );
+}
+
+if (!/^\d{4}-\d{2}-\d{2}$/.test(dataReviewedOn)) {
+  throw new Error(
+    `AsAtStamp: dataReviewedOn must be an ISO date "YYYY-MM-DD". ` +
+      `Received: ${JSON.stringify(dataReviewedOn)}`,
+  );
+}
+
+// Parsed and formatted in UTC on both sides. A local-timezone parse of a bare
+// date shifts it by a day west of Greenwich, and a stamp that is off by one is
+// a stamp that fails the only job it has.
+const reviewedDate = new Date(`${dataReviewedOn}T00:00:00Z`);
+// The round-trip matters. `new Date('1999-02-30T00:00:00Z')` does not throw and
+// is not NaN — it rolls over to 2 March, and the stamp would then advertise a
+// review date on which nobody reviewed anything. Comparing the formatted value
+// back against the input is the only check that catches that.
+if (
+  Number.isNaN(reviewedDate.getTime()) ||
+  reviewedDate.toISOString().slice(0, 10) !== dataReviewedOn
+) {
+  throw new Error(`AsAtStamp: dataReviewedOn is not a real date: ${dataReviewedOn}`);
+}
+
+const reviewedLabel = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(reviewedDate);
+
+// Y/A 2025/2026 means 1 Apr 2025 - 31 Mar 2026. Spelling the span out means the
+// stamp is self-explanatory to a first-time filer who has never met the term.
+const [startYear, endYear] = yearOfAssessment.split('/') as [string, string];
+const yearSpan = `1 Apr ${startYear} – 31 Mar ${endYear}`;
+---
+
+<p class:list={['as-at-stamp', className]}>
+  <span class="as-at-stamp__line">
+    <span class="as-at-stamp__label">Year of assessment</span>
+    <span class="as-at-stamp__value figure">{yearOfAssessment}</span>
+    <span class="as-at-stamp__span">({yearSpan})</span>
+  </span>
+  <span class="as-at-stamp__line">
+    Figures as at <time datetime={dataReviewedOn}>{reviewedLabel}</time>
+  </span>
+</p>
+
+<style>
+  .as-at-stamp {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--spacing) * 0.5) calc(var(--spacing) * 3);
+    margin: 0;
+    /* --color-text-muted is held at >= 4.5:1 in both themes by
+       src/styles/tokens.test.ts. Secondary text is still text that is read. */
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    line-height: var(--text-xs--line-height);
+  }
+
+  .as-at-stamp__line {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: calc(var(--spacing) * 1);
+  }
+
+  .as-at-stamp__label::after {
+    content: ':';
+  }
+
+  .as-at-stamp__value {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .as-at-stamp__span {
+    /* The date span is supporting detail, not a second figure. */
+    font-variant-numeric: tabular-nums;
+  }
+</style>
