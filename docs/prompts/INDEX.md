@@ -43,7 +43,7 @@ unfinished.
 | ☑ | `P02` | [Tax-year schema, loader and build-time validation](P02-tax-data-schema.md) | done | P00 |  |
 | ☑ | `P03` | [Y/A 2025/2026 tax data file](P03-data-2025-26.md) | done | P02 |  |
 | ☑ | `P04` | [Engine part 1 — partition, deduction, the normal ladder](P04-engine-core.md) | done | P03 |  |
-| ☐ | `P05` | [Engine part 2 — separately-rated components, the rate cap, and refusal](P05-engine-components.md) | pending | P04 |  |
+| ◐ | `P05` | [Engine part 2 — separately-rated components, the rate cap, and refusal](P05-engine-components.md) | in-progress | P04 |  |
 | ☐ | `P06` | [Engine part 3 — credits and the payment schedule](P06-engine-credits-schedule.md) | pending | P05 | waiting on P05 |
 | ☐ | `P07` | [Fixture harness — worked examples become the test suite](P07-fixture-harness.md) | pending | P06 | waiting on P06 |
 | ☐ | `P08` | [UI primitives, including the currency field](P08-ui-primitives.md) | pending | P01 |  |
