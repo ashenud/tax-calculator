@@ -245,9 +245,19 @@ Validation enforces, at minimum:
 - Amounts are non-negative integers
 - Exactly one band per schedule has `width: null`, and it is last
 - `period` is 12 months, 1 April to 31 March
-- Where `maxRateBp` is set, no band exceeds it
-- Every `conditions[].ifNotMet` names an existing schedule
+- Where `maxRateBp` is set, it is **below** the top marginal rate of the schedule it caps
+- Every `conditions[].ifNotMet` is `null`, or names an existing schedule
 - Instalment due dates fall within or shortly after `period`
+
+> **Correction (P05).** The `maxRateBp` line above previously read "no band exceeds it".
+> That was left over from the draft that modelled reduced rates as a separate schedule,
+> and it is the opposite of what a cap requires: bands above the cap are exactly what a
+> cap exists to reduce, and a `maxRateBp` at or above the schedule's top rate reduces
+> nothing — so income the Act entitles to a maximum rate would be charged the full ladder.
+> The design note above ("Reduced rates are a cap, not a schedule") and
+> [`calculation-engine.md`](calculation-engine.md) step 6 are what the schema and the
+> engine implement; both throw on a cap that is not below the top marginal rate. The
+> post-cap invariant the engine asserts is that no *charged* rate exceeds `maxRateBp`.
 
 ## Adding a year of assessment
 

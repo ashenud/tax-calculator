@@ -1,7 +1,7 @@
 ---
 id: P05
 title: Engine part 2 — separately-rated components, the rate cap, and refusal
-status: in-progress
+status: done
 depends: [P04]
 agent: engine-builder
 ---

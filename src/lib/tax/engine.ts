@@ -1,5 +1,8 @@
 /**
- * The calculation engine — part 1 (P04): partition, deduction, and the normal ladder.
+ * The calculation engine — parts 1 (P04) and 2 (P05).
+ *
+ * P04: partition, the single aggregate deduction, and the normal ladder.
+ * P05: the separately-rated components, the maximum-rate cap, and the Q14 refusal.
  *
  * `docs/spec/calculation-engine.md` is authoritative for everything in here. Where this
  * file and that document disagree, the document is right and this file is a bug.
@@ -17,21 +20,32 @@
  *
  * ## Scope of this slice
  *
- * Implemented: steps 1, 2, 3 and the plain-ladder part of step 6.
+ * Implemented: steps 1, 2, 3, 4, 5 and 6.
  *
- * Deliberately **not** implemented here (P05/P06 own them):
- *   - the 15% maximum-rate cap on `foreign-capped` income, and its condition (step 5)
- *   - the separately-rated components' own rates: capital gain, terminal benefit,
- *     special business (step 4)
- *   - the mixed capped/uncapped ordering refusal (Q14)
+ * Deliberately **not** implemented here (P06 owns them):
  *   - credits (step 7) and the payment schedule (step 8)
  *
- * Where income of a not-yet-implemented kind is present, this slice never invents a
- * number for it: the component is recorded with `tax: 0` and a **blocking** warning is
- * emitted, so an incomplete figure cannot be mistaken for a complete one.
+ * Where a year's data declares no rate for a component this computation needs, the
+ * engine never invents one: the component is recorded with `tax: 0` and a **blocking**
+ * warning, so an incomplete figure cannot be mistaken for a complete one.
+ *
+ * ## Refusals
+ *
+ * One case is not a missing feature but an unresolved question of law: where a taxpayer
+ * has both capped and uncapped income on the same ladder, the Act does not say which
+ * occupies the lower bands (Q14). The engine **refuses** — see `isRefusal` and the note
+ * on `TaxResult.refusals`. A refusal sends the user to a practitioner; a plausible wrong
+ * number sends them to IRD with a wrong return
+ * [docs/decisions/adr-0003-disclaimer-and-liability-posture.md].
  */
 
-import type { Band, RateSchedule, TaxYearFile } from './schema';
+import type {
+  Band,
+  RateCap,
+  RateSchedule,
+  SeparatelyRatedComponent,
+  TaxYearFile,
+} from './schema';
 
 // ---------------------------------------------------------------------------
 // Public types
@@ -66,9 +80,20 @@ export interface IncomeItem {
   amount: number;
   /** Zero or more tags. Untagged = ordinary income for the ladder. */
   tags?: readonly IncomeTag[];
-  /** Length of service, for `terminal-benefit` table selection. Unused in this slice. */
+  /**
+   * Length of service in whole years, for `terminal-benefit` table selection against
+   * `separatelyRated["terminal-benefit"].selector.thresholdYears`. **Required** on any
+   * item tagged `terminal-benefit`: the two tables differ materially, so an absent value
+   * throws rather than defaulting [IRA Sch.1 para 1(2)(b), as enacted 2017].
+   */
   serviceYears?: number;
-  /** Answers to the tax-year data's `conditions`, by condition id. Unused in this slice. */
+  /**
+   * Answers to the tax-year data's `conditions`, by condition id — e.g.
+   * `{ 'remitted-through-bank-to-sri-lanka': true }`. **Required** for every condition
+   * named by a rate cap that would otherwise apply to this item: an unanswered condition
+   * is not a "no", and defaulting it either way silently moves the income between the
+   * capped rate and the full ladder, so an absent answer throws.
+   */
   conditions?: Readonly<Record<string, boolean>>;
 }
 
@@ -100,7 +125,11 @@ export interface TaxInput {
 export interface ResultBand {
   amount: number;
   rateBp: number;
-  /** The rate actually charged. Equal to `rateBp` until P05 introduces the cap. */
+  /**
+   * The rate actually charged on this band: `min(rateBp, cap.maxRateBp)` for a capped
+   * component, and `rateBp` everywhere else. The pair is retained rather than collapsed
+   * so the working shows *that* a cap bit, and by how much.
+   */
   effectiveRateBp: number;
   tax: number;
   src: string;
@@ -129,6 +158,26 @@ export interface ResultRefusal {
   explanation: string;
 }
 
+/**
+ * The full working of one computation.
+ *
+ * ## Detecting a refusal — the one rule a caller must not get wrong
+ *
+ * **`refusals.length > 0` means no figure was produced.** It is the single, unambiguous
+ * signal, and `isRefusal(result)` is the supported way to test it. When it is true:
+ *
+ *   - `grossTax`, `taxPayable`, `credits` and `schedule` are **zeroed placeholders**,
+ *     present only because this type has no optional numbers. They are not the answer,
+ *     they are not "zero tax", and rendering them as a figure is a defect.
+ *   - `components` is **empty** — there is no working to show, because none was produced.
+ *   - The income fields (`assessableByHead`, `partition`, `deduction`, `taxableMain`,
+ *     `taxableGain`) *are* meaningful: they are what the taxpayer entered, computed up to
+ *     the point the law runs out, and they are what a practitioner needs to take over.
+ *
+ * A refusal is not a warning. A warning qualifies a figure that was produced; a refusal
+ * says none was. The UI renders them differently and must never collapse either
+ * [docs/spec/calculation-engine.md, "Result shape"].
+ */
 export interface TaxResult {
   yearOfAssessment: string;
   assessableByHead: Record<Head, number>;
@@ -158,13 +207,49 @@ export interface TaxResult {
 export const WARNING_CODES = {
   /** A rate this computation actually applied carries `verified: false` in the data. */
   unverifiedRate: 'unverified-rate',
-  /** Income of a separately-rated kind is present; its own rate is P05's, not computed. */
+  /**
+   * Income of a separately-rated kind is present, but **this year's data declares no
+   * rate for it** in `separatelyRated`. Blocking: the component is recorded at `tax: 0`,
+   * which understates the liability, and the engine will not invent the missing rate.
+   *
+   * (The code string predates P05, when it meant "the engine does not implement this
+   * yet". P05 implements all three kinds; the string is retained because it is what a
+   * consumer already matches on, and the meaning — *no figure for this component* — is
+   * unchanged.)
+   */
   componentNotImplemented: 'component-not-implemented',
-  /** `foreign-capped` income is present; the cap is P05's, so the ladder ran uncapped. */
+  /**
+   * `foreign-capped` income is present, but **this year's data declares no rate cap** on
+   * the resolved ladder. Blocking: that income ran at the full ladder rate, which
+   * overstates the liability if a cap in fact exists in law for the year.
+   */
   rateCapNotImplemented: 'rate-cap-not-implemented',
+  /**
+   * A rate cap exists but its condition was not met for some `foreign-capped` income, so
+   * the cap did not apply to it and the ladder stood unmodified. `ifNotMet` is `null` —
+   * there is no fallback schedule [IRA Sch.1 para 1(6), ins. Act 2/2025 s.3(1)(d)].
+   */
+  rateCapConditionNotMet: 'rate-cap-condition-not-met',
   /** The year declares qualifying payment types whose cap/rate semantics are unspecified. */
   qualifyingPaymentTypes: 'qualifying-payment-types-not-modelled',
 } as const;
+
+export const REFUSAL_CODES = {
+  /**
+   * Both capped and uncapped income on the same ladder. Which occupies the lower bands
+   * is not stated by the Act — Q14, `docs/research/12-open-questions.md`.
+   */
+  mixedCappedAndUncapped: 'mixed-capped-and-uncapped-ordering',
+} as const;
+
+/**
+ * `true` when the engine produced **no figure** for this input. See the note on
+ * `TaxResult`: when this is true the numeric fields are zeroed placeholders, not an
+ * answer, and must not be rendered as one.
+ */
+export function isRefusal(result: TaxResult): boolean {
+  return result.refusals.length > 0;
+}
 
 // ---------------------------------------------------------------------------
 // Integer money helpers — no floats, anywhere, including intermediates
@@ -281,9 +366,31 @@ function resolveLadder(
  *
  * Only bands that actually carry an amount are returned; a zero band tells the reader
  * nothing and clutters the working the UI shows.
+ *
+ * `maxRateBp` is the **maximum-rate cap**, or `null` for an uncapped walk. When set, the
+ * rate charged on each band is `min(bandRateBp, maxRateBp)`
+ * [IRA Sch.1 para 1(6), ins. Act 2/2025 s.3(1)(d)].
+ *
+ * This is the whole of the cap. There is no second band table anywhere in this engine,
+ * and the familiar "first Rs. 1,000,000 at 6%, balance at 15%" is an *output* of running
+ * this function over the normal ladder — never an input. Encoding the output as a table
+ * would give the right answer today and a silently wrong one the first time a band moves
+ * [docs/spec/data-model.md, "Reduced rates are a cap, not a schedule"].
  */
-export function walkBands(amount: number, bands: readonly Band[]): ResultBand[] {
+export function walkBands(
+  amount: number,
+  bands: readonly Band[],
+  maxRateBp: number | null = null,
+): ResultBand[] {
   assertMoney(amount, 'walkBands(amount)');
+  if (
+    maxRateBp !== null &&
+    (!Number.isInteger(maxRateBp) || maxRateBp < 0 || maxRateBp > 10_000)
+  ) {
+    throw new Error(
+      `walkBands(maxRateBp): expected integer basis points 0-10000 or null, got ${maxRateBp}`,
+    );
+  }
 
   const out: ResultBand[] = [];
   let remaining = amount;
@@ -292,12 +399,13 @@ export function walkBands(amount: number, bands: readonly Band[]): ResultBand[] 
     if (remaining <= 0) break;
     const inBand = band.width === null ? remaining : Math.min(remaining, band.width);
     if (inBand > 0) {
+      const effectiveRateBp =
+        maxRateBp === null ? band.rateBp : Math.min(band.rateBp, maxRateBp);
       out.push({
         amount: inBand,
         rateBp: band.rateBp,
-        // P05 replaces this with min(rateBp, cap.maxRateBp) for capped components.
-        effectiveRateBp: band.rateBp,
-        tax: taxOnAmount(inBand, band.rateBp),
+        effectiveRateBp,
+        tax: taxOnAmount(inBand, effectiveRateBp),
         src: band.src,
       });
     }
@@ -313,6 +421,32 @@ export function walkBands(amount: number, bands: readonly Band[]): ResultBand[] 
   }
 
   return out;
+}
+
+/**
+ * Post-condition on a capped walk: **no band may be charged above the cap**
+ * [docs/spec/calculation-engine.md, step 6 — "a band whose capped rate still exceeds the
+ * cap is a data error and must throw, not silently overcharge"].
+ *
+ * With `walkBands`' `min()` this cannot fire, which is the point: it is a guard against a
+ * future edit that reintroduces a table, applies the wrong cap to the wrong schedule, or
+ * "helpfully" restores a full rate. Overcharging a taxpayer quietly is the failure mode
+ * this asserts away, so it is checked on the produced bands rather than assumed from the
+ * code that produced them. Asserted directly in the tests, as `walkBands`' own
+ * "does not cover the full amount" guard is.
+ */
+export function assertWithinCap(
+  bands: readonly ResultBand[],
+  maxRateBp: number,
+  label: string,
+): void {
+  for (const band of bands) {
+    if (band.effectiveRateBp > maxRateBp) {
+      throw new Error(
+        `${label}: a band was charged at ${band.effectiveRateBp} bp, above the declared maximum rate of ${maxRateBp} bp. Charging above a statutory maximum overcharges the taxpayer; the engine stops rather than return that figure [IRA Sch.1 para 1(6), ins. Act 2/2025 s.3(1)(d)].`,
+      );
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -337,6 +471,13 @@ interface HeadTotals {
   assessableByHead: Record<Head, number>;
   /** Gross (pre-deduction) totals of each tagged class, across all heads. */
   taggedTotals: Record<IncomeTag, number>;
+  /**
+   * The items behind those totals, in input order. Steps 4 and 5 need the items and not
+   * just the totals: table selection reads `serviceYears`, and the cap's condition is
+   * answered **per item**, so one consultant can have remitted earnings and unremitted
+   * earnings in the same year.
+   */
+  taggedItems: Record<IncomeTag, IncomeItem[]>;
   capitalGainTotal: number;
   totalAssessable: number;
 }
@@ -349,6 +490,12 @@ function computeHeads(input: TaxInput): HeadTotals {
     'special-business': 0,
     'foreign-capped': 0,
   };
+  const taggedItems: Record<IncomeTag, IncomeItem[]> = {
+    'capital-gain': [],
+    'terminal-benefit': [],
+    'special-business': [],
+    'foreign-capped': [],
+  };
 
   for (const head of HEADS) {
     const items = input.income[head] ?? [];
@@ -358,7 +505,10 @@ function computeHeads(input: TaxInput): HeadTotals {
       assertMoney(item.amount, `income.${head}[${i}] (${item.label}).amount`);
       amounts.push(item.amount);
       const kind = classify(item);
-      if (kind !== 'ordinary') taggedTotals[kind] += item.amount;
+      if (kind !== 'ordinary') {
+        taggedTotals[kind] += item.amount;
+        taggedItems[kind].push(item);
+      }
     });
 
     const gross = sumMoney(amounts, `income.${head}`);
@@ -398,9 +548,162 @@ function computeHeads(input: TaxInput): HeadTotals {
   return {
     assessableByHead,
     taggedTotals,
+    taggedItems,
     capitalGainTotal: taggedTotals['capital-gain'],
     totalAssessable: sumMoney(Object.values(assessableByHead), 'total assessable income'),
   };
+}
+
+// ---------------------------------------------------------------------------
+// Step 4 — the separately-rated components
+// ---------------------------------------------------------------------------
+
+/** The union in the schema is discriminated by shape, not by a tag field. */
+function isSelectorTable(
+  component: SeparatelyRatedComponent,
+): component is Extract<SeparatelyRatedComponent, { selector: unknown }> {
+  return 'selector' in component;
+}
+
+/**
+ * Which of the two terminal-benefit tables applies, from the length of service the
+ * taxpayer actually had.
+ *
+ * There is no default. The nil band is Rs. 2,000,000 at or below the threshold and
+ * Rs. 5,000,000 above it [IRA Sch.1 para 1(2)(b)(i)–(ii), as enacted 2017], so guessing
+ * costs a real person real money in either direction — and the person receiving a
+ * terminal benefit is typically newly out of work.
+ */
+function resolveServiceYears(items: readonly IncomeItem[]): number {
+  const seen = new Set<number>();
+
+  for (const item of items) {
+    const years = item.serviceYears;
+    if (years === undefined) {
+      throw new Error(
+        `income item "${item.label}" is tagged "terminal-benefit", which the Act rates on tables selected by the period of contribution or employment [IRA Sch.1 para 1(2)(b), as enacted 2017], but no serviceYears was given. The two tables differ materially — the nil band is 2,000,000 at or below the threshold and 5,000,000 above it — so there is no safe default. Supply IncomeItem.serviceYears.`,
+      );
+    }
+    if (!Number.isInteger(years) || years < 0) {
+      throw new Error(
+        `income item "${item.label}": serviceYears must be a non-negative whole number of years, got ${years}`,
+      );
+    }
+    seen.add(years);
+  }
+
+  if (seen.size > 1) {
+    throw new Error(
+      `terminal-benefit income items declare different serviceYears (${[...seen].sort((a, b) => a - b).join(', ')}). The table is selected once, for the whole terminal benefit, by the period of contribution or employment; how to select it when the periods differ — and how "period of employment" is measured across broken service — is not settled (Q32) and is not specified in docs/spec/calculation-engine.md. The engine will not guess.`,
+    );
+  }
+
+  const [only] = seen;
+  if (only === undefined) {
+    // Unreachable: the caller only calls this when at least one item exists.
+    throw new Error('resolveServiceYears called with no terminal-benefit items');
+  }
+  return only;
+}
+
+// ---------------------------------------------------------------------------
+// Step 5 — the maximum-rate cap
+// ---------------------------------------------------------------------------
+
+/**
+ * The cap that modifies the ladder this taxpayer sits on, or `null` if the year declares
+ * none. Resolved by `appliesToSchedule`, because a cap in this data model *is* a
+ * modification of a named schedule — there is no separate schedule to select.
+ */
+function resolveRateCap(
+  ladderId: string,
+  taxYear: TaxYearData,
+): { capId: string; cap: RateCap } | null {
+  const matches = Object.entries(taxYear.rateCaps).filter(
+    ([, cap]) => cap.appliesToSchedule === ladderId,
+  );
+
+  if (matches.length === 0) return null;
+  if (matches.length > 1) {
+    throw new Error(
+      `${taxYear.yearOfAssessment} declares ${matches.length} rate caps on schedule "${ladderId}" (${matches.map(([id]) => id).join(', ')}). Which one a given amount of foreign-capped income falls under is not expressible in the current data model, and the engine will not pick one.`,
+    );
+  }
+
+  const [only] = matches;
+  if (!only) throw new Error('unreachable: matches.length === 1 but no entry');
+  return { capId: only[0], cap: only[1] };
+}
+
+/**
+ * Invariants on the cap itself, re-checked here because **the engine must not trust that
+ * the schema ran** — a caller can hand it any object that satisfies the TypeScript type.
+ *
+ * The substantive one is the last: a `maxRateBp` at or above the schedule's top marginal
+ * rate reduces nothing, so income the Act entitles to a capped rate would be charged the
+ * full ladder. That is a silent **overcharge** produced by a data-entry error, and it is
+ * the reason this throws instead of warning.
+ */
+function assertCapIsSane(
+  capId: string,
+  cap: RateCap,
+  ladderId: string,
+  schedule: RateSchedule,
+): void {
+  if (cap.appliesToSchedule !== ladderId) {
+    throw new Error(
+      `rateCaps.${capId} applies to schedule "${cap.appliesToSchedule}", but this computation runs on "${ladderId}". A cap is a modification of one named schedule; applying it to another would charge a rate no provision authorises.`,
+    );
+  }
+
+  if (!Number.isInteger(cap.maxRateBp) || cap.maxRateBp < 0 || cap.maxRateBp > 10_000) {
+    throw new Error(
+      `rateCaps.${capId}.maxRateBp must be integer basis points 0-10000, got ${cap.maxRateBp}`,
+    );
+  }
+
+  const topRateBp = Math.max(...schedule.bands.map((b) => b.rateBp));
+  if (cap.maxRateBp >= topRateBp) {
+    throw new Error(
+      `rateCaps.${capId}.maxRateBp (${cap.maxRateBp} bp) is not below the top marginal rate (${topRateBp} bp) of schedule "${ladderId}". Such a cap reduces nothing, so income entitled to the maximum rate would be charged the full ladder — an overcharge produced by a data error rather than by law. The engine stops rather than compute on it [IRA Sch.1 para 1(6), ins. Act 2/2025 s.3(1)(d)].`,
+    );
+  }
+}
+
+/**
+ * Whether every condition the cap names is answered `true` for this item.
+ *
+ * Evaluated **first**, before any rate is applied [docs/spec/calculation-engine.md step
+ * 5]. An unmet condition means the cap does not apply and the ladder stands unmodified;
+ * `ifNotMet` is `null` and there is no fallback schedule to look up.
+ *
+ * An **unanswered** condition is not an unmet one. Defaulting it to `false` pushes a
+ * consultant onto a 36% band they may not belong on; defaulting it to `true` undercharges
+ * them. Both are plausible wrong answers, so neither is produced.
+ */
+function capConditionsMet(
+  item: IncomeItem,
+  capId: string,
+  cap: RateCap,
+  taxYear: TaxYearData,
+): boolean {
+  for (const conditionId of cap.conditions) {
+    const condition = taxYear.conditions[conditionId];
+    if (!condition) {
+      throw new Error(
+        `rateCaps.${capId} names condition "${conditionId}", which ${taxYear.yearOfAssessment} does not declare in conditions. The engine cannot evaluate a condition it cannot read.`,
+      );
+    }
+
+    const answer = item.conditions?.[conditionId];
+    if (answer === undefined) {
+      throw new Error(
+        `income item "${item.label}" is tagged "foreign-capped", so the maximum-rate cap "${capId}" turns on condition "${conditionId}", but the input gives no answer for it. The question is: "${condition.question}" An unanswered condition is not a "no" — defaulting it either way silently moves this income between ${cap.maxRateBp} bp and the full ladder. Answer it via IncomeItem.conditions["${conditionId}"].`,
+      );
+    }
+    if (answer !== true) return false;
+  }
+  return true;
 }
 
 // ---------------------------------------------------------------------------
@@ -468,43 +771,193 @@ export function computeTax(input: TaxInput, taxYear: TaxYearData): TaxResult {
   // at zero applies to taxableMain only [docs/spec/calculation-engine.md step 3].
   const taxableGain = reliefIneligible;
 
-  // -- step 4 (carve only; the rates themselves are P05) --------------------
+  // -- the ladder this taxpayer sits on ------------------------------------
+  // Resolved before steps 4 and 5 because the cap is defined as a modification of a
+  // *named schedule*, so the cap cannot be resolved until the schedule is.
+  const { id: ladderId, schedule } = resolveLadder(input, taxYear);
+
+  // -- step 4: carve the separately-rated components out of taxableMain -----
   // "only the remainder of the individual's taxable income shall be taxed at the rates
   // referred to in subparagraph (1)" [IRA Sch.1 para 1(2)(d), as enacted 2017].
+  //
+  // NOTE ON reliefEligible IN THE DATA. `separatelyRated[...].reliefEligible` is `false`
+  // for terminal-benefit and special-business in the Y/A 2025/2026 file, but the
+  // partition in step 2 is authoritative and it turns on `capital-gain` **only**
+  // [docs/spec/calculation-engine.md steps 2 and 4]. So these two components are carved
+  // out of taxableMain *after* the single Fifth Schedule deduction has been applied, and
+  // that flag is simply not consulted by this step. The spec is followed, per CLAUDE.md;
+  // the data is not wrong, it is unused here.
   const components: ResultComponent[] = [];
-  const separatelyRatedFromMain: { kind: ComponentKind; amount: number }[] = [];
-  for (const tag of ['terminal-benefit', 'special-business'] as const) {
-    const amount = heads.taggedTotals[tag];
-    if (amount > 0) separatelyRatedFromMain.push({ kind: tag, amount });
+  const carveKinds = ['terminal-benefit', 'special-business'] as const;
+  const present = carveKinds
+    .map((kind) => ({ kind: kind as ComponentKind, gross: heads.taggedTotals[kind] }))
+    .filter((c) => c.gross > 0);
+
+  const grossCarve = sumMoney(
+    present.map((c) => c.gross),
+    'separately-rated components',
+  );
+
+  let carved: { kind: ComponentKind; amount: number }[];
+  if (grossCarve <= taxableMain) {
+    // The ordinary income absorbed the whole deduction; each component survives in full.
+    carved = present.map((c) => ({ kind: c.kind, amount: c.gross }));
+  } else if (present.length === 1 && present[0]) {
+    // Only one component, so there is nothing to allocate between: it takes what is left
+    // of taxable income after the deduction.
+    carved = [{ kind: present[0].kind, amount: taxableMain }];
+  } else {
+    throw new Error(
+      `the single Fifth Schedule deduction (${deductionTotal}) reduces taxable income to ${taxableMain}, below the ${grossCarve} total of the separately-rated components in this computation (${present.map((c) => c.kind).join(', ')}). How the shortfall is shared between two differently-rated components is not specified in docs/spec/calculation-engine.md, and the components carry different rates, so the answer depends on the allocation. The engine will not guess.`,
+    );
   }
 
-  const carvedOut = Math.min(
-    taxableMain,
+  const ladderAmount =
+    taxableMain -
     sumMoney(
-      separatelyRatedFromMain.map((c) => c.amount),
-      'separately-rated components',
-    ),
-  );
-  const ladderAmount = taxableMain - carvedOut;
+      carved.map((c) => c.amount),
+      'carved components',
+    );
 
-  // -- step 6 (plain ladder only; the cap is P05) ---------------------------
-  const { id: ladderId, schedule } = resolveLadder(input, taxYear);
-  const ladderBands = walkBands(ladderAmount, schedule.bands);
-  for (const band of ladderBands) noteSource(band.src);
+  // -- step 5: the maximum-rate cap, condition first ------------------------
+  const foreignTotal = heads.taggedTotals['foreign-capped'];
+  let capApplied: { capId: string; cap: RateCap } | null = null;
+  let cappedEligible = 0; // gross foreign-capped income meeting every condition
 
-  const ladderTax = sumMoney(
-    ladderBands.map((b) => b.tax),
-    'ladder tax',
-  );
+  if (foreignTotal > 0) {
+    const resolved = resolveRateCap(ladderId, taxYear);
+    if (!resolved) {
+      warnings.push({
+        code: WARNING_CODES.rateCapNotImplemented,
+        severity: 'blocking',
+        message: `This computation includes ${foreignTotal} rupees of income tagged for the maximum-rate cap [IRA Sch.1 para 1(6), ins. Act 2/2025 s.3(1)(d)], but the ${taxYear.yearOfAssessment} data declares no rate cap on schedule "${ladderId}". That income was taxed at the full ladder rate, which overstates the liability if a cap in fact applies for this year. The engine will not supply a rate the data does not hold. Do not rely on this figure.`,
+      });
+    } else {
+      assertCapIsSane(resolved.capId, resolved.cap, ladderId, schedule);
 
-  components.push({
-    kind: 'ladder',
-    amount: ladderAmount,
-    bands: ladderBands,
-    tax: ladderTax,
-  });
+      let unmet = 0;
+      for (const item of heads.taggedItems['foreign-capped']) {
+        if (capConditionsMet(item, resolved.capId, resolved.cap, taxYear)) {
+          cappedEligible += item.amount;
+        } else {
+          unmet += item.amount;
+        }
+      }
 
-  if (ladderBands.length > 0 && !schedule.verified) {
+      if (cappedEligible > 0) capApplied = resolved;
+
+      if (unmet > 0) {
+        warnings.push({
+          code: WARNING_CODES.rateCapConditionNotMet,
+          severity: 'warn',
+          message: `${unmet} rupees of foreign-currency income did not meet the condition(s) for the maximum-rate cap "${resolved.capId}" (${resolved.cap.conditions.join(', ')}). The cap therefore does not apply to it and the normal ladder stands unmodified — there is no reduced fallback schedule [IRA Sch.1 para 1(6), ins. Act 2/2025 s.3(1)(d)]. That income was taxed at the full ladder rate.`,
+        });
+      }
+    }
+  }
+
+  // -- step 5, ordering: the mixed case is refused, not guessed -------------
+  // `reliefEligible` excludes capital gains already, so "everything else" here means
+  // ordinary income, foreign income whose condition failed, and the separately-rated
+  // components — all of which draw on the same deduction and, but for the carve-out,
+  // the same ladder.
+  const otherReliefEligible = reliefEligible - cappedEligible;
+  if (otherReliefEligible < 0) {
+    // Unreachable: cappedEligible is a subset of the relief-eligible pool. Defensive.
+    throw new Error(
+      `partition inconsistency: capped income (${cappedEligible}) exceeds relief-eligible income (${reliefEligible})`,
+    );
+  }
+
+  if (capApplied && cappedEligible > 0 && otherReliefEligible > 0 && ladderAmount > 0) {
+    // Two unresolved questions at once: how the single Fifth Schedule deduction divides
+    // between the capped and uncapped pools, and which pool occupies the lower bands.
+    // Both change the answer materially, and the Act settles neither.
+    //
+    // Note the two cases this does NOT catch, correctly: a taxpayer whose only other
+    // income is a capital gain (the gain never touches this ladder, so there is nothing
+    // to order), and a taxpayer whose deduction wipes out taxable income entirely (every
+    // ordering gives zero).
+    return {
+      yearOfAssessment: taxYear.yearOfAssessment,
+      assessableByHead: heads.assessableByHead,
+      partition: { reliefEligible, reliefIneligible },
+      deduction: { personalRelief, qualifyingPayments, total: deductionTotal },
+      taxableMain,
+      taxableGain,
+      // Empty, not zeroed-out working: no computation was performed, so there is nothing
+      // to show. See the refusal contract on `TaxResult`.
+      components: [],
+      grossTax: 0,
+      credits: { apit: 0, ait: 0, foreign: 0, total: 0, excess: 0 },
+      taxPayable: 0,
+      schedule: { instalments: [], finalPayment: { due: '', amount: 0 }, returnDue: '' },
+      refusals: [
+        {
+          code: REFUSAL_CODES.mixedCappedAndUncapped,
+          question: 'Q14',
+          explanation: `This computation has ${cappedEligible} rupees of income entitled to the maximum rate under the cap "${capApplied.capId}" and ${otherReliefEligible} rupees that is not, and both sit on the same schedule ("${ladderId}"). The maximum rate is imposed notwithstanding the normal ladder [IRA Sch.1 para 1(6), ins. Act 2/2025 s.3(1)(d)], but the Act does not say which of the two occupies the lower bands, nor how the single Fifth Schedule deduction [IRA s.52(1)] divides between them. The orderings give materially different liabilities, so no figure has been computed for this case — a plausible one would be a guess presented as an answer. See Q14 in docs/research/12-open-questions.md; the Y/A 2025/2026 return form is the most likely thing to settle it. Take this computation to a qualified tax practitioner or to IRD.`,
+        },
+      ],
+      warnings,
+      sourcesUsed,
+    };
+  }
+
+  // Everything below this point is unambiguous: either there is no capped income, or
+  // there is nothing else on the ladder for it to be ordered against.
+  const cappedAmount = capApplied && cappedEligible > 0 ? ladderAmount : 0;
+  const plainLadderAmount = ladderAmount - cappedAmount;
+
+  // -- step 6: walk the ladder, capped and uncapped -------------------------
+  let scheduleWasApplied = false;
+
+  if (plainLadderAmount > 0 || cappedAmount === 0) {
+    const ladderBands = walkBands(plainLadderAmount, schedule.bands);
+    for (const band of ladderBands) noteSource(band.src);
+    if (ladderBands.length > 0) scheduleWasApplied = true;
+
+    components.push({
+      kind: 'ladder',
+      amount: plainLadderAmount,
+      bands: ladderBands,
+      tax: sumMoney(
+        ladderBands.map((b) => b.tax),
+        'ladder tax',
+      ),
+    });
+  }
+
+  if (capApplied && cappedAmount > 0) {
+    const { capId, cap } = capApplied;
+    // The SAME ladder, with each band's rate capped. Not a second table.
+    const cappedBands = walkBands(cappedAmount, schedule.bands, cap.maxRateBp);
+    assertWithinCap(cappedBands, cap.maxRateBp, `rateCaps.${capId}`);
+    for (const band of cappedBands) noteSource(band.src);
+    noteSource(cap.src);
+    if (cappedBands.length > 0) scheduleWasApplied = true;
+
+    components.push({
+      kind: 'capped',
+      amount: cappedAmount,
+      conditionsMet: true,
+      bands: cappedBands,
+      tax: sumMoney(
+        cappedBands.map((b) => b.tax),
+        'capped tax',
+      ),
+    });
+
+    if (cappedBands.length > 0 && !cap.verified) {
+      warnings.push({
+        code: WARNING_CODES.unverifiedRate,
+        severity: 'warn',
+        message: `Rate cap "${capId}" (${cap.label}) is marked verified: false in the ${taxYear.yearOfAssessment} data. The maximum rate of ${cap.maxRateBp} bp was applied to ${cappedAmount} rupees, from a value that has not been confirmed against a primary source.`,
+      });
+    }
+  }
+
+  if (scheduleWasApplied && !schedule.verified) {
     warnings.push({
       code: WARNING_CODES.unverifiedRate,
       severity: 'warn',
@@ -512,35 +965,88 @@ export function computeTax(input: TaxInput, taxYear: TaxYearData): TaxResult {
     });
   }
 
-  // Separately-rated components are recorded so the working shows them, but their tax is
-  // NOT computed here — P05 owns their rates. A blocking warning goes with each, because
-  // a zero in a tax column that should hold a figure is exactly the kind of plausible
-  // wrong answer this engine exists to avoid.
-  const uncomputed: { kind: ComponentKind; amount: number }[] = [
-    ...separatelyRatedFromMain,
-  ];
-  if (taxableGain > 0) uncomputed.push({ kind: 'capital-gain', amount: taxableGain });
+  // -- step 4, continued: rate each carved component on its own basis -------
+  const ratable: { kind: ComponentKind; amount: number }[] = [...carved];
+  if (taxableGain > 0) ratable.push({ kind: 'capital-gain', amount: taxableGain });
 
-  for (const component of uncomputed) {
+  for (const { kind, amount } of ratable) {
+    const definition = taxYear.separatelyRated[kind];
+
+    if (!definition) {
+      // The year holds no rate for this component. Record it, charge nothing, and say
+      // loudly that the total is incomplete — a silent zero in a tax column reads as
+      // "nothing due", which is the plausible wrong answer this engine exists to avoid.
+      components.push({ kind, amount, bands: [], tax: 0 });
+      warnings.push({
+        code: WARNING_CODES.componentNotImplemented,
+        severity: 'blocking',
+        message: `This computation includes ${amount} rupees of "${kind}" income, which the Act rates separately [IRA Sch.1 para 1(2), as enacted 2017], but the ${taxYear.yearOfAssessment} data declares no rate for it under separatelyRated. No tax has been charged on it, so the figure shown is incomplete and understates the liability. The engine will not supply a rate the data does not hold. Do not rely on it.`,
+      });
+      continue;
+    }
+
+    let bands: ResultBand[];
+
+    if (kind === 'terminal-benefit') {
+      if (!isSelectorTable(definition)) {
+        throw new Error(
+          `separatelyRated["terminal-benefit"] in ${taxYear.yearOfAssessment} is a flat rate, but terminal benefits are rated on tables selected by length of service [IRA Sch.1 para 1(2)(b), as enacted 2017]. The engine will not substitute a flat rate for the tables.`,
+        );
+      }
+      if (definition.selector.field !== 'serviceYears') {
+        throw new Error(
+          `separatelyRated["terminal-benefit"].selector.field is "${definition.selector.field}" in ${taxYear.yearOfAssessment}; the only selector this engine can evaluate is "serviceYears". Extend the schema and the engine deliberately rather than let an unknown selector silently pick a table.`,
+        );
+      }
+
+      const years = resolveServiceYears(heads.taggedItems['terminal-benefit']);
+      // "20 years or less" vs "more than 20 years" [IRA Sch.1 para 1(2)(b)(i)–(ii),
+      // as enacted 2017]: the threshold year itself sits on the atOrBelow table.
+      const table =
+        years <= definition.selector.thresholdYears
+          ? definition.tablesBySelector.atOrBelow
+          : definition.tablesBySelector.above;
+
+      bands = walkBands(amount, table);
+    } else {
+      if (isSelectorTable(definition)) {
+        throw new Error(
+          `separatelyRated["${kind}"] in ${taxYear.yearOfAssessment} declares selector tables, but this engine rates "${kind}" at a flat rate. The engine will not choose a table for a component the spec rates flat.`,
+        );
+      }
+      bands =
+        amount > 0
+          ? [
+              {
+                amount,
+                rateBp: definition.rateBp,
+                effectiveRateBp: definition.rateBp,
+                tax: taxOnAmount(amount, definition.rateBp),
+                src: definition.src,
+              },
+            ]
+          : [];
+    }
+
+    for (const band of bands) noteSource(band.src);
+
     components.push({
-      kind: component.kind,
-      amount: component.amount,
-      bands: [],
-      tax: 0,
+      kind,
+      amount,
+      bands,
+      tax: sumMoney(
+        bands.map((b) => b.tax),
+        `${kind} tax`,
+      ),
     });
-    warnings.push({
-      code: WARNING_CODES.componentNotImplemented,
-      severity: 'blocking',
-      message: `This computation includes ${component.amount} rupees of "${component.kind}" income, which the Act rates separately [IRA Sch.1 para 1(2), as enacted 2017]. That rate is not applied by this version of the engine, so the tax shown is incomplete and understates the liability. Do not rely on it.`,
-    });
-  }
 
-  if (heads.taggedTotals['foreign-capped'] > 0) {
-    warnings.push({
-      code: WARNING_CODES.rateCapNotImplemented,
-      severity: 'blocking',
-      message: `This computation includes ${heads.taggedTotals['foreign-capped']} rupees of income eligible for the maximum-rate cap [IRA Sch.1 para 1(6), ins. Act 2/2025 s.3(1)(d)]. The cap is not applied by this version of the engine: that income was taxed on the full ladder, so the tax shown may overstate the liability. Do not rely on it.`,
-    });
+    if (bands.length > 0 && !definition.verified) {
+      warnings.push({
+        code: WARNING_CODES.unverifiedRate,
+        severity: 'warn',
+        message: `The separately-rated component "${kind}" (${definition.label}) is marked verified: false in the ${taxYear.yearOfAssessment} data. ${amount} rupees was charged from a rate that has not been confirmed against a primary source, and this figure should not be relied on until it is.`,
+      });
+    }
   }
 
   // -- step 6 total ---------------------------------------------------------
@@ -570,7 +1076,6 @@ export function computeTax(input: TaxInput, taxYear: TaxYearData): TaxResult {
       finalPayment: { due: '', amount: 0 },
       returnDue: '',
     },
-    // Populated by P05 for the mixed capped/uncapped ordering question (Q14).
     refusals: [],
     warnings,
     sourcesUsed,
