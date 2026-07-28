@@ -1,0 +1,93 @@
+---
+/**
+ * The persistent disclaimer required by ADR-0003 decision 1.
+ *
+ * Rendered by `Base.astro` on every page. It is deliberately NOT importable
+ * with an "off" prop, NOT dismissible, and NOT a link to a disclaimer page:
+ *
+ *  - No dismiss control, and no JavaScript, so there is nothing to click that
+ *    removes it and no persisted "I have seen this" state to honour.
+ *  - The full text is here. A link saying "disclaimer" is a thing users decline
+ *    to follow, which makes it equivalent to absent.
+ *  - It sits above <main>, not in the footer, so it is on screen when the page
+ *    loads rather than after a scroll the user may never make.
+ *
+ * ADR-0003 lists "removing or shrinking the disclaimer in a visual cleanup
+ * pass" as explicitly not permitted. Changing any of the above needs a
+ * superseding ADR, not a judgement call in this file.
+ *
+ * `src/layouts/Base.test.ts` asserts that a page which does not itself import
+ * this component still renders it.
+ */
+---
+
+<aside class="disclaimer" aria-labelledby="disclaimer-heading">
+  <div class="shell disclaimer__inner">
+    {
+      /* Decorative: the meaning is carried by the heading text beside it, never
+        by the icon or the colour alone. */
+    }
+    <svg
+      class="disclaimer__icon"
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <circle cx="12" cy="12" r="9"></circle>
+      <path d="M12 8v5"></path>
+      <path d="M12 16.5v.01"></path>
+    </svg>
+    <div>
+      <h2 id="disclaimer-heading" class="disclaimer__heading">This is not tax advice</h2>
+      <p class="disclaimer__body">
+        This tool shows what the law, as recorded here, produces from the figures you
+        enter. It is not advice and it is not an authority. Check any figure with the
+        Inland Revenue Department or a qualified tax practitioner before you file or pay.
+      </p>
+    </div>
+  </div>
+</aside>
+
+<style>
+  /* Every value below resolves to a token from src/styles/global.css.
+     No literal colour, no literal size. */
+  .disclaimer {
+    background-color: var(--color-caution-subtle);
+    border-block-end: 1px solid var(--color-caution);
+    color: var(--color-text);
+  }
+
+  .disclaimer__inner {
+    display: flex;
+    align-items: flex-start;
+    gap: calc(var(--spacing) * 3);
+    padding-block: calc(var(--spacing) * 3);
+  }
+
+  .disclaimer__icon {
+    flex-shrink: 0;
+    color: var(--color-caution-strong);
+    /* Optically aligns the glyph with the first line of the heading. */
+    margin-block-start: calc(var(--spacing) * 0.5);
+  }
+
+  .disclaimer__heading {
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .disclaimer__body {
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    max-width: var(--container-prose);
+    margin: 0;
+  }
+</style>

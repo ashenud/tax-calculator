@@ -1,7 +1,7 @@
 ---
 id: P01
 title: Design tokens, base layout, and the ADR-0003 invariants
-status: pending
+status: done
 depends: [P00]
 agent: ui-builder
 ---
@@ -26,7 +26,15 @@ scale, spacing, radii. Light and dark, with `@media (prefers-color-scheme: dark)
 
 - `Disclaimer.astro` — in the base layout, every page, not dismissible
 - `AsAtStamp.astro` — props: year of assessment, data review date
-- `ThemeToggle` — a small island; the only JS on a guidance page
+- `ThemeToggle` — the only JS on a guidance page
+
+> **Corrected during P01.** This originally read "a small island", which reads as a React
+> island. It must not be one: `../spec/ui-design-system.md` says **only the calculator
+> hydrates**, and `../spec/site-architecture.md` says guidance pages ship **zero
+> JavaScript**. Hydrating React for one button puts ~190 KB of runtime on every guidance
+> page, aimed at an audience the same spec describes as "frequently on a phone with a poor
+> connection". Built as `ThemeToggle.astro` with a plain `<script>` instead: 711 bytes,
+> inlined into the HTML, no extra request. The specs win over the prompt.
 
 ## Do not
 

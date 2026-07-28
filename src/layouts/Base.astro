@@ -1,0 +1,279 @@
+---
+/**
+ * The page shell every page uses.
+ *
+ * The disclaimer is rendered HERE and not by the pages, which is the whole
+ * point: ADR-0003 requires it on every page, and a requirement satisfied by
+ * each page remembering to opt in is a requirement that fails the first time
+ * someone forgets. `src/layouts/Base.test.ts` asserts a page that never
+ * mentions `Disclaimer` still renders it.
+ *
+ * THE INLINE THEME SCRIPT in <head> is deliberately inline and blocking. If it
+ * ran after first paint, a user who chose dark would get a white flash on every
+ * navigation. `is:inline` stops Astro bundling and deferring it.
+ *
+ * NOTE FOR P16 (CSP): that script and the compiled ThemeToggle script are the
+ * only JavaScript on a guidance page. The inline one needs a hash in the
+ * Content-Security-Policy `script-src` — not 'unsafe-inline', which would
+ * defeat the point. Astro's `experimental.csp` can emit that hash.
+ */
+import '../styles/global.css';
+import Disclaimer from '../components/Disclaimer.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+
+interface Props {
+  /** Page title, used for <title> and nothing else. */
+  title: string;
+  /** Meta description. Guidance pages are entered from search; this matters. */
+  description: string;
+  /** BCP-47 language tag. Sinhala and Tamil translations will set this. */
+  lang?: string;
+}
+
+const { title, description, lang = 'en-LK' } = Astro.props;
+
+/**
+ * Year-agnostic navigation.
+ *
+ * "Year-agnostic" is the constraint from P01: nav links to `/rates/`, never to
+ * `/rates/2025-26`, because the year of assessment is the user's choice and is
+ * never inferred from the clock (CLAUDE.md rule 5).
+ *
+ * Entries are filtered against the pages that actually exist in this build.
+ * P01 owns only the shell; the calculator, guides, rates and sources pages land
+ * in P10-P14. Rendering a link to a route that does not exist yet would hand a
+ * user a 404, so each item names the page file that must be present and appears
+ * only once it is. Nothing to remember when a later prompt adds the page.
+ */
+const existingPages = new Set(
+  Object.keys(import.meta.glob('../pages/**/*.astro')).map((path) =>
+    path.replace('../pages/', ''),
+  ),
+);
+
+const NAV = [
+  { href: '/calculator/', label: 'Calculator', page: 'calculator/index.astro' },
+  { href: '/guides/', label: 'Guides', page: 'guides/index.astro' },
+  { href: '/rates/', label: 'Rates', page: 'rates/index.astro' },
+  { href: '/about/sources/', label: 'Sources', page: 'about/sources.astro' },
+] as const;
+
+const nav = NAV.filter((item) => existingPages.has(item.page));
+
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <script is:inline>
+      try {
+        const stored = localStorage.getItem('theme');
+        if (stored === 'light' || stored === 'dark') {
+          document.documentElement.dataset.theme = stored;
+        }
+      } catch {
+        /* Storage blocked (private mode, blocked cookies). prefers-color-scheme
+           still applies, so the page themes itself correctly either way. */
+      }
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="shell site-header__inner">
+        <a class="site-header__home" href="/">
+          <span class="site-header__title">Sri Lanka Tax Return Support</span>
+        </a>
+
+        <div class="site-header__actions">
+          {
+            nav.length > 0 && (
+              <nav aria-label="Main">
+                <ul class="site-nav">
+                  {nav.map((item) => (
+                    <li>
+                      <a
+                        href={item.href}
+                        aria-current={
+                          currentPath.startsWith(item.href) ? 'page' : undefined
+                        }
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )
+          }
+          <ThemeToggle />
+        </div>
+      </div>
+    </header>
+
+    {
+      /* ADR-0003 decision 1. Above <main>, so it is on screen at load rather
+        than after a scroll the user may never make. Not a page's choice. */
+    }
+    <Disclaimer />
+
+    <main id="main" class="shell site-main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell site-footer__inner">
+        <p>
+          Everything you enter is calculated in your browser. No figure you type is sent
+          anywhere.
+        </p>
+        <p>
+          Published under the MIT licence, with no warranty of any kind — including no
+          warranty that a figure it produces is correct.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  /* Every value resolves to a token from src/styles/global.css. */
+
+  /* --- Skip link --------------------------------------------------------
+     Off-screen until focused, then pinned to the top-left. Not
+     `display: none`, which would take it out of the tab order and defeat the
+     purpose. --------------------------------------------------------- */
+  .skip-link {
+    position: absolute;
+    inset-inline-start: calc(var(--spacing) * 2);
+    inset-block-start: calc(var(--spacing) * 2);
+    z-index: 10;
+    transform: translateY(-200%);
+    display: inline-block;
+    padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4);
+    border-radius: var(--radius-md);
+    background-color: var(--color-accent);
+    color: var(--color-accent-contrast);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform var(--duration-state) var(--ease-out-soft);
+  }
+
+  .skip-link:focus-visible {
+    transform: translateY(0);
+    color: var(--color-accent-contrast);
+  }
+
+  /* --- Header ---------------------------------------------------------- */
+  .site-header {
+    background-color: var(--color-surface-raised);
+    border-block-end: 1px solid var(--color-border);
+  }
+
+  .site-header__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(var(--spacing) * 3);
+    padding-block: calc(var(--spacing) * 3);
+  }
+
+  .site-header__home {
+    color: var(--color-text);
+    text-decoration: none;
+    /* Meets the 44px minimum target without padding the layout out of shape. */
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--size-touch-target);
+  }
+
+  .site-header__home:hover .site-header__title {
+    text-decoration: underline;
+  }
+
+  .site-header__title {
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+    font-weight: 700;
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 4);
+  }
+
+  .site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(var(--spacing) * 1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--size-touch-target);
+    padding-inline: calc(var(--spacing) * 3);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .site-nav a:hover {
+    background-color: var(--color-accent-subtle);
+  }
+
+  /* The current page is marked by an underline as well as a colour, because
+     colour never carries meaning alone. */
+  .site-nav a[aria-current='page'] {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35em;
+  }
+
+  /* --- Main ------------------------------------------------------------- */
+  .site-main {
+    display: block;
+    padding-block: calc(var(--spacing) * 8) calc(var(--spacing) * 16);
+  }
+
+  /* --- Footer ----------------------------------------------------------- */
+  .site-footer {
+    border-block-start: 1px solid var(--color-border);
+    background-color: var(--color-surface-sunken);
+  }
+
+  .site-footer__inner {
+    padding-block: calc(var(--spacing) * 6);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+  }
+
+  .site-footer__inner p {
+    max-width: var(--container-prose);
+    margin-block: 0 calc(var(--spacing) * 2);
+  }
+
+  .site-footer__inner p:last-child {
+    margin-block-end: 0;
+  }
+</style>

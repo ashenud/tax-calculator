@@ -1,0 +1,382 @@
+/*
+ * Design tokens and base layer.
+ * Implements docs/spec/ui-design-system.md. See docs/prompts/P01-design-tokens-shell.md.
+ *
+ * Rules this file exists to enforce:
+ *
+ *  - No component hardcodes a colour or a size. Everything resolves to a token
+ *    declared here, so re-theming is one file rather than a search-and-replace.
+ *  - Semantic names only. `--color-danger`, never `--color-red`: the former
+ *    survives a palette change, the latter becomes a lie.
+ *  - Both themes meet WCAG 2.2 AA. Dark mode is a designed palette, not a
+ *    filter over the light one. The ratios are measured in
+ *    `src/styles/tokens.test.ts` on every commit — if you change a colour here
+ *    and it drops below the floor, the test fails. Do not adjust the floor to
+ *    make it pass.
+ */
+
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+ * Fonts — self-hosted, no external host.
+ *
+ * The site makes no third-party requests (P16 makes that structural with a
+ * CSP), so no font CDN. Inter Variable ships from `@fontsource-variable/inter`
+ * (SIL OFL 1.1) and is emitted into the build output by Vite.
+ *
+ * Only the Latin subset is declared — 48 KB. Prose runs on the system stack so
+ * first paint never waits on a download; a user on a poor connection reads the
+ * guidance immediately. Inter carries figures, where consistent `tabular-nums`
+ * alignment is what makes a working checkable.
+ * ------------------------------------------------------------------------ */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2')
+    format('woff2-variations');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308,
+    U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@theme {
+  /* --- Typeface ------------------------------------------------------- */
+  --font-sans:
+    ui-sans-serif, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-numeric:
+    'Inter Variable', ui-sans-serif, system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  /* --- Type scale ------------------------------------------------------
+   * Body sits at --text-base (17px), deliberately above the 16px default:
+   * guidance pages carry long legal explanation and are read on phones.
+   * Leading is 1.7 on prose sizes — Sinhala and Tamil have taller ascenders
+   * and must not be led against Latin text alone.
+   * ------------------------------------------------------------------ */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.5;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.6;
+  --text-base: 1.0625rem;
+  --text-base--line-height: 1.7;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.6;
+  --text-xl: 1.5rem;
+  --text-xl--line-height: 1.4;
+  --text-2xl: 2rem;
+  --text-2xl--line-height: 1.25;
+  --text-3xl: 2.75rem;
+  --text-3xl--line-height: 1.15;
+
+  /* --- Spacing — 4px base scale --------------------------------------- */
+  --spacing: 0.25rem;
+
+  /* --- Radii ------------------------------------------------------------
+   * Cards and inputs at md; the result panel at lg.
+   * -------------------------------------------------------------------- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  /* --- Layout ----------------------------------------------------------- */
+  --container-shell: 72rem; /* page shell max-width */
+  --container-prose: 65ch; /* line-length cap for reading copy */
+
+  /* --- Motion -----------------------------------------------------------
+   * 150ms state changes, 250ms panel entry, ease-out. Both become instant
+   * under prefers-reduced-motion (see the base layer). A tax figure does not
+   * animate at all, at any duration.
+   * -------------------------------------------------------------------- */
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --duration-state: 150ms;
+  --duration-panel: 250ms;
+
+  /* --- Minimum hit area --------------------------------------------------
+   * WCAG 2.2 AA target size. Interactive elements resolve their minimum size
+   * to this token rather than each restating 44px.
+   * -------------------------------------------------------------------- */
+  --size-touch-target: 44px;
+
+  /* ======================================================================
+   * COLOUR — light theme (the default)
+   *
+   * Every value sits inside the sRGB gamut, asserted by tokens.test.ts, so the
+   * colour authored is the colour displayed. An out-of-gamut oklch() is
+   * clipped per channel by the compositor, which silently shifts both the hue
+   * and the contrast ratio you believed you had specified.
+   * =================================================================== */
+
+  /* Surfaces */
+  --color-surface: oklch(99% 0.002 260); /* page */
+  --color-surface-raised: oklch(100% 0 0); /* cards, panels */
+  --color-surface-sunken: oklch(96.5% 0.004 260); /* wells, table stripes */
+
+  /* Borders.
+   * `--color-border` is a decorative rule — dividers, card edges — and carries
+   * no contrast obligation. `--color-border-strong` is for what WCAG 1.4.11
+   * calls a UI component boundary: input outlines, control edges, anything a
+   * user must be able to find. It is held at >= 3:1 against surface. */
+  --color-border: oklch(91% 0.005 260);
+  --color-border-strong: oklch(63% 0.012 260);
+
+  /* Text */
+  --color-text: oklch(25% 0.01 260);
+  --color-text-muted: oklch(50% 0.012 260);
+
+  /* Interactive */
+  --color-accent: oklch(50% 0.142 250); /* links, buttons */
+  --color-accent-hover: oklch(43% 0.123 250);
+  --color-accent-contrast: oklch(100% 0 0); /* text ON accent */
+  --color-accent-subtle: oklch(96% 0.019 250);
+
+  /* Focus ring. A separate token from --color-accent on purpose: the ring has
+   * to stay visible on an accent-filled control, so it must be free to
+   * diverge from the accent it sits on. */
+  --color-focus: oklch(50% 0.142 250);
+
+  /* Status.
+   * Each status has three roles and they are not interchangeable:
+   *   base     icon, marker, border      >= 3:1 on surface
+   *   -strong  text                      >= 4.5:1 on surface AND on -subtle
+   *   -subtle  notice background         the fill behind -strong
+   * Colour never carries meaning alone; every status also carries an icon and
+   * a text label. These tokens make that pairing legible, not sufficient. */
+  --color-danger: oklch(52% 0.19 27); /* blocking refusal */
+  --color-danger-strong: oklch(44% 0.17 27);
+  --color-danger-subtle: oklch(96% 0.019 27);
+
+  --color-caution: oklch(62% 0.131 75); /* unverified figure, unmet condition */
+  --color-caution-strong: oklch(45% 0.096 75);
+  --color-caution-subtle: oklch(96.5% 0.035 85);
+
+  --color-positive: oklch(52% 0.115 155); /* nothing owed, condition met */
+  --color-positive-strong: oklch(44% 0.1 155);
+  --color-positive-subtle: oklch(96% 0.03 155);
+
+  --color-info: oklch(52% 0.09 230);
+  --color-info-strong: oklch(45% 0.085 230);
+  --color-info-subtle: oklch(96% 0.02 230);
+}
+
+/* ---------------------------------------------------------------------------
+ * COLOUR — dark theme
+ *
+ * Resolution order, and it matters in both directions:
+ *   1. :root[data-theme='dark']                explicit choice wins, always
+ *   2. system dark AND NOT :root[data-theme='light']
+ *   3. the @theme light values above
+ *
+ * A user whose OS is dark but who has chosen light gets light. A user whose OS
+ * is light but who has chosen dark gets dark. Neither default can override an
+ * explicit choice.
+ *
+ * The two blocks below are necessarily identical — plain CSS cannot share a
+ * declaration list between a media query and a selector. `tokens.test.ts`
+ * asserts they stay in sync, so the duplication cannot drift unnoticed.
+ * ------------------------------------------------------------------------ */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-surface: oklch(20% 0.012 260);
+    --color-surface-raised: oklch(24.5% 0.013 260);
+    --color-surface-sunken: oklch(16.5% 0.011 260);
+
+    --color-border: oklch(32% 0.012 260);
+    --color-border-strong: oklch(54% 0.014 260);
+
+    --color-text: oklch(95% 0.004 260);
+    --color-text-muted: oklch(76% 0.012 260);
+
+    --color-accent: oklch(76% 0.115 250);
+    --color-accent-hover: oklch(84% 0.082 250);
+    --color-accent-contrast: oklch(20% 0.02 250);
+    --color-accent-subtle: oklch(29% 0.05 250);
+
+    --color-focus: oklch(80% 0.105 250);
+
+    --color-danger: oklch(70% 0.16 27);
+    --color-danger-strong: oklch(78% 0.128 27);
+    --color-danger-subtle: oklch(28% 0.06 27);
+
+    --color-caution: oklch(78% 0.13 75);
+    --color-caution-strong: oklch(85% 0.13 82);
+    --color-caution-subtle: oklch(29% 0.055 75);
+
+    --color-positive: oklch(74% 0.13 155);
+    --color-positive-strong: oklch(82% 0.13 155);
+    --color-positive-subtle: oklch(28% 0.05 155);
+
+    --color-info: oklch(76% 0.09 230);
+    --color-info-strong: oklch(83% 0.075 230);
+    --color-info-subtle: oklch(28% 0.045 230);
+  }
+}
+
+:root[data-theme='dark'] {
+  --color-surface: oklch(20% 0.012 260);
+  --color-surface-raised: oklch(24.5% 0.013 260);
+  --color-surface-sunken: oklch(16.5% 0.011 260);
+
+  --color-border: oklch(32% 0.012 260);
+  --color-border-strong: oklch(54% 0.014 260);
+
+  --color-text: oklch(95% 0.004 260);
+  --color-text-muted: oklch(76% 0.012 260);
+
+  --color-accent: oklch(76% 0.115 250);
+  --color-accent-hover: oklch(84% 0.082 250);
+  --color-accent-contrast: oklch(20% 0.02 250);
+  --color-accent-subtle: oklch(29% 0.05 250);
+
+  --color-focus: oklch(80% 0.105 250);
+
+  --color-danger: oklch(70% 0.16 27);
+  --color-danger-strong: oklch(78% 0.128 27);
+  --color-danger-subtle: oklch(28% 0.06 27);
+
+  --color-caution: oklch(78% 0.13 75);
+  --color-caution-strong: oklch(85% 0.13 82);
+  --color-caution-subtle: oklch(29% 0.055 75);
+
+  --color-positive: oklch(74% 0.13 155);
+  --color-positive-strong: oklch(82% 0.13 155);
+  --color-positive-subtle: oklch(28% 0.05 155);
+
+  --color-info: oklch(76% 0.09 230);
+  --color-info-strong: oklch(83% 0.075 230);
+  --color-info-subtle: oklch(28% 0.045 230);
+}
+
+/* ---------------------------------------------------------------------------
+ * Base layer
+ * ------------------------------------------------------------------------ */
+@layer base {
+  html {
+    /* Tells the UA to render scrollbars and native controls for the active
+     * theme, so a dark page does not get a white scrollbar. Kept in step with
+     * data-theme by the inline theme script in Base.astro. */
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme='light']) {
+      color-scheme: dark;
+    }
+  }
+
+  html[data-theme='dark'] {
+    color-scheme: dark;
+  }
+
+  html[data-theme='light'] {
+    color-scheme: light;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+    min-height: 100vh;
+  }
+
+  /* Headings keep a real hierarchy; levels are never skipped for appearance. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-text);
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-underline-offset: 0.2em;
+  }
+
+  a:hover {
+    color: var(--color-accent-hover);
+  }
+
+  /* --- Focus ------------------------------------------------------------
+   * A 2px ring in --color-focus with a 2px offset, on everything focusable.
+   * Never removed. An invisible focus ring makes the site unusable by
+   * keyboard, and this tool has users who cannot use a pointer at all.
+   * -------------------------------------------------------------------- */
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    /* The gap keeps the ring off a filled control's own edge, so it stays
+       legible on a button whose background is --color-accent. */
+    outline-offset: 2px;
+    /* Deliberately NO border-radius here. An outline already follows the
+       element's own border-radius, so setting one would reshape the control
+       at the moment it is focused. */
+  }
+
+  /* Suppress the default ring only where :focus-visible has already supplied
+   * one. Never a blanket `outline: none`. */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* --- Reduced motion ---------------------------------------------------
+   * Transitions and animations become instant. Not shortened — removed. The
+   * 0.01ms rather than 0s keeps transitionend/animationend firing, so nothing
+   * waiting on those events deadlocks.
+   * -------------------------------------------------------------------- */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Utilities that encode a rule rather than a look
+ * ------------------------------------------------------------------------ */
+
+/* Every rupee amount is tabular. Digits that do not align vertically produce a
+ * working nobody can check, which is the one thing this tool promises. */
+@utility figure {
+  font-family: var(--font-numeric);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings:
+    'tnum' 1,
+    'lnum' 1;
+}
+
+/* Page shell: 72rem, 16px gutters on mobile, 32px from 768px up. */
+@utility shell {
+  max-width: var(--container-shell);
+  margin-inline: auto;
+  padding-inline: calc(var(--spacing) * 4);
+  @media (width >= 768px) {
+    padding-inline: calc(var(--spacing) * 8);
+  }
+}
+
+/* Caps reading copy at 65ch. */
+@utility measure {
+  max-width: var(--container-prose);
+}
+
+/* WCAG 2.2 minimum target size, as a token rather than a magic number. */
+@utility touch-target {
+  min-inline-size: var(--size-touch-target);
+  min-block-size: var(--size-touch-target);
+}

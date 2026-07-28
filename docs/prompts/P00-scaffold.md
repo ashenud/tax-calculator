@@ -1,7 +1,7 @@
 ---
 id: P00
 title: Project scaffold — Astro, React, TypeScript, Tailwind, Vitest
-status: pending
+status: done
 depends: []
 agent: app-builder
 ---

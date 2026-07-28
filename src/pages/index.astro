@@ -1,0 +1,89 @@
+---
+/**
+ * Home page.
+ *
+ * NOTE: this file deliberately does NOT import or render `Disclaimer`.
+ * `Base.astro` does. That is the P01 acceptance check — a page whose author
+ * never thought about the disclaimer still shows it — and it is asserted in
+ * `src/layouts/Base.test.ts`. If you came here to add the disclaimer because
+ * you could not find it, it is already on the page; look at the layout.
+ *
+ * There are no tax figures on this page, and there will not be until the data
+ * files land in P03. Every rupee amount, rate and threshold needs a citation to
+ * primary law (CLAUDE.md rule 1), and the honest thing to show before the data
+ * exists is nothing.
+ */
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Sri Lanka Tax Return Support"
+  description="Work out your Sri Lankan income tax and see exactly how the figure was reached, with the law behind every rate cited."
+>
+  <div class="intro measure">
+    <h1>Work out what you owe, and check the working</h1>
+
+    <p class="intro__lede">
+      For individuals in Sri Lanka who have to work out their own income tax — often for
+      the first time, and often without an employer or a practitioner in between.
+    </p>
+
+    <h2>What it does</h2>
+    <p>
+      You choose a year of assessment, answer questions about your own circumstances in
+      ordinary language, and get a computed liability with every step of the calculation
+      shown and every rate linked to the provision it comes from.
+    </p>
+    <p>
+      Nothing you enter leaves your browser. There is no account, no server, and no record
+      of your figures.
+    </p>
+
+    <h2>What it will not do</h2>
+    <p>
+      Where the law is genuinely unclear about how a situation is treated, this tool says
+      so and declines to produce a number, rather than picking the most plausible reading
+      and presenting it as an answer. A refusal sends you to someone who can help; a
+      confident wrong figure sends you to the Inland Revenue Department with a wrong
+      return.
+    </p>
+    <p>
+      It also will not suggest ways to reduce what you owe. It describes what the law
+      provides, and what your figures produce under it.
+    </p>
+
+    <h2>Where it has got to</h2>
+    <p>
+      This is an early build. The page shell and its design tokens exist; the tax data,
+      the calculation engine and the guidance pages are still being written. No figure
+      appears anywhere yet, because no figure has a source behind it yet.
+    </p>
+  </div>
+</Base>
+
+<style>
+  /* Every value resolves to a token from src/styles/global.css. */
+  .intro h1 {
+    font-size: var(--text-3xl);
+    line-height: var(--text-3xl--line-height);
+    font-weight: 800;
+    margin-block: 0 calc(var(--spacing) * 4);
+  }
+
+  .intro h2 {
+    font-size: var(--text-xl);
+    line-height: var(--text-xl--line-height);
+    font-weight: 700;
+    margin-block: calc(var(--spacing) * 10) calc(var(--spacing) * 3);
+  }
+
+  .intro__lede {
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+    color: var(--color-text-muted);
+  }
+
+  .intro p {
+    margin-block: 0 calc(var(--spacing) * 4);
+  }
+</style>
