@@ -1,6 +1,7 @@
 # Worked examples
 
-> **Status:** format corrected against the implemented engine (P07); one example written
+> **Status:** format corrected against the implemented engine (P07); the spec's required
+> coverage is written, bar one item that cannot be — see "Coverage" below
 > **Now unblocked:** normal-ladder cases for Y/A 2025/2026 — the rates are verified
 > **Still blocked:** anything asserting a figure for a taxpayer with both capped and
 > uncapped income (Q14) — that case is written as a **refusal** fixture, not a figure
@@ -310,23 +311,60 @@ terminal benefit on its own tables versus taxed as ordinary employment income.
 
 ## Coverage required before the engine ships
 
-- [x] Income below the relief threshold — zero tax
-      ([`p2-below-relief-threshold-2025-26.md`](p2-below-relief-threshold-2025-26.md))
-- [ ] Each band boundary, just below and just above
-- [ ] Foreign income remitted / not remitted (contrast pair)
-- [ ] Personal relief applied once across two heads of income
-- [ ] Credits exceeding gross tax
-- [ ] Salary with no APIT deducted, including the instalment schedule
-- [ ] Terminal benefit on its own tables
-- [ ] One example per historical year of assessment supported
-
 The authoritative list is the one in
 [`../spec/calculation-engine.md`](../spec/calculation-engine.md), "Testing", which is
-longer than this one: it also requires a **mixed capped and uncapped** case asserting a
-refusal rather than a number, a **capital gain alongside ordinary income** asserting that
-relief did not touch the gain, the terminal-benefit **service-length boundary**, and an
-**instalment schedule where the estimate differs from the liability**. Where the two lists
-differ, the spec wins.
+longer than the one this README carried before P07. Where the two differ, the spec wins;
+what follows is the spec's list, with the documents that satisfy each item.
+
+- [x] Income below the relief threshold — zero tax
+      ([`p2-below-relief-threshold-2025-26.md`](p2-below-relief-threshold-2025-26.md))
+- [x] Each ladder band boundary, just below and just above
+      ([`p2-band-boundary-1m-at-2025-26.md`](p2-band-boundary-1m-at-2025-26.md),
+      [`p2-band-boundary-1m-over-2025-26.md`](p2-band-boundary-1m-over-2025-26.md),
+      [`p2-band-boundary-2-5m-at-2025-26.md`](p2-band-boundary-2-5m-at-2025-26.md),
+      [`p2-band-boundary-2-5m-over-2025-26.md`](p2-band-boundary-2-5m-over-2025-26.md) —
+      between them every band carries a non-zero amount and every boundary is pinned at its
+      exact rupee, the two interior boundaries by the `2-5m-at` walk)
+- [x] Foreign income remitted / not remitted (contrast pair)
+      ([`p1-foreign-remitted-2025-26.md`](p1-foreign-remitted-2025-26.md),
+      [`p1-foreign-not-remitted-2025-26.md`](p1-foreign-not-remitted-2025-26.md))
+- [x] **Mixed capped and uncapped — asserts a refusal, not a number**
+      ([`p3-mixed-capped-and-uncapped-refusal-2025-26.md`](p3-mixed-capped-and-uncapped-refusal-2025-26.md))
+- [x] Personal relief applied once across two heads of income
+      ([`p3-relief-once-across-two-heads-2025-26.md`](p3-relief-once-across-two-heads-2025-26.md))
+- [x] **Capital gain alongside ordinary income — relief does not touch the gain**
+      ([`p4-capital-gain-with-ordinary-income-2025-26.md`](p4-capital-gain-with-ordinary-income-2025-26.md))
+- [x] Terminal benefit on each table, and the service-length boundary
+      ([`p4-terminal-benefit-19-years-2025-26.md`](p4-terminal-benefit-19-years-2025-26.md) —
+      inside the ≤ 20 years table;
+      [`p4-terminal-benefit-20-years-2025-26.md`](p4-terminal-benefit-20-years-2025-26.md) —
+      exactly on the threshold, which lands on the ≤ 20 years table;
+      [`p4-terminal-benefit-28-years-2025-26.md`](p4-terminal-benefit-28-years-2025-26.md) —
+      the > 20 years table)
+- [x] Credits exceeding gross tax — excess surfaced
+      ([`p4-credits-exceed-gross-tax-2025-26.md`](p4-credits-exceed-gross-tax-2025-26.md))
+- [x] Salary with no APIT deducted, including the instalment schedule
+      ([`p2-instalments-estimate-below-liability-2025-26.md`](p2-instalments-estimate-below-liability-2025-26.md))
+- [x] Instalment schedule where the estimate differs from the liability — both directions
+      ([`p2-instalments-estimate-below-liability-2025-26.md`](p2-instalments-estimate-below-liability-2025-26.md),
+      positive final payment;
+      [`p3-instalments-estimate-above-liability-2025-26.md`](p3-instalments-estimate-above-liability-2025-26.md),
+      negative — an overpayment)
+- [ ] **One example per historical year of assessment supported** — not possible, and not a
+      defect. `data/tax-years/` holds only `2025-26.json`. A fixture for another year would
+      require inventing that year's rates, which is the exact failure this repository is
+      built against (ADR-0004). The item unblocks when a second year's data lands, and the
+      regression guard it stands for — that adding a year does not change what an earlier
+      year computes — cannot be exercised until then.
+
+Not required by the spec's list, but written because it is the only separately-rated
+component whose rate is verified (the capital gains rate is superseded, Q42, and the
+terminal benefit tables are 2017 text of unestablished currency, Q32):
+
+- [x] Special business income at the 45% flat rate, carved out of taxable income
+      ([`special-business-liquor-2025-26.md`](special-business-liquor-2025-26.md)) — note
+      that no persona in [`../personas/`](../personas/) covers this taxpayer, which is a gap
+      in the persona set rather than in the fixtures
 
 ## Self-check before committing an example
 
