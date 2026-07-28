@@ -1,7 +1,7 @@
 ---
 id: P02
 title: Tax-year schema, loader and build-time validation
-status: in-progress
+status: done
 depends: [P00]
 agent: app-builder
 ---

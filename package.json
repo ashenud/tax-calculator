@@ -13,6 +13,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "vitest run",
+    "generate:json-schema": "node scripts/generate-json-schema.mjs",
     "typecheck": "astro check && tsc --noEmit",
     "lint": "eslint . && prettier --check \"src/**/*.{ts,tsx,astro,css}\""
   },
@@ -23,7 +24,8 @@
     "astro": "7.1.4",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "tailwindcss": "4.3.3"
+    "tailwindcss": "4.3.3",
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
