@@ -54,7 +54,7 @@ unfinished.
 | ☑ | `P13` | [Rates pages, sources register and changelog — generated from data](P13-rates-and-sources-pages.md) | done | P09, P03 |  |
 | ☑ | `P14` | [Guidance pages from the research documents](P14-guidance-pages.md) | done | P13 |  |
 | ☑ | `P15` | [Print stylesheet and full accessibility audit](P15-print-and-accessibility.md) | done | P12, P14 |  |
-| ◐ | `P16` | [CI pipeline and GitHub Pages deployment](P16-deploy.md) | in-progress | P15 |  |
+| ☑ | `P16` | [CI pipeline and GitHub Pages deployment](P16-deploy.md) | done | P15 |  |
 <!-- STATUS-TABLE:END -->
 
 ## Phases
