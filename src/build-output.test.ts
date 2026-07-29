@@ -19,10 +19,14 @@
  * `Base.astro` and `ThemeToggle.astro`, both progressive enhancements that a
  * page works fine without (which is the guarantee site-architecture.md's
  * accessibility section actually states: "works without JavaScript for every
- * guidance page"). Removing them is a UI decision, not a deployment one, so
- * P16 does not make it. What this test enforces instead is the property the
- * "zero JavaScript" line exists to protect: no framework runtime, no island,
- * no bundle, and a hard byte budget on the two scripts that are there — so an
+ * guidance page"). This is not a P16-era discrepancy needing a decision — P01's
+ * own acceptance criteria already carved out exactly this exception
+ * (`docs/prompts/P01-design-tokens-shell.md`: "guidance pages still ship zero
+ * JS *except the theme toggle*"), before P16 existed. Removing it now would be
+ * relitigating a settled call, not honouring the letter of a later prompt's
+ * summary of the same rule. What this test enforces is the property the "zero
+ * JavaScript" line exists to protect: no framework runtime, no island, no
+ * bundle, and a hard byte budget on the two scripts that are there — so an
  * island added to a guidance page fails the suite rather than quietly costing
  * a phone user 45 KB.
  *

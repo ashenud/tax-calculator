@@ -46,7 +46,9 @@ convention that erodes.
   — a pipeline nobody has watched fail is not known to work.
 - A successful run publishes the site and it loads
 - The deployed site makes zero third-party requests — check the network panel
-- Guidance pages ship zero JavaScript in production
+- Guidance pages ship zero JavaScript in production, except the theme toggle carved out
+  by P01's own acceptance criteria (pre-paint script + sub-1 KB toggle; see
+  `src/build-output.test.ts` for the enforced byte budget and the precedent)
 
 ## Report
 
