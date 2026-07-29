@@ -1,7 +1,7 @@
 ---
 id: P08
 title: UI primitives, including the currency field
-status: pending
+status: done
 depends: [P01]
 agent: ui-builder
 ---

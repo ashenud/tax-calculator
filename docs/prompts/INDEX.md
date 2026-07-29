@@ -34,7 +34,7 @@ that prompt were checked. `prompt-status.mjs set <id> done` refuses if a depende
 unfinished.
 
 <!-- STATUS-TABLE:START -->
-**8 of 17 complete.**
+**9 of 17 complete.**
 
 | | ID | Prompt | Status | Depends on | |
 |---|---|---|---|---|---|
@@ -46,8 +46,8 @@ unfinished.
 | ☑ | `P05` | [Engine part 2 — separately-rated components, the rate cap, and refusal](P05-engine-components.md) | done | P04 |  |
 | ☑ | `P06` | [Engine part 3 — credits and the payment schedule](P06-engine-credits-schedule.md) | done | P05 |  |
 | ☑ | `P07` | [Fixture harness — worked examples become the test suite](P07-fixture-harness.md) | done | P06 |  |
-| ☐ | `P08` | [UI primitives, including the currency field](P08-ui-primitives.md) | pending | P01 |  |
-| ☐ | `P09` | [The ADR-0003 components — warnings, refusals, citations, year selector](P09-constrained-components.md) | pending | P08, P07 | waiting on P08 |
+| ☑ | `P08` | [UI primitives, including the currency field](P08-ui-primitives.md) | done | P01 |  |
+| ☐ | `P09` | [The ADR-0003 components — warnings, refusals, citations, year selector](P09-constrained-components.md) | pending | P08, P07 |  |
 | ☐ | `P10` | [Calculator island — persona picker, year, question groups](P10-calculator-island.md) | pending | P09 | waiting on P09 |
 | ☐ | `P11` | [The remittance route picker — the question that distinguishes this tool](P11-remittance-route-picker.md) | pending | P10 | waiting on P10 |
 | ☐ | `P12` | [Result panel — refusals, warnings, the figure, the working, the schedule](P12-result-panel.md) | pending | P11 | waiting on P11 |
