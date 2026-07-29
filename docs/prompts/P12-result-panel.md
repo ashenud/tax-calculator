@@ -1,7 +1,7 @@
 ---
 id: P12
 title: Result panel — refusals, warnings, the figure, the working, the schedule
-status: pending
+status: done
 depends: [P11]
 agent: ui-builder
 ---

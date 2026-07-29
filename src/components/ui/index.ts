@@ -117,3 +117,13 @@ export {
   yearSpanLabel,
 } from './YearSelector.tsx';
 export type { YearOption, YearSelectorProps } from './YearSelector.tsx';
+
+// ---------------------------------------------------------------------------
+// Icons — exported so a status shown outside `src/components/ui/` (P12's
+// mobile summary bar, which pairs a blocking indicator's icon with its own
+// word rather than colour alone) can use the same distinct shapes as
+// `Callout` and `WarningList`, instead of inventing a second glyph for the
+// same tone.
+// ---------------------------------------------------------------------------
+
+export { IconOctagonAlert } from './icons.tsx';

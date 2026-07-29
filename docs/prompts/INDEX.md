@@ -34,7 +34,7 @@ that prompt were checked. `prompt-status.mjs set <id> done` refuses if a depende
 unfinished.
 
 <!-- STATUS-TABLE:START -->
-**12 of 17 complete.**
+**13 of 17 complete.**
 
 | | ID | Prompt | Status | Depends on | |
 |---|---|---|---|---|---|
@@ -50,10 +50,10 @@ unfinished.
 | ☑ | `P09` | [The ADR-0003 components — warnings, refusals, citations, year selector](P09-constrained-components.md) | done | P08, P07 |  |
 | ☑ | `P10` | [Calculator island — persona picker, year, question groups](P10-calculator-island.md) | done | P09 |  |
 | ☑ | `P11` | [The remittance route picker — the question that distinguishes this tool](P11-remittance-route-picker.md) | done | P10 |  |
-| ☐ | `P12` | [Result panel — refusals, warnings, the figure, the working, the schedule](P12-result-panel.md) | pending | P11 |  |
+| ☑ | `P12` | [Result panel — refusals, warnings, the figure, the working, the schedule](P12-result-panel.md) | done | P11 |  |
 | ☐ | `P13` | [Rates pages, sources register and changelog — generated from data](P13-rates-and-sources-pages.md) | pending | P09, P03 |  |
 | ☐ | `P14` | [Guidance pages from the research documents](P14-guidance-pages.md) | pending | P13 | waiting on P13 |
-| ☐ | `P15` | [Print stylesheet and full accessibility audit](P15-print-and-accessibility.md) | pending | P12, P14 | waiting on P12, P14 |
+| ☐ | `P15` | [Print stylesheet and full accessibility audit](P15-print-and-accessibility.md) | pending | P12, P14 | waiting on P14 |
 | ☐ | `P16` | [CI pipeline and GitHub Pages deployment](P16-deploy.md) | pending | P15 | waiting on P15 |
 <!-- STATUS-TABLE:END -->
 

@@ -2,31 +2,25 @@
  * What the calculator shows once it has been given enough to work on.
  *
  * ---------------------------------------------------------------------------
- * SCOPE — THIS IS NOT THE RESULT PANEL
- * ---------------------------------------------------------------------------
- *
- * P12 builds the result panel: the working, every rate with its citation, the
- * payment schedule, the mobile summary bar. This prompt's job stops at wiring
- * `computeTax` up and showing *that* a result was reached, so what is below the
- * figure here is a single line and a notice saying the working is not on the
- * page yet.
- *
- * That notice is not a placeholder for a designer to delete. "A dashboard
- * presenting a total without the working" is prohibited
- * [`docs/spec/ui-design-system.md`], and until P12 lands this page is exactly
- * that. Saying so out loud is the honest way to be in this state; quietly
- * shipping a bare total is not. P12 removes the notice by removing the reason
- * for it.
- *
- * ---------------------------------------------------------------------------
  * THE ORDER, AND WHO GUARANTEES IT
  * ---------------------------------------------------------------------------
  *
- * `RefusalPanel` does — refusals, then warnings, then the figure, as DOM order
- * rather than as CSS, with the figure produced by a callback it only calls when
- * the result is not a refusal. This component cannot render a figure beside a
- * refusal even by mistake, because the branded type the figure needs is only
- * obtainable inside that callback.
+ * Top to bottom, normatively [`docs/spec/ui-behaviour.md` §4]: refusals,
+ * warnings, the figure, the working, the payment schedule, what to do next.
+ *
+ * `RefusalPanel` guarantees the first three as DOM order, not CSS, and the
+ * figure is produced by a callback it calls only on the non-refused path — see
+ * that file's own header. Everything from "the working" down is added here,
+ * *inside* that same callback, so a refusal that replaces the figure also
+ * replaces the working, the schedule and the next-steps section: none of them
+ * can render without a `ComputedTaxResult`, because none of them exist outside
+ * the callback that produces one.
+ *
+ * `ResultStep.test.tsx` asserts the full order — refusal/warnings/figure/
+ * working/schedule/next-steps — the same way `RefusalPanel.test.tsx` asserts
+ * its own three: `compareDocumentPosition` against a DOM with no stylesheet
+ * loaded, which is "verified with CSS disabled" in the strongest sense jsdom
+ * can offer.
  *
  * ---------------------------------------------------------------------------
  * THE THREE STATES THAT SHOW NO FIGURE, AND WHY NONE OF THEM SHOWS `Rs. 0`
@@ -37,11 +31,36 @@
  *   uncomputable  The engine declined this combination. Its own message is
  *                 shown verbatim. No amount anywhere.
  *   refused       `RefusalPanel` replaces the figure entirely [ADR-0003].
+ *
+ * ---------------------------------------------------------------------------
+ * THE MOBILE SUMMARY BAR
+ * ---------------------------------------------------------------------------
+ *
+ * Above 1024px the result panel is a sticky column beside the inputs
+ * (`calculator.css`, `.calc-step--result`); below it, the panel sits at the
+ * bottom of a single-column page and can be scrolled well out of view. The
+ * summary bar is what stays on screen regardless — the current figure (or the
+ * words for "nothing yet" / "no figure"), a jump to the full panel, and,
+ * because it is explicitly the one thing `ui-behaviour.md` says must not be
+ * lost, **a blocking-warning indicator**. It is not a second live region: it
+ * carries no `aria-live` of its own, because `RefusalPanel`'s region is the
+ * single announced source of truth and a second one would announce the same
+ * figure twice [`TaxCalculator.tsx`].
  */
 
 import { AsAtStamp } from './AsAtStamp.tsx';
 import type { Computation } from './compute.ts';
-import { Callout, Card, RefusalPanel, formatRupeesWithUnit } from '../ui/index.ts';
+import { PaymentSchedule } from './PaymentSchedule.tsx';
+import { WhatNext } from './WhatNext.tsx';
+import { WorkingTable } from './WorkingTable.tsx';
+import {
+  Callout,
+  Card,
+  IconOctagonAlert,
+  RefusalPanel,
+  SEVERITY_LABEL,
+  formatRupeesWithUnit,
+} from '../ui/index.ts';
 import type { TaxYearFile } from '../../lib/tax/schema.ts';
 import './calculator.css';
 
@@ -59,6 +78,15 @@ export interface ResultStepProps {
 }
 
 export function ResultStep({ computation, taxYear, stale = false }: ResultStepProps) {
+  return (
+    <>
+      <ResultBody computation={computation} taxYear={taxYear} stale={stale} />
+      <MobileSummaryBar computation={computation} />
+    </>
+  );
+}
+
+function ResultBody({ computation, taxYear, stale }: Required<ResultStepProps>) {
   if (computation.status === 'incomplete') {
     return (
       <Card title="Nothing has been worked out yet" headingLevel={3}>
@@ -109,22 +137,6 @@ export function ResultStep({ computation, taxYear, stale = false }: ResultStepPr
     <RefusalPanel result={result} headingLevel={3}>
       {(computed) => (
         <>
-          {/* Above the figure, deliberately. A caveat under a number is a
-              caveat most people scroll past. */}
-          <Callout
-            tone="caution"
-            title="You cannot check this figure on this page yet"
-            headingLevel={3}
-          >
-            <p>
-              The step-by-step working, the rate behind each step with the provision it
-              comes from, and the payment dates are not built yet. Until they are, this
-              number is not something you can check, and it is not something to file on.
-              Verify it with the Inland Revenue Department or a qualified tax practitioner
-              before you rely on it.
-            </p>
-          </Callout>
-
           <Card
             title="Tax payable on what you have entered"
             headingLevel={3}
@@ -156,8 +168,68 @@ export function ResultStep({ computation, taxYear, stale = false }: ResultStepPr
               entered and the law as this project records it for that year.
             </p>
           </Card>
+
+          {/*
+            The working, the schedule, what to do next — all three exist only
+            inside this callback, so none of them can render on a refusal.
+            `taxYear` is non-null here: `compute()` never reaches `computed`
+            status without one (see `compute.ts`), so the branch below is
+            unreachable rather than a real gap — but the prop stays nullable
+            because every other state in this component is reachable without a
+            year chosen at all, and narrowing it just for this one branch is
+            not worth a second copy of the type.
+          */}
+          {taxYear && (
+            <>
+              <WorkingTable result={computed} taxYear={taxYear} />
+              <PaymentSchedule result={computed} taxYear={taxYear} />
+              <WhatNext taxYear={taxYear} />
+            </>
+          )}
         </>
       )}
     </RefusalPanel>
+  );
+}
+
+/* ========================================================================= */
+
+type SummaryState =
+  | { kind: 'none' }
+  | { kind: 'blocked'; blocking: boolean }
+  | { kind: 'ready'; text: string; blocking: boolean };
+
+function summaryStateFor(computation: Computation): SummaryState {
+  if (computation.status === 'incomplete') return { kind: 'none' };
+  if (computation.status === 'uncomputable') return { kind: 'blocked', blocking: true };
+
+  const { result } = computation;
+  const blocking = result.warnings.some((warning) => warning.severity === 'blocking');
+  if (result.refusals.length > 0) return { kind: 'blocked', blocking: true };
+  return { kind: 'ready', text: formatRupeesWithUnit(result.taxPayable), blocking };
+}
+
+function MobileSummaryBar({ computation }: { computation: Computation }) {
+  const state = summaryStateFor(computation);
+
+  return (
+    <div className="calc-summary-bar">
+      <span className="calc-summary-bar__figure figure">
+        {state.kind === 'none' && 'Nothing worked out yet'}
+        {state.kind === 'blocked' && 'No figure — see why below'}
+        {state.kind === 'ready' && state.text}
+      </span>
+
+      {state.kind !== 'none' && 'blocking' in state && state.blocking && (
+        <span className="calc-summary-bar__blocking">
+          <IconOctagonAlert className="calc-summary-bar__blocking-icon" />
+          {SEVERITY_LABEL.blocking}
+        </span>
+      )}
+
+      <a className="calc-summary-bar__link" href="#calc-step-result">
+        See working
+      </a>
+    </div>
   );
 }

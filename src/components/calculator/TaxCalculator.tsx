@@ -310,140 +310,156 @@ export function TaxCalculator({ taxYears }: TaxCalculatorProps) {
 
   return (
     <div className="calc">
-      <Stepper ariaLabel="Progress through the calculator" steps={steps} />
-      <ProgressIndicator
-        value={completedSteps}
-        max={STEP_IDS.length}
-        label={`${completedSteps} of ${STEP_IDS.length} steps answered`}
-      />
+      {/*
+        Everything except the result panel, in one wrapper: above 1024px
+        `.calc` becomes a row of two columns (`calculator.css`), and this is
+        the left one. The result section is the only element outside it, so it
+        can be the sticky right column without a grid-row span picking up
+        content it does not own.
+      */}
+      <div className="calc-main">
+        <Stepper ariaLabel="Progress through the calculator" steps={steps} />
+        <ProgressIndicator
+          value={completedSteps}
+          max={STEP_IDS.length}
+          label={`${completedSteps} of ${STEP_IDS.length} steps answered`}
+        />
 
-      {/* -- 1. Situation ------------------------------------------------- */}
-      <section className="calc-step" aria-labelledby={stepHeadingId('situation')}>
-        <h2 className="calc-step__title" id={stepHeadingId('situation')} tabIndex={-1}>
-          {STEP_LABELS.situation}
-        </h2>
-        <Card>
-          <PersonaCardGroup
-            legend="Which of these sounds most like you?"
-            hint="This only decides which questions open first. Every question stays available whichever you pick, and changing it later keeps everything you have already entered."
-            personas={PERSONAS}
-            value={state.personaId}
-            onValueChange={setPersona}
-          />
-        </Card>
-      </section>
-
-      {/* -- 2. Year of assessment ---------------------------------------- */}
-      {showYear && (
-        <section className="calc-step" aria-labelledby={stepHeadingId('year')}>
-          <h2 className="calc-step__title" id={stepHeadingId('year')} tabIndex={-1}>
-            {STEP_LABELS.year}
+        {/* -- 1. Situation ------------------------------------------------- */}
+        <section className="calc-step" aria-labelledby={stepHeadingId('situation')}>
+          <h2 className="calc-step__title" id={stepHeadingId('situation')} tabIndex={-1}>
+            {STEP_LABELS.situation}
           </h2>
           <Card>
-            <YearSelector
-              id={YEAR_FIELD_ID}
-              years={yearOptions}
-              value={state.yearOfAssessment}
-              onChange={(yearOfAssessment) =>
-                setState((prev) => ({ ...prev, yearOfAssessment }))
-              }
-              headingLevel={3}
+            <PersonaCardGroup
+              legend="Which of these sounds most like you?"
+              hint="This only decides which questions open first. Every question stays available whichever you pick, and changing it later keeps everything you have already entered."
+              personas={PERSONAS}
+              value={state.personaId}
+              onValueChange={setPersona}
             />
           </Card>
         </section>
-      )}
 
-      {/* -- 3. Where you lived ------------------------------------------- */}
-      {showAboutYou && (
-        <section className="calc-step" aria-labelledby={stepHeadingId('about-you')}>
-          <h2 className="calc-step__title" id={stepHeadingId('about-you')} tabIndex={-1}>
-            {STEP_LABELS['about-you']}
-          </h2>
-          <Card>
-            <RadioCardGroup
-              id={RESIDENCY_GROUP_ID}
-              legend="Where did you live for that year of assessment?"
-              hint={RESIDENCY_HINT}
-              value={state.residency}
-              onValueChange={(value) =>
-                setState((prev) => ({ ...prev, residency: value as Residency }))
-              }
-              options={RESIDENCY_OPTIONS.map((option) => ({
-                value: option.value,
-                label: option.label,
-                description: option.description,
-              }))}
-            />
-          </Card>
-        </section>
-      )}
-
-      {/* -- 4. What you were paid ---------------------------------------- */}
-      {showIncome && (
-        <section className="calc-step" aria-labelledby={stepHeadingId('income')}>
-          <h2 className="calc-step__title" id={stepHeadingId('income')} tabIndex={-1}>
-            {STEP_LABELS.income}
-          </h2>
-          <p className="calc-step__lede">
-            Enter whichever of these are about you, and leave the rest empty. An empty box
-            is not a zero — it means you have not told us about that, and nothing is
-            worked out from it.
-          </p>
-
-          {shown.map((sectionId) => {
-            const section = SECTIONS.find((candidate) => candidate.id === sectionId);
-            if (!section) return null;
-            return (
-              <Card key={sectionId}>
-                <IncomeSection
-                  section={section}
-                  fields={fields.filter((field) => field.section === sectionId)}
-                  state={state}
-                  conditionQuestions={conditionQuestions}
-                  cappedFieldIds={cappedFieldIds}
-                  sources={taxYear?.sources ?? {}}
-                  showGapsAsErrors={gapsRequested}
-                  onAmountChange={setAmount}
-                  onAmountValidity={setAmountValidity}
-                  onTextChange={setText}
-                  onConditionAnswer={setConditionAnswer}
-                  onRouteAnswer={setRouteAnswer}
-                  onRouteAmount={setRouteAmount}
-                  headingId={sectionHeadingId(sectionId)}
-                />
-              </Card>
-            );
-          })}
-
-          {closedSections.length > 0 && (
-            <Card tone="sunken">
-              <div className="calc-more">
-                <h3 className="calc-more__title">Something else you were paid?</h3>
-                <p className="calc-more__blurb">
-                  The situation you picked opened the questions it usually needs. Real
-                  situations overlap, so everything else is here too — opening one keeps
-                  what you have already entered.
-                </p>
-                <div className="calc-more__actions">
-                  {closedSections.map((section) => (
-                    <Button
-                      key={section.id}
-                      variant="secondary"
-                      onClick={() => openSection(section.id)}
-                    >
-                      {section.openLabel}
-                    </Button>
-                  ))}
-                </div>
-              </div>
+        {/* -- 2. Year of assessment ---------------------------------------- */}
+        {showYear && (
+          <section className="calc-step" aria-labelledby={stepHeadingId('year')}>
+            <h2 className="calc-step__title" id={stepHeadingId('year')} tabIndex={-1}>
+              {STEP_LABELS.year}
+            </h2>
+            <Card>
+              <YearSelector
+                id={YEAR_FIELD_ID}
+                years={yearOptions}
+                value={state.yearOfAssessment}
+                onChange={(yearOfAssessment) =>
+                  setState((prev) => ({ ...prev, yearOfAssessment }))
+                }
+                headingLevel={3}
+              />
             </Card>
-          )}
-        </section>
-      )}
+          </section>
+        )}
+
+        {/* -- 3. Where you lived ------------------------------------------- */}
+        {showAboutYou && (
+          <section className="calc-step" aria-labelledby={stepHeadingId('about-you')}>
+            <h2
+              className="calc-step__title"
+              id={stepHeadingId('about-you')}
+              tabIndex={-1}
+            >
+              {STEP_LABELS['about-you']}
+            </h2>
+            <Card>
+              <RadioCardGroup
+                id={RESIDENCY_GROUP_ID}
+                legend="Where did you live for that year of assessment?"
+                hint={RESIDENCY_HINT}
+                value={state.residency}
+                onValueChange={(value) =>
+                  setState((prev) => ({ ...prev, residency: value as Residency }))
+                }
+                options={RESIDENCY_OPTIONS.map((option) => ({
+                  value: option.value,
+                  label: option.label,
+                  description: option.description,
+                }))}
+              />
+            </Card>
+          </section>
+        )}
+
+        {/* -- 4. What you were paid ---------------------------------------- */}
+        {showIncome && (
+          <section className="calc-step" aria-labelledby={stepHeadingId('income')}>
+            <h2 className="calc-step__title" id={stepHeadingId('income')} tabIndex={-1}>
+              {STEP_LABELS.income}
+            </h2>
+            <p className="calc-step__lede">
+              Enter whichever of these are about you, and leave the rest empty. An empty
+              box is not a zero — it means you have not told us about that, and nothing is
+              worked out from it.
+            </p>
+
+            {shown.map((sectionId) => {
+              const section = SECTIONS.find((candidate) => candidate.id === sectionId);
+              if (!section) return null;
+              return (
+                <Card key={sectionId}>
+                  <IncomeSection
+                    section={section}
+                    fields={fields.filter((field) => field.section === sectionId)}
+                    state={state}
+                    conditionQuestions={conditionQuestions}
+                    cappedFieldIds={cappedFieldIds}
+                    sources={taxYear?.sources ?? {}}
+                    showGapsAsErrors={gapsRequested}
+                    onAmountChange={setAmount}
+                    onAmountValidity={setAmountValidity}
+                    onTextChange={setText}
+                    onConditionAnswer={setConditionAnswer}
+                    onRouteAnswer={setRouteAnswer}
+                    onRouteAmount={setRouteAmount}
+                    headingId={sectionHeadingId(sectionId)}
+                  />
+                </Card>
+              );
+            })}
+
+            {closedSections.length > 0 && (
+              <Card tone="sunken">
+                <div className="calc-more">
+                  <h3 className="calc-more__title">Something else you were paid?</h3>
+                  <p className="calc-more__blurb">
+                    The situation you picked opened the questions it usually needs. Real
+                    situations overlap, so everything else is here too — opening one keeps
+                    what you have already entered.
+                  </p>
+                  <div className="calc-more__actions">
+                    {closedSections.map((section) => (
+                      <Button
+                        key={section.id}
+                        variant="secondary"
+                        onClick={() => openSection(section.id)}
+                      >
+                        {section.openLabel}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              </Card>
+            )}
+          </section>
+        )}
+      </div>
 
       {/* -- 5. The result ------------------------------------------------ */}
       {showIncome && (
-        <section className="calc-step" aria-labelledby={stepHeadingId('result')}>
+        <section
+          className="calc-step calc-step--result"
+          aria-labelledby={stepHeadingId('result')}
+        >
           <h2 className="calc-step__title" id={stepHeadingId('result')} tabIndex={-1}>
             {STEP_LABELS.result}
           </h2>
