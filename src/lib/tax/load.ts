@@ -30,10 +30,31 @@ export interface LoadedTaxYear {
  * regardless of the directory the build happens to be invoked from.
  *
  * src/lib/tax/load.ts -> src/lib/tax -> src/lib -> src -> <repo root> -> data/tax-years
+ *
+ * Falls back to `process.cwd()` when `import.meta.url` is not a `file:` URL —
+ * P09's component tests import this module from a `.tsx` test file, and once
+ * a jsdom test's module graph includes a React component, Vitest transforms
+ * the whole graph in client mode for the run phase, which rewrites every
+ * module's `import.meta.url` to a fake `http://localhost:3000/...` dev-server
+ * URL, this one included. Every real entry point — `astro build`, `astro dev`,
+ * `vitest run` with no React in the graph — runs from the repo root, so the
+ * fallback resolves to the same directory the `import.meta.url` path would
+ * have.
  */
-export const DEFAULT_TAX_YEARS_DIR = fileURLToPath(
-  new URL('../../../data/tax-years/', import.meta.url),
-);
+function resolveDefaultTaxYearsDir(): string {
+  const relative = '../../../data/tax-years/';
+  const url = new URL(relative, import.meta.url);
+  if (url.protocol !== 'file:') {
+    // `url.pathname` is still the correct repo-relative path even on the fake
+    // base — Vite's rewrite substitutes the dev-server origin but preserves
+    // the relative traversal, so `../../../data/tax-years/` from this file's
+    // real location still lands on `/data/tax-years/`.
+    return path.resolve(process.cwd(), url.pathname.replace(/^\//, ''));
+  }
+  return fileURLToPath(url);
+}
+
+export const DEFAULT_TAX_YEARS_DIR = resolveDefaultTaxYearsDir();
 
 function formatIssues(issues: { path: PropertyKey[]; message: string }[]): string {
   return issues

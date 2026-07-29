@@ -1,14 +1,25 @@
 /**
- * The P08 primitive inventory.
+ * The UI component inventory.
  *
  * `ui-design-system.md` splits components into "constrained" (required
- * behaviour from ADR-0003 — `Disclaimer`, `AsAtStamp`, `WarningList`,
- * `RefusalPanel`, `CitationRef`, `UnverifiedBadge`, `YearSelector`) and "free".
- * Everything exported here is from the free half. The constrained ones are
- * P09's, and several of them are built *from* these — `Callout` is the base of
- * `WarningList` and `RefusalPanel`, which is why `Callout` has no dismiss and
- * no collapse.
+ * behaviour from ADR-0003) and "free" (ordinary). Both halves are exported
+ * here, and the file is split the same way, because the distinction is the
+ * whole point: a change to a free component is a design decision, and a change
+ * to a constrained one is an ADR.
+ *
+ * The constrained ones are built *from* the free ones — `Callout` is the base
+ * of `WarningList` and `RefusalPanel`, which is why `Callout` has no dismiss
+ * and no collapse.
+ *
+ * `Disclaimer` and `AsAtStamp` are the other two constrained components and are
+ * not here: they are `.astro` components in `src/components/`, because the
+ * disclaimer belongs to the base layout on every page rather than to a
+ * hydrated island.
  */
+
+// ---------------------------------------------------------------------------
+// Free — ordinary components (P08)
+// ---------------------------------------------------------------------------
 
 export { Button } from './Button.tsx';
 export type { ButtonProps, ButtonVariant } from './Button.tsx';
@@ -56,3 +67,53 @@ export type { SkeletonProps } from './Skeleton.tsx';
 
 export { PersonaCardGroup } from './PersonaCard.tsx';
 export type { Persona, PersonaCardGroupProps } from './PersonaCard.tsx';
+
+// ---------------------------------------------------------------------------
+// Constrained — ADR-0003 requires these behaviours (P09)
+//
+// Warnings above the result and expanded; refusals replacing the figure;
+// a citation on every displayed rate; a badge on every unverified figure; a
+// year of assessment that is chosen and never assumed. Changing any of these
+// needs a superseding ADR, not a judgement call in a component.
+// ---------------------------------------------------------------------------
+
+export { WarningList } from './WarningList.tsx';
+export type { WarningListProps } from './WarningList.tsx';
+
+export {
+  RefusalPanel,
+  refusalCopy,
+  hasRefusalCopy,
+  UI_REFUSAL_CODES,
+} from './RefusalPanel.tsx';
+export type {
+  ComputedTaxResult,
+  RefusalCopy,
+  RefusalPanelProps,
+} from './RefusalPanel.tsx';
+
+export {
+  UI_WARNING_CODES,
+  SEVERITY_LABEL,
+  SEVERITY_TONE,
+  UNKNOWN_WARNING_COPY,
+  hasWarningCopy,
+  warningCopy,
+} from './warning-copy.ts';
+export type { WarningCopy } from './warning-copy.ts';
+
+export { CitationRef, splitSrc } from './CitationRef.tsx';
+export type { CitationRefProps, CitationSource } from './CitationRef.tsx';
+
+export { NotYetLawBadge, UnverifiedBadge } from './UnverifiedBadge.tsx';
+export type { NotYetLawBadgeProps, UnverifiedBadgeProps } from './UnverifiedBadge.tsx';
+
+export {
+  YearSelector,
+  countUnverifiedFigures,
+  newestFirst,
+  reviewedOnLabel,
+  toYearOption,
+  yearSpanLabel,
+} from './YearSelector.tsx';
+export type { YearOption, YearSelectorProps } from './YearSelector.tsx';

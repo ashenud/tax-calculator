@@ -1,5 +1,6 @@
 /**
- * The component gallery — every P08 primitive, in every state it has.
+ * The component gallery — every P08 primitive and every P09 constrained
+ * component, in every state it has.
  *
  * DEV ONLY. This file lives in `src/dev/`, not in `src/pages/`, and the route
  * that renders it is injected by `astro.config.mjs` only when the command is
@@ -21,17 +22,28 @@ import { useState } from 'react';
 import { Button } from '../components/ui/Button.tsx';
 import { Callout } from '../components/ui/Callout.tsx';
 import { Card } from '../components/ui/Card.tsx';
+import { CitationRef } from '../components/ui/CitationRef.tsx';
 import { CurrencyField } from '../components/ui/CurrencyField.tsx';
 import { PersonaCardGroup } from '../components/ui/PersonaCard.tsx';
 import { ProgressIndicator } from '../components/ui/ProgressIndicator.tsx';
 import { RadioCardGroup } from '../components/ui/RadioCardGroup.tsx';
+import { RefusalPanel } from '../components/ui/RefusalPanel.tsx';
 import { Select } from '../components/ui/Select.tsx';
 import { Skeleton } from '../components/ui/Skeleton.tsx';
 import { Stepper } from '../components/ui/Stepper.tsx';
 import { Table } from '../components/ui/Table.tsx';
 import { Tabs } from '../components/ui/Tabs.tsx';
 import { TextField } from '../components/ui/TextField.tsx';
-import { formatRupees } from '../components/ui/currency.ts';
+import { NotYetLawBadge, UnverifiedBadge } from '../components/ui/UnverifiedBadge.tsx';
+import { WarningList } from '../components/ui/WarningList.tsx';
+import {
+  YearSelector,
+  toYearOption,
+  type YearOption,
+} from '../components/ui/YearSelector.tsx';
+import { formatRupees, formatRupeesWithUnit } from '../components/ui/currency.ts';
+import { computeTax, type ResultWarning, type TaxResult } from '../lib/tax/engine.ts';
+import { loadTaxYears } from '../lib/tax/load.ts';
 
 function Section({
   id,
@@ -132,6 +144,88 @@ const WORKING_ROWS = [
   { step: 'Taxable income', basis: 'After relief', amount: formatRupees(0) },
 ] as const;
 
+// ---------------------------------------------------------------------------
+// P09 fixtures — real `TaxResult`s from `computeTax()` over the real data
+// file, not hand-written objects. A hand-written refusal or warning set could
+// drift from the engine's actual shape and this gallery would never notice;
+// `computeTax` cannot drift from itself. Same fixtures as
+// `RefusalPanel.test.tsx`, deliberately.
+// ---------------------------------------------------------------------------
+
+const GALLERY_TAX_YEAR = loadTaxYears()[0]!.data;
+
+/** The engine's one refusal (Q14): capped and uncapped income on the same
+ * ladder, with no statutory ordering between them. */
+const REFUSED_RESULT: TaxResult = computeTax(
+  {
+    residency: 'resident',
+    income: {
+      employment: [{ label: 'Salary', amount: 2_000_000 }],
+      business: [
+        {
+          label: 'Overseas clients, paid into my bank here',
+          amount: 3_000_000,
+          tags: ['foreign-capped'],
+          conditions: { 'remitted-through-bank-to-sri-lanka': true },
+        },
+        {
+          label: 'Overseas clients, left abroad',
+          amount: 500_000,
+          tags: ['foreign-capped'],
+          conditions: { 'remitted-through-bank-to-sri-lanka': false },
+        },
+      ],
+    },
+  },
+  GALLERY_TAX_YEAR,
+);
+
+/**
+ * A computed result with no warnings — the ordinary case, and a demo that
+ * would otherwise nest a second `WarningList` with the same default heading
+ * as the one inside the refused example above (landmark-unique failure).
+ */
+const COMPUTED_RESULT: TaxResult = computeTax(
+  {
+    residency: 'resident',
+    income: { employment: [{ label: 'Salary', amount: 3_000_000 }] },
+  },
+  GALLERY_TAX_YEAR,
+);
+
+/** A code no build has plain-language wording for. `warning-copy.ts`
+ * guarantees this still renders, on the message alone. */
+const UNKNOWN_CODE_WARNING: ResultWarning = {
+  code: 'demo-unrecognised-code',
+  message:
+    'Demo only — this is not a real engine code. It shows that WarningList never drops a warning it has no wording for.',
+  severity: 'info',
+};
+
+const GALLERY_WARNINGS: ResultWarning[] = [
+  ...COMPUTED_RESULT.warnings,
+  ...REFUSED_RESULT.warnings,
+  UNKNOWN_CODE_WARNING,
+];
+
+/** Mirrors `YearSelector.test.tsx`: the real year, plus a proposed year and a
+ * clean year, since no data file yet declares either. */
+const GALLERY_YEARS: YearOption[] = [
+  toYearOption(GALLERY_TAX_YEAR),
+  {
+    yearOfAssessment: '2026/2027',
+    status: 'proposed',
+    lastReviewed: '2026-07-28',
+    unverifiedCount: 5,
+  },
+  {
+    yearOfAssessment: '2024/2025',
+    status: 'enacted',
+    lastReviewed: '2025-04-01',
+    unverifiedCount: 0,
+  },
+];
+
 export function ComponentGallery() {
   // Every field starts null — empty is not zero, including here.
   const [amount, setAmount] = useState<number | null>(null);
@@ -141,6 +235,8 @@ export function ComponentGallery() {
   const [year, setYear] = useState<string | null>(null);
   const [persona, setPersona] = useState<string | null>(null);
   const [stale, setStale] = useState(false);
+  // No default here either — YearSelector's whole point is that this starts null.
+  const [selectedYear, setSelectedYear] = useState<string | null>(null);
 
   return (
     <div className="gallery">
@@ -548,6 +644,121 @@ export function ComponentGallery() {
         <Skeleton lines={3} width="half" label="Loading the sources register" />
         <StateLabel>Block</StateLabel>
         <Skeleton variant="block" />
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      <Section
+        id="warninglist"
+        title="WarningList"
+        note="TaxResult.warnings, above the result, always expanded — ADR-0003 decision 3. Sorted blocking-first. A code this build has no wording for still renders, on the engine's own message."
+      >
+        <StateLabel>Empty — no warnings renders nothing at all</StateLabel>
+        <p className="gallery__readout">
+          <code>{'<WarningList warnings={[]} />'}</code> renders <code>null</code> — no
+          box, no “no warnings” reassurance. Nothing appears below this line:
+        </p>
+        <WarningList warnings={[]} />
+
+        <StateLabel>
+          Populated — mixed severities, real engine codes, and one unrecognised code
+        </StateLabel>
+        <WarningList
+          warnings={GALLERY_WARNINGS}
+          id="gallery-warninglist-demo"
+          heading="Read this before the figure — standalone demo"
+        />
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      <Section
+        id="refusalpanel"
+        title="RefusalPanel"
+        note="The gate between a TaxResult and anything that renders a figure. children is a callback invoked only on the non-refused path, so a caller cannot accidentally render both. Refusals replace the figure; warnings sit above it; neither collapses."
+      >
+        <StateLabel>Refused (Q14) — no figure anywhere on the page</StateLabel>
+        <RefusalPanel result={REFUSED_RESULT}>
+          {(result) => (
+            <p className="figure">
+              Tax payable {formatRupeesWithUnit(result.taxPayable)}
+            </p>
+          )}
+        </RefusalPanel>
+
+        <StateLabel>Computed — warnings above the figure, in that order</StateLabel>
+        <RefusalPanel result={COMPUTED_RESULT}>
+          {(result) => (
+            <p className="figure">
+              Tax payable {formatRupeesWithUnit(result.taxPayable)}
+            </p>
+          )}
+        </RefusalPanel>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      <Section
+        id="citation"
+        title="CitationRef"
+        note="Beside every displayed rate. Never a tooltip, never dismissible, and never hidden when the key does not resolve — the gap stays visible instead."
+      >
+        <StateLabel>Resolved, with a pinpoint</StateLabel>
+        <p className="gallery__readout">
+          Personal relief{' '}
+          <CitationRef src="pn-it-2025-01#para 1" sources={GALLERY_TAX_YEAR.sources} />
+        </p>
+
+        <StateLabel>Whole-document reference, no pinpoint</StateLabel>
+        <p className="gallery__readout">
+          Base act <CitationRef src="ira-2017" sources={GALLERY_TAX_YEAR.sources} />
+        </p>
+
+        <StateLabel>
+          Unresolved — the key does not resolve, and stays visible anyway
+        </StateLabel>
+        <p className="gallery__readout">
+          <CitationRef
+            src="ird-notice-not-in-sources-map#para 9"
+            sources={GALLERY_TAX_YEAR.sources}
+          />
+        </p>
+
+        <StateLabel>With a visible label</StateLabel>
+        <p className="gallery__readout">
+          <CitationRef
+            src="act-2-2025#s.3"
+            sources={GALLERY_TAX_YEAR.sources}
+            label="Rate from"
+          />
+        </p>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      <Section
+        id="unverified-badge"
+        title="UnverifiedBadge / NotYetLawBadge"
+        note="Never colour alone: an icon whose shape carries the meaning, plus the words, every time. There is deliberately no “verified” counterpart — an unmarked figure makes no claim either way."
+      >
+        <StateLabel>UnverifiedBadge, naming the figure</StateLabel>
+        <UnverifiedBadge what="the capital gains rate" />
+
+        <StateLabel>UnverifiedBadge, compact — for a table cell</StateLabel>
+        <UnverifiedBadge what="1 figure in this year" compact />
+
+        <StateLabel>NotYetLawBadge</StateLabel>
+        <NotYetLawBadge yearOfAssessment="2026/2027" />
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      <Section
+        id="yearselector"
+        title="YearSelector"
+        note="No default is preselected, ever — there is no Date in this component. A proposed year carries the not-yet-law badge and a caution notice; every year states its count of unverified figures."
+      >
+        <StateLabel>Empty — nothing selected on first visit</StateLabel>
+        <YearSelector
+          years={GALLERY_YEARS}
+          value={selectedYear}
+          onChange={setSelectedYear}
+        />
       </Section>
     </div>
   );
