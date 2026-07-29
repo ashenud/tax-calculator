@@ -1,0 +1,129 @@
+---
+/**
+ * `/guides/filing-your-return` — from `docs/research/11-filing-walkthrough.md`.
+ *
+ * That document's own status line: "partial — e-filing obligation verified;
+ * the Y/A 2025/26 forms are not held." Two facts are solid (e-filing is
+ * mandatory; the filing deadline is a rule this project can state exactly).
+ * Everything a first-time filer actually needs — how to get a TIN, which
+ * schedules apply, where foreign-currency income is declared on the form —
+ * is recorded there as an open question, because the Y/A 2025/2026 return
+ * form itself is not held. This page says so rather than describing the
+ * Y/A 2024/2025 form's mechanics as though they still applied; that form
+ * predates the service-export regime and, per research 11, "do[es] not show
+ * where foreign-currency income is reported."
+ */
+import Base from '../../layouts/Base.astro';
+import AsAtStamp from '../../components/AsAtStamp.astro';
+import { Callout, CitationRef } from '../../components/ui/index.ts';
+import { loadTaxYears } from '../../lib/tax/load.ts';
+import '../../styles/guides.css';
+
+const taxYear = loadTaxYears()[0]!.data;
+---
+
+<Base
+  title="How do I actually file my Sri Lankan income tax return? — Sri Lanka Tax Return Support"
+  description="What is confirmed about filing an individual income tax return — e-filing is mandatory, and the deadline is a fixed rule — and what this project cannot yet walk you through."
+>
+  <div class="guide measure">
+    <p class="guide__back"><a href="/guides/">All guides</a></p>
+
+    <h1 class="guide__question">
+      How do I actually file my Sri Lankan income tax return?
+    </h1>
+
+    <p class="guide__answer">
+      Electronically — filing an individual income tax return online has been mandatory
+      since year of assessment 2023/2024, not optional.{' '}
+      <CitationRef src="ira-2017#s.113(1)(B)" sources={taxYear.sources} />{' '}
+      Beyond that single fact, this project does not yet hold the current return form, so it
+      cannot walk you through which boxes to fill in — see below for what that means in practice.
+    </p>
+
+    <AsAtStamp
+      yearOfAssessment={taxYear.yearOfAssessment}
+      dataReviewedOn={taxYear.lastReviewed}
+    />
+
+    <section class="guide__section">
+      <h2>What is confirmed</h2>
+      <ul>
+        <li>
+          E-filing is mandatory for an individual, from year of assessment 2023/2024
+          onward.{' '}
+          <CitationRef src="ira-2017#s.113(1)(B)" sources={taxYear.sources} />
+        </li>
+        <li>
+          The return is due <strong
+            >eight months after the end of the year of assessment</strong
+          > — a rule, so the actual date moves with the year rather than being fixed.{' '}
+          <CitationRef src="ira-2017#s.93(1)" sources={taxYear.sources} />{' '}
+          The exact date for the year you are working out is on the{' '}
+          <a href="/rates/">rates page</a>.
+        </li>
+        <li>
+          Filing and paying are separate obligations with separate mechanics — see{' '}
+          <a href="/guides/deadlines/">the deadlines guide</a> for the instalment dates that
+          run through the year, ahead of the filing deadline itself.
+        </li>
+      </ul>
+    </section>
+
+    <Callout
+      tone="caution"
+      title="This project does not yet hold the Y/A 2025/2026 return form"
+      headingLevel={2}
+    >
+      <p>
+        This site holds the Y/A 2024/2025 return form and its guide — one year before the
+        service-export and foreign-source regime described on this site began. That form
+        does not show where foreign-currency income is reported, and cannot be relied on
+        to show how the current year's return is structured. Until the current form is
+        obtained, this project cannot tell you:
+      </p>
+      <ul>
+        <li>
+          How to register for a Taxpayer Identification Number (TIN), or how long it takes
+        </li>
+        <li>Which schedules of the return apply to your situation specifically</li>
+        <li>
+          Where foreign-currency service income, or the remittance condition, is declared
+          on the form
+        </li>
+        <li>What documents you need to attach versus simply keep</li>
+        <li>What a portal rejection typically means, or how to correct one</li>
+      </ul>
+      <p>
+        These are exactly the questions a first-time filer has, and the honest answer to
+        each right now is that this project has not confirmed it. The Inland Revenue
+        Department's e-Services portal and its own guidance are the authoritative source
+        for the mechanics; a qualified tax practitioner can walk you through the portal
+        itself if you would rather not be the first person to work it out.
+      </p>
+    </Callout>
+
+    <section class="guide__section">
+      <h2>What you can do now</h2>
+      <p>
+        Work out a figure on the <a href="/calculator/">calculator</a> so you know roughly what
+        you are dealing with before you approach the portal or a practitioner. The calculator
+        shows every step of how its figure was reached, with citations, so you can take the
+        working with you rather than just a number.
+      </p>
+    </section>
+
+    <section class="guide__footer">
+      <p class="guide__footer-note">
+        This is decision support, not tax advice. Verify with the Inland Revenue
+        Department or a qualified tax practitioner before you rely on any figure here to
+        file or pay.
+      </p>
+      <ul class="guide__footer-links">
+        <li><a href="/calculator/">Work out your figure</a></li>
+        <li><a href="/guides/deadlines/">All the dates that apply</a></li>
+        <li><a href="/about/sources/">Sources cited on this page</a></li>
+      </ul>
+    </section>
+  </div>
+</Base>

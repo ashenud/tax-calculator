@@ -41,6 +41,16 @@ export interface RadioCardOption {
   disabled?: boolean;
   /** Shown beside a disabled option so a dead control is never unexplained. */
   disabledReason?: string;
+  /**
+   * An explicit element id for this option, overriding the derived
+   * `${groupId}-${value}`.
+   *
+   * For one case only: something elsewhere on the page links to this option in
+   * order to move focus to it, and derives the id from the *question* rather
+   * than from the option's value. The result panel's "still to answer" list
+   * does exactly that, and a link that lands nowhere is worse than no link.
+   */
+  optionId?: string;
 }
 
 export interface RadioCardGroupProps {
@@ -107,7 +117,7 @@ export function RadioCardGroup({
         orientation="vertical"
       >
         {options.map((option) => {
-          const optionId = `${groupId}-${option.value}`;
+          const optionId = option.optionId ?? `${groupId}-${option.value}`;
           const descriptionId = `${optionId}-description`;
           return (
             <div className="ui-radio-card-row" key={option.value}>

@@ -606,6 +606,215 @@
 }
 
 /* ===========================================================================
+ * THE ADR-0003 LAYER (P09) — warnings, refusals, citations, badges
+ *
+ * Nothing below uses `order`, `flex-direction: column-reverse`, `grid-area` or
+ * any other property capable of moving a warning below a figure or a refusal
+ * away from the top. The normative order in docs/spec/ui-behaviour.md is DOM
+ * order in RefusalPanel.tsx, and this stylesheet must not be able to contradict
+ * it — a layout that only holds while CSS loads is not a guarantee.
+ *
+ * There is likewise no rule here that could hide any of it: no `display: none`,
+ * no `max-block-size` clamp, no `overflow: hidden` on a warning or a refusal.
+ * ======================================================================== */
+
+/* No `gap`, and no `display: none` on the empty figure region.
+ *
+ * The region holding the figure is `aria-live="polite"` and is in the DOM on
+ * every path, including a refusal, so it exists before it has anything to say.
+ * `display: none` on `:empty` would take it out of the accessibility tree and
+ * the announcement would never happen; a flex `gap` would leave a hole where it
+ * sits. So the children carry their own block spacing (they already do — see
+ * `.ui-callout`), and this element is a plain block. */
+.ui-result-region {
+  display: block;
+}
+
+/* --- Warnings ----------------------------------------------------------- */
+
+.ui-warning-list__heading {
+  margin-block: 0 calc(var(--spacing) * 3);
+  font-size: var(--text-lg);
+  line-height: var(--text-lg--line-height);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* The severity, in words. The tone's icon shape and the heading colour say the
+   same thing two other ways; this is the one that survives greyscale, a
+   monochrome print and a screen reader. */
+.ui-warning__severity {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  font-weight: 700;
+}
+
+.ui-warning__severity[data-severity='blocking'] {
+  color: var(--color-danger-strong);
+}
+
+.ui-warning__severity[data-severity='warn'] {
+  color: var(--color-caution-strong);
+}
+
+.ui-warning__severity[data-severity='info'] {
+  color: var(--color-info-strong);
+}
+
+.ui-warning__meaning,
+.ui-refusal__lede {
+  margin: 0;
+}
+
+.ui-refusal__lede {
+  font-weight: 700;
+}
+
+/* The engine's own message. Set apart by a rule and a slightly quieter colour
+   because it is the precise, citation-bearing version of the sentence above it
+   — not because it matters less. It is never truncated and never clamped. */
+.ui-warning__detail,
+.ui-refusal__detail {
+  margin: 0;
+  padding-inline-start: calc(var(--spacing) * 3);
+  border-inline-start: 2px solid var(--color-border-strong);
+  color: var(--color-text);
+}
+
+.ui-warning__code,
+.ui-refusal__code {
+  margin: 0;
+}
+
+.ui-warning__code code,
+.ui-refusal__code code {
+  font-family: var(--font-numeric);
+  color: var(--color-text);
+}
+
+/* --- Refusals ----------------------------------------------------------- */
+
+.ui-refusal {
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Citations ---------------------------------------------------------- */
+
+.ui-citation {
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+  color: var(--color-text-muted);
+  /* Kept on one line where it can be: a reference broken across a line break is
+     harder to read back to a practitioner over the phone. */
+  white-space: normal;
+}
+
+.ui-citation__label {
+  color: var(--color-text-muted);
+}
+
+.ui-citation__link {
+  color: var(--color-accent);
+}
+
+/* An unresolved pointer is legible, not hidden and not silently dropped. It is
+   marked with the caution text token so a reviewer can see the gap. */
+.ui-citation__unresolved {
+  color: var(--color-caution-strong);
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+}
+
+/* --- Badges ------------------------------------------------------------- */
+
+.ui-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 1.5);
+  padding-inline: calc(var(--spacing) * 2);
+  padding-block: calc(var(--spacing) * 1);
+  border: 1px solid var(--badge-edge);
+  border-radius: var(--radius-sm);
+  background-color: var(--badge-fill);
+  color: var(--badge-text);
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+  font-weight: 700;
+}
+
+.ui-badge[data-tone='caution'] {
+  --badge-edge: var(--color-caution);
+  --badge-fill: var(--color-caution-subtle);
+  --badge-text: var(--color-caution-strong);
+}
+
+.ui-badge[data-compact] {
+  font-weight: 600;
+}
+
+.ui-badge__icon {
+  flex-shrink: 0;
+  /* The base tone clears 3:1 as a graphic; the text beside it uses -strong. */
+  color: var(--badge-edge);
+}
+
+.ui-badge__what {
+  font-weight: 400;
+}
+
+/* --- Year selector ------------------------------------------------------ */
+
+.ui-year-selector__summary {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+  padding: calc(var(--spacing) * 4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-sunken);
+  max-inline-size: var(--container-prose);
+  margin-block-end: calc(var(--spacing) * 4);
+}
+
+.ui-year-selector__facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: calc(var(--spacing) * 1) calc(var(--spacing) * 3);
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+}
+
+.ui-year-selector__year {
+  color: var(--color-text);
+  font-size: var(--text-lg);
+  line-height: var(--text-lg--line-height);
+  font-weight: 700;
+}
+
+.ui-year-selector__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 2);
+  margin: 0;
+}
+
+.ui-year-selector__badges:empty {
+  display: none;
+}
+
+.ui-year-selector__unverified {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
+
+/* ===========================================================================
  * CARD
  * ======================================================================== */
 

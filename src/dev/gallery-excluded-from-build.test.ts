@@ -12,8 +12,7 @@
  */
 
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, readdirSync, rmSync } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { mkdirSync, mkdtempSync, readdirSync, rmSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
@@ -34,7 +33,16 @@ describe('the dev-only component gallery is excluded from the production build',
   it('leaves no route, no page, and no JS chunk for /dev/gallery in dist/', () => {
     // Deliberately not named anything containing "gallery" — the outDir's own absolute
     // path would otherwise match the very regex this test uses to inspect its contents.
-    const outDir = mkdtempSync(join(tmpdir(), 'p08-build-check-'));
+    //
+    // Under the repository rather than `os.tmpdir()`, because Astro's build moves
+    // its prerendered assets out of `.astro/.prerender/` with `fs.rename`, and a
+    // rename cannot cross a filesystem boundary — on any machine where /tmp is a
+    // separate mount (a tmpfs, or WSL) the build fails with EXDEV before the
+    // assertions below are ever reached. `node_modules/.cache/` is ignored by git
+    // and is on the same device as the repository by construction.
+    const scratchRoot = join(repoRoot, 'node_modules', '.cache');
+    mkdirSync(scratchRoot, { recursive: true });
+    const outDir = mkdtempSync(join(scratchRoot, 'p08-build-check-'));
     try {
       execFileSync('npx', ['astro', 'build', '--outDir', outDir], {
         cwd: repoRoot,

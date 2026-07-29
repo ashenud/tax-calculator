@@ -11,7 +11,7 @@
  * that was made because getting it wrong exposes a real person to a penalty.
  */
 
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { beforeAll, describe, expect, it } from 'vitest';
@@ -184,11 +184,38 @@ describe('page shell', () => {
   it('links to no route that does not exist in this build', async () => {
     // The nav is filtered against the pages present. P10-P14 add the rest; a
     // link to a page that has not been built yet is a 404 handed to a user.
+    //
+    // Derived from `src/pages/` rather than from a list of the routes that
+    // happen not to exist yet. The list version had to be edited by each prompt
+    // that added a page — it was edited by P10 — and a test that must be
+    // rewritten to keep passing stops being a check on the thing it is named
+    // after. This version passes unchanged as each page lands and fails the day
+    // a link points somewhere nothing was built.
     const html = await container.renderToString(IndexPage);
     const hrefs = [...html.matchAll(/href="(\/[^"#]*)"/g)].map((m) => m[1]!);
     expect(hrefs).toEqual(expect.arrayContaining(['/']));
-    expect(hrefs.filter((href) => href.startsWith('/calculator'))).toEqual([]);
-    expect(hrefs.filter((href) => href.startsWith('/rates'))).toEqual([]);
+
+    const pagesDir = fileURLToPath(new URL('../pages', import.meta.url));
+    const routes = new Set(
+      readdirSync(pagesDir, { recursive: true, encoding: 'utf8' })
+        .filter((entry) => entry.endsWith('.astro'))
+        .map((entry) => {
+          const withoutExtension = entry.replace(/\.astro$/, '').replace(/\\/g, '/');
+          const route = withoutExtension.replace(/(^|\/)index$/, '');
+          return route === '' ? '/' : `/${route}/`;
+        }),
+    );
+
+    // Routes only — `/favicon.svg` and anything else out of `public/` is a
+    // static asset, not a page, and is not this assertion's business.
+    const routeHrefs = [...new Set(hrefs)].filter((href) => href.endsWith('/'));
+    expect(routeHrefs.length).toBeGreaterThan(0);
+    for (const href of routeHrefs) {
+      expect(routes.has(href), `${href} is linked but no page builds it`).toBe(true);
+    }
+    // A positive control: the calculator page exists now, and is linked.
+    expect(routes.has('/calculator/')).toBe(true);
+    expect(hrefs).toEqual(expect.arrayContaining(['/calculator/']));
   });
 });
 

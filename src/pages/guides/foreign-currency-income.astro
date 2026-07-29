@@ -1,0 +1,206 @@
+---
+/**
+ * `/guides/foreign-currency-income` — from `docs/research/05-foreign-currency-service-income.md`
+ * and `docs/personas/p1-wfh-foreign-consultant.md`.
+ *
+ * The research document's own framing: "No consumer calculator asks about
+ * the remittance condition. Being the tool that does is the point of this
+ * project" — and the reason this page exists is the same reason: everyone
+ * searching this question has heard "it's exempt" or "it's taxed", and the
+ * true answer is neither, on its own.
+ *
+ * WHAT IS STATED AS SETTLED VS FLAGGED AS OPEN, AND WHY
+ *
+ * The regime, the rate and the operative wording are `verified` in the
+ * research document. Q10 (timing), Q11 (partial remittance), Q12 (evidence),
+ * Q13 (FX account) and Q41 (payment intermediaries) are `unverified` there,
+ * and stay that way here — this page states none of them as settled, per
+ * CLAUDE.md rule 3 and the prompt's own "do not restate a figure that the
+ * research marks unverified as though it were settled".
+ */
+import Base from '../../layouts/Base.astro';
+import AsAtStamp from '../../components/AsAtStamp.astro';
+import { Callout, CitationRef } from '../../components/ui/index.ts';
+import { loadTaxYears } from '../../lib/tax/load.ts';
+import '../../styles/guides.css';
+
+const taxYear = loadTaxYears()[0]!.data;
+---
+
+<Base
+  title="Is money I earn from overseas clients taxed in Sri Lanka? — Sri Lanka Tax Return Support"
+  description="From 1 April 2025 foreign-currency service income is taxable, at a reduced maximum rate — but only if the money is remitted through a bank to Sri Lanka. What that condition means, and what is still unclear about it."
+>
+  <div class="guide measure">
+    <p class="guide__back"><a href="/guides/">All guides</a></p>
+
+    <h1 class="guide__question">
+      Is money I earn from overseas clients taxed in Sri Lanka?
+    </h1>
+
+    <p class="guide__answer">
+      Yes, from 1 April 2025. If you are resident in Sri Lanka and are paid in foreign
+      currency by clients outside the country, that income is taxable — but it can qualify
+      for a reduced maximum rate of{' '}
+      <strong class="figure">15%</strong>{' '}
+      instead of the ordinary bands.{' '}
+      <CitationRef
+        src="act-2-2025#s.3(1)(d) — IRA Sch.1 para 1(6)"
+        sources={taxYear.sources}
+        label="Rate from"
+      />{' '}
+      Whether you get the reduced rate depends on exactly how the money reached you, and that
+      is the part most people get wrong.
+    </p>
+
+    <AsAtStamp
+      yearOfAssessment={taxYear.yearOfAssessment}
+      dataReviewedOn={taxYear.lastReviewed}
+    />
+
+    <section class="guide__section">
+      <h2>What changed on 1 April 2025</h2>
+      <p>
+        Before that date, income from services rendered to overseas clients and other
+        foreign-source income was broadly exempt from Sri Lankan income tax. That
+        exemption was removed with effect from 1 April 2025.{' '}
+        <CitationRef
+          src="act-2-2025#s.1(2)"
+          sources={taxYear.sources}
+          label="Removal from"
+        />{' '}
+        If you have been filing nothing for the past few years because you correctly understood
+        this income to be exempt, that is no longer the position for income earned on or after
+        that date.
+      </p>
+    </section>
+
+    <section class="guide__section">
+      <h2>The rate is a cap on the normal bands, not a separate table</h2>
+      <p>
+        The law does not give this income its own flat rate. It takes the ordinary
+        progressive bands that apply to everyone's income and caps the rate charged on
+        qualifying gains and profits at{' '}
+        <strong class="figure">15%</strong>, whatever band they would otherwise fall into.
+        {' '}
+        <CitationRef
+          src="act-2-2025#s.3(1)(d) — IRA Sch.1 para 1(6)"
+          sources={taxYear.sources}
+        />{' '}
+        The bottom band of the ordinary bands, for the income within it, is below that cap and
+        is unaffected; every band above the cap is charged at 15% instead. The exact bands for
+        the year you are working out — including where the cap starts to bite — are on the <a
+          href="/rates/">rates page</a
+        >, generated from the same figures the calculator uses.
+      </p>
+    </section>
+
+    <section class="guide__section">
+      <h2>The condition that actually decides it</h2>
+      <p>The reduced rate applies only where two things are both true:</p>
+      <blockquote>
+        the payment for such services is received in foreign currency and remitted through
+        a bank to Sri Lanka
+      </blockquote>
+      <p>
+        <CitationRef
+          src="act-2-2025#s.3(1)(d) — IRA Sch.1 para 1(6)(a)"
+          sources={taxYear.sources}
+          label="Operative wording from"
+        />{' '}
+        Being paid in dollars is not enough on its own — the money also has to make it to Sri
+        Lanka through a bank. Earnings you keep in an account outside Sri Lanka fall back to
+        the ordinary bands — the ones the 15% cap exists to reduce — and there is no lower fallback
+        rate for them.
+      </p>
+      <p>
+        One correction worth knowing: the Act says "a bank", not "a <em>licensed</em> bank".
+        The licensing qualifier that circulates in secondary summaries is not in the statutory
+        text.{' '}
+        <CitationRef src="act-2-2025#s.3" sources={taxYear.sources} />
+      </p>
+
+      <h3>Where this actually gets uncertain</h3>
+      <p>
+        Almost nobody's income arrives by one clean route, and the Act does not define
+        "remitted" or say what counts as reaching Sri Lanka "through a bank". This project
+        has checked the primary sources it holds and found these points genuinely open —
+        not just unclear to a layperson, but not settled anywhere this project can point
+        to:
+      </p>
+      <ul>
+        <li>
+          <strong>A foreign-currency account at a Sri Lankan bank.</strong> Money paid into
+          an account you hold at a bank here, but kept in dollars rather than converted to rupees
+          — does that count as remitted? Not established.
+        </li>
+        <li>
+          <strong>Wise, Payoneer, PayPal and similar services.</strong> Your client pays into
+          a balance with one of those, and you withdraw it to your Sri Lankan bank afterwards
+          — does the intermediary break the chain, or does the money still count as remitted
+          through a bank once it lands here? Not established.
+        </li>
+        <li>
+          <strong>Part of your earnings remitted, part kept abroad.</strong> This is the most
+          common real pattern, and the Act does not say whether the reduced rate then applies
+          to the part that came in, to everything, or to nothing. Because each reading gives
+          a materially different answer, the calculator on this site refuses to compute a figure
+          for this case rather than guess.
+        </li>
+      </ul>
+      <Callout
+        tone="caution"
+        title="We are not going to guess at these for you"
+        headingLevel={4}
+      >
+        <p>
+          If your situation is one of the three above, nothing on this site — including
+          the calculator — will give you a confident answer, because none exists yet in
+          the law this project holds. Take it to the Inland Revenue Department or a
+          qualified tax practitioner. Guidance from IRD, or the Y/A 2025/2026 return form
+          once it is available, is the most likely thing to settle it.
+        </p>
+      </Callout>
+    </section>
+
+    <section class="guide__section">
+      <h2>Do you still get personal relief against this income?</h2>
+      <p>
+        Very likely yes, but this is not stated in so many words anywhere this project
+        holds. The 15% cap modifies the <em>rate</em> charged on the income; personal relief
+        is deducted earlier, in arriving at taxable income, as a structural reading of the Fifth
+        Schedule.{' '}
+        <CitationRef src="ira-2017" sources={taxYear.sources} label="Reasoning from" />{
+          ' '
+        }
+        If your only income is foreign-source, this materially changes what you owe, so treat
+        it as probable rather than certain until it is confirmed against a primary source.
+      </p>
+    </section>
+
+    <section class="guide__section">
+      <h2>What this means if this is your situation</h2>
+      <p>
+        The remittance question is asked as a route picker in the calculator, not a yes/no
+        — because "did you remit through a bank" is not a question most people can
+        honestly answer. Work out your figure with your actual routes on the{' '}
+        <a href="/calculator/">calculator</a>, which will show you a computed figure for
+        the routes the law does settle, and refuse a figure — explaining why — for the
+        ones it does not.
+      </p>
+    </section>
+
+    <section class="guide__footer">
+      <p class="guide__footer-note">
+        This is decision support, not tax advice. Verify with the Inland Revenue
+        Department or a qualified tax practitioner before you rely on any figure here to
+        file or pay.
+      </p>
+      <ul class="guide__footer-links">
+        <li><a href="/calculator/">Work out your figure</a></li>
+        <li><a href="/rates/">Rates for this year</a></li>
+        <li><a href="/about/sources/">Sources cited on this page</a></li>
+      </ul>
+    </section>
+  </div>
+</Base>

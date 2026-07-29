@@ -1,0 +1,176 @@
+---
+/**
+ * `/guides/employer-not-deducting` — from `docs/research/06-apit.md` and
+ * `docs/personas/p2-employee-no-apit.md`.
+ *
+ * UNUSUAL AMONG THESE FIVE PAGES, AND DELIBERATELY SO
+ *
+ * Research 06 is a research brief, not findings — its own status line reads
+ * "unverified — research brief, not findings" and it holds no sources at
+ * all. Persona p2's document says outright: "This persona's core claim is
+ * unverified. If Q27 comes back contradicted, the persona needs rewriting
+ * rather than adjusting." A guidance page for this topic therefore cannot
+ * open with the same confidence the other four can — it has to say, in the
+ * reader's terms, that the central question is open, while still being
+ * useful about the part that *is* settled: the instalment mechanics in
+ * research 10 (verified), which apply whatever the answer to the open
+ * question turns out to be.
+ */
+import Base from '../../layouts/Base.astro';
+import AsAtStamp from '../../components/AsAtStamp.astro';
+import { Callout, CitationRef } from '../../components/ui/index.ts';
+import { loadTaxYears } from '../../lib/tax/load.ts';
+import '../../styles/guides.css';
+
+const taxYear = loadTaxYears()[0]!.data;
+---
+
+<Base
+  title="My employer isn't deducting tax from my pay — am I still liable? — Sri Lanka Tax Return Support"
+  description="What is confirmed and what is not yet confirmed about an employee's position when no tax is deducted at source, including the instalment obligation that runs regardless."
+>
+  <div class="guide measure">
+    <p class="guide__back"><a href="/guides/">All guides</a></p>
+
+    <h1 class="guide__question">
+      My employer isn't deducting tax from my pay — am I still liable?
+    </h1>
+
+    <p class="guide__answer">
+      This project has not found and confirmed the specific provision that answers that
+      directly, so it is not going to tell you as settled fact. What is confirmed: if your
+      employer is not withholding tax on your pay, you are personally an "instalment
+      payer" and are expected to pay tax on that income yourself, through the year, by
+      four instalments — not once at filing time.{' '}
+      <CitationRef src="ira-2017#s.90(1)(b)" sources={taxYear.sources} />{' '}
+      That obligation exists whatever the answer to the deeper question turns out to be, so
+      it is where this page starts.
+    </p>
+
+    <AsAtStamp
+      yearOfAssessment={taxYear.yearOfAssessment}
+      dataReviewedOn={taxYear.lastReviewed}
+    />
+
+    <Callout
+      tone="caution"
+      title="The central question on this page is open"
+      headingLevel={2}
+    >
+      <p>
+        Whether non-deduction by your employer leaves the underlying tax liability with
+        you, reduces it, or shifts it to your employer instead is not settled by anything
+        this project holds — no source here states it outright. The working assumption,
+        used elsewhere in this project, is that withholding is a collection mechanism and
+        does not itself create or discharge the liability, which sits with whoever earned
+        the income. That is a reasonable general position, but it has not been confirmed
+        against the specific Sri Lankan provision, and this page will not present it as
+        settled until it has been.
+      </p>
+    </Callout>
+
+    <section class="guide__section">
+      <h2>What decides whether deduction should have happened at all</h2>
+      <p>
+        Whether an employer is <em>required</em> to deduct tax from your pay — as opposed to
+        choosing to, or being exempt from it — is itself not settled by anything this project
+        holds. Secondary sources disagree on whether deduction is mandatory for the employer
+        or elective with the employee's consent, and this project has not confirmed either reading
+        against the Act. That distinction matters: if your employer was never required to deduct,
+        nothing has gone wrong and you are simply an instalment payer under the ordinary rule
+        for that kind of employment{' '}
+        <CitationRef src="ira-2017#s.90(1)(b)" sources={taxYear.sources} />; if your
+        employer was required to deduct and did not, that is a different situation this
+        project cannot yet describe with confidence.
+      </p>
+      <p>
+        Either way, the practical position for you is the same right now: no tax is being
+        taken off your pay, and the instalment mechanics below apply to you regardless of
+        which reading turns out to be correct.
+      </p>
+    </section>
+
+    <section class="guide__section">
+      <h2>The instalment obligation, which is confirmed</h2>
+      <p>
+        Instalments fall due on or before the 15th of{' '}
+        <strong>August</strong> and <strong>November</strong> in the year of assessment,{
+          ' '
+        }
+        <strong>February</strong> in the same year, and{' '}
+        <strong>May of the following year of assessment</strong> — that fourth date lands outside
+        the year it belongs to, which naive planning misses.{' '}
+        <CitationRef src="ira-2017#s.90(2)(a)" sources={taxYear.sources} />{' '}
+        Each instalment is not simply a quarter of what you owe: it is worked out from your
+        own estimate of tax payable for the year, and a later instalment is recalculated from
+        what is left after earlier ones.{' '}
+        <CitationRef
+          src="ira-2017#s.90(3)"
+          sources={taxYear.sources}
+          label="Formula from"
+        />{' '}
+        You are expected to file that estimate with the Commissioner-General by the date the
+        first instalment falls due.{' '}
+        <CitationRef src="ira-2017#s.91(1)" sources={taxYear.sources} />
+      </p>
+      <p>
+        The exact dates for the year you are working out are on the{' '}
+        <a href="/rates/">rates page</a>; the calculator shows you which of them, if any,
+        have already passed.
+      </p>
+    </section>
+
+    <section class="guide__section">
+      <h2>Filing your return</h2>
+      <p>
+        Separately from the instalments, a return of income is due{' '}
+        <strong>eight months after the end of the year of assessment</strong> — a rule the calendar
+        derives from, not a fixed date that changes.{' '}
+        <CitationRef src="ira-2017#s.93(1)" sources={taxYear.sources} />{' '}
+        Filing and paying are not the same act with the same deadline; missing the instalment
+        dates does not wait for the filing deadline to become a problem.
+      </p>
+    </section>
+
+    <section class="guide__section">
+      <h2>If you think you are already behind</h2>
+      <p>
+        Penalties for late filing and interest on late payment almost certainly apply, but
+        this project has not yet confirmed the specific rates or how they accrue, so none
+        are stated here. If more than the current year is affected, or you are not sure
+        how far back the problem goes, this is worth taking to a qualified tax
+        practitioner rather than working through alone — several years of instalment and
+        filing obligations interacting is beyond what a calculator should tell you on its
+        own.
+      </p>
+      <p>
+        None of this is your fault by default. The tax system's default assumption is that
+        deduction happens automatically; when it does not, the obligation still exists but
+        nobody told you it did.
+      </p>
+    </section>
+
+    <section class="guide__section">
+      <h2>What this means if this is your situation</h2>
+      <p>
+        Work out a figure and see the instalment schedule for your own numbers on the{' '}
+        <a href="/calculator/">calculator</a>. If you have not been deducted anything,
+        enter that as your APIT figure — it is an ordinary answer, not an error state —
+        and the result will show what the instalment obligation looks like for you.
+      </p>
+    </section>
+
+    <section class="guide__footer">
+      <p class="guide__footer-note">
+        This is decision support, not tax advice. Verify with the Inland Revenue
+        Department or a qualified tax practitioner before you rely on any figure here to
+        file or pay.
+      </p>
+      <ul class="guide__footer-links">
+        <li><a href="/calculator/">Work out your figure</a></li>
+        <li><a href="/guides/deadlines/">All the dates that apply</a></li>
+        <li><a href="/about/sources/">Sources cited on this page</a></li>
+      </ul>
+    </section>
+  </div>
+</Base>

@@ -1,0 +1,205 @@
+---
+/**
+ * `/guides/deadlines` — from `docs/research/10-compliance-calendar.md`.
+ *
+ * The instalment dates, the instalment formula, the estimate obligation and
+ * the filing-deadline rule are all `verified` there. Penalties and interest
+ * (Q26) and whether a separate final-payment date exists beyond the fourth
+ * instalment (Q22) are not, and this page says so rather than inventing a
+ * rate or a date to fill the gap — per research 10's own framing, "the
+ * dates matter more than the arithmetic" for the two priority personas, so
+ * this page leads with the dates rather than a computation.
+ */
+import Base from '../../layouts/Base.astro';
+import AsAtStamp from '../../components/AsAtStamp.astro';
+import { Callout, CitationRef } from '../../components/ui/index.ts';
+import { loadTaxYears } from '../../lib/tax/load.ts';
+import '../../styles/guides.css';
+
+const taxYear = loadTaxYears()[0]!.data;
+const instalments = [...taxYear.calendar.instalments].sort(
+  (a, b) => a.quarter - b.quarter,
+);
+---
+
+<Base
+  title="What are the tax deadlines I need to know for Sri Lanka? — Sri Lanka Tax Return Support"
+  description="The four instalment dates through the year, the return filing deadline, and what is not yet confirmed about penalties for missing either."
+>
+  <div class="guide measure">
+    <p class="guide__back"><a href="/guides/">All guides</a></p>
+
+    <h1 class="guide__question">
+      What are the tax deadlines I need to know for Sri Lanka?
+    </h1>
+
+    <p class="guide__answer">
+      Two sets of deadlines, on separate timetables: four{' '}
+      <strong>instalment payment</strong> deadlines through the year of assessment, and one{
+        ' '
+      }
+      <strong>return</strong> deadline, due{' '}
+      <strong>eight months after the year ends</strong>.{' '}
+      <CitationRef
+        src="ira-2017#s.93(1)"
+        sources={taxYear.sources}
+        label="Return deadline from"
+      />{' '}
+      For Y/A {taxYear.yearOfAssessment} the instalment dates are{' '}
+      {
+        instalments.map((instalment, index) => (
+          <>
+            {index > 0 && index === instalments.length - 1
+              ? ' and '
+              : index > 0
+                ? ', '
+                : ''}
+            <strong>{instalment.due}</strong>
+          </>
+        ))
+      }
+      .
+    </p>
+
+    <AsAtStamp
+      yearOfAssessment={taxYear.yearOfAssessment}
+      dataReviewedOn={taxYear.lastReviewed}
+    />
+
+    <section class="guide__section">
+      <h2>Who has to pay by instalment</h2>
+      <p>
+        Anyone who derives or expects to derive assessable income during the year from a
+        business or an investment, or from an employment where the employer is not
+        required to withhold tax, is an instalment payer.{' '}
+        <CitationRef src="ira-2017#s.90(1)" sources={taxYear.sources} />{' '}
+        That covers freelance and consultancy income paid from outside Sri Lanka, and it covers
+        an employee whose pay has no tax deducted from it — see the{' '}
+        <a href="/guides/employer-not-deducting/">guide on that specific situation</a>.
+      </p>
+    </section>
+
+    <section class="guide__section">
+      <h2>The four instalment dates</h2>
+      <p>
+        On or before the fifteenth day of <strong>August</strong>,{' '}
+        <strong>November</strong> and <strong>February</strong> within the year of assessment,
+        and the fifteenth of <strong>May</strong> in the{' '}
+        <em>following</em> year of assessment.{' '}
+        <CitationRef src="ira-2017#s.90(2)(a)" sources={taxYear.sources} />{' '}
+        That fourth date is easy to miss because it does not fall inside the year it belongs
+        to — a plan built around "four dates within the year" gets it wrong.
+      </p>
+      <table class="rates-table" data-guide-table>
+        <caption class="visually-hidden">
+          Instalment due dates for Y/A {taxYear.yearOfAssessment}
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Instalment</th>
+            <th scope="col">Due</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            instalments.map((instalment) => (
+              <tr>
+                <th scope="row">Quarter {instalment.quarter}</th>
+                <td>{instalment.due}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      <p>
+        These are for Y/A {taxYear.yearOfAssessment}; other years' dates are on the{' '}
+        <a href="/rates/">rates page</a> once that year's data is held.
+      </p>
+    </section>
+
+    <section class="guide__section">
+      <h2>How much each instalment is</h2>
+      <p>
+        Not a flat quarter of what you owe. Each instalment is <code>(A − C) / B</code>,
+        where A is your own current estimated tax payable, B is the number of instalments
+        left including the one being worked out, and C is what you have already paid for
+        the year.{' '}
+        <CitationRef src="ira-2017#s.90(3)" sources={taxYear.sources} />{' '}
+        You are expected to have filed that estimate with the Commissioner-General by the date
+        the first instalment falls due.{' '}
+        <CitationRef src="ira-2017#s.91(1)" sources={taxYear.sources} />{' '}
+        Revising your estimate during the year reshapes every instalment still to come.
+      </p>
+    </section>
+
+    <section class="guide__section">
+      <h2>The return itself</h2>
+      <p>
+        Due <strong>eight months after the end of the year of assessment</strong> — for a year
+        running 1 April to 31 March, that is the last day of November.{' '}
+        <CitationRef src="ira-2017#s.93(1)" sources={taxYear.sources} />{' '}
+        This is a separate deadline from the instalments above, not a summary of them: the instalments
+        settle your estimate through the year, and the return is where the actual liability
+        is reconciled against what you paid.
+      </p>
+    </section>
+
+    <Callout
+      tone="caution"
+      title="What happens if a date is missed is not yet confirmed"
+      headingLevel={2}
+    >
+      <p>
+        This project has not confirmed the rate of interest on a late payment or the
+        penalty for late filing, so none is stated here — a made-up figure would be worse
+        than none. If a date above has already passed for you, that does not mean the
+        obligation has gone away; it is worth raising with the Inland Revenue Department
+        or a qualified tax practitioner sooner rather than later, since interest most
+        likely accrues on each missed instalment individually rather than only from the
+        filing deadline.
+      </p>
+    </Callout>
+
+    <section class="guide__section">
+      <h2>What this means if this is your situation</h2>
+      <p>
+        The <a href="/calculator/">calculator</a> shows the instalment schedule for your own
+        figures, worked out from the estimate you enter, alongside the computed liability itself.
+      </p>
+    </section>
+
+    <section class="guide__footer">
+      <p class="guide__footer-note">
+        This is decision support, not tax advice. Verify with the Inland Revenue
+        Department or a qualified tax practitioner before you rely on any figure here to
+        file or pay.
+      </p>
+      <ul class="guide__footer-links">
+        <li><a href="/calculator/">Work out your figure</a></li>
+        <li><a href="/guides/filing-your-return/">Filing your return</a></li>
+        <li><a href="/about/sources/">Sources cited on this page</a></li>
+      </ul>
+    </section>
+  </div>
+</Base>
+
+<style>
+  [data-guide-table] {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  [data-guide-table] th,
+  [data-guide-table] td {
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+    border-block-end: 1px solid var(--color-border);
+    text-align: start;
+  }
+
+  [data-guide-table] thead th {
+    border-block-end: 2px solid var(--color-border-strong);
+    color: var(--color-text-muted);
+  }
+</style>

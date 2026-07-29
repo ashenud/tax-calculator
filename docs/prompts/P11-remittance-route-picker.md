@@ -1,7 +1,7 @@
 ---
 id: P11
 title: The remittance route picker — the question that distinguishes this tool
-status: pending
+status: done
 depends: [P10]
 agent: ui-builder
 ---

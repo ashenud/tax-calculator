@@ -1,7 +1,7 @@
 ---
 id: P14
 title: Guidance pages from the research documents
-status: pending
+status: done
 depends: [P13]
 agent: ui-builder
 ---

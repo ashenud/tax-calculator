@@ -1,7 +1,7 @@
 ---
 id: P10
 title: Calculator island — persona picker, year, question groups
-status: pending
+status: done
 depends: [P09]
 agent: ui-builder
 ---

@@ -1,7 +1,7 @@
 ---
 id: P09
 title: The ADR-0003 components — warnings, refusals, citations, year selector
-status: pending
+status: done
 depends: [P08, P07]
 agent: ui-builder
 ---
