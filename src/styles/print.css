@@ -1,0 +1,170 @@
+/*
+ * The print stylesheet — P15.
+ *
+ * "A real requirement: people take a printout to their practitioner"
+ * [`docs/prompts/P15-print-and-accessibility.md`]. What survives onto paper
+ * and what does not is the whole content of this file:
+ *
+ *   DROPPED   navigation, the theme toggle, the skip link, every button and
+ *             every interactive-control affordance (a radio dot, a select's
+ *             chevron), the persona picker's unchosen cards, the mobile
+ *             summary bar, the sticky-column positioning.
+ *   KEPT      the disclaimer, the as-at stamp, every entered value — as
+ *             plain text, not as a boxed control — the full working with
+ *             its citations, the payment schedule, every warning and every
+ *             refusal.
+ *
+ * Nothing here is `!important`-heavy for its own sake; each one exists
+ * because the rule it overrides is themable in `ui.css`/`calculator.css`
+ * and print needs the final word on a hidden element regardless of state.
+ *
+ * WHY THIS FILE AND NOT AN `@media print` BLOCK INSIDE `ui.css`
+ *
+ * `touch-target.test.tsx` asserts `ui.css` "declares no @media or @container
+ * query at all", specifically so no narrower context can shrink a target
+ * below the 44px floor that file guarantees. Adding `@media print` there
+ * would break that invariant for a reason that has nothing to do with touch
+ * targets. This file is loaded after it instead, and reaches the same class
+ * names through the cascade — `@media print` never applies on screen, so
+ * there is no specificity fight to have with the screen rules.
+ *
+ * WHY SOME RULES TARGET `data-state="unchecked"`
+ *
+ * A `RadioCardGroup` (the persona picker, residency, a condition's yes/no,
+ * the remittance route picker) is the shape "entered values as text" means
+ * something concrete for: the option that was *not* chosen carries no
+ * information worth a practitioner's page, so it is dropped, and the one
+ * that *was* chosen has its control chrome (the radio dot, the card border)
+ * stripped so it reads as a plain answered statement rather than a button
+ * that happens to be printed. Radix sets `data-state="checked"` /
+ * `"unchecked"` on `RadioGroup.Item` itself — see `RadioCardGroup.tsx`.
+ */
+
+@media print {
+  /* ---------------------------------------------------------------------
+   * The page shell
+   * ------------------------------------------------------------------- */
+
+  .site-header,
+  .skip-link {
+    display: none !important;
+  }
+
+  /* The MIT-licence / "nothing leaves your browser" footer is screen
+     furniture, not part of the computation's provenance — the disclaimer
+     and the as-at stamp carry that, and neither is targeted here. */
+  .site-footer {
+    display: none !important;
+  }
+
+  /* ---------------------------------------------------------------------
+   * Every button, everywhere. Nothing on paper can be clicked, and this
+   * project has no button whose text is itself the information — every one
+   * is an action ("Add pay from a job", "See working", theme toggle, the
+   * "open another section" prompts).
+   * ------------------------------------------------------------------- */
+
+  .ui-button,
+  button {
+    display: none !important;
+  }
+
+  /* ---------------------------------------------------------------------
+   * The calculator's own screen-only chrome
+   * ------------------------------------------------------------------- */
+
+  .ui-stepper,
+  .ui-progress,
+  .calc-gaps,
+  .calc-more,
+  .calc-summary-bar {
+    display: none !important;
+  }
+
+  /* The sticky result column is a screen affordance for "see the number
+     move without scrolling" — meaningless once there is no scrolling. */
+  .calc-step--result {
+    position: static !important;
+  }
+
+  /* ---------------------------------------------------------------------
+   * Inputs as controls → entered values as text
+   * ------------------------------------------------------------------- */
+
+  /* A currency field's frame and unit prefix stay (the label still reads
+     "Rs."); the input itself loses its box so the figure it holds reads as
+     part of the sentence rather than as a form control. Browsers print an
+     `<input>`'s current value by default, so the value is not lost. */
+  .ui-currency {
+    border: none !important;
+    background: none !important;
+    padding: 0 !important;
+  }
+
+  .ui-input {
+    border: none !important;
+    background: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* The persistent hint ("The gross figure — everything your employer
+     paid...") is instructional copy for someone about to type. It has
+     nothing left to say once there is an answer beside it in print. */
+  .ui-field__hint {
+    display: none !important;
+  }
+
+  /* Radio-card questions: only the chosen answer survives, as text. */
+  .ui-radio-card[data-state='unchecked'] {
+    display: none !important;
+  }
+
+  .ui-radio-card[data-state='checked'] {
+    border: none !important;
+    background: none !important;
+    padding: 0 !important;
+  }
+
+  .ui-radio-card__mark {
+    display: none !important;
+  }
+
+  /* The year selector: the chosen year already reads as text inside the
+     trigger button; strip the button chrome and the dropdown chevron so it
+     reads as a plain statement instead of a control. The listbox itself is
+     never open on a printed page. */
+  .ui-select-trigger {
+    border: none !important;
+    background: none !important;
+    padding: 0 !important;
+  }
+
+  .ui-select-trigger__icon {
+    display: none !important;
+  }
+
+  /* ---------------------------------------------------------------------
+   * The working table must not split a row across a page boundary
+   * ------------------------------------------------------------------- */
+
+  .ui-table {
+    break-inside: avoid-page;
+    page-break-inside: avoid; /* older engines without the `break-*` alias */
+  }
+
+  .ui-table tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* The horizontal-scroll wrapper exists for a narrow screen; on paper the
+     table should simply be as wide as it needs to be. */
+  .ui-table-scroll {
+    overflow: visible !important;
+  }
+}
+
+@page {
+  margin: 1.5cm;
+}
