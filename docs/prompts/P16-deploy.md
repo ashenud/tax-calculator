@@ -1,7 +1,7 @@
 ---
 id: P16
 title: CI pipeline and GitHub Pages deployment
-status: pending
+status: in-progress
 depends: [P15]
 agent: app-builder
 ---

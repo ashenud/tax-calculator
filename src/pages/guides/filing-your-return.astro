@@ -14,6 +14,7 @@
  * where foreign-currency income is reported."
  */
 import Base from '../../layouts/Base.astro';
+import { withBase } from '../../lib/base-path.ts';
 import AsAtStamp from '../../components/AsAtStamp.astro';
 import { Callout, CitationRef } from '../../components/ui/index.ts';
 import { loadTaxYears } from '../../lib/tax/load.ts';
@@ -27,7 +28,7 @@ const taxYear = loadTaxYears()[0]!.data;
   description="What is confirmed about filing an individual income tax return — e-filing is mandatory, and the deadline is a fixed rule — and what this project cannot yet walk you through."
 >
   <div class="guide measure">
-    <p class="guide__back"><a href="/guides/">All guides</a></p>
+    <p class="guide__back"><a href={withBase('/guides/')}>All guides</a></p>
 
     <h1 class="guide__question">
       How do I actually file my Sri Lankan income tax return?
@@ -60,12 +61,12 @@ const taxYear = loadTaxYears()[0]!.data;
           > — a rule, so the actual date moves with the year rather than being fixed.{' '}
           <CitationRef src="ira-2017#s.93(1)" sources={taxYear.sources} />{' '}
           The exact date for the year you are working out is on the{' '}
-          <a href="/rates/">rates page</a>.
+          <a href={withBase('/rates/')}>rates page</a>.
         </li>
         <li>
           Filing and paying are separate obligations with separate mechanics — see{' '}
-          <a href="/guides/deadlines/">the deadlines guide</a> for the instalment dates that
-          run through the year, ahead of the filing deadline itself.
+          <a href={withBase('/guides/deadlines/')}>the deadlines guide</a> for the instalment
+          dates that run through the year, ahead of the filing deadline itself.
         </li>
       </ul>
     </section>
@@ -106,10 +107,10 @@ const taxYear = loadTaxYears()[0]!.data;
     <section class="guide__section">
       <h2>What you can do now</h2>
       <p>
-        Work out a figure on the <a href="/calculator/">calculator</a> so you know roughly what
-        you are dealing with before you approach the portal or a practitioner. The calculator
-        shows every step of how its figure was reached, with citations, so you can take the
-        working with you rather than just a number.
+        Work out a figure on the <a href={withBase('/calculator/')}>calculator</a> so you know
+        roughly what you are dealing with before you approach the portal or a practitioner.
+        The calculator shows every step of how its figure was reached, with citations, so you
+        can take the working with you rather than just a number.
       </p>
     </section>
 
@@ -120,9 +121,9 @@ const taxYear = loadTaxYears()[0]!.data;
         file or pay.
       </p>
       <ul class="guide__footer-links">
-        <li><a href="/calculator/">Work out your figure</a></li>
-        <li><a href="/guides/deadlines/">All the dates that apply</a></li>
-        <li><a href="/about/sources/">Sources cited on this page</a></li>
+        <li><a href={withBase('/calculator/')}>Work out your figure</a></li>
+        <li><a href={withBase('/guides/deadlines/')}>All the dates that apply</a></li>
+        <li><a href={withBase('/about/sources/')}>Sources cited on this page</a></li>
       </ul>
     </section>
   </div>

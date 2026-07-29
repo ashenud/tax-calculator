@@ -16,6 +16,7 @@
  * rate only as something this project cannot currently give.
  */
 import Base from '../../layouts/Base.astro';
+import { withBase } from '../../lib/base-path.ts';
 import AsAtStamp from '../../components/AsAtStamp.astro';
 import { Callout, CitationRef } from '../../components/ui/index.ts';
 import { loadTaxYears } from '../../lib/tax/load.ts';
@@ -29,7 +30,7 @@ const taxYear = loadTaxYears()[0]!.data;
   description="What counts as a taxable gain, the strict conditions on the exemption for a family home, and why this project cannot currently give you the rate."
 >
   <div class="guide measure">
-    <p class="guide__back"><a href="/guides/">All guides</a></p>
+    <p class="guide__back"><a href={withBase('/guides/')}>All guides</a></p>
 
     <h1 class="guide__question">
       Do I owe tax on the gain when I sell a house or shares?
@@ -164,11 +165,11 @@ const taxYear = loadTaxYears()[0]!.data;
       <h2>What this means if this is your situation</h2>
       <p>
         Until the current rate is confirmed, this site's{' '}
-        <a href="/calculator/">calculator</a> cannot compute a capital gains figure for you
-        — entering a gain will show you where the computation stops and why, rather than a number
-        that would rest on a rate known to be wrong. Take the occupancy question and the sale
-        date to a qualified tax practitioner in the meantime, particularly if a deadline may
-        already be running from the date of sale.
+        <a href={withBase('/calculator/')}>calculator</a> cannot compute a capital gains figure
+        for you — entering a gain will show you where the computation stops and why, rather
+        than a number that would rest on a rate known to be wrong. Take the occupancy question
+        and the sale date to a qualified tax practitioner in the meantime, particularly if a
+        deadline may already be running from the date of sale.
       </p>
     </section>
 
@@ -179,8 +180,8 @@ const taxYear = loadTaxYears()[0]!.data;
         file or pay.
       </p>
       <ul class="guide__footer-links">
-        <li><a href="/calculator/">Work out your figure</a></li>
-        <li><a href="/about/sources/">Sources cited on this page</a></li>
+        <li><a href={withBase('/calculator/')}>Work out your figure</a></li>
+        <li><a href={withBase('/about/sources/')}>Sources cited on this page</a></li>
       </ul>
     </section>
   </div>

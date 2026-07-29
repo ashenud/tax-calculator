@@ -9,6 +9,7 @@
  * add a year and this page grows a card for it with no code change.
  */
 import Base from '../../layouts/Base.astro';
+import { withBase } from '../../lib/base-path.ts';
 import { NotYetLawBadge } from '../../components/ui/index.ts';
 import {
   newestFirst,
@@ -53,7 +54,10 @@ function unverifiedSentence(count: number): string {
             const slug = slugFor.get(year.yearOfAssessment);
             return (
               <li class="rates-index__item">
-                <a class="rates-index__link" href={slug ? `/rates/${slug}/` : '#'}>
+                <a
+                  class="rates-index__link"
+                  href={slug ? withBase(`/rates/${slug}/`) : '#'}
+                >
                   <span class="rates-index__year figure">{year.yearOfAssessment}</span>
                   <span class="rates-index__span">
                     {yearSpanLabel(year.yearOfAssessment)}

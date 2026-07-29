@@ -39,6 +39,7 @@ import RatesIndexPage from './pages/rates/index.astro';
 import SourcesPage from './pages/about/sources.astro';
 import ChangelogPage from './pages/about/changelog.astro';
 import { loadTaxYears } from './lib/tax/load.ts';
+import { withBase } from './lib/base-path.ts';
 import { ratesStaticPaths } from './lib/tax/rates-paths.ts';
 import { taxYearFileSchema, type TaxYearFile } from './lib/tax/schema.ts';
 
@@ -166,7 +167,7 @@ describe('the rates index and the changelog list every year, with no year hardco
     const html = await container.renderToString(RatesIndexPage, {});
     for (const { file } of LOADED) {
       const slug = file.replace(/\.json$/, '');
-      expect(html).toContain(`href="/rates/${slug}/"`);
+      expect(html).toContain(`href="${withBase(`/rates/${slug}/`)}"`);
     }
   });
 

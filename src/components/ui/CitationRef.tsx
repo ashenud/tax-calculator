@@ -30,12 +30,14 @@
  * LINK TARGET. `/about/sources/` is where `docs/spec/site-architecture.md` puts
  * the provenance register (`src/pages/about/sources.astro`), and `Base.astro`'s
  * navigation already uses that path. The page itself lands in a later prompt; a
- * caller that wants a different target passes `sourcesHref`. When P16 sets a
- * GitHub Pages `base`, this default and `Base.astro`'s `NAV` need the same
- * treatment — neither is prefixed today.
+ * caller that wants a different target passes `sourcesHref`. P16 set a GitHub
+ * Pages `base`, so the default is now resolved through `withBase()`; a caller
+ * passing its own `sourcesHref` is responsible for prefixing it, which is why
+ * the prop keeps taking a plain string.
  */
 
 import './ui.css';
+import { withBase } from '../../lib/base-path.ts';
 
 export interface CitationSource {
   title: string;
@@ -73,7 +75,7 @@ export function splitSrc(src: string): { key: string; pinpoint: string | null } 
 export function CitationRef({
   src,
   sources,
-  sourcesHref = '/about/sources/',
+  sourcesHref = withBase('/about/sources/'),
   label,
 }: CitationRefProps) {
   const { key, pinpoint } = splitSrc(src);

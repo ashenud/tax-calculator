@@ -16,7 +16,10 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { taxYearFileSchema, type TaxYearFile } from './schema';
+// Extension-ful, like every other intra-repo import here. Vite and Astro resolve
+// './schema' happily; bare `node scripts/validate-tax-data.mjs` does not, and P16
+// runs this module under plain Node as its own CI step.
+import { taxYearFileSchema, type TaxYearFile } from './schema.ts';
 
 export interface LoadedTaxYear {
   /** Filename relative to the tax-years directory, e.g. "2025-26.json". */

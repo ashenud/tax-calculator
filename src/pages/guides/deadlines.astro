@@ -11,6 +11,7 @@
  * this page leads with the dates rather than a computation.
  */
 import Base from '../../layouts/Base.astro';
+import { withBase } from '../../lib/base-path.ts';
 import AsAtStamp from '../../components/AsAtStamp.astro';
 import { Callout, CitationRef } from '../../components/ui/index.ts';
 import { loadTaxYears } from '../../lib/tax/load.ts';
@@ -27,7 +28,7 @@ const instalments = [...taxYear.calendar.instalments].sort(
   description="The four instalment dates through the year, the return filing deadline, and what is not yet confirmed about penalties for missing either."
 >
   <div class="guide measure">
-    <p class="guide__back"><a href="/guides/">All guides</a></p>
+    <p class="guide__back"><a href={withBase('/guides/')}>All guides</a></p>
 
     <h1 class="guide__question">
       What are the tax deadlines I need to know for Sri Lanka?
@@ -75,7 +76,9 @@ const instalments = [...taxYear.calendar.instalments].sort(
         <CitationRef src="ira-2017#s.90(1)" sources={taxYear.sources} />{' '}
         That covers freelance and consultancy income paid from outside Sri Lanka, and it covers
         an employee whose pay has no tax deducted from it — see the{' '}
-        <a href="/guides/employer-not-deducting/">guide on that specific situation</a>.
+        <a href={withBase('/guides/employer-not-deducting/')}
+          >guide on that specific situation</a
+        >.
       </p>
     </section>
 
@@ -113,7 +116,7 @@ const instalments = [...taxYear.calendar.instalments].sort(
       </table>
       <p>
         These are for Y/A {taxYear.yearOfAssessment}; other years' dates are on the{' '}
-        <a href="/rates/">rates page</a> once that year's data is held.
+        <a href={withBase('/rates/')}>rates page</a> once that year's data is held.
       </p>
     </section>
 
@@ -163,8 +166,9 @@ const instalments = [...taxYear.calendar.instalments].sort(
     <section class="guide__section">
       <h2>What this means if this is your situation</h2>
       <p>
-        The <a href="/calculator/">calculator</a> shows the instalment schedule for your own
-        figures, worked out from the estimate you enter, alongside the computed liability itself.
+        The <a href={withBase('/calculator/')}>calculator</a> shows the instalment schedule
+        for your own figures, worked out from the estimate you enter, alongside the computed
+        liability itself.
       </p>
     </section>
 
@@ -175,9 +179,9 @@ const instalments = [...taxYear.calendar.instalments].sort(
         file or pay.
       </p>
       <ul class="guide__footer-links">
-        <li><a href="/calculator/">Work out your figure</a></li>
-        <li><a href="/guides/filing-your-return/">Filing your return</a></li>
-        <li><a href="/about/sources/">Sources cited on this page</a></li>
+        <li><a href={withBase('/calculator/')}>Work out your figure</a></li>
+        <li><a href={withBase('/guides/filing-your-return/')}>Filing your return</a></li>
+        <li><a href={withBase('/about/sources/')}>Sources cited on this page</a></li>
       </ul>
     </section>
   </div>

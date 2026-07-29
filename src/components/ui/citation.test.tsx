@@ -13,6 +13,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { CitationRef, splitSrc } from './CitationRef.tsx';
 import { NotYetLawBadge, UnverifiedBadge } from './UnverifiedBadge.tsx';
 import { loadTaxYears } from '../../lib/tax/load.ts';
+import { withBase } from '../../lib/base-path.ts';
 import { installDomPolyfills } from '../../test/dom-polyfills.ts';
 
 installDomPolyfills();
@@ -64,7 +65,11 @@ describe('CitationRef', () => {
   it('links to the sources page, anchored on the source key', () => {
     render(<CitationRef src={realSrc} sources={sources} />);
     const link = screen.getByRole('link');
-    expect(link.getAttribute('href')).toBe(`/about/sources/#${splitSrc(realSrc).key}`);
+    // Base-path prefixed: P16 publishes to a GitHub Pages project page, so the
+    // default target goes through `withBase()`.
+    expect(link.getAttribute('href')).toBe(
+      `${withBase('/about/sources/')}#${splitSrc(realSrc).key}`,
+    );
   });
 
   it('is never a tooltip — no title attribute carrying the reference', () => {

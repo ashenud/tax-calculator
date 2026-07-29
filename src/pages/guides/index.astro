@@ -8,6 +8,7 @@
  * their own question, the same way they would in a search result.
  */
 import Base from '../../layouts/Base.astro';
+import { withBase } from '../../lib/base-path.ts';
 import '../../styles/guides.css';
 
 const GUIDES = [
@@ -60,7 +61,7 @@ const GUIDES = [
       {
         GUIDES.map((guide) => (
           <li class="guides-index-item">
-            <a class="guides-index-link" href={guide.href}>
+            <a class="guides-index-link" href={withBase(guide.href)}>
               {guide.question}
             </a>
             <p class="guides-index-blurb">{guide.blurb}</p>
