@@ -1,9 +1,31 @@
-name: docs
+# The repository's single pipeline: documentation guardrails, then the
+# application checks, then the GitHub Pages deployment.
+#
+# It is one workflow rather than two because the deploy has to be gated on
+# *everything*, and GitHub Actions has no cross-workflow `needs`. Splitting the
+# application checks into their own file would either leave the citation and
+# source-extraction checks ungating the deploy, or duplicate them.
+#
+# The file is still called docs.yml — the checks P00-P15 depend on are in the
+# `citations` job below, unchanged and in their original order.
+name: ci
 
 on:
   push:
     branches: ['**']
   pull_request:
+
+# Cancel a superseded run on the same branch: the deploy publishes whatever the
+# newest passing commit produced, and two concurrent deploys of different
+# commits is a race with a live site as the loser. `master` is excluded from
+# cancellation so a queued release is never dropped half-published.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
+# Read-only by default. The deploy job widens this for itself alone.
+permissions:
+  contents: read
 
 jobs:
   citations:
@@ -39,3 +61,125 @@ jobs:
       # cannot be read cannot be verified against.
       - name: Check source extraction
         run: python3 scripts/extract-sources.py --check
+
+  # ---------------------------------------------------------------------------
+  # The application. Ordered cheapest-first, exactly as docs/spec/site-architecture.md
+  # ("Deployment") and docs/prompts/P16-deploy.md require: a run should tell you
+  # about a missing citation in fifteen seconds, not after paying for a build.
+  #
+  # Each step is separately labelled so a red run names the class of failure on
+  # the job summary without anyone opening a log. P16's acceptance criteria
+  # require six distinct failure conditions to be independently verifiable, and
+  # a step that bundled several of them together would not satisfy that.
+  # ---------------------------------------------------------------------------
+  build:
+    name: Typecheck, data, fixtures, build
+    runs-on: ubuntu-latest
+    # The citation check is the cheapest gate and catches the error class that
+    # matters most here, so nothing below runs until it has passed.
+    needs: citations
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      # `npm ci` and not `npm install`: the lockfile is the record of what was
+      # tested. A CI run that silently resolved a different dependency tree is
+      # not evidence about the tree that ships.
+      - name: Install dependencies
+        run: npm ci
+
+      # 3. Types. Astro's own diagnostics plus tsc, both non-negotiable before
+      #    anything is executed.
+      - name: Typecheck
+        run: npm run typecheck
+
+      # 4. Schema validation of every tax-year data file.
+      #
+      #    This is *also* enforced by the build below — astro.config.mjs calls
+      #    loadTaxYears() from astro:build:start and a throw there is fatal — and
+      #    that remains the real guarantee. It runs separately here so that a
+      #    malformed data file is reported as a malformed data file, at second
+      #    thirty, rather than as a Vite stack trace at the end of the run.
+      - name: Validate tax-year data against the schema
+        run: node scripts/validate-tax-data.mjs
+
+      # 5. The fixture suite. The harness prints its verified/unverified split
+      #    on every run, passing or failing (see vitest.config.ts's
+      #    `disableConsoleIntercept`), and that output must reach the log: a
+      #    figure resting on an unconfirmed rate is not made an answer by a
+      #    green tick beside it.
+      - name: Run the test suite and the worked-example fixtures
+        run: npm test
+
+      # 6. The build. Last because it is the most expensive, and because by this
+      #    point everything it depends on has already been checked.
+      - name: Build the site
+        run: npm run build
+
+  # ---------------------------------------------------------------------------
+  # Deployment. Static files to GitHub Pages, nothing else: no server, no
+  # runtime secrets, no environment variables the build reads. Everything the
+  # site knows is baked in at build time by design — see
+  # docs/spec/site-architecture.md, "Principles".
+  # ---------------------------------------------------------------------------
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    # Gated on the full check job, which is itself gated on the docs job.
+    needs: build
+    # master only, and pushes only. A pull_request event from a fork must never
+    # reach this, and neither must any other branch.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+
+    permissions:
+      # Publish the artifact.
+      pages: write
+      # Mint the OIDC token deploy-pages exchanges for its deployment.
+      id-token: write
+      contents: read
+
+    # One deployment at a time, and never cancelled midway: a half-replaced site
+    # is worse than a stale one.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - uses: actions/configure-pages@v5
+
+      # Rebuilt here rather than carried from the `build` job. The artifact
+      # upload/download round trip costs about as much as the build itself
+      # (roughly a second), and rebuilding keeps the deployed bytes traceable to
+      # one commit and one config rather than to a job's cached output. The
+      # tax-data validation hook therefore runs again on the exact tree being
+      # published: a malformed data file cannot be deployed even in the
+      # impossible case that it slipped past the job above.
+      - name: Build the site
+        run: npm run build
+
+      - name: Upload the built site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -115,11 +115,36 @@ None of these are candidates for removal in a visual cleanup pass.
 
 ## Deployment
 
-GitHub Actions → GitHub Pages, on push to the default branch.
+GitHub Actions → GitHub Pages, on push to the default branch (`master`).
 
-CI runs, in order: `check-citations.mjs`, typecheck, schema validation of every data
-file, the fixture suite, then the Astro build. The citation check runs first because it
-is the cheapest and catches the class of error that matters most.
+CI runs, in order: `check-citations.mjs`, `prompt-status.mjs --check`, typecheck, schema
+validation of every data file, the fixture suite, then the Astro build. The citation
+check runs first because it is the cheapest and catches the class of error that matters
+most. All of it lives in `.github/workflows/docs.yml`, in one workflow, because the
+deploy job has to be gated on every check and GitHub Actions has no cross-workflow
+`needs`.
+
+Schema validation is enforced twice on purpose. `astro.config.mjs` calls `loadTaxYears()`
+from `astro:build:start`, so a malformed data file fails the build itself — that is the
+guarantee, and it holds whether or not CI is involved.
+`scripts/validate-tax-data.mjs` runs the same check as its own early, labelled step so
+the failure is reported as a malformed data file rather than as a build error.
+
+**Base path.** The site is a GitHub Pages *project* page, served from
+`https://ashenud.github.io/tax-calculator/`. Astro prefixes the URLs of assets it emits;
+it does not prefix a link written by hand. Every hand-written internal link therefore
+goes through `withBase()` from `src/lib/base-path.ts`, which holds the one declaration of
+the base path that `astro.config.mjs` also reads. It is a constant rather than
+`import.meta.env.BASE_URL` because Vite merges `process.env` into `import.meta.env` for
+the prerender pass, so an ambient `BASE_URL` variable — Vitest sets one — silently
+unprefixes every link while leaving asset URLs correct.
+
+**Content-Security-Policy.** Emitted by Astro (`security.csp`) as a `<meta>` element on
+every page, because a static host sets no response headers. `default-src 'none'`, with
+`'self'` and per-page hashes for scripts and styles, and no external host in any
+directive. This is what makes "no analytics, no third-party script, no server" structural
+rather than a convention. `src/build-output.test.ts` asserts it against a real build,
+along with the absence of any JavaScript bundle on the guidance pages.
 
 ## Accessibility and reach
 

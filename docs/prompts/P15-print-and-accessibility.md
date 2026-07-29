@@ -1,7 +1,7 @@
 ---
 id: P15
 title: Print stylesheet and full accessibility audit
-status: in-progress
+status: done
 depends: [P12, P14]
 agent: ui-builder
 ---

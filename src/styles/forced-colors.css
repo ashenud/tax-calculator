@@ -1,0 +1,123 @@
+/*
+ * Forced-colors (Windows High Contrast Mode) repairs — P15.
+ *
+ * THIS FILE IS DELIBERATELY SHORT, AND SHOULD STAY SHORT.
+ *
+ * In forced-colors mode the user agent overrides `color`, `background-color`,
+ * `border-color`, `outline-color`, `fill` and `stroke` with the user's own
+ * palette. That is the point of the mode, and almost everything in this project
+ * survives it intact and needs no rule here, because "colour never carries
+ * meaning alone" [`docs/spec/ui-design-system.md`] was already the rule when
+ * these components were built:
+ *
+ *   - warnings and refusals carry the severity in *words*
+ *     (`.ui-warning__severity`), a distinct icon shape, and a 3px leading rule
+ *     on the callout — a border *width*, which forced colors does not touch;
+ *   - an invalid input doubles its border to 2px and grows a triangle beside a
+ *     message, so the danger colour is the third signal, not the first;
+ *   - citations are links (forced to `LinkText`) and an unresolved pointer is
+ *     marked by a dotted `text-decoration-line`, which is geometry;
+ *   - the stale figure is marked by a wavy underline and a sentence;
+ *   - focus is an `outline`, never a `box-shadow` — `outline-color` is forced
+ *     to a system colour and stays visible, whereas a `box-shadow` ring would
+ *     not be painted at all;
+ *   - the stepper distinguishes its statuses by glyph (tick / triangle /
+ *     number), a visually hidden status word, and a border that is
+ *     `transparent` on the steps that lack it — and `transparent` is preserved
+ *     in forced colors, so the *presence* of the border still reads.
+ *
+ * What is repaired below is the residue: three indicators whose ONLY paint is a
+ * `background-color` fill, or that suppress the outline they would otherwise
+ * inherit. Each is a control-state signal that would go from visible to absent
+ * — not merely from coloured to monochrome. Nothing else is touched, because a
+ * speculative override in this mode is how a user's chosen palette gets quietly
+ * overruled by a developer who could not test in it.
+ *
+ * WHY A SEPARATE FILE, AND WHY `!important`
+ *
+ * Same two reasons as `print.css`, which sits beside it: `touch-target.test.tsx`
+ * and `print.test.ts` both assert that `ui.css` "declares no @media or @container
+ * query at all", so these rules cannot live next to the declarations they
+ * override; and once they live elsewhere, they are unlayered rules at the same
+ * specificity as the ones in `ui.css`, whose relative order in the bundle Astro
+ * does not guarantee. `!important` makes the outcome independent of that order.
+ * The rules never apply outside forced-colors mode, so there is no specificity
+ * fight being had with the ordinary screen styles.
+ *
+ * WHY SYSTEM COLOUR KEYWORDS RATHER THAN TOKENS
+ *
+ * `CanvasText` and `Highlight` are not hardcoded colours in the sense the token
+ * rules forbid — they resolve to whatever palette the *user* has chosen, which
+ * is the whole contract of this mode. A `var(--color-*)` here would reassert the
+ * palette the user has explicitly overridden, which is the failure this file
+ * exists to avoid, not a fix for it.
+ */
+
+@media (forced-colors: active) {
+  /* -----------------------------------------------------------------------
+   * 1. The radio-card selection dot
+   *
+   * `.ui-radio-card__dot` (and the persona picker's copy of it) is a bare
+   * <span> whose entire paint is `background-color: var(--color-accent)`.
+   * Forced to `Canvas`, it becomes the same colour as the ring around it and
+   * the card behind it: the dot disappears.
+   *
+   * What is then left to distinguish a chosen option is the card's border
+   * going from 1px to 2px — and `ui.css` deliberately compensates that with a
+   * 1px padding reduction so the text does not shift, meaning the card's outer
+   * box is *identical* either way. A user would be comparing border thickness
+   * between stacked cards to find out which answer they gave. On the
+   * remittance route picker — the input `ui-behaviour.md` singles out as the
+   * one where "a wrong answer swings the liability more than any other" —
+   * that is not an acceptable margin.
+   *
+   * `forced-color-adjust: none` opts the dot out of the forcing so the
+   * explicit `CanvasText` fill below is honoured; `CanvasText` is by
+   * definition the user's own foreground colour, so it is guaranteed to
+   * contrast with the `Canvas` it sits on.
+   * -------------------------------------------------------------------- */
+  .ui-radio-card__dot,
+  .ui-persona-card__dot {
+    forced-color-adjust: none;
+    background-color: CanvasText !important;
+  }
+
+  /* -----------------------------------------------------------------------
+   * 2. The keyboard cursor inside the year-of-assessment listbox
+   *
+   * `.ui-select-item[data-highlighted]` sets `outline: none` and marks the
+   * highlighted option with `background-color: var(--color-accent-subtle)`
+   * alone. The tick in the mark column marks the *selected* option, which is a
+   * different thing: while arrowing through the list, the tick stays on the
+   * year already chosen. So in forced colors the background goes to `Canvas`,
+   * the outline was already suppressed, and a keyboard user has no visible
+   * cursor at all in the list that chooses the year every rate on the page is
+   * resolved from.
+   *
+   * Restored as an outline rather than a fill: `Highlight` is the system
+   * colour for exactly this, and an inset offset keeps the ring inside the
+   * item so it cannot be confused with its neighbour's.
+   * -------------------------------------------------------------------- */
+  .ui-select-item[data-highlighted] {
+    outline: 2px solid Highlight !important;
+    outline-offset: -2px;
+  }
+
+  /* -----------------------------------------------------------------------
+   * 3. The progress bar's fill
+   *
+   * `.ui-progress__fill` is also paint-by-background only, inside a track that
+   * keeps its 1px border. Forced, the bar renders empty at every value — so it
+   * does not merely vanish, it silently contradicts the caption beside it
+   * ("Question 3 of 8"). An indicator that displays a value it does not hold
+   * is worse than one that displays nothing, and this project does not ship
+   * figures that are not true.
+   *
+   * The caption remains the authoritative statement of progress either way;
+   * this only stops the bar from disagreeing with it.
+   * -------------------------------------------------------------------- */
+  .ui-progress__fill {
+    forced-color-adjust: none;
+    background-color: CanvasText !important;
+  }
+}

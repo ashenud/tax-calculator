@@ -42,6 +42,7 @@
  * `TaxResult` and never be computed by a page.
  */
 import Base from '../../layouts/Base.astro';
+import { withBase } from '../../lib/base-path.ts';
 import {
   CitationRef,
   NotYetLawBadge,
@@ -117,7 +118,7 @@ const STATUS_WORD: Readonly<Record<TaxYearFile['status'], string>> = {
   description={`Every rate, band, condition and deadline this build holds for Y/A ${taxYear.yearOfAssessment}, generated from the data file and cited to primary law.`}
 >
   <div class="rates-page measure">
-    <p class="rates-page__back"><a href="/rates/">All years</a></p>
+    <p class="rates-page__back"><a href={withBase('/rates/')}>All years</a></p>
 
     <h1>Rates for year of assessment {taxYear.yearOfAssessment}</h1>
     <p class="rates-page__span">{yearSpanLabel(taxYear.yearOfAssessment)}</p>
@@ -461,9 +462,9 @@ const STATUS_WORD: Readonly<Record<TaxYearFile['status'], string>> = {
 
     <p class="rates-page__footer">
       Every source cited above is listed, with its provenance, on the{' '}
-      <a href="/about/sources/">sources page</a>. This is decision support, not tax advice
-      — verify with the Inland Revenue Department or a qualified tax practitioner before
-      you file.
+      <a href={withBase('/about/sources/')}>sources page</a>. This is decision support,
+      not tax advice — verify with the Inland Revenue Department or a qualified tax
+      practitioner before you file.
     </p>
   </div>
 </Base>

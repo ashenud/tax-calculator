@@ -19,6 +19,7 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import AsAtStamp from '../components/AsAtStamp.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import IndexPage from '../pages/index.astro';
+import { BASE_PATH } from '../lib/base-path.ts';
 
 const read = (relative: string): string =>
   readFileSync(fileURLToPath(new URL(relative, import.meta.url)), 'utf8');
@@ -191,8 +192,22 @@ describe('page shell', () => {
     // rewritten to keep passing stops being a check on the thing it is named
     // after. This version passes unchanged as each page lands and fails the day
     // a link points somewhere nothing was built.
+    //
+    // P16 UPDATE: every internal link is now prefixed with the GitHub Pages
+    // base path. That prefix is asserted here rather than pattern-matched away,
+    // so a link that forgets `withBase()` fails this test too — an unprefixed
+    // link is exactly the "404 handed to a user" this check is named after.
     const html = await container.renderToString(IndexPage);
-    const hrefs = [...html.matchAll(/href="(\/[^"#]*)"/g)].map((m) => m[1]!);
+    const rawHrefs = [...html.matchAll(/href="(\/[^"#]*)"/g)].map((m) => m[1]!);
+    expect(rawHrefs.length).toBeGreaterThan(0);
+    for (const href of rawHrefs) {
+      expect(
+        href.startsWith(BASE_PATH),
+        `${href} is not under the deployment base path ${BASE_PATH}`,
+      ).toBe(true);
+    }
+
+    const hrefs = rawHrefs.map((href) => href.slice(BASE_PATH.length - 1));
     expect(hrefs).toEqual(expect.arrayContaining(['/']));
 
     const pagesDir = fileURLToPath(new URL('../pages', import.meta.url));

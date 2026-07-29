@@ -29,6 +29,7 @@
  * page.
  */
 import Base from '../../layouts/Base.astro';
+import { withBase } from '../../lib/base-path.ts';
 import { Content as SourcesReadme } from '../../../docs/sources/README.md';
 import { loadTaxYears } from '../../lib/tax/load.ts';
 import type { SourceEntry } from '../../lib/tax/schema.ts';
@@ -82,7 +83,9 @@ const sources = [...bySources.entries()];
     </section>
 
     <p class="sources-page__footer">
-      See what changed and when on the <a href="/about/changelog/">changelog</a>.
+      See what changed and when on the <a href={withBase('/about/changelog/')}
+        >changelog</a
+      >.
     </p>
   </div>
 </Base>

@@ -17,6 +17,7 @@
  * question turns out to be.
  */
 import Base from '../../layouts/Base.astro';
+import { withBase } from '../../lib/base-path.ts';
 import AsAtStamp from '../../components/AsAtStamp.astro';
 import { Callout, CitationRef } from '../../components/ui/index.ts';
 import { loadTaxYears } from '../../lib/tax/load.ts';
@@ -30,7 +31,7 @@ const taxYear = loadTaxYears()[0]!.data;
   description="What is confirmed and what is not yet confirmed about an employee's position when no tax is deducted at source, including the instalment obligation that runs regardless."
 >
   <div class="guide measure">
-    <p class="guide__back"><a href="/guides/">All guides</a></p>
+    <p class="guide__back"><a href={withBase('/guides/')}>All guides</a></p>
 
     <h1 class="guide__question">
       My employer isn't deducting tax from my pay — am I still liable?
@@ -115,8 +116,8 @@ const taxYear = loadTaxYears()[0]!.data;
       </p>
       <p>
         The exact dates for the year you are working out are on the{' '}
-        <a href="/rates/">rates page</a>; the calculator shows you which of them, if any,
-        have already passed.
+        <a href={withBase('/rates/')}>rates page</a>; the calculator shows you which of
+        them, if any, have already passed.
       </p>
     </section>
 
@@ -154,9 +155,10 @@ const taxYear = loadTaxYears()[0]!.data;
       <h2>What this means if this is your situation</h2>
       <p>
         Work out a figure and see the instalment schedule for your own numbers on the{' '}
-        <a href="/calculator/">calculator</a>. If you have not been deducted anything,
-        enter that as your APIT figure — it is an ordinary answer, not an error state —
-        and the result will show what the instalment obligation looks like for you.
+        <a href={withBase('/calculator/')}>calculator</a>. If you have not been deducted
+        anything, enter that as your APIT figure — it is an ordinary answer, not an error
+        state — and the result will show what the instalment obligation looks like for
+        you.
       </p>
     </section>
 
@@ -167,9 +169,9 @@ const taxYear = loadTaxYears()[0]!.data;
         file or pay.
       </p>
       <ul class="guide__footer-links">
-        <li><a href="/calculator/">Work out your figure</a></li>
-        <li><a href="/guides/deadlines/">All the dates that apply</a></li>
-        <li><a href="/about/sources/">Sources cited on this page</a></li>
+        <li><a href={withBase('/calculator/')}>Work out your figure</a></li>
+        <li><a href={withBase('/guides/deadlines/')}>All the dates that apply</a></li>
+        <li><a href={withBase('/about/sources/')}>Sources cited on this page</a></li>
       </ul>
     </section>
   </div>

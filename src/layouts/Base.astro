@@ -12,15 +12,25 @@
  * ran after first paint, a user who chose dark would get a white flash on every
  * navigation. `is:inline` stops Astro bundling and deferring it.
  *
- * NOTE FOR P16 (CSP): that script and the compiled ThemeToggle script are the
- * only JavaScript on a guidance page. The inline one needs a hash in the
- * Content-Security-Policy `script-src` — not 'unsafe-inline', which would
- * defeat the point. Astro's `experimental.csp` can emit that hash.
+ * P16 (CSP): that script and the compiled ThemeToggle script are the only
+ * JavaScript on a guidance page. Because `is:inline` means Astro never
+ * processes the script, Astro's CSP cannot hash it — so its source moved to
+ * `theme-init.ts`, which `astro.config.mjs` imports and hashes into
+ * `script-src`. Not 'unsafe-inline', which would defeat the point of having a
+ * policy at all. The `<meta http-equiv="content-security-policy">` element is
+ * emitted by Astro into this <head>; it is not written out below.
+ *
+ * P16 (BASE PATH): every hand-written internal link goes through `withBase()`.
+ * Astro prefixes the URLs of assets it emits with `base`, but not the ones
+ * written by hand, and this site is served from `/tax-calculator/`.
  */
 import '../styles/global.css';
 import '../styles/print.css';
+import '../styles/forced-colors.css';
 import Disclaimer from '../components/Disclaimer.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
+import { withBase } from '../lib/base-path.ts';
+import { THEME_INIT_SCRIPT } from './theme-init.ts';
 
 interface Props {
   /** Page title, used for <title> and nothing else. */
@@ -59,8 +69,13 @@ const NAV = [
   { href: '/about/sources/', label: 'Sources', page: 'about/sources.astro' },
 ] as const;
 
-const nav = NAV.filter((item) => existingPages.has(item.page));
+const nav = NAV.filter((item) => existingPages.has(item.page)).map((item) => ({
+  ...item,
+  href: withBase(item.href),
+}));
 
+// Already base-prefixed by the server, so it is compared against base-prefixed
+// hrefs above rather than against the raw route.
 const currentPath = Astro.url.pathname;
 ---
 
@@ -72,19 +87,9 @@ const currentPath = Astro.url.pathname;
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
 
-    <script is:inline>
-      try {
-        const stored = localStorage.getItem('theme');
-        if (stored === 'light' || stored === 'dark') {
-          document.documentElement.dataset.theme = stored;
-        }
-      } catch {
-        /* Storage blocked (private mode, blocked cookies). prefers-color-scheme
-           still applies, so the page themes itself correctly either way. */
-      }
-    </script>
+    <script is:inline set:html={THEME_INIT_SCRIPT} />
   </head>
 
   <body>
@@ -92,7 +97,7 @@ const currentPath = Astro.url.pathname;
 
     <header class="site-header">
       <div class="shell site-header__inner">
-        <a class="site-header__home" href="/">
+        <a class="site-header__home" href={withBase('/')}>
           <span class="site-header__title">Sri Lanka Tax Return Support</span>
         </a>
 
