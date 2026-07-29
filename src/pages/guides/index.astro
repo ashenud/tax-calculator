@@ -1,0 +1,118 @@
+---
+/**
+ * `/guides/` — links to the five guidance pages.
+ *
+ * `Base.astro`'s nav only shows "Guides" once this file exists, matching how
+ * "Rates" and "Sources" work in P13. Titles here are the same question each
+ * page opens by answering — a reader scanning this list should recognise
+ * their own question, the same way they would in a search result.
+ */
+import Base from '../../layouts/Base.astro';
+import '../../styles/guides.css';
+
+const GUIDES = [
+  {
+    href: '/guides/foreign-currency-income/',
+    question: 'Is money I earn from overseas clients taxed in Sri Lanka?',
+    blurb:
+      'What changed on 1 April 2025, the reduced maximum rate, and the remittance condition that actually decides it.',
+  },
+  {
+    href: '/guides/employer-not-deducting/',
+    question: "My employer isn't deducting tax from my pay — am I still liable?",
+    blurb:
+      'What is confirmed about the instalment obligation, and what is genuinely still open about the underlying liability.',
+  },
+  {
+    href: '/guides/filing-your-return/',
+    question: 'How do I actually file my Sri Lankan income tax return?',
+    blurb:
+      'E-filing is mandatory and the deadline is a fixed rule — what this project can and cannot yet walk you through.',
+  },
+  {
+    href: '/guides/deadlines/',
+    question: 'What are the tax deadlines I need to know for Sri Lanka?',
+    blurb:
+      'The four instalment dates through the year, and the separate return filing deadline.',
+  },
+  {
+    href: '/guides/capital-gains/',
+    question: 'Do I owe tax on the gain when I sell a house or shares?',
+    blurb:
+      "What counts as a taxable gain, the strict conditions on the family-home exemption, and why the current rate isn't available yet.",
+  },
+] as const;
+---
+
+<Base
+  title="Guides — Sri Lanka Tax Return Support"
+  description="Plain-language answers to the questions people actually search for, with every figure cited and every unresolved point disclosed rather than guessed at."
+>
+  <div class="guide measure">
+    <h1 class="guide__question">Guides</h1>
+    <p class="guide__section-lede">
+      Each guide opens by answering the question in its title, translates the underlying
+      law into plain language without dropping the citations, and says plainly where the
+      law is not yet settled rather than guessing.
+    </p>
+
+    <ul class="guides-index-list">
+      {
+        GUIDES.map((guide) => (
+          <li class="guides-index-item">
+            <a class="guides-index-link" href={guide.href}>
+              {guide.question}
+            </a>
+            <p class="guides-index-blurb">{guide.blurb}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .guide__section-lede {
+    max-width: var(--container-prose);
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+  }
+
+  .guides-index-list {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .guides-index-item {
+    padding: calc(var(--spacing) * 4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface-raised);
+  }
+
+  .guides-index-link {
+    display: block;
+    color: var(--color-text);
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .guides-index-link:hover {
+    text-decoration: underline;
+  }
+
+  .guides-index-blurb {
+    margin-block: calc(var(--spacing) * 2) 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+  }
+</style>

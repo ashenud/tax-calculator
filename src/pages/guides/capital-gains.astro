@@ -1,0 +1,187 @@
+---
+/**
+ * `/guides/capital-gains` — from `docs/research/08-capital-gains.md` and
+ * `docs/personas/p4-investment-cgt-terminal.md`.
+ *
+ * THE RATE IS DELIBERATELY NOT STATED AS A HEADLINE FIGURE
+ *
+ * Research 08 opens with "Read this first: the rate in this document is out
+ * of date" — the 2017 individual rate has been superseded by the Inland
+ * Revenue (Amendment) Act, No. 11 of 2026, which this repository does not
+ * hold (Q42). Per CLAUDE.md rule 3 and this prompt's "do not restate a
+ * figure that the research marks unverified as though it were settled",
+ * this page describes the framework — what counts as an investment asset,
+ * the principal-residence exclusion, the relief exclusion, pre-commencement
+ * base cost — which research 08 calls "structurally stable", and states the
+ * rate only as something this project cannot currently give.
+ */
+import Base from '../../layouts/Base.astro';
+import AsAtStamp from '../../components/AsAtStamp.astro';
+import { Callout, CitationRef } from '../../components/ui/index.ts';
+import { loadTaxYears } from '../../lib/tax/load.ts';
+import '../../styles/guides.css';
+
+const taxYear = loadTaxYears()[0]!.data;
+---
+
+<Base
+  title="Do I owe tax on the gain when I sell a house or shares? — Sri Lanka Tax Return Support"
+  description="What counts as a taxable gain, the strict conditions on the exemption for a family home, and why this project cannot currently give you the rate."
+>
+  <div class="guide measure">
+    <p class="guide__back"><a href="/guides/">All guides</a></p>
+
+    <h1 class="guide__question">
+      Do I owe tax on the gain when I sell a house or shares?
+    </h1>
+
+    <p class="guide__answer">
+      Generally yes — gains from selling an "investment asset" are taxable — but this
+      project cannot currently tell you the rate. The 2017 rate has been changed by a 2026
+      amendment act this project does not yet hold, so stating the old figure would be
+      stating something known to be wrong.{' '}
+      <CitationRef
+        src="ira-2017#Sch.1 para 1(2)(a)"
+        sources={taxYear.sources}
+        label="Superseded rate from"
+      />{' '}
+      What has not changed is which gains are in scope and which family home sales are exempt,
+      and those are strict enough to catch people who reasonably assume they are exempt.
+    </p>
+
+    <AsAtStamp
+      yearOfAssessment={taxYear.yearOfAssessment}
+      dataReviewedOn={taxYear.lastReviewed}
+    />
+
+    <Callout
+      tone="caution"
+      title="The current rate is not available on this site"
+      headingLevel={2}
+    >
+      <p>
+        The individual capital gains rate was changed by the Inland Revenue (Amendment)
+        Act, No. 11 of 2026 — an act this project does not hold, and does not quote
+        figures from.{' '}
+        <CitationRef
+          src="ira-2017"
+          sources={taxYear.sources}
+          label="What is confirmed comes from"
+        />{' '}
+        Reporting elsewhere describes a new figure, but it is not confirmed against that primary
+        source, and this project does not repeat an unconfirmed number as though it were the
+        rate. Until the act is obtained, the calculator on this site cannot compute a capital
+        gains figure at all — it does not guess at a rate it cannot cite.
+      </p>
+    </Callout>
+
+    <section class="guide__section">
+      <h2>What counts as a taxable gain</h2>
+      <p>
+        The charge applies to gains from realising an "investment asset" — a capital asset
+        held as part of an investment. Land, buildings, structural improvements, interests
+        in land or buildings, and leases are all included.{' '}
+        <CitationRef
+          src="ira-2017#s.195"
+          sources={taxYear.sources}
+          label="Definition from"
+        />
+      </p>
+    </section>
+
+    <section class="guide__section">
+      <h2>The exemption for your own home is stricter than most people assume</h2>
+      <p>
+        A principal place of residence is excluded from the charge — but only where{' '}
+        <strong>both</strong> of these hold, counted on a daily basis:
+      </p>
+      <ul>
+        <li>you owned it continuously for the three years before you sold it, and</li>
+        <li>you lived in it for at least two of those three years.</li>
+      </ul>
+      <p>
+        <CitationRef
+          src="ira-2017#s.195"
+          sources={taxYear.sources}
+          label="Conditions from"
+        />{' '}
+        Someone who moved out eighteen months before selling, or who bought the property two
+        years ago, does not qualify — and would very reasonably expect to. If you inherited
+        a property and never lived in it, it is squarely inside the charge, not outside it.
+      </p>
+    </section>
+
+    <section class="guide__section">
+      <h2>Personal relief does not apply to a gain</h2>
+      <p>
+        The Fifth Schedule states that personal relief "is not available to be deducted
+        against gains from the realisation of investment assets".{' '}
+        <CitationRef src="ira-2017#Sch.5 para 2(a)" sources={taxYear.sources} />{' '}
+        A gain is taxed on its own footing, separately from your other income — it is not pooled
+        with your salary or business income and covered by the same relief.
+      </p>
+    </section>
+
+    <section class="guide__section">
+      <h2>What the gain is measured against, for something you already owned</h2>
+      <p>
+        For an asset you owned before the Act commenced, its cost for this purpose is
+        taken as its <strong>market value on 30 September 2017</strong> — not what was originally
+        paid for it.{' '}
+        <CitationRef
+          src="ira-2017"
+          sources={taxYear.sources}
+          label="Transitional rule from"
+        />{' '}
+        For an inherited property held for decades, this usually means a valuation as at that
+        date is what the gain is actually measured against, not the purchase price decades earlier
+        — and how the cost of an asset acquired specifically by inheritance or gift is treated
+        is not yet confirmed by anything this project holds.
+      </p>
+    </section>
+
+    <section class="guide__section">
+      <h2>What is not yet confirmed</h2>
+      <ul>
+        <li>The current rate, and when it took effect</li>
+        <li>
+          The payment deadline on a sale — capital gains commonly run on a short deadline
+          from the sale itself rather than from the end of the year, and if that is right
+          here it may be the single most useful fact on this page. Not yet confirmed.
+        </li>
+        <li>Whether a separate return is required for a gain</li>
+        <li>
+          How a loss on realisation is treated — offset, carried forward, or neither
+        </li>
+        <li>
+          Whether the treatment of motor vehicle disposals has changed, reportedly with
+          retrospective effect from 1 April 2024 — which would reach sales already made
+        </li>
+      </ul>
+    </section>
+
+    <section class="guide__section">
+      <h2>What this means if this is your situation</h2>
+      <p>
+        Until the current rate is confirmed, this site's{' '}
+        <a href="/calculator/">calculator</a> cannot compute a capital gains figure for you
+        — entering a gain will show you where the computation stops and why, rather than a number
+        that would rest on a rate known to be wrong. Take the occupancy question and the sale
+        date to a qualified tax practitioner in the meantime, particularly if a deadline may
+        already be running from the date of sale.
+      </p>
+    </section>
+
+    <section class="guide__footer">
+      <p class="guide__footer-note">
+        This is decision support, not tax advice. Verify with the Inland Revenue
+        Department or a qualified tax practitioner before you rely on any figure here to
+        file or pay.
+      </p>
+      <ul class="guide__footer-links">
+        <li><a href="/calculator/">Work out your figure</a></li>
+        <li><a href="/about/sources/">Sources cited on this page</a></li>
+      </ul>
+    </section>
+  </div>
+</Base>

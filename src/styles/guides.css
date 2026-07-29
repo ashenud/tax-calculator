@@ -1,0 +1,127 @@
+/*
+ * Shared layout for the five P14 guidance pages.
+ *
+ * One file rather than five near-identical `<style>` blocks: every guide
+ * shares the same shape — a question, a direct answer, then sections — and a
+ * change to how that shape looks (spacing, the answer's emphasis) should be
+ * one edit, not five kept in sync by hand.
+ *
+ * Same rules as `calculator.css` and `ui.css`: no literal colour, no literal
+ * length except structural ones (borders, percentages) — every value is a
+ * token from `global.css`.
+ */
+
+.guide {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 8);
+}
+
+.guide__back {
+  margin: 0;
+  font-size: var(--text-sm);
+}
+
+.guide__question {
+  margin: 0;
+  font-size: var(--text-3xl);
+  line-height: var(--text-3xl--line-height);
+  font-weight: 800;
+}
+
+/* The opening paragraph: the direct answer to the title question, set apart
+   so a reader who came for one fact can stop reading after it. */
+.guide__answer {
+  margin: 0;
+  padding: calc(var(--spacing) * 5);
+  border-inline-start: 3px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  background-color: var(--color-accent-subtle);
+  color: var(--color-text);
+  font-size: var(--text-lg);
+  line-height: var(--text-lg--line-height);
+}
+
+.guide__section {
+  max-width: var(--container-prose);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 4);
+}
+
+.guide__section h2 {
+  margin: 0;
+  font-size: var(--text-xl);
+  line-height: var(--text-xl--line-height);
+  font-weight: 700;
+}
+
+.guide__section h3 {
+  margin: 0;
+  font-size: var(--text-lg);
+  line-height: var(--text-lg--line-height);
+  font-weight: 700;
+}
+
+.guide__section p,
+.guide__section ul,
+.guide__section ol {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.guide__section ul,
+.guide__section ol {
+  padding-inline-start: calc(var(--spacing) * 5);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+}
+
+.guide__section blockquote {
+  margin: 0;
+  padding-inline-start: calc(var(--spacing) * 4);
+  border-inline-start: 2px solid var(--color-border-strong);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.guide__decision {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+  margin: 0;
+  padding: calc(var(--spacing) * 4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-sunken);
+  font-size: var(--text-sm);
+}
+
+.guide__footer {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 3);
+  margin-block-start: calc(var(--spacing) * 4);
+  padding-block-start: calc(var(--spacing) * 6);
+  border-block-start: 1px solid var(--color-border);
+}
+
+.guide__footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 2) calc(var(--spacing) * 6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.guide__footer-note {
+  max-width: var(--container-prose);
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
