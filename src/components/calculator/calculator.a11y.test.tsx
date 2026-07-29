@@ -17,10 +17,10 @@ import { cleanup, screen, waitFor } from '@testing-library/react';
 import type { UserEvent } from '@testing-library/user-event';
 import axe from 'axe-core';
 import { afterEach, describe, expect, it } from 'vitest';
-import { conditionsForCappedIncome } from './model.ts';
+import { ROUTE_QUESTION } from './RemittanceRoutePicker.tsx';
 import {
-  REAL_TAX_YEAR,
-  answerCondition,
+  ROUTES,
+  chooseRoute,
   enterAmount,
   figureText,
   renderCalculator,
@@ -34,7 +34,6 @@ afterEach(cleanup);
 const P1 = /overseas clients and get paid in foreign currency/i;
 const P3 = /salary and also do freelance work/i;
 const NONE = /None of these/i;
-const CONDITION = conditionsForCappedIncome(REAL_TAX_YEAR)[0]!;
 const FOREIGN = /Paid to you by clients outside Sri Lanka/i;
 const PAY = /Pay from your job for the whole year/i;
 
@@ -79,9 +78,27 @@ describe('axe', () => {
     const { user, container } = renderCalculator();
     await startFlow(user, P1);
     await enterAmount(user, FOREIGN, '6000000');
-    await answerCondition(user, CONDITION.condition.question, 'Yes');
+    await chooseRoute(user, ROUTES.direct);
     await waitFor(() => expect(figureText(container)).toMatch(/^Rs\. /));
     await expectNoViolations(container, 'a computed figure');
+  }, 30_000);
+
+  it('is clean with the route picker flagging an unresolved route', async () => {
+    const { user, container } = renderCalculator();
+    await startFlow(user, P1);
+    await enterAmount(user, FOREIGN, '6000000');
+    await chooseRoute(user, ROUTES.fxAccount);
+    await screen.findByText(/The law does not clearly say how this case is treated/);
+    await expectNoViolations(container, 'an unresolved remittance route');
+  }, 30_000);
+
+  it('is clean on the mixture refusal, with its amount-per-route boxes', async () => {
+    const { user, container } = renderCalculator();
+    await startFlow(user, P1);
+    await enterAmount(user, FOREIGN, '6000000');
+    await chooseRoute(user, ROUTES.mixture);
+    await screen.findByRole('alert');
+    await expectNoViolations(container, 'a mixture of remittance routes');
   }, 30_000);
 
   it('is clean on a refusal', async () => {
@@ -89,7 +106,7 @@ describe('axe', () => {
     await startFlow(user, P3);
     await enterAmount(user, PAY, '3600000');
     await enterAmount(user, FOREIGN, '2400000');
-    await answerCondition(user, CONDITION.condition.question, 'Yes');
+    await chooseRoute(user, ROUTES.direct);
     await screen.findByRole('alert');
     await expectNoViolations(container, 'a refusal');
   }, 30_000);
@@ -139,16 +156,18 @@ describe('the whole flow works with nothing but a keyboard', () => {
     await tabTo(user, () => screen.getByLabelText(FOREIGN) as HTMLElement);
     await user.keyboard('6000000');
 
-    // 5. The condition, from the data.
-    const yes = await tabTo(
+    // 5. The condition — asked here as the route picker, which is a radio
+    //    group and is arrow-navigable as one tab stop
+    //    [`docs/spec/ui-behaviour.md`, Keyboard and screen reader].
+    const firstRoute = await tabTo(
       user,
       () =>
         screen
-          .getByRole('radiogroup', { name: CONDITION.condition.question })
+          .getByRole('radiogroup', { name: ROUTE_QUESTION })
           .querySelector('[role="radio"]') as HTMLElement,
     );
     await user.keyboard(' ');
-    expect(yes.getAttribute('aria-checked')).toBe('true');
+    expect(firstRoute.getAttribute('aria-checked')).toBe('true');
 
     await waitFor(() => expect(figureText(container)).toMatch(/^Rs\. [\d,]+$/));
   }, 30_000);
@@ -161,7 +180,7 @@ describe('the document outline', () => {
     const { user, container } = renderCalculator();
     await startFlow(user, P1);
     await enterAmount(user, FOREIGN, '6000000');
-    await answerCondition(user, CONDITION.condition.question, 'Yes');
+    await chooseRoute(user, ROUTES.direct);
     await waitFor(() => expect(figureText(container)).toMatch(/^Rs\. /));
 
     const levels = [...container.querySelectorAll('h1,h2,h3,h4,h5,h6')].map((heading) =>

@@ -20,10 +20,12 @@
 import { act, cleanup, fireEvent, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { conditionsForCappedIncome } from './model.ts';
+import { ROUTE_QUESTION } from './RemittanceRoutePicker.tsx';
 import {
   REAL_TAX_YEAR,
-  answerCondition,
+  ROUTES,
   choosePersona,
+  chooseRoute,
   enterAmount,
   figureText,
   renderCalculator,
@@ -130,7 +132,7 @@ describe('every persona reaches a result for a case its own document calls compu
     const { user, container } = renderCalculator();
     await startFlow(user, P1);
     await enterAmount(user, FOREIGN, '6000000');
-    await answerCondition(user, CONDITION.condition.question, 'Yes');
+    await chooseRoute(user, ROUTES.direct);
 
     await waitFor(() => expect(figureText(container)).toMatch(/^Rs\. [\d,]+$/));
   });
@@ -152,7 +154,7 @@ describe('every persona reaches a result for a case its own document calls compu
     await startFlow(user, P3);
     await enterAmount(user, PAY, '3600000');
     await enterAmount(user, FOREIGN, '2400000');
-    await answerCondition(user, CONDITION.condition.question, 'No');
+    await chooseRoute(user, ROUTES.offshore);
 
     await waitFor(() => expect(figureText(container)).toMatch(/^Rs\. [\d,]+$/));
   });
@@ -162,7 +164,7 @@ describe('every persona reaches a result for a case its own document calls compu
     await startFlow(user, P3);
     await enterAmount(user, PAY, '3600000');
     await enterAmount(user, FOREIGN, '2400000');
-    await answerCondition(user, CONDITION.condition.question, 'Yes');
+    await chooseRoute(user, ROUTES.direct);
 
     const refusal = await screen.findByRole('alert');
     expect(refusal.textContent).toMatch(/We are not going to guess at your tax/);
@@ -193,7 +195,7 @@ describe('every persona reaches a result for a case its own document calls compu
     const { user, container } = renderCalculator();
     await startFlow(user, P1);
     await enterAmount(user, FOREIGN, '6000000');
-    await answerCondition(user, CONDITION.condition.question, 'Yes');
+    await chooseRoute(user, ROUTES.direct);
     await waitFor(() => expect(figureText(container)).toMatch(/^Rs\. /));
     const before = figureText(container);
 
@@ -244,10 +246,13 @@ describe('empty is not zero', () => {
     // there moves focus to the control that answers it.
     const gap = screen.getByRole('button', { name: CONDITION.condition.question });
     await user.click(gap);
-    const group = screen.getByRole('radiogroup', { name: CONDITION.condition.question });
+    // The question is asked as the route picker, so the link has to land in
+    // *that* group — the yes/no it would otherwise derive an id from is not on
+    // the page at all.
+    const group = screen.getByRole('radiogroup', { name: ROUTE_QUESTION });
     expect(group.contains(document.activeElement)).toBe(true);
 
-    await user.click(within(group).getByRole('radio', { name: 'Yes' }));
+    await user.click(within(group).getByRole('radio', { name: ROUTES.direct }));
     await waitFor(() => expect(figureText(container)).toMatch(/^Rs\. /));
   });
 });
@@ -262,7 +267,7 @@ describe('the states that produce no figure', () => {
     const { user, container } = renderCalculator();
     await startFlow(user, P1);
     await enterAmount(user, FOREIGN, '6000000');
-    await answerCondition(user, CONDITION.condition.question, 'Yes');
+    await chooseRoute(user, ROUTES.direct);
     await waitFor(() => expect(figureText(container)).toMatch(/^Rs\. /));
 
     await enterAmount(user, /What it cost you to do that work/i, '400000');

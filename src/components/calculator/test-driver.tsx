@@ -15,6 +15,7 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { UserEvent } from '@testing-library/user-event';
+import { ROUTE_QUESTION } from './RemittanceRoutePicker.tsx';
 import { TaxCalculator } from './TaxCalculator.tsx';
 import { loadTaxYears } from '../../lib/tax/load.ts';
 import type { TaxYearFile } from '../../lib/tax/schema.ts';
@@ -88,6 +89,27 @@ export async function answerCondition(
   const group = screen.getByRole('radiogroup', { name: question });
   await user.click(within(group).getByRole('radio', { name: answer }));
 }
+
+/**
+ * Answer the remittance condition by describing how the money arrived.
+ *
+ * A separate helper from `answerCondition` on purpose: the remittance condition
+ * has no yes/no on screen at all, and a test that tried to answer it with one
+ * should fail loudly rather than be quietly translated.
+ */
+export async function chooseRoute(user: UserEvent, route: RegExp): Promise<void> {
+  const group = screen.getByRole('radiogroup', { name: ROUTE_QUESTION });
+  await user.click(within(group).getByRole('radio', { name: route }));
+}
+
+/** The five routes, by the words the user reads. */
+export const ROUTES = {
+  direct: /^Direct transfer into my Sri Lankan bank account/,
+  fxAccount: /^Into a foreign-currency account at a Sri Lankan bank/,
+  intermediary: /^Through Wise, Payoneer or PayPal/,
+  offshore: /^Kept in an account outside Sri Lanka/,
+  mixture: /^A mixture/,
+} as const;
 
 /** The figure, or `null` when none is on the page. */
 export function figureText(container: HTMLElement): string | null {

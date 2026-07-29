@@ -123,6 +123,74 @@
 }
 
 /* ===========================================================================
+ * THE REMITTANCE ROUTE PICKER
+ *
+ * The notices are `Callout`s, which carry their own tone tokens, and the text
+ * below the group reuses the condition classes above so a route picker and a
+ * yes/no read as the same kind of question. The two colours set here are
+ * chosen by measured contrast — see the note on each — and both are tokens.
+ * ======================================================================== */
+
+.calc-routes {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 4);
+}
+
+.calc-routes__law {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+}
+
+/* The open question's own words, set apart from the shared wording above it
+   the same way the engine's verbatim text is set apart on a refusal. The rule
+   takes the notice's own text colour rather than a neutral border token: at
+   2px it is a UI boundary, and --color-border-strong measures 3.16:1 light /
+   2.81:1 dark against --color-caution-subtle, which is under the 3:1 floor in
+   the dark theme. --color-caution-strong is 6.81:1 / 8.90:1 on the same
+   background. The floor does not move; the colour does. */
+.calc-routes__detail {
+  border-inline-start: 2px solid var(--color-caution-strong);
+  padding-inline-start: calc(var(--spacing) * 3);
+}
+
+.calc-routes__reference {
+  margin: 0;
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+}
+
+/* Amounts against individual routes. Recorded only — see MixtureSplit. The
+   panel sits inside the sunken conditions well, so it is separated by a change
+   of surface *and* by a border that clears 3:1 against that well (3.16:1
+   light, 3.82:1 dark) — the boundary never rests on colour alone. */
+.calc-route-split {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 4);
+  padding: calc(var(--spacing) * 4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+}
+
+.calc-route-split__legend {
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  font-weight: 600;
+}
+
+.calc-route-split__note {
+  max-width: var(--container-prose);
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
+
+/* ===========================================================================
  * OPENING ANOTHER SECTION
  * ======================================================================== */
 

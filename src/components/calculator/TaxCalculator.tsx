@@ -197,6 +197,47 @@ export function TaxCalculator({ taxYears }: TaxCalculatorProps) {
     }));
 
   /**
+   * A condition answered by describing what happened rather than by a yes/no.
+   *
+   * Two things move together, in one update, so there is never a render in
+   * which the description and the answer disagree: the description is recorded,
+   * and the condition answer that follows from it is set — or **removed**,
+   * where the description settles nothing. Removing it is the case that
+   * matters: an unresolved route leaves the condition genuinely unanswered, the
+   * computation stays incomplete, and the result panel goes on listing the
+   * question. Nothing here knows what any of the descriptions are.
+   */
+  const setRouteAnswer = (
+    fieldId: MoneyFieldId,
+    conditionId: string,
+    routeId: string,
+    answer: boolean | null,
+  ) =>
+    setState((prev) => {
+      const answers = { ...prev.conditionAnswers[fieldId] };
+      if (answer === null) delete answers[conditionId];
+      else answers[conditionId] = answer;
+      return {
+        ...prev,
+        conditionAnswers: { ...prev.conditionAnswers, [fieldId]: answers },
+        conditionRoutes: {
+          ...prev.conditionRoutes,
+          [fieldId]: { ...prev.conditionRoutes[fieldId], [conditionId]: routeId },
+        },
+      };
+    });
+
+  /** Recorded against the route, and never read by anything that computes. */
+  const setRouteAmount = (fieldId: MoneyFieldId, routeId: string, value: number | null) =>
+    setState((prev) => ({
+      ...prev,
+      routeAmounts: {
+        ...prev.routeAmounts,
+        [fieldId]: { ...prev.routeAmounts[fieldId], [routeId]: value },
+      },
+    }));
+
+  /**
    * Changing persona changes **one field**. Amounts, condition answers, the
    * year and the residency are all untouched, which is what makes the persona a
    * routing convenience rather than a commitment.
@@ -366,6 +407,8 @@ export function TaxCalculator({ taxYears }: TaxCalculatorProps) {
                   onAmountValidity={setAmountValidity}
                   onTextChange={setText}
                   onConditionAnswer={setConditionAnswer}
+                  onRouteAnswer={setRouteAnswer}
+                  onRouteAmount={setRouteAmount}
                   headingId={sectionHeadingId(sectionId)}
                 />
               </Card>

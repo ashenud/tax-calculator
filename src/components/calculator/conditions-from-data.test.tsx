@@ -31,10 +31,12 @@
 
 import { cleanup, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
-import { conditionsForCappedIncome } from './model.ts';
+import { ROUTE_QUESTION } from './RemittanceRoutePicker.tsx';
 import {
   REAL_TAX_YEAR,
+  ROUTES,
   answerCondition,
+  chooseRoute,
   enterAmount,
   figureText,
   renderCalculator,
@@ -84,7 +86,6 @@ function taxYearWithAnExtraCondition(): TaxYearFile {
 }
 
 const EXTENDED = taxYearWithAnExtraCondition();
-const EXISTING = conditionsForCappedIncome(REAL_TAX_YEAR)[0]!;
 
 describe('a condition added to the data appears in the UI, with no code change', () => {
   it('is a data file the loader’s own schema accepts', () => {
@@ -104,10 +105,9 @@ describe('a condition added to the data appears in the UI, with no code change',
     expect(
       screen.getByRole('radiogroup', { name: NEW_CONDITION_QUESTION }),
     ).not.toBeNull();
-    // And the one that was already there is still asked.
-    expect(
-      screen.getByRole('radiogroup', { name: EXISTING.condition.question }),
-    ).not.toBeNull();
+    // And the one that was already there is still asked — as the route picker,
+    // which P11 substitutes for that one condition's rendering only.
+    expect(screen.getByRole('radiogroup', { name: ROUTE_QUESTION })).not.toBeNull();
   });
 
   it('does not appear for the unmodified year, so it is the data doing the work', async () => {
@@ -124,7 +124,7 @@ describe('a condition added to the data appears in the UI, with no code change',
     await enterAmount(user, FOREIGN, '6000000');
 
     // The old condition alone is no longer enough.
-    await answerCondition(user, EXISTING.condition.question, 'Yes');
+    await chooseRoute(user, ROUTES.direct);
     await screen.findByText(/Nothing has been worked out yet/);
     expect(figureText(container)).toBeNull();
     expect(screen.getByRole('button', { name: NEW_CONDITION_QUESTION })).not.toBeNull();
@@ -137,7 +137,7 @@ describe('a condition added to the data appears in the UI, with no code change',
     const { user, container } = renderCalculator([EXTENDED]);
     await startFlow(user, P1, EXTENDED.yearOfAssessment);
     await enterAmount(user, FOREIGN, '6000000');
-    await answerCondition(user, EXISTING.condition.question, 'Yes');
+    await chooseRoute(user, ROUTES.direct);
     await answerCondition(user, NEW_CONDITION_QUESTION, 'Yes');
 
     await waitFor(() => expect(figureText(container)).toMatch(/^Rs\. [\d,]+$/));

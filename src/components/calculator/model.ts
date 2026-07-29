@@ -442,11 +442,19 @@ export function conditionGroupId(fieldId: MoneyFieldId, conditionId: string): st
   return `calc-${fieldId}-${conditionId}`;
 }
 
+/**
+ * The first option of whichever group answers this condition.
+ *
+ * `RadioCardGroup` gives each item `${groupId}-${option.value}`, so on the
+ * generic yes/no path this resolves on its own. A rendering whose options are
+ * not yes/no — the route picker — carries the id across explicitly with
+ * `RadioCardOption.optionId`, so the "still to answer" link lands on a real
+ * control whichever rendering is in use.
+ */
 export function conditionFirstOptionId(
   fieldId: MoneyFieldId,
   conditionId: string,
 ): string {
-  // `RadioCardGroup` gives each item `${groupId}-${option.value}`.
   return `${conditionGroupId(fieldId, conditionId)}-${CONDITION_ANSWER.yes}`;
 }
 
@@ -472,6 +480,35 @@ export interface CalculatorState {
   conditionAnswers: Readonly<
     Partial<Record<MoneyFieldId, Readonly<Record<string, boolean>>>>
   >;
+  /**
+   * Where a condition is answered by describing what happened rather than by a
+   * yes/no, which of those descriptions the user picked — per income field and
+   * then per condition id, the same shape as `conditionAnswers`.
+   *
+   * **The strings are opaque here.** This layer does not know what any of them
+   * mean, for the same reason it does not know which condition is special: the
+   * component that renders them owns their meaning
+   * (`remittance-routes.ts`), and `compute.ts` owns the one that refuses.
+   * `conditionAnswers` is still the only thing `buildTaxInput` reads, so a
+   * description that settles the condition sets an answer there too, and one
+   * that does not leaves it genuinely unanswered.
+   */
+  conditionRoutes: Readonly<
+    Partial<Record<MoneyFieldId, Readonly<Record<string, string>>>>
+  >;
+  /**
+   * Amounts written against an individual route, per income field and then per
+   * route id.
+   *
+   * **Recorded only.** Nothing here reaches `TaxInput`, nothing adds them up,
+   * and no figure on the page is derived from them — see rule 1 in the header.
+   * They exist because the one case that collects them is the case where no
+   * figure can be produced at all, and the user needs the facts written down to
+   * take somewhere else.
+   */
+  routeAmounts: Readonly<
+    Partial<Record<MoneyFieldId, Readonly<Record<string, number | null>>>>
+  >;
   /** Fields whose current entry could not be read. See `ui-behaviour.md`'s
    * invalid state: the last valid figure stands, visibly marked stale. */
   unreadableFields: readonly MoneyFieldId[];
@@ -485,6 +522,8 @@ export const INITIAL_STATE: CalculatorState = {
   amounts: {},
   text: {},
   conditionAnswers: {},
+  conditionRoutes: {},
+  routeAmounts: {},
   unreadableFields: [],
 };
 

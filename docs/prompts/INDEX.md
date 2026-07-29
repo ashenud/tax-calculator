@@ -34,7 +34,7 @@ that prompt were checked. `prompt-status.mjs set <id> done` refuses if a depende
 unfinished.
 
 <!-- STATUS-TABLE:START -->
-**11 of 17 complete.**
+**12 of 17 complete.**
 
 | | ID | Prompt | Status | Depends on | |
 |---|---|---|---|---|---|
@@ -49,8 +49,8 @@ unfinished.
 | ☑ | `P08` | [UI primitives, including the currency field](P08-ui-primitives.md) | done | P01 |  |
 | ☑ | `P09` | [The ADR-0003 components — warnings, refusals, citations, year selector](P09-constrained-components.md) | done | P08, P07 |  |
 | ☑ | `P10` | [Calculator island — persona picker, year, question groups](P10-calculator-island.md) | done | P09 |  |
-| ☐ | `P11` | [The remittance route picker — the question that distinguishes this tool](P11-remittance-route-picker.md) | pending | P10 |  |
-| ☐ | `P12` | [Result panel — refusals, warnings, the figure, the working, the schedule](P12-result-panel.md) | pending | P11 | waiting on P11 |
+| ☑ | `P11` | [The remittance route picker — the question that distinguishes this tool](P11-remittance-route-picker.md) | done | P10 |  |
+| ☐ | `P12` | [Result panel — refusals, warnings, the figure, the working, the schedule](P12-result-panel.md) | pending | P11 |  |
 | ☐ | `P13` | [Rates pages, sources register and changelog — generated from data](P13-rates-and-sources-pages.md) | pending | P09, P03 |  |
 | ☐ | `P14` | [Guidance pages from the research documents](P14-guidance-pages.md) | pending | P13 | waiting on P13 |
 | ☐ | `P15` | [Print stylesheet and full accessibility audit](P15-print-and-accessibility.md) | pending | P12, P14 | waiting on P12, P14 |

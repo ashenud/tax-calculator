@@ -42,6 +42,8 @@
 import { useState } from 'react';
 import { CurrencyField, TextField } from '../ui/index.ts';
 import { ConditionQuestions } from './ConditionQuestions.tsx';
+import { RemittanceRoutePicker } from './RemittanceRoutePicker.tsx';
+import { isRemittanceCondition } from './remittance-routes.ts';
 import {
   TEXT_FIELD_MESSAGES,
   isRealIsoDate,
@@ -78,6 +80,19 @@ export interface IncomeSectionProps {
     conditionId: string,
     answer: boolean,
   ) => void;
+  /**
+   * A condition answered by describing what happened rather than by a yes/no.
+   * `answer` is `null` where the description settles nothing — the condition is
+   * then left genuinely unanswered, which is not the same as answering it "no".
+   */
+  onRouteAnswer: (
+    fieldId: MoneyFieldId,
+    conditionId: string,
+    routeId: string,
+    answer: boolean | null,
+  ) => void;
+  /** An amount written against one route. Recorded; never computed with. */
+  onRouteAmount: (fieldId: MoneyFieldId, routeId: string, value: number | null) => void;
   headingId: string;
 }
 
@@ -93,6 +108,8 @@ export function IncomeSection({
   onAmountValidity,
   onTextChange,
   onConditionAnswer,
+  onRouteAnswer,
+  onRouteAmount,
   headingId,
 }: IncomeSectionProps) {
   if (fields.length === 0) return null;
@@ -172,6 +189,29 @@ export function IncomeSection({
                 }
                 sources={sources}
                 showUnansweredAsError={showGapsAsErrors}
+                // One condition is known to be the wrong shape as a yes/no, and
+                // the route picker says which one — nothing here, and nothing
+                // in `ConditionQuestions` or `model.ts`, names it. Every other
+                // condition, including ones that do not exist yet, falls
+                // through to the generic rendering.
+                renderQuestion={(question) =>
+                  isRemittanceCondition(question.id) ? (
+                    <RemittanceRoutePicker
+                      question={question}
+                      fieldId={field.id}
+                      routeId={state.conditionRoutes[field.id]?.[question.id] ?? null}
+                      amounts={state.routeAmounts[field.id] ?? {}}
+                      onRouteChange={(routeId, answer) =>
+                        onRouteAnswer(field.id, question.id, routeId, answer)
+                      }
+                      onAmountChange={(routeId, value) =>
+                        onRouteAmount(field.id, routeId, value)
+                      }
+                      sources={sources}
+                      showUnansweredAsError={showGapsAsErrors}
+                    />
+                  ) : null
+                }
               />
             )}
           </div>
