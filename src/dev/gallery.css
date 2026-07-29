@@ -1,0 +1,63 @@
+/*
+ * Layout for the dev-only gallery. Never shipped — see gallery.astro.
+ *
+ * Token discipline applies here too, even though this page is not published:
+ * a gallery styled with literal colours would show the components against a
+ * background that does not exist in either theme, and the contrast a reviewer
+ * eyeballs here would be a contrast no user ever sees.
+ */
+
+.gallery {
+  max-inline-size: var(--container-shell);
+}
+
+.gallery__section {
+  padding-block: calc(var(--spacing) * 8);
+  border-block-start: 1px solid var(--color-border);
+}
+
+.gallery__section h2 {
+  font-size: var(--text-xl);
+  line-height: var(--text-xl--line-height);
+  margin-block: 0 calc(var(--spacing) * 2);
+}
+
+.gallery__note {
+  max-inline-size: var(--container-prose);
+  margin-block: 0 calc(var(--spacing) * 6);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
+
+.gallery__state {
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  margin-block: calc(var(--spacing) * 6) calc(var(--spacing) * 2);
+}
+
+.gallery__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: calc(var(--spacing) * 3);
+  margin-block-end: calc(var(--spacing) * 4);
+}
+
+.gallery__readout {
+  max-inline-size: var(--container-prose);
+  margin-block: 0 calc(var(--spacing) * 4);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  color: var(--color-text-muted);
+}
+
+.gallery__readout code {
+  font-family: var(--font-numeric);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+}

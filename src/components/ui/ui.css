@@ -1,0 +1,982 @@
+/*
+ * The UI primitive layer (P08).
+ *
+ * ONE FILE, ON PURPOSE. `src/styles/tokens.test.ts` measures contrast by
+ * parsing the shipped CSS rather than trusting a table of hand-measured
+ * numbers, and `src/components/ui/touch-target.test.tsx` resolves the real
+ * cascade to prove every control clears 44x44 at 320px. Both of those are
+ * possible because there is exactly one stylesheet to read. Splitting this per
+ * component would make the guardrails guess.
+ *
+ * RULES THIS FILE OBEYS, ENFORCED BY `ui.css.test.ts`:
+ *
+ *   - No literal colour. Every colour is `var(--color-*)` from global.css, or a
+ *     local custom property that itself resolves to one. A semantic token
+ *     survives a palette change; `#c62828` becomes a lie.
+ *   - No literal length except structural ones: 0, 1px/2px/3px borders and
+ *     outlines, and percentages. Spacing is `calc(var(--spacing) * n)`, radii
+ *     are `var(--radius-*)`, type is `var(--text-*)`, and the minimum hit area
+ *     is `var(--size-touch-target)`.
+ *   - Focus is never restated. The base layer in global.css gives every
+ *     focusable element a 2px `--color-focus` ring at a 2px offset, and that is
+ *     deliberately the only place it is defined. A component that redefined it
+ *     would be one component's worth of drift away from an invisible ring.
+ *   - Motion uses `--duration-state` / `--duration-panel` and `--ease-out-soft`,
+ *     all of which the base layer zeroes under `prefers-reduced-motion`.
+ */
+
+/* ===========================================================================
+ * BUTTON
+ * ======================================================================== */
+
+.ui-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing) * 2);
+  padding-inline: calc(var(--spacing) * 5);
+  padding-block: calc(var(--spacing) * 2);
+  /* Restated rather than relying on the `touch-target` utility alone: a
+     control's minimum hit area is a property of the control, not of a class
+     someone might forget to pass through. Both resolve to the same token. */
+  min-inline-size: var(--size-touch-target);
+  min-block-size: var(--size-touch-target);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-state) var(--ease-out-soft),
+    border-color var(--duration-state) var(--ease-out-soft),
+    color var(--duration-state) var(--ease-out-soft);
+}
+
+.ui-button[data-block] {
+  display: flex;
+  inline-size: 100%;
+}
+
+.ui-button[data-variant='primary'] {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+.ui-button[data-variant='primary']:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.ui-button[data-variant='secondary'] {
+  background-color: var(--color-surface-raised);
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+
+.ui-button[data-variant='secondary']:hover:not(:disabled) {
+  background-color: var(--color-accent-subtle);
+  border-color: var(--color-accent);
+}
+
+.ui-button[data-variant='quiet'] {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-accent);
+}
+
+.ui-button[data-variant='quiet']:hover:not(:disabled) {
+  background-color: var(--color-accent-subtle);
+}
+
+.ui-button[data-variant='danger'] {
+  background-color: var(--color-surface-raised);
+  border-color: var(--color-danger);
+  color: var(--color-danger-strong);
+}
+
+.ui-button[data-variant='danger']:hover:not(:disabled) {
+  background-color: var(--color-danger-subtle);
+}
+
+/* Disabled reads as unavailable through opacity AND a cursor change, and is
+   always accompanied by `disabledReason` text where the caller supplies one.
+   Opacity is used rather than a grey token so the contrast relationship with
+   whatever sits behind it stays proportional in both themes. */
+.ui-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ui-button-group {
+  display: inline-flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 1);
+  align-items: flex-start;
+}
+
+.ui-button__reason {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+  max-inline-size: var(--container-prose);
+}
+
+/* ===========================================================================
+ * FIELDS — shared frame for TextField, CurrencyField, Select
+ * ======================================================================== */
+
+.ui-field,
+.ui-fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 1.5);
+  margin-block-end: calc(var(--spacing) * 5);
+}
+
+.ui-field__label,
+.ui-fieldset__legend {
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  font-weight: 600;
+  color: var(--color-text);
+  max-inline-size: var(--container-prose);
+  margin: 0;
+}
+
+.ui-field__optional {
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.ui-field__hint,
+.ui-fieldset__hint {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  max-inline-size: var(--container-prose);
+}
+
+/* The error region is always in the DOM so the live region exists before it
+   has anything to say. Empty, it must occupy no space at all — otherwise every
+   field carries a permanent gap. */
+.ui-field__error {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--spacing) * 1.5);
+  margin: 0;
+  color: var(--color-danger-strong);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  max-inline-size: var(--container-prose);
+  font-weight: 600;
+}
+
+.ui-field__error:empty {
+  display: none;
+}
+
+.ui-field__error-icon {
+  flex-shrink: 0;
+  color: var(--color-danger);
+  /* Optically aligns the triangle with the first line of the message. */
+  margin-block-start: calc(var(--spacing) * 0.5);
+}
+
+/* --- The input box ------------------------------------------------------ */
+
+.ui-input {
+  inline-size: 100%;
+  /* --color-border is 1.31:1 and is a divider, nothing more. WCAG 1.4.11
+     counts an input outline as a UI component boundary, so it takes
+     --color-border-strong (3.42:1 light, 3.58:1 dark). Measured in P01. */
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-raised);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  padding-inline: calc(var(--spacing) * 3);
+  padding-block: calc(var(--spacing) * 2);
+  min-inline-size: var(--size-touch-target);
+  min-block-size: var(--size-touch-target);
+  transition: border-color var(--duration-state) var(--ease-out-soft);
+}
+
+.ui-input:hover:not(:disabled) {
+  border-color: var(--color-accent);
+}
+
+.ui-input:disabled {
+  background-color: var(--color-surface-sunken);
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+  cursor: not-allowed;
+}
+
+/* Invalid is a colour AND a doubled border weight AND a triangle beside the
+   message. Any one of those alone would fail somebody. */
+.ui-input[aria-invalid='true'] {
+  border-color: var(--color-danger);
+  border-width: 2px;
+}
+
+/* ===========================================================================
+ * CURRENCY FIELD
+ * ======================================================================== */
+
+.ui-currency {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  inline-size: 100%;
+  max-inline-size: var(--container-prose);
+}
+
+/* The unit sits inside the control's box, so the field reads as "Rs. ____"
+   without the string "Rs." ever being part of the input's value — parsing it
+   back out on every keystroke would be a formatting round-trip through the
+   model, which is exactly what this component refuses to do. */
+.ui-currency__unit {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  display: flex;
+  align-items: center;
+  padding-inline-start: calc(var(--spacing) * 3);
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+  pointer-events: none;
+}
+
+.ui-currency__input {
+  /* Clears the unit. Derived from the same spacing scale as its padding. */
+  padding-inline-start: calc(var(--spacing) * 11);
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.ui-currency:focus-within .ui-currency__unit {
+  color: var(--color-text);
+}
+
+/* ===========================================================================
+ * RADIO CARDS
+ * ======================================================================== */
+
+.ui-radio-cards,
+.ui-persona-cards {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+  margin-block-start: calc(var(--spacing) * 1);
+}
+
+.ui-radio-card-row {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 1);
+}
+
+.ui-radio-card,
+.ui-persona-card {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--spacing) * 3);
+  inline-size: 100%;
+  min-inline-size: var(--size-touch-target);
+  min-block-size: var(--size-touch-target);
+  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-raised);
+  color: var(--color-text);
+  text-align: start;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-state) var(--ease-out-soft),
+    background-color var(--duration-state) var(--ease-out-soft);
+}
+
+.ui-radio-card:hover:not(:disabled),
+.ui-persona-card:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-subtle);
+}
+
+/* Selection is carried by the filled dot first, the border weight second and
+   the colour third. Radix sets data-state on the item. */
+.ui-radio-card[data-state='checked'],
+.ui-persona-card[data-state='checked'] {
+  border-color: var(--color-accent);
+  border-width: 2px;
+  background-color: var(--color-accent-subtle);
+  /* Keeps the text from shifting by a pixel when the border doubles. */
+  padding: calc(var(--spacing) * 3 - 1px) calc(var(--spacing) * 4 - 1px);
+}
+
+.ui-radio-card:disabled,
+.ui-persona-card:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: var(--color-border);
+}
+
+.ui-radio-card__mark,
+.ui-persona-card__mark {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: calc(var(--spacing) * 5);
+  block-size: calc(var(--spacing) * 5);
+  margin-block-start: calc(var(--spacing) * 0.5);
+  border: 2px solid var(--color-border-strong);
+  border-radius: 50%;
+  background-color: var(--color-surface-raised);
+}
+
+.ui-radio-card[data-state='checked'] .ui-radio-card__mark,
+.ui-persona-card[data-state='checked'] .ui-persona-card__mark {
+  border-color: var(--color-accent);
+}
+
+.ui-radio-card__dot,
+.ui-persona-card__dot {
+  display: block;
+  inline-size: calc(var(--spacing) * 2.5);
+  block-size: calc(var(--spacing) * 2.5);
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+.ui-radio-card__text,
+.ui-persona-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 1);
+}
+
+.ui-radio-card__label,
+.ui-persona-card__situation {
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  font-weight: 600;
+}
+
+.ui-radio-card__description,
+.ui-persona-card__covers {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
+
+.ui-radio-card__reason {
+  margin: 0;
+  padding-inline-start: calc(var(--spacing) * 4);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+}
+
+/* ===========================================================================
+ * SELECT
+ * ======================================================================== */
+
+.ui-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 3);
+  inline-size: 100%;
+  max-inline-size: var(--container-prose);
+  min-inline-size: var(--size-touch-target);
+  min-block-size: var(--size-touch-target);
+  padding-inline: calc(var(--spacing) * 3);
+  padding-block: calc(var(--spacing) * 2);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-raised);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  text-align: start;
+  cursor: pointer;
+  transition: border-color var(--duration-state) var(--ease-out-soft);
+}
+
+.ui-select-trigger:hover:not(:disabled) {
+  border-color: var(--color-accent);
+}
+
+.ui-select-trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-surface-sunken);
+}
+
+.ui-select-trigger[aria-invalid='true'] {
+  border-color: var(--color-danger);
+  border-width: 2px;
+}
+
+/* The empty-state prompt is muted so it does not read as a chosen value. It is
+   never the label — the label is a real <label> above the trigger. */
+.ui-select-trigger[data-placeholder] {
+  color: var(--color-text-muted);
+}
+
+.ui-select-trigger__icon {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+}
+
+.ui-select-content {
+  z-index: 50;
+  overflow: hidden;
+  min-inline-size: var(--radix-select-trigger-width);
+  max-block-size: var(--radix-select-content-available-height);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-raised);
+  /* No drop shadow token exists, and inventing a colour for one here would
+     break token discipline. The strong border is what separates the list from
+     the page, and it is the accessible boundary in any case. */
+}
+
+.ui-select-viewport {
+  padding: calc(var(--spacing) * 1);
+}
+
+.ui-select-scroll {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: calc(var(--spacing) * 1);
+  color: var(--color-text-muted);
+  background-color: var(--color-surface-raised);
+}
+
+.ui-select-item {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--spacing) * 2);
+  inline-size: 100%;
+  min-inline-size: var(--size-touch-target);
+  min-block-size: var(--size-touch-target);
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Radix moves data-highlighted with both pointer and keyboard, so hover and
+   keyboard focus render identically — which is the point: a keyboard user must
+   see what a mouse user sees. The tick in the mark column is the non-colour
+   signal for the *selected* item. */
+.ui-select-item[data-highlighted] {
+  outline: none;
+  background-color: var(--color-accent-subtle);
+}
+
+.ui-select-item[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ui-select-item__mark {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: calc(var(--spacing) * 5);
+  block-size: calc(var(--spacing) * 6);
+  color: var(--color-accent);
+}
+
+.ui-select-item__text {
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-select-item__note {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
+
+/* ===========================================================================
+ * CALLOUT
+ * ======================================================================== */
+
+.ui-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--spacing) * 3);
+  padding: calc(var(--spacing) * 4);
+  border: 1px solid var(--callout-edge);
+  /* A thick leading rule, so the tone is legible as a shape at the edge of
+     vision and in a greyscale print. */
+  border-inline-start-width: 3px;
+  border-radius: var(--radius-md);
+  background-color: var(--callout-fill);
+  color: var(--color-text);
+  margin-block-end: calc(var(--spacing) * 4);
+}
+
+.ui-callout[data-tone='info'] {
+  --callout-edge: var(--color-info);
+  --callout-fill: var(--color-info-subtle);
+  --callout-title: var(--color-info-strong);
+}
+
+.ui-callout[data-tone='caution'] {
+  --callout-edge: var(--color-caution);
+  --callout-fill: var(--color-caution-subtle);
+  --callout-title: var(--color-caution-strong);
+}
+
+.ui-callout[data-tone='danger'] {
+  --callout-edge: var(--color-danger);
+  --callout-fill: var(--color-danger-subtle);
+  --callout-title: var(--color-danger-strong);
+}
+
+.ui-callout[data-tone='positive'] {
+  --callout-edge: var(--color-positive);
+  --callout-fill: var(--color-positive-subtle);
+  --callout-title: var(--color-positive-strong);
+}
+
+.ui-callout[data-tone='neutral'] {
+  --callout-edge: var(--color-border-strong);
+  --callout-fill: var(--color-surface-sunken);
+  --callout-title: var(--color-text);
+}
+
+.ui-callout__icon {
+  flex-shrink: 0;
+  /* The base tone, which clears 3:1 as a non-text graphic but not 4.5:1 as
+     text. Only the icon and the border may use it — the title uses -strong. */
+  color: var(--callout-edge);
+  margin-block-start: calc(var(--spacing) * 0.5);
+}
+
+.ui-callout__body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+  max-inline-size: var(--container-prose);
+}
+
+.ui-callout__title {
+  margin: 0;
+  color: var(--callout-title);
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  font-weight: 700;
+}
+
+.ui-callout__content,
+.ui-callout__footer {
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
+
+.ui-callout__content > :first-child {
+  margin-block-start: 0;
+}
+
+.ui-callout__content > :last-child {
+  margin-block-end: 0;
+}
+
+.ui-callout__footer {
+  color: var(--color-text-muted);
+}
+
+/* ===========================================================================
+ * CARD
+ * ======================================================================== */
+
+.ui-card {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 3);
+  padding: calc(var(--spacing) * 4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-raised);
+  margin-block-end: calc(var(--spacing) * 4);
+}
+
+.ui-card[data-tone='sunken'] {
+  background-color: var(--color-surface-sunken);
+}
+
+/* The result panel. `--radius-lg` per the design system. */
+.ui-card[data-emphasis] {
+  padding: calc(var(--spacing) * 6);
+  border-radius: var(--radius-lg);
+  border-color: var(--color-border-strong);
+}
+
+.ui-card__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 2);
+}
+
+.ui-card__title {
+  margin: 0;
+  font-size: var(--text-lg);
+  line-height: var(--text-lg--line-height);
+  font-weight: 700;
+}
+
+.ui-card__aside {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+}
+
+.ui-card__body > :first-child {
+  margin-block-start: 0;
+}
+
+.ui-card__body > :last-child {
+  margin-block-end: 0;
+}
+
+.ui-card__footer {
+  padding-block-start: calc(var(--spacing) * 3);
+  border-block-start: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
+
+/* ===========================================================================
+ * TABLE
+ * ======================================================================== */
+
+.ui-table-scroll {
+  overflow-x: auto;
+  /* Keeps the focus ring on the scroll region from being clipped by its own
+     overflow. */
+  padding: calc(var(--spacing) * 0.5);
+  margin-block-end: calc(var(--spacing) * 4);
+}
+
+.ui-table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
+
+.ui-table__caption {
+  caption-side: top;
+  text-align: start;
+  padding-block-end: calc(var(--spacing) * 2);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
+
+.ui-table__head {
+  text-align: start;
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  border-block-end: 1px solid var(--color-border-strong);
+  color: var(--color-text);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.ui-table__head--numeric {
+  text-align: end;
+}
+
+.ui-table__cell,
+.ui-table__row-header {
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  border-block-end: 1px solid var(--color-border);
+  vertical-align: baseline;
+}
+
+.ui-table__row-header {
+  text-align: start;
+  font-weight: 600;
+}
+
+/* Figures align to the end so the digits stack. Paired with the `figure`
+   utility on the cell, which supplies tabular-nums. */
+.ui-table__cell--numeric {
+  text-align: end;
+  white-space: nowrap;
+}
+
+.ui-table tbody tr:hover {
+  background-color: var(--color-surface-sunken);
+}
+
+/* Words, never a zero. */
+.ui-table__empty {
+  padding: calc(var(--spacing) * 4) calc(var(--spacing) * 3);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* ===========================================================================
+ * STEPPER
+ * ======================================================================== */
+
+.ui-stepper__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ui-stepper__control,
+.ui-stepper__static {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  min-inline-size: var(--size-touch-target);
+  min-block-size: var(--size-touch-target);
+  padding-inline: calc(var(--spacing) * 3);
+  padding-block: calc(var(--spacing) * 1);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: var(--color-text-muted);
+  font-family: inherit;
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  text-align: start;
+}
+
+.ui-stepper__control {
+  cursor: pointer;
+  color: var(--color-text);
+  transition: background-color var(--duration-state) var(--ease-out-soft);
+}
+
+.ui-stepper__control:hover {
+  background-color: var(--color-accent-subtle);
+}
+
+.ui-stepper__item[data-status='current'] .ui-stepper__control,
+.ui-stepper__item[data-status='current'] .ui-stepper__static {
+  color: var(--color-text);
+  font-weight: 700;
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-subtle);
+}
+
+.ui-stepper__item[data-status='attention'] .ui-stepper__control,
+.ui-stepper__item[data-status='attention'] .ui-stepper__static {
+  color: var(--color-caution-strong);
+  border-color: var(--color-caution);
+}
+
+.ui-stepper__marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  inline-size: calc(var(--spacing) * 6);
+  block-size: calc(var(--spacing) * 6);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+}
+
+.ui-stepper__item[data-status='complete'] .ui-stepper__marker {
+  border-color: var(--color-positive);
+  color: var(--color-positive-strong);
+}
+
+.ui-stepper__item[data-status='current'] .ui-stepper__marker {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.ui-stepper__item[data-status='attention'] .ui-stepper__marker {
+  border-color: var(--color-caution);
+  color: var(--color-caution-strong);
+}
+
+.ui-stepper__glyph {
+  inline-size: calc(var(--spacing) * 4);
+  block-size: calc(var(--spacing) * 4);
+}
+
+.ui-stepper__number {
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+/* ===========================================================================
+ * PROGRESS
+ * ======================================================================== */
+
+.ui-progress {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 1.5);
+  margin-block-end: calc(var(--spacing) * 4);
+}
+
+.ui-progress__label {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  font-weight: 600;
+}
+
+.ui-progress__track {
+  position: relative;
+  overflow: hidden;
+  inline-size: 100%;
+  block-size: calc(var(--spacing) * 2);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-sunken);
+  /* The track is a UI boundary: without an outline, an empty bar on a pale
+     surface is invisible. */
+  border: 1px solid var(--color-border-strong);
+}
+
+.ui-progress__fill {
+  block-size: 100%;
+  background-color: var(--color-accent);
+  transition: inline-size var(--duration-panel) var(--ease-out-soft);
+}
+
+/* Length unknown: the bar is empty rather than animated, and the caption says
+   so in words. A perpetually-sliding bar suggests something is being fetched,
+   and nothing here is. */
+.ui-progress__track[data-state='indeterminate'] .ui-progress__fill {
+  inline-size: 0;
+}
+
+/* ===========================================================================
+ * TABS
+ * ======================================================================== */
+
+.ui-tabs__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 1);
+  border-block-end: 1px solid var(--color-border);
+  margin-block-end: calc(var(--spacing) * 4);
+}
+
+.ui-tabs__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: var(--size-touch-target);
+  min-block-size: var(--size-touch-target);
+  padding-inline: calc(var(--spacing) * 4);
+  padding-block: calc(var(--spacing) * 2);
+  border: 0;
+  /* The selected tab is marked by an underline as well as a colour. */
+  border-block-end: 3px solid transparent;
+  background-color: transparent;
+  color: var(--color-text-muted);
+  font-family: inherit;
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    color var(--duration-state) var(--ease-out-soft),
+    background-color var(--duration-state) var(--ease-out-soft);
+}
+
+.ui-tabs__trigger:hover:not(:disabled) {
+  background-color: var(--color-accent-subtle);
+  color: var(--color-text);
+}
+
+.ui-tabs__trigger[data-state='active'] {
+  color: var(--color-accent);
+  border-block-end-color: var(--color-accent);
+}
+
+.ui-tabs__trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ui-tabs__panel {
+  max-inline-size: var(--container-prose);
+}
+
+/* ===========================================================================
+ * SKELETON
+ * ======================================================================== */
+
+.ui-skeleton-group {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+}
+
+.ui-skeleton {
+  display: block;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-sunken);
+  /* A boundary, so an empty placeholder is visible on the raised surface of a
+     card rather than being an invisible gap. */
+  border: 1px solid var(--color-border);
+  animation: ui-skeleton-pulse 1600ms var(--ease-out-soft) infinite;
+}
+
+.ui-skeleton[data-variant='text'] {
+  block-size: var(--text-base);
+}
+
+.ui-skeleton[data-variant='block'] {
+  block-size: calc(var(--spacing) * 20);
+}
+
+.ui-skeleton[data-width='full'] {
+  inline-size: 100%;
+}
+
+.ui-skeleton[data-width='half'] {
+  inline-size: 50%;
+}
+
+.ui-skeleton[data-width='short'] {
+  inline-size: 25%;
+}
+
+/* The base layer zeroes animation-duration under prefers-reduced-motion, so
+   this stops rather than being shortened. */
+@keyframes ui-skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}

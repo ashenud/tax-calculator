@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+
+  "yearOfAssessment": "2025/2026",
+  "period": { "from": "2025-04-01", "to": "2026-03-31" },
+  "status": "enacted",
+  "lastReviewed": "2026-07-28",
+
+  "sources": {
+    "ira-2017": {
+      "title": "Inland Revenue Act, No. 24 of 2017",
+      "file": "docs/sources/ir-act-24-2017.pdf"
+    },
+    "act-2-2025": {
+      "title": "Inland Revenue (Amendment) Act, No. 2 of 2025",
+      "file": "docs/sources/ir-amendment-act-2-2025.pdf"
+    },
+    "pn-it-2025-01": {
+      "title": "IRD Public Notice PN/IT/2025-01, 26 March 2025 — Notice to the Taxpayers",
+      "file": "docs/sources/pn-it-2025-01.pdf"
+    }
+  },
+
+  "reliefs": {
+    "personal": {
+      "amount": 1800000,
+      "appliesTo": ["resident", "non-resident-citizen"],
+      "src": "act-2-2025#s.5(3) — IRA Sch.5 para 2(a)(v); scope per PN/IT/2025-01 para 1"
+    }
+  },
+
+  "qualifyingPayments": [],
+
+  "rateSchedules": {
+    "individual-normal": {
+      "label": "Individual — normal rates, Y/A 2025/2026",
+      "verified": true,
+      "bands": [
+        { "width": 1000000, "rateBp": 600, "src": "act-2-2025#s.3(1)(b) — IRA Sch.1 para 1(1D)" },
+        { "width": 500000, "rateBp": 1800, "src": "act-2-2025#s.3(1)(b) — IRA Sch.1 para 1(1D)" },
+        { "width": 500000, "rateBp": 2400, "src": "act-2-2025#s.3(1)(b) — IRA Sch.1 para 1(1D)" },
+        { "width": 500000, "rateBp": 3000, "src": "act-2-2025#s.3(1)(b) — IRA Sch.1 para 1(1D)" },
+        { "width": null, "rateBp": 3600, "src": "act-2-2025#s.3(1)(b) — IRA Sch.1 para 1(1D)" }
+      ]
+    }
+  },
+
+  "rateCaps": {
+    "service-export-foreign": {
+      "label": "Service export / foreign source gains and profits — maximum rate",
+      "appliesToSchedule": "individual-normal",
+      "maxRateBp": 1500,
+      "conditions": ["remitted-through-bank-to-sri-lanka"],
+      "verified": true,
+      "src": "act-2-2025#s.3(1)(d) — IRA Sch.1 para 1(6)"
+    }
+  },
+
+  "conditions": {
+    "remitted-through-bank-to-sri-lanka": {
+      "question": "Was the payment received in foreign currency and remitted through a bank to Sri Lanka?",
+      "ifNotMet": null,
+      "evidence": "Not established: the Act requires the payment to be received in foreign currency and remitted through a bank to Sri Lanka, but does not define \"remitted\" or \"bank\", and the evidence IRD accepts is not settled (Q12, Q41).",
+      "src": "act-2-2025#s.3(1)(d) — IRA Sch.1 para 1(6)(a),(b)"
+    }
+  },
+
+  "separatelyRated": {
+    "special-business": {
+      "label": "Business income from betting and gaming, or from the manufacture and sale or import and sale of liquor or tobacco products",
+      "rateBp": 4500,
+      "reliefEligible": false,
+      "verified": true,
+      "src": "act-2-2025#s.3(1)(c) — IRA Sch.1 para 1(1D)/(2); PN/IT/2025-01 para 2.1(c)"
+    },
+    "capital-gain": {
+      "label": "Gains on realisation of investment assets — 2017 rate, KNOWN SUPERSEDED by Act No. 11 of 2026 (not held, Q42)",
+      "rateBp": 1000,
+      "reliefEligible": false,
+      "verified": false,
+      "src": "ira-2017#Sch.1 para 1(2)(a) as enacted 2017; relief exclusion IRA Sch.5 para 2(a)"
+    },
+    "terminal-benefit": {
+      "label": "Terminal benefits — 2017 tables, currency for Y/A 2025/2026 not established (Q32)",
+      "selector": { "field": "serviceYears", "thresholdYears": 20 },
+      "tablesBySelector": {
+        "atOrBelow": [
+          { "width": 2000000, "rateBp": 0, "src": "ira-2017#Sch.1 para 1(2)(b)(i) as enacted 2017" },
+          { "width": 1000000, "rateBp": 500, "src": "ira-2017#Sch.1 para 1(2)(b)(i) as enacted 2017" },
+          { "width": null, "rateBp": 1000, "src": "ira-2017#Sch.1 para 1(2)(b)(i) as enacted 2017" }
+        ],
+        "above": [
+          { "width": 5000000, "rateBp": 0, "src": "ira-2017#Sch.1 para 1(2)(b)(ii) as enacted 2017" },
+          { "width": 1000000, "rateBp": 500, "src": "ira-2017#Sch.1 para 1(2)(b)(ii) as enacted 2017" },
+          { "width": null, "rateBp": 1000, "src": "ira-2017#Sch.1 para 1(2)(b)(ii) as enacted 2017" }
+        ]
+      },
+      "reliefEligible": false,
+      "verified": false,
+      "src": "ira-2017#Sch.1 para 1(2)(b) as enacted 2017"
+    }
+  },
+
+  "apit": {
+    "tables": [],
+    "src": "pn-it-2025-01#para 2.3 — APIT tables \"will be issued in due course\"; none held for Y/A 2025/2026"
+  },
+
+  "wht": {
+    "interest": {
+      "rateBp": 1000,
+      "verified": true,
+      "src": "act-2-2025#s.3(3) — IRA Sch.1 para 10(1)(d)(ii); PN/IT/2025-01 para 2.3"
+    }
+  },
+
+  "calendar": {
+    "instalments": [
+      { "quarter": 1, "due": "2025-08-15", "src": "ira-2017#s.90(2)(a)" },
+      { "quarter": 2, "due": "2025-11-15", "src": "ira-2017#s.90(2)(a)" },
+      { "quarter": 3, "due": "2026-02-15", "src": "ira-2017#s.90(2)(a)" },
+      { "quarter": 4, "due": "2026-05-15", "src": "ira-2017#s.90(2)(a)" }
+    ],
+    "returnDueRule": { "monthsAfterYearEnd": 8, "src": "ira-2017#s.93(1)" }
+  }
+}

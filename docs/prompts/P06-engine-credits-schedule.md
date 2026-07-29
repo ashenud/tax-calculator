@@ -1,7 +1,7 @@
 ---
 id: P06
 title: Engine part 3 — credits and the payment schedule
-status: pending
+status: done
 depends: [P05]
 agent: engine-builder
 ---

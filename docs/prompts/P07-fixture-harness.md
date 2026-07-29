@@ -1,7 +1,7 @@
 ---
 id: P07
 title: Fixture harness — worked examples become the test suite
-status: pending
+status: done
 depends: [P06]
 agent: engine-builder
 ---

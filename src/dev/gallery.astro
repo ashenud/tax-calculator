@@ -1,0 +1,43 @@
+---
+/**
+ * The dev-only route that renders the component gallery.
+ *
+ * WHY IT IS NOT IN `src/pages/`
+ *
+ * Astro routes everything under `src/pages/`, in dev and in build alike. There
+ * is no per-page "dev only" flag. The `_`-prefix convention excludes a file
+ * from routing entirely, which would make it unreachable in dev too — the
+ * opposite of what a gallery is for.
+ *
+ * So the route is *injected*, and only when the command is `dev`:
+ * `astro.config.mjs` calls `injectRoute` from `astro:config:setup` behind
+ * `if (command === 'dev')`. During `astro build` the route is never registered,
+ * this file is never an entry point, and nothing it imports is reachable from
+ * the build graph. `src/dev/gallery-excluded-from-build.test.ts` proves it by
+ * reading `dist/` after a build.
+ *
+ * The page still uses `Base.astro`, so the ADR-0003 disclaimer is present here
+ * exactly as it is everywhere else. A gallery that dropped the invariants would
+ * be a gallery that taught the wrong lesson about what these components sit in.
+ */
+import Base from '../layouts/Base.astro';
+import { ComponentGallery } from './ComponentGallery.tsx';
+import './gallery.css';
+---
+
+<Base
+  title="Component gallery (dev only) — Sri Lanka Tax Return Support"
+  description="Every UI primitive in every state. Development build only; not published."
+>
+  <h1>Component gallery</h1>
+  <p class="measure">
+    Development-only. Every primitive built in P08, in each state it has. Nothing on this
+    page computes anything and none of the figures are tax data.
+  </p>
+
+  {
+    /* client:load, not client:visible: the a11y and keyboard checks need the
+      whole tree present, and a gallery is read by scrolling through it. */
+  }
+  <ComponentGallery client:load />
+</Base>
