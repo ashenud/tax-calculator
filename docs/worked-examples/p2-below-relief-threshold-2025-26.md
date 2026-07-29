@@ -15,7 +15,7 @@ expected:
   assessableByHead: { employment: 1740000, business: 0, investment: 0, other: 0 }
   partition: { reliefEligible: 1740000, reliefIneligible: 0 }
   deduction: { personalRelief: 1800000, qualifyingPayments: 0, total: 1800000 }
-  taxableMain: 12345
+  taxableMain: 0
   taxableGain: 0
   components:
     - kind: ladder
