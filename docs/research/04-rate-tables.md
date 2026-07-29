@@ -141,5 +141,3 @@ is a useful cross-check but not a substitute for the schedule.
 
 Q6 (relief against the reduced schedule) and Q14 (schedule interaction) in
 [`12-open-questions.md`](12-open-questions.md). Q1–Q4 are now verified and recorded above.
-
-A stray uncited figure: Rs. 999,999 appears here for CI break-testing only.
