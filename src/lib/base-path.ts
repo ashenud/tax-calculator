@@ -43,3 +43,6 @@ export function withBase(path: string): string {
 
   return `${BASE_PATH.slice(0, -1)}${path}`;
 }
+
+// TEMP: break typecheck
+const _ciBreakTypeError: number = "not a number";
