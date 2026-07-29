@@ -1,0 +1,144 @@
+---
+/**
+ * `/rates/` — links to every `/rates/[year]/` page this build has.
+ *
+ * Year-agnostic, per `Base.astro`'s own nav comment: this is the page the
+ * "Rates" link in the header actually points at, because the year of
+ * assessment is the user's choice and is never inferred from the clock
+ * [CLAUDE.md rule 5]. One entry per file in `data/tax-years/`, newest first;
+ * add a year and this page grows a card for it with no code change.
+ */
+import Base from '../../layouts/Base.astro';
+import { NotYetLawBadge } from '../../components/ui/index.ts';
+import {
+  newestFirst,
+  reviewedOnLabel,
+  toYearOption,
+  yearSpanLabel,
+} from '../../components/ui/YearSelector.tsx';
+import { loadTaxYears } from '../../lib/tax/load.ts';
+
+const loaded = loadTaxYears();
+const years = newestFirst(loaded.map(({ data }) => toYearOption(data)));
+const slugFor = new Map(
+  loaded.map(({ file, data }) => [data.yearOfAssessment, file.replace(/\.json$/, '')]),
+);
+
+function unverifiedSentence(count: number): string {
+  if (count === 0) return 'No figure marked as unconfirmed.';
+  if (count === 1) return '1 figure not yet confirmed.';
+  return `${count} figures not yet confirmed.`;
+}
+---
+
+<Base
+  title="Rates by year of assessment — Sri Lanka Tax Return Support"
+  description="Every rate, band, condition and deadline this build holds, one page per year of assessment, generated from the data the calculator itself uses."
+>
+  <div class="rates-index measure">
+    <h1>Rates by year of assessment</h1>
+    <p class="rates-index__lede">
+      Every figure below is generated from the same data file the calculator uses to
+      compute a liability — the published tables and the computation cannot disagree.
+      Choose a year to see every rate, band, condition and deadline it holds, each with a
+      citation to primary law.
+    </p>
+
+    {
+      years.length === 0 ? (
+        <p>No year of assessment has data yet.</p>
+      ) : (
+        <ul class="rates-index__list">
+          {years.map((year) => {
+            const slug = slugFor.get(year.yearOfAssessment);
+            return (
+              <li class="rates-index__item">
+                <a class="rates-index__link" href={slug ? `/rates/${slug}/` : '#'}>
+                  <span class="rates-index__year figure">{year.yearOfAssessment}</span>
+                  <span class="rates-index__span">
+                    {yearSpanLabel(year.yearOfAssessment)}
+                  </span>
+                </a>
+                <p class="rates-index__meta">
+                  {year.status === 'proposed' && (
+                    <NotYetLawBadge yearOfAssessment={year.yearOfAssessment} />
+                  )}
+                  Reviewed {reviewedOnLabel(year.lastReviewed)} ·{' '}
+                  {unverifiedSentence(year.unverifiedCount)}
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+      )
+    }
+  </div>
+</Base>
+
+<style>
+  /* Every value resolves to a token from src/styles/global.css. */
+  .rates-index h1 {
+    font-size: var(--text-3xl);
+    line-height: var(--text-3xl--line-height);
+    font-weight: 800;
+    margin-block: 0 calc(var(--spacing) * 4);
+  }
+
+  .rates-index__lede {
+    margin-block: 0 calc(var(--spacing) * 8);
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+  }
+
+  .rates-index__list {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .rates-index__item {
+    padding: calc(var(--spacing) * 4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface-raised);
+  }
+
+  .rates-index__link {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: calc(var(--spacing) * 3);
+    color: var(--color-text);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .rates-index__link:hover {
+    text-decoration: underline;
+  }
+
+  .rates-index__year {
+    font-size: var(--text-xl);
+    line-height: var(--text-xl--line-height);
+  }
+
+  .rates-index__span {
+    color: var(--color-text-muted);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rates-index__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(var(--spacing) * 2);
+    margin-block: calc(var(--spacing) * 2) 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+</style>

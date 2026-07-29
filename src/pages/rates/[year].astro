@@ -1,0 +1,581 @@
+---
+/**
+ * One static page per year of assessment, generated from `data/tax-years/`.
+ *
+ * "This is what lets a sceptical reader check the tool without running it.
+ * Because it renders the same data the engine consumes, the published tables
+ * and the computation cannot disagree" [`docs/prompts/P13-rates-and-sources-pages.md`].
+ *
+ * ---------------------------------------------------------------------------
+ * NOTHING ON THIS PAGE IS HAND-WRITTEN
+ * ---------------------------------------------------------------------------
+ *
+ * Every table below is `Object.entries(taxYear.<something>).map(...)`. There
+ * is no rate, band, condition, relief or date typed into this file — the only
+ * things typed here are section headings and the words around the numbers.
+ * Add a schedule, a cap, a relief or a wht entry to a data file and this page
+ * grows a row for it with no code change; that is `getStaticPaths` below
+ * reading `loadTaxYears()` rather than a hardcoded list of years, and every
+ * section below reading the record it is given rather than a named key out of
+ * it.
+ *
+ * ---------------------------------------------------------------------------
+ * ZERO JAVASCRIPT
+ * ---------------------------------------------------------------------------
+ *
+ * `CitationRef` and `UnverifiedBadge`/`NotYetLawBadge` are the same React
+ * components the calculator uses — reused rather than re-implemented, so a
+ * citation renders identically wherever it appears — but none of them carries
+ * a `client:*` directive here. Astro renders them to static HTML at build
+ * time and ships no client bundle for them; only a hydrated component would.
+ *
+ * ---------------------------------------------------------------------------
+ * BAND WORDING: "FIRST", "NEXT", "EVERYTHING ABOVE THAT"
+ * ---------------------------------------------------------------------------
+ *
+ * `bandLabel` below does no arithmetic on the band widths — no running total,
+ * no cumulative threshold. It only asks "is this the first band?" and "is the
+ * width null (the terminal, unbounded band)?", both already in the data, and
+ * picks a form of words. A cumulative "income between X and Y" phrasing would
+ * need to sum the widths of every band before this one, which is exactly the
+ * kind of subtotal `docs/spec/site-architecture.md` says must come from
+ * `TaxResult` and never be computed by a page.
+ */
+import Base from '../../layouts/Base.astro';
+import {
+  CitationRef,
+  NotYetLawBadge,
+  UnverifiedBadge,
+  countUnverifiedFigures,
+  yearSpanLabel,
+} from '../../components/ui/index.ts';
+import AsAtStamp from '../../components/AsAtStamp.astro';
+import { formatRupees } from '../../components/ui/currency.ts';
+import { ratesStaticPaths } from '../../lib/tax/rates-paths.ts';
+import type {
+  Band,
+  Instalment,
+  Relief,
+  SeparatelyRatedComponent,
+  TaxYearFile,
+} from '../../lib/tax/schema.ts';
+
+export async function getStaticPaths() {
+  return ratesStaticPaths();
+}
+
+interface Props {
+  taxYear: TaxYearFile;
+}
+
+const { taxYear } = Astro.props as Props;
+const unverifiedCount = countUnverifiedFigures(taxYear);
+
+function bandLabel(width: number | null, index: number): string {
+  if (width === null) {
+    return index === 0 ? 'The whole amount' : 'Everything above that';
+  }
+  return `${index === 0 ? 'First' : 'Next'} Rs. ${formatRupees(width)}`;
+}
+
+function isFlatComponent(
+  component: SeparatelyRatedComponent,
+): component is Extract<SeparatelyRatedComponent, { rateBp: number }> {
+  return 'rateBp' in component;
+}
+
+/** A record key ("capital-gain", "non-resident-citizen") to a heading — data-key
+ * humanising, not a second copy of any figure or any statutory wording. */
+function humanize(key: string): string {
+  const words = key.replace(/-/g, ' ');
+  return words.charAt(0).toUpperCase() + words.slice(1);
+}
+
+const RESIDENCY_LABEL: Readonly<Record<string, string>> = {
+  resident: 'Resident',
+  'non-resident-citizen': 'Non-resident citizen',
+  'non-resident': 'Non-resident',
+};
+
+function appliesToLabel(relief: Relief): string {
+  return relief.appliesTo.map((r) => RESIDENCY_LABEL[r] ?? humanize(r)).join(', ');
+}
+
+function instalmentSort(a: Instalment, b: Instalment): number {
+  return a.quarter - b.quarter;
+}
+
+const STATUS_WORD: Readonly<Record<TaxYearFile['status'], string>> = {
+  proposed: 'Proposed — not yet law',
+  enacted: 'Enacted',
+  superseded: 'Superseded — kept for historical years of assessment',
+};
+---
+
+<Base
+  title={`Rates for year of assessment ${taxYear.yearOfAssessment} — Sri Lanka Tax Return Support`}
+  description={`Every rate, band, condition and deadline this build holds for Y/A ${taxYear.yearOfAssessment}, generated from the data file and cited to primary law.`}
+>
+  <div class="rates-page measure">
+    <p class="rates-page__back"><a href="/rates/">All years</a></p>
+
+    <h1>Rates for year of assessment {taxYear.yearOfAssessment}</h1>
+    <p class="rates-page__span">{yearSpanLabel(taxYear.yearOfAssessment)}</p>
+
+    <p class="rates-page__status">
+      {STATUS_WORD[taxYear.status]}
+      {
+        taxYear.status === 'proposed' && (
+          <NotYetLawBadge yearOfAssessment={taxYear.yearOfAssessment} />
+        )
+      }
+    </p>
+
+    <AsAtStamp
+      yearOfAssessment={taxYear.yearOfAssessment}
+      dataReviewedOn={taxYear.lastReviewed}
+    />
+
+    <p class="rates-page__unverified">
+      {
+        unverifiedCount === 0
+          ? 'No figure in this year’s data is marked as unconfirmed against primary law.'
+          : unverifiedCount === 1
+            ? '1 figure on this page is not yet confirmed against primary law — look for the badge.'
+            : `${unverifiedCount} figures on this page are not yet confirmed against primary law — look for the badges.`
+      }
+    </p>
+
+    {/* -- Rate schedules ------------------------------------------------ */}
+    {
+      Object.entries(taxYear.rateSchedules).map(([scheduleId, schedule]) => (
+        <section class="rates-section" id={`schedule-${scheduleId}`}>
+          <h2>{schedule.label}</h2>
+          {!schedule.verified && <UnverifiedBadge what={schedule.label} />}
+          <table class="rates-table">
+            <caption class="visually-hidden">{schedule.label}, by band</caption>
+            <thead>
+              <tr>
+                <th scope="col">Band</th>
+                <th scope="col">Rate</th>
+                <th scope="col">Where this comes from</th>
+              </tr>
+            </thead>
+            <tbody>
+              {schedule.bands.map((band: Band, index: number) => (
+                <tr>
+                  <th scope="row">{bandLabel(band.width, index)}</th>
+                  <td class="figure">{band.rateBp / 100}%</td>
+                  <td>
+                    <CitationRef src={band.src} sources={taxYear.sources} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      ))
+    }
+
+    {/* -- Rate caps ------------------------------------------------------- */}
+    {
+      Object.keys(taxYear.rateCaps).length > 0 && (
+        <section class="rates-section">
+          <h2>Reduced maximum rate for certain income</h2>
+          {Object.entries(taxYear.rateCaps).map(([capId, cap]) => (
+            <div class="rates-block" id={`cap-${capId}`}>
+              <h3>{cap.label}</h3>
+              {!cap.verified && <UnverifiedBadge what={cap.label} />}
+              <p>
+                Charged at no more than{' '}
+                <strong class="figure">{cap.maxRateBp / 100}%</strong> on the schedule “
+                {taxYear.rateSchedules[cap.appliesToSchedule]?.label ??
+                  cap.appliesToSchedule}
+                ”.{' '}
+                <CitationRef src={cap.src} sources={taxYear.sources} label="Rate from" />
+              </p>
+              {cap.conditions.length > 0 && (
+                <>
+                  <p class="rates-block__conditions-lede">
+                    Only where every one of these holds:
+                  </p>
+                  <ul class="rates-block__conditions">
+                    {cap.conditions.map((conditionId) => {
+                      const condition = taxYear.conditions[conditionId];
+                      return condition ? (
+                        <li>
+                          {condition.question}{' '}
+                          <CitationRef src={condition.src} sources={taxYear.sources} />
+                        </li>
+                      ) : null;
+                    })}
+                  </ul>
+                </>
+              )}
+            </div>
+          ))}
+        </section>
+      )
+    }
+
+    {/* -- Separately-rated components -------------------------------------- */}
+    {
+      Object.keys(taxYear.separatelyRated).length > 0 && (
+        <section class="rates-section">
+          <h2>Income taxed on its own basis</h2>
+          {Object.entries(taxYear.separatelyRated).map(([kind, component]) => (
+            <div class="rates-block" id={`component-${kind}`}>
+              <h3>{component.label}</h3>
+              {!component.verified && <UnverifiedBadge what={component.label} />}
+              {isFlatComponent(component) ? (
+                <p>
+                  <strong class="figure">{component.rateBp / 100}%</strong>, flat.{' '}
+                  <CitationRef
+                    src={component.src}
+                    sources={taxYear.sources}
+                    label="Rate from"
+                  />
+                </p>
+              ) : (
+                <>
+                  <p>
+                    Which table applies turns on {humanize(component.selector.field)}: at
+                    or below{' '}
+                    <strong class="figure">{component.selector.thresholdYears}</strong>{' '}
+                    years uses the first table below; above it uses the second.{' '}
+                    <CitationRef
+                      src={component.src}
+                      sources={taxYear.sources}
+                      label="From"
+                    />
+                  </p>
+                  {(['atOrBelow', 'above'] as const).map((which) => (
+                    <table class="rates-table">
+                      <caption>
+                        {which === 'atOrBelow'
+                          ? `At or below ${component.selector.thresholdYears} years`
+                          : `Above ${component.selector.thresholdYears} years`}
+                      </caption>
+                      <thead>
+                        <tr>
+                          <th scope="col">Band</th>
+                          <th scope="col">Rate</th>
+                          <th scope="col">Where this comes from</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {component.tablesBySelector[which].map(
+                          (band: Band, index: number) => (
+                            <tr>
+                              <th scope="row">{bandLabel(band.width, index)}</th>
+                              <td class="figure">{band.rateBp / 100}%</td>
+                              <td>
+                                <CitationRef src={band.src} sources={taxYear.sources} />
+                              </td>
+                            </tr>
+                          ),
+                        )}
+                      </tbody>
+                    </table>
+                  ))}
+                </>
+              )}
+            </div>
+          ))}
+        </section>
+      )
+    }
+
+    {/* -- Reliefs and qualifying payments ----------------------------------- */}
+    <section class="rates-section">
+      <h2>Personal relief and deductions</h2>
+      <table class="rates-table">
+        <caption class="visually-hidden">Personal relief, by who it applies to</caption>
+        <thead>
+          <tr>
+            <th scope="col">Relief</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Who it applies to</th>
+            <th scope="col">Where this comes from</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            Object.entries(taxYear.reliefs).map(([reliefId, relief]) => (
+              <tr>
+                <th scope="row">{humanize(reliefId)}</th>
+                <td class="figure">Rs. {formatRupees(relief.amount)}</td>
+                <td>{appliesToLabel(relief)}</td>
+                <td>
+                  <CitationRef src={relief.src} sources={taxYear.sources} />
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+
+      <h3>Qualifying payments</h3>
+      {
+        taxYear.qualifyingPayments.length === 0 ? (
+          <p>No qualifying payment types are recorded for this year.</p>
+        ) : (
+          <table class="rates-table">
+            <caption class="visually-hidden">Qualifying payment types</caption>
+            <thead>
+              <tr>
+                <th scope="col">Type</th>
+                <th scope="col">Cap</th>
+                <th scope="col">Rate</th>
+                <th scope="col">Where this comes from</th>
+              </tr>
+            </thead>
+            <tbody>
+              {taxYear.qualifyingPayments.map((qp) => (
+                <tr>
+                  <th scope="row">{humanize(qp.id)}</th>
+                  <td class="figure">Rs. {formatRupees(qp.cap)}</td>
+                  <td class="figure">{qp.rate / 100}%</td>
+                  <td>
+                    <CitationRef src={qp.src} sources={taxYear.sources} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )
+      }
+    </section>
+
+    {/* -- Tax already withheld ---------------------------------------------- */}
+    <section class="rates-section">
+      <h2>Tax already withheld</h2>
+
+      <h3>Advance Personal Income Tax (APIT)</h3>
+      {
+        taxYear.apit.tables.length === 0 ? (
+          <p>
+            No APIT tables are recorded for this year.{' '}
+            <CitationRef src={taxYear.apit.src} sources={taxYear.sources} />
+          </p>
+        ) : (
+          taxYear.apit.tables.map((table) => (
+            <table class="rates-table">
+              <caption>{table.label}</caption>
+              {!table.verified && <UnverifiedBadge what={table.label} compact />}
+              <thead>
+                <tr>
+                  <th scope="col">Band</th>
+                  <th scope="col">Rate</th>
+                  <th scope="col">Where this comes from</th>
+                </tr>
+              </thead>
+              <tbody>
+                {table.bands.map((band: Band, index: number) => (
+                  <tr>
+                    <th scope="row">{bandLabel(band.width, index)}</th>
+                    <td class="figure">{band.rateBp / 100}%</td>
+                    <td>
+                      <CitationRef src={band.src} sources={taxYear.sources} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ))
+        )
+      }
+
+      {
+        Object.keys(taxYear.wht).length > 0 && (
+          <>
+            <h3>Withholding on investment income (AIT)</h3>
+            <table class="rates-table">
+              <caption class="visually-hidden">Withholding tax rates</caption>
+              <thead>
+                <tr>
+                  <th scope="col">On</th>
+                  <th scope="col">Rate</th>
+                  <th scope="col">Where this comes from</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(taxYear.wht).map(([whtId, entry]) => (
+                  <tr>
+                    <th scope="row">
+                      {humanize(whtId)}
+                      {!entry.verified && (
+                        <UnverifiedBadge what={humanize(whtId)} compact />
+                      )}
+                    </th>
+                    <td class="figure">{entry.rateBp / 100}%</td>
+                    <td>
+                      <CitationRef src={entry.src} sources={taxYear.sources} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        )
+      }
+    </section>
+
+    {/* -- Payment calendar ---------------------------------------------------- */}
+    <section class="rates-section">
+      <h2>Payment calendar</h2>
+      <table class="rates-table">
+        <caption class="visually-hidden">Instalment due dates</caption>
+        <thead>
+          <tr>
+            <th scope="col">Instalment</th>
+            <th scope="col">Due</th>
+            <th scope="col">Where this comes from</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            [...taxYear.calendar.instalments].sort(instalmentSort).map((instalment) => (
+              <tr>
+                <th scope="row">Quarter {instalment.quarter}</th>
+                <td>{instalment.due}</td>
+                <td>
+                  <CitationRef src={instalment.src} sources={taxYear.sources} />
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      <p>
+        The return itself is due{' '}
+        <strong>{taxYear.calendar.returnDueRule.monthsAfterYearEnd} months</strong> after the
+        end of the year of assessment.{' '}
+        <CitationRef
+          src={taxYear.calendar.returnDueRule.src}
+          sources={taxYear.sources}
+          label="Deadline from"
+        />
+      </p>
+    </section>
+
+    <p class="rates-page__footer">
+      Every source cited above is listed, with its provenance, on the{' '}
+      <a href="/about/sources/">sources page</a>. This is decision support, not tax advice
+      — verify with the Inland Revenue Department or a qualified tax practitioner before
+      you file.
+    </p>
+  </div>
+</Base>
+
+<style>
+  /* Every value resolves to a token from src/styles/global.css. */
+  .rates-page h1 {
+    font-size: var(--text-3xl);
+    line-height: var(--text-3xl--line-height);
+    font-weight: 800;
+    margin-block: 0 calc(var(--spacing) * 2);
+  }
+
+  .rates-page__back {
+    margin-block: 0 calc(var(--spacing) * 4);
+    font-size: var(--text-sm);
+  }
+
+  .rates-page__span {
+    margin-block: 0 calc(var(--spacing) * 3);
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rates-page__status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(var(--spacing) * 2);
+    margin-block: 0 calc(var(--spacing) * 3);
+    font-weight: 600;
+  }
+
+  .rates-page__unverified {
+    margin-block: calc(var(--spacing) * 3) calc(var(--spacing) * 8);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .rates-section {
+    margin-block-end: calc(var(--spacing) * 12);
+  }
+
+  .rates-section h2 {
+    font-size: var(--text-xl);
+    line-height: var(--text-xl--line-height);
+    font-weight: 700;
+    margin-block: 0 calc(var(--spacing) * 4);
+  }
+
+  .rates-block {
+    margin-block-end: calc(var(--spacing) * 8);
+  }
+
+  .rates-block h3 {
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+    font-weight: 700;
+    margin-block: 0 calc(var(--spacing) * 2);
+  }
+
+  .rates-block__conditions-lede {
+    margin-block: calc(var(--spacing) * 2) calc(var(--spacing) * 1);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .rates-block__conditions {
+    margin: 0 0 calc(var(--spacing) * 4);
+    padding-inline-start: calc(var(--spacing) * 5);
+    font-size: var(--text-sm);
+  }
+
+  .rates-table {
+    width: 100%;
+    margin-block-end: calc(var(--spacing) * 6);
+    border-collapse: collapse;
+  }
+
+  .rates-table caption {
+    text-align: start;
+    margin-block-end: calc(var(--spacing) * 2);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .rates-table th,
+  .rates-table td {
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+    border-block-end: 1px solid var(--color-border);
+    text-align: start;
+    vertical-align: top;
+  }
+
+  .rates-table thead th {
+    border-block-end: 2px solid var(--color-border-strong);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+
+  .rates-table tbody th[scope='row'] {
+    font-weight: 600;
+  }
+
+  .rates-page__footer {
+    max-width: var(--container-prose);
+    margin-block-start: calc(var(--spacing) * 8);
+    padding-block-start: calc(var(--spacing) * 6);
+    border-block-start: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+  }
+</style>

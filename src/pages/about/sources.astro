@@ -1,0 +1,209 @@
+---
+/**
+ * `/about/sources/` — the provenance register.
+ *
+ * Two halves, deliberately different in how they are generated:
+ *
+ *   1. **An anchor for every source key the tax data actually cites.**
+ *      `CitationRef` (used on the calculator and on every `/rates/[year]/`
+ *      page) links to `/about/sources/#<key>` by construction — see its own
+ *      file header. Those links only "resolve", in the sense P13's acceptance
+ *      criteria mean it, if an element with that exact id exists on this
+ *      page. So this half is generated from `data/tax-years/*.json` itself
+ *      — walking every year's `sources` map, deduplicated by key — rather
+ *      than hand-typed, which is also how a future year's new source gets a
+ *      working anchor with no code change here.
+ *
+ *   2. **The full provenance register**, rendered from
+ *      `docs/sources/README.md` — status, retrieval date, SHA-256 prefix, the
+ *      notes on specific documents, and the "still missing" section this
+ *      prompt requires not be hidden. This is not re-derived or
+ *      re-summarised: it is the same file, compiled to HTML, so there is
+ *      exactly one place that register is maintained and no way for the two
+ *      to drift apart. `docs/sources/README.md`'s own instructions ("Adding a
+ *      document") already require whoever adds a source to update that file;
+ *      this page is what makes that edit show up on the site.
+ *
+ * Zero JavaScript: `<Content />` and `CitationSummary`'s markup are both
+ * plain Astro/Markdown output with no `client:*` directive anywhere on this
+ * page.
+ */
+import Base from '../../layouts/Base.astro';
+import { Content as SourcesReadme } from '../../../docs/sources/README.md';
+import { loadTaxYears } from '../../lib/tax/load.ts';
+import type { SourceEntry } from '../../lib/tax/schema.ts';
+
+/** Every source key any held tax-year file cites, deduplicated. Order is the
+ * order each key was first seen, which is stable across builds because
+ * `loadTaxYears` sorts filenames and `Object.entries` walks a JSON object in
+ * the order its own keys were written. */
+const bySources = new Map<string, SourceEntry>();
+for (const { data } of loadTaxYears()) {
+  for (const [key, entry] of Object.entries(data.sources)) {
+    if (!bySources.has(key)) bySources.set(key, entry);
+  }
+}
+const sources = [...bySources.entries()];
+---
+
+<Base
+  title="Sources — Sri Lanka Tax Return Support"
+  description="Every primary document this build's figures cite, and what is still missing."
+>
+  <div class="sources-page measure">
+    <h1>Sources</h1>
+    <p class="sources-page__lede">
+      Every rate, threshold and deadline in this tool cites a provision in a document
+      listed here. This page is generated from that record, not a separate description of
+      it, so it cannot say something the data does not.
+    </p>
+
+    {
+      sources.length > 0 && (
+        <section class="sources-page__cited" aria-labelledby="sources-cited-heading">
+          <h2 id="sources-cited-heading">Cited by this build</h2>
+          <dl class="sources-cited-list">
+            {sources.map(([key, entry]) => (
+              <div class="sources-cited-item" id={key}>
+                <dt>{entry.title}</dt>
+                <dd>
+                  <code>{key}</code> ·{' '}
+                  <span class="sources-cited-file">{entry.file}</span>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )
+    }
+
+    <section class="sources-page__register" aria-label="Full provenance register">
+      <SourcesReadme />
+    </section>
+
+    <p class="sources-page__footer">
+      See what changed and when on the <a href="/about/changelog/">changelog</a>.
+    </p>
+  </div>
+</Base>
+
+<style>
+  /* Every value resolves to a token from src/styles/global.css. */
+  .sources-page h1 {
+    font-size: var(--text-3xl);
+    line-height: var(--text-3xl--line-height);
+    font-weight: 800;
+    margin-block: 0 calc(var(--spacing) * 4);
+  }
+
+  .sources-page__lede {
+    margin-block: 0 calc(var(--spacing) * 8);
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+  }
+
+  .sources-page__cited {
+    margin-block-end: calc(var(--spacing) * 10);
+    padding: calc(var(--spacing) * 4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface-sunken);
+  }
+
+  .sources-page__cited h2 {
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+    font-weight: 700;
+    margin-block: 0 calc(var(--spacing) * 3);
+  }
+
+  .sources-cited-list {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 3);
+    margin: 0;
+  }
+
+  .sources-cited-item dt {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .sources-cited-item dd {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .sources-cited-item code {
+    font-size: var(--text-xs);
+  }
+
+  /* The rendered README: an ordinary long-form document, so it gets prose
+     defaults rather than the calculator's own component classes. */
+  .sources-page__register :global(h2) {
+    font-size: var(--text-xl);
+    line-height: var(--text-xl--line-height);
+    font-weight: 700;
+    margin-block: calc(var(--spacing) * 10) calc(var(--spacing) * 4);
+  }
+
+  .sources-page__register :global(h3) {
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+    font-weight: 700;
+    margin-block: calc(var(--spacing) * 6) calc(var(--spacing) * 3);
+  }
+
+  .sources-page__register :global(p),
+  .sources-page__register :global(ul),
+  .sources-page__register :global(ol) {
+    max-width: var(--container-prose);
+    margin-block: 0 calc(var(--spacing) * 4);
+    line-height: 1.7;
+  }
+
+  .sources-page__register :global(blockquote) {
+    max-width: var(--container-prose);
+    margin: 0 0 calc(var(--spacing) * 4);
+    padding-inline-start: calc(var(--spacing) * 4);
+    border-inline-start: 2px solid var(--color-border-strong);
+    color: var(--color-text-muted);
+  }
+
+  .sources-page__register :global(table) {
+    width: 100%;
+    margin-block-end: calc(var(--spacing) * 6);
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  .sources-page__register :global(th),
+  .sources-page__register :global(td) {
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+    border-block-end: 1px solid var(--color-border);
+    text-align: start;
+    vertical-align: top;
+  }
+
+  .sources-page__register :global(thead th) {
+    border-block-end: 2px solid var(--color-border-strong);
+    color: var(--color-text-muted);
+  }
+
+  .sources-page__register :global(code) {
+    font-size: 0.9em;
+    background-color: var(--color-surface-sunken);
+    padding: 0.1em 0.35em;
+    border-radius: var(--radius-sm);
+  }
+
+  .sources-page__footer {
+    margin-block-start: calc(var(--spacing) * 8);
+    padding-block-start: calc(var(--spacing) * 6);
+    border-block-start: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+</style>

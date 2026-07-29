@@ -1,0 +1,190 @@
+---
+/**
+ * `/about/changelog/` — what changed, when, and under which instrument.
+ *
+ * Generated from `data/tax-years/*.json` alone: each year's own
+ * `lastReviewed` date and the `sources` it draws on. Nothing here is
+ * hand-typed prose about a change — the moment a second year of assessment
+ * lands with a different `sources` map, the "newly relied on" line below
+ * starts saying something, from the set difference between that year's
+ * source keys and the next-older year's, with no code change.
+ *
+ * Ordered oldest to newest, so "newly relied on this year" reads forward in
+ * time the way a changelog does — each entry is compared against the one
+ * immediately before it in this order, i.e. the year of assessment
+ * immediately prior.
+ */
+import Base from '../../layouts/Base.astro';
+import { CitationRef, NotYetLawBadge } from '../../components/ui/index.ts';
+import { reviewedOnLabel } from '../../components/ui/YearSelector.tsx';
+import { loadTaxYears } from '../../lib/tax/load.ts';
+
+const loaded = [...loadTaxYears()].sort((a, b) =>
+  a.data.yearOfAssessment.localeCompare(b.data.yearOfAssessment),
+);
+
+const entries = loaded.map(({ file, data }, index) => {
+  const previous = loaded[index - 1]?.data ?? null;
+  const previousKeys = new Set(previous ? Object.keys(previous.sources) : []);
+  const newSourceKeys = Object.keys(data.sources).filter((key) => !previousKeys.has(key));
+  return {
+    slug: file.replace(/\.json$/, ''),
+    taxYear: data,
+    previousYearOfAssessment: previous?.yearOfAssessment ?? null,
+    newSourceKeys,
+  };
+});
+---
+
+<Base
+  title="Changelog — Sri Lanka Tax Return Support"
+  description="What changed, when, and under which instrument, derived from the tax-year data files this build holds."
+>
+  <div class="changelog-page measure">
+    <h1>Changelog</h1>
+    <p class="changelog-page__lede">
+      One entry per year of assessment this build holds data for, oldest first, with the
+      instruments its figures rely on. This is not a summary of the law changing — it is a
+      record of what this project's own data files hold and when each was last checked.
+    </p>
+
+    {
+      entries.length === 0 ? (
+        <p>No year of assessment has data yet.</p>
+      ) : (
+        <ol class="changelog-list">
+          {entries.map((entry) => (
+            <li class="changelog-item" id={entry.slug}>
+              <h2>
+                <a href={`/rates/${entry.slug}/`}>
+                  Year of assessment {entry.taxYear.yearOfAssessment}
+                </a>
+                {entry.taxYear.status === 'proposed' && (
+                  <NotYetLawBadge yearOfAssessment={entry.taxYear.yearOfAssessment} />
+                )}
+              </h2>
+              <p class="changelog-item__reviewed">
+                Last checked against its sources{' '}
+                <time datetime={entry.taxYear.lastReviewed}>
+                  {reviewedOnLabel(entry.taxYear.lastReviewed)}
+                </time>
+                .
+              </p>
+
+              {entry.previousYearOfAssessment === null ? (
+                <p class="changelog-item__note">
+                  The earliest year of assessment this project holds data for.
+                </p>
+              ) : entry.newSourceKeys.length > 0 ? (
+                <p class="changelog-item__note">
+                  Newly relied on since Y/A {entry.previousYearOfAssessment}:{' '}
+                  {entry.newSourceKeys
+                    .map((key) => entry.taxYear.sources[key]?.title ?? key)
+                    .join(', ')}
+                  .
+                </p>
+              ) : (
+                <p class="changelog-item__note">
+                  Relies on the same instruments as Y/A {entry.previousYearOfAssessment}.
+                </p>
+              )}
+
+              <p class="changelog-item__sources-lede">
+                Instruments this year's figures cite:
+              </p>
+              <ul class="changelog-item__sources">
+                {Object.entries(entry.taxYear.sources).map(([key, source]) => (
+                  <li>
+                    <CitationRef src={key} sources={entry.taxYear.sources} />
+                    <span class="visually-hidden"> — {source.title}</span>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ol>
+      )
+    }
+
+    <p class="changelog-page__footer">
+      Each source's status, retrieval date and SHA-256 prefix are on the{' '}
+      <a href="/about/sources/">sources page</a>.
+    </p>
+  </div>
+</Base>
+
+<style>
+  /* Every value resolves to a token from src/styles/global.css. */
+  .changelog-page h1 {
+    font-size: var(--text-3xl);
+    line-height: var(--text-3xl--line-height);
+    font-weight: 800;
+    margin-block: 0 calc(var(--spacing) * 4);
+  }
+
+  .changelog-page__lede {
+    margin-block: 0 calc(var(--spacing) * 8);
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+  }
+
+  .changelog-list {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .changelog-item {
+    padding: calc(var(--spacing) * 4);
+    border-inline-start: 3px solid var(--color-border-strong);
+  }
+
+  .changelog-item h2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(var(--spacing) * 2);
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+    font-weight: 700;
+    margin-block: 0 calc(var(--spacing) * 2);
+  }
+
+  .changelog-item__reviewed {
+    margin-block: 0 calc(var(--spacing) * 2);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .changelog-item__note {
+    margin-block: 0 calc(var(--spacing) * 3);
+    font-size: var(--text-sm);
+  }
+
+  .changelog-item__sources-lede {
+    margin-block: 0 calc(var(--spacing) * 1);
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+  }
+
+  .changelog-item__sources {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--spacing) * 1) calc(var(--spacing) * 4);
+    margin: 0;
+    padding-inline-start: calc(var(--spacing) * 5);
+    font-size: var(--text-xs);
+  }
+
+  .changelog-page__footer {
+    margin-block-start: calc(var(--spacing) * 10);
+    padding-block-start: calc(var(--spacing) * 6);
+    border-block-start: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+</style>

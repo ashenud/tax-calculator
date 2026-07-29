@@ -1,7 +1,7 @@
 ---
 id: P13
 title: Rates pages, sources register and changelog — generated from data
-status: pending
+status: done
 depends: [P09, P03]
 agent: ui-builder
 ---
