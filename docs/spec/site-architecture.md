@@ -20,8 +20,8 @@ src/
   pages/
     index.astro                       what this is, who it's for, the disclaimer
     calculator/
-      index.astro                     persona picker
-      [persona].astro                 the calculator, hydrating the island
+      index.astro                     the whole calculator, hydrating one island
+                                      (see the correction below)
     guides/
       foreign-currency-income.astro   from research/05 + persona p1
       employer-not-deducting.astro    from research/06 + persona p2
@@ -56,6 +56,26 @@ data/tax-years/*.json                 the tax data
 docs/                                 this documentation
 scripts/check-citations.mjs           guardrail
 ```
+
+### Correction, P10 — the calculator is one route, not two
+
+This document originally put the persona picker at `calculator/index.astro` and the
+calculator itself at `calculator/[persona].astro`. That cannot be built, and the
+correction is recorded here rather than left for each later prompt to rediscover.
+
+Changing persona would be a navigation between two prerendered pages, so everything
+entered would be lost. [`ui-behaviour.md`](ui-behaviour.md) draws it the other way — its
+primary flow has "change persona" as an arrow looping back *within* one flow — and
+[`../prompts/P10-calculator-island.md`](../prompts/P10-calculator-island.md) makes it an
+acceptance criterion: "a user can change persona mid-flow without losing entered
+figures". The persona is also "a routing convenience, not a constraint", which a route
+per persona contradicts in the plainest way available.
+
+So there is one page, `calculator/index.astro`, which loads the tax-year data at build
+time and hydrates one island holding persona, year, every figure and every condition
+answer. The component names below are still broadly right; `IncomeInputs.tsx` was built
+as `IncomeSections.tsx`, and `ResultBreakdown.tsx` / `PaymentSchedule.tsx` / `Warnings.tsx`
+belong to P12 (warnings in fact landed in P09 as `WarningList`).
 
 ## Principles
 

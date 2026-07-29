@@ -13,7 +13,7 @@
  * decoration — see docs/prompts/P02-tax-data-schema.md's acceptance criteria.
  */
 
-import { readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { taxYearFileSchema, type TaxYearFile } from './schema';
@@ -40,18 +40,39 @@ export interface LoadedTaxYear {
  * `vitest run` with no React in the graph — runs from the repo root, so the
  * fallback resolves to the same directory the `import.meta.url` path would
  * have.
+ *
+ * SECOND FALLBACK, ADDED IN P10. `src/pages/calculator/index.astro` calls this
+ * from page frontmatter, which Astro **bundles** — so at build time this module
+ * no longer lives at `src/lib/tax/`, it lives at
+ * `<outDir>/.prerender/chunks/<hash>.mjs`. Three levels up from there is the
+ * repository root only because `outDir` is `dist/`. Point `--outDir` anywhere
+ * of a different depth and the derived path lands somewhere that does not
+ * exist, and the build fails inside a page rather than anywhere near the cause.
+ *
+ * So the derived path is now a *candidate*, checked for existence, with
+ * `<cwd>/data/tax-years` behind it. Behaviour is unchanged wherever the derived
+ * path is right; where it is not, the loader finds the data instead of throwing
+ * a directory-not-found from a bundled chunk.
  */
 function resolveDefaultTaxYearsDir(): string {
   const relative = '../../../data/tax-years/';
   const url = new URL(relative, import.meta.url);
-  if (url.protocol !== 'file:') {
-    // `url.pathname` is still the correct repo-relative path even on the fake
-    // base — Vite's rewrite substitutes the dev-server origin but preserves
-    // the relative traversal, so `../../../data/tax-years/` from this file's
-    // real location still lands on `/data/tax-years/`.
-    return path.resolve(process.cwd(), url.pathname.replace(/^\//, ''));
+  const derived =
+    url.protocol === 'file:'
+      ? fileURLToPath(url)
+      : // `url.pathname` is still the correct repo-relative path even on the
+        // fake base — Vite's rewrite substitutes the dev-server origin but
+        // preserves the relative traversal, so `../../../data/tax-years/` from
+        // this file's real location still lands on `/data/tax-years/`.
+        path.resolve(process.cwd(), url.pathname.replace(/^\//, ''));
+
+  const candidates = [derived, path.resolve(process.cwd(), 'data/tax-years')];
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) return candidate;
   }
-  return fileURLToPath(url);
+  // Neither exists: return the derived one so the error names the path the
+  // module's own location implies, which is the more diagnosable of the two.
+  return derived;
 }
 
 export const DEFAULT_TAX_YEARS_DIR = resolveDefaultTaxYearsDir();

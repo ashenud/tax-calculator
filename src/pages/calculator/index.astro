@@ -1,0 +1,95 @@
+---
+/**
+ * The calculator page.
+ *
+ * Thin on purpose. Everything the calculator does is client state — the persona
+ * can be changed at any point, the year of assessment is chosen rather than
+ * routed to, and a figure recomputes as answers change — so this page has one
+ * job: load the tax-year data at build time and hydrate the island with it.
+ *
+ * ---------------------------------------------------------------------------
+ * WHY `loadTaxYears()` IS CALLED HERE AND NOT IN THE COMPONENT
+ * ---------------------------------------------------------------------------
+ *
+ * It reads `data/tax-years/` with `node:fs`. That is available in this
+ * frontmatter, which runs at build time in Node, and is not available in the
+ * browser bundle the island ships in. Calling it from `TaxCalculator.tsx` would
+ * not merely be slow or wasteful — it would not run at all.
+ *
+ * So the years are loaded, validated by the Zod schema on the way through, and
+ * passed in as a prop. Astro serialises island props to JSON, which is why the
+ * prop is plain parsed data and not, say, the loader itself.
+ *
+ * ---------------------------------------------------------------------------
+ * WHY ONE ROUTE AND NOT `/calculator/[persona]`
+ * ---------------------------------------------------------------------------
+ *
+ * `docs/spec/site-architecture.md` sketches a second route per persona. It
+ * cannot work: changing persona would be a navigation, and everything entered
+ * would be lost — which the P10 acceptance criteria forbid, and which
+ * `docs/spec/ui-behaviour.md` contradicts by drawing "change persona" as a loop
+ * back inside one flow. See the header of `TaxCalculator.tsx`.
+ *
+ * ---------------------------------------------------------------------------
+ * THE DISCLAIMER
+ * ---------------------------------------------------------------------------
+ *
+ * Not here. `Base.astro` renders it on every page, above `<main>`, and
+ * `src/layouts/Base.test.ts` asserts a page that never mentions it still shows
+ * it [ADR-0003 decision 1].
+ */
+import Base from '../../layouts/Base.astro';
+import { TaxCalculator } from '../../components/calculator/TaxCalculator.tsx';
+import { loadTaxYears } from '../../lib/tax/load.ts';
+
+const taxYears = loadTaxYears().map((loaded) => loaded.data);
+---
+
+<Base
+  title="Work out your Sri Lankan income tax"
+  description="Answer questions about your own situation and see what the law as recorded for a chosen year of assessment produces. Everything is worked out in your browser."
+>
+  <div class="calculator-page">
+    <div class="measure">
+      <h1>Work out what you owe</h1>
+      <p class="calculator-page__lede">
+        Answer what applies to you and leave the rest empty. Nothing you type is sent
+        anywhere — the whole calculation happens in this tab, and nothing is saved when
+        you close it.
+      </p>
+      <p class="calculator-page__lede">
+        Where the law does not clearly settle how your situation is treated, this tool
+        says so and gives you no figure. That is deliberate.
+      </p>
+    </div>
+
+    {
+      /* `client:load` rather than `client:visible`: the picker is the first
+        thing on the page and there is nothing to defer past. */
+    }
+    <TaxCalculator client:load taxYears={taxYears} />
+  </div>
+</Base>
+
+<style>
+  /* Every value resolves to a token from src/styles/global.css. */
+  .calculator-page {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 8);
+  }
+
+  .calculator-page h1 {
+    font-size: var(--text-3xl);
+    line-height: var(--text-3xl--line-height);
+    font-weight: 800;
+    margin-block: 0 calc(var(--spacing) * 4);
+  }
+
+  .calculator-page__lede {
+    margin-block: 0 calc(var(--spacing) * 3);
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+  }
+</style>

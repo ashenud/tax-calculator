@@ -1,0 +1,280 @@
+/*
+ * The calculator layer (P10).
+ *
+ * Same rules as `src/components/ui/ui.css`, and for the same reasons:
+ *
+ *   - No literal colour. Every colour is a `var(--color-*)` token from
+ *     global.css, so a palette change is one file rather than a grep.
+ *   - No literal length except structural ones: 0, 1px/2px borders, and
+ *     percentages. Spacing is `calc(var(--spacing) * n)`, radii are
+ *     `var(--radius-*)`, type is `var(--text-*)`.
+ *   - Focus is never restated. The base layer gives every focusable element its
+ *     ring; a component that redefined it would be one edit from an invisible
+ *     one.
+ *   - Motion uses `--duration-*` and `--ease-out-soft`, both zeroed under
+ *     `prefers-reduced-motion` by the base layer. **The figure has no
+ *     transition and no animation at all** — see `.calc-figure`.
+ *
+ * Separate from `ui.css` on purpose: `touch-target.test.tsx` asserts that
+ * `ui.css` contains no `@media` query, so that the 44px floor it resolves
+ * cannot be undone at a narrower width. This file has layout media queries and
+ * would break that check; it also has no touch targets of its own, because
+ * every control on the calculator is a `ui.css` primitive.
+ */
+
+.calc {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 8);
+}
+
+/* ===========================================================================
+ * STEPS
+ * ======================================================================== */
+
+.calc-step {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 4);
+}
+
+.calc-step__title {
+  margin: 0;
+  font-size: var(--text-xl);
+  line-height: var(--text-xl--line-height);
+  font-weight: 700;
+}
+
+.calc-step__lede,
+.calc-more__blurb,
+.calc-section__blurb,
+.calc-conditions__lede,
+.calc-gaps__lede {
+  max-width: var(--container-prose);
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
+
+/* ===========================================================================
+ * SECTIONS AND FIELDS
+ * ======================================================================== */
+
+.calc-section {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 3);
+}
+
+.calc-section__title {
+  margin: 0;
+  font-size: var(--text-lg);
+  line-height: var(--text-lg--line-height);
+  font-weight: 700;
+}
+
+.calc-section__fields {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 6);
+}
+
+.calc-field {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 4);
+}
+
+/* ===========================================================================
+ * CONDITION QUESTIONS
+ * ======================================================================== */
+
+.calc-conditions {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 4);
+  padding: calc(var(--spacing) * 4);
+  border: 1px solid var(--color-border);
+  /* A boundary and a change of surface, so the question reads as attached to
+     the amount above it rather than as the next unrelated field. */
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-sunken);
+}
+
+.calc-condition {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+}
+
+.calc-condition__evidence,
+.calc-condition__citation {
+  max-width: var(--container-prose);
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+}
+
+.calc-condition__evidence-label {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* ===========================================================================
+ * OPENING ANOTHER SECTION
+ * ======================================================================== */
+
+.calc-more {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 3);
+}
+
+.calc-more__title {
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  font-weight: 700;
+}
+
+.calc-more__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 2);
+}
+
+/* ===========================================================================
+ * WHAT IS STILL TO ANSWER
+ * ======================================================================== */
+
+.calc-gaps {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+}
+
+.calc-gaps__list,
+.calc-missing {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 1);
+  margin: 0;
+  padding-inline-start: calc(var(--spacing) * 5);
+}
+
+.calc-gaps__list {
+  /* Each item is a control that moves focus to the question it names, so a
+     bullet beside it would read as decoration on a link. */
+  list-style: none;
+  padding-inline-start: 0;
+  align-items: flex-start;
+}
+
+/* ===========================================================================
+ * THE RESULT
+ * ======================================================================== */
+
+.calc-result__waiting {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
+
+/* The figure. Large, because it is the thing the page is about; and with no
+   transition and no animation, because "a number that counts up is charming in
+   a marketing page and undermines trust in a tax figure" [ADR-0003]. */
+.calc-figure {
+  margin-block: calc(var(--spacing) * 2);
+  font-size: var(--text-3xl);
+  line-height: var(--text-3xl--line-height);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* Stale is marked by a change of weight and by the sentence above it, never by
+   colour alone. */
+.calc-figure[data-stale] {
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+
+.calc-figure__stale {
+  max-width: var(--container-prose);
+  margin: 0;
+  color: var(--color-caution-strong);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  font-weight: 600;
+}
+
+.calc-figure__caption {
+  max-width: var(--container-prose);
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
+
+.calc-uncomputable__detail {
+  border-inline-start: 2px solid var(--color-border-strong);
+  padding-inline-start: calc(var(--spacing) * 3);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
+
+/* ===========================================================================
+ * AS-AT STAMP (the React one — see AsAtStamp.tsx)
+ * ======================================================================== */
+
+.calc-as-at {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 0.5) calc(var(--spacing) * 3);
+  margin: 0;
+  /* --color-text-muted is held at >= 4.5:1 in both themes by
+     src/styles/tokens.test.ts. Secondary text is still text that is read. */
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+}
+
+.calc-as-at__line {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: calc(var(--spacing) * 1);
+}
+
+.calc-as-at__value {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.calc-as-at__span {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===========================================================================
+ * WIDER SCREENS
+ *
+ * Reading width for prose, and a little more room between steps. The
+ * two-column sticky result layout above 1024px belongs to the result panel and
+ * lands with it in P12; putting a sticky column here would have to be undone.
+ * ======================================================================== */
+
+@media (width >= 768px) {
+  .calc {
+    gap: calc(var(--spacing) * 10);
+  }
+
+  .calc-section__fields {
+    gap: calc(var(--spacing) * 8);
+  }
+}
