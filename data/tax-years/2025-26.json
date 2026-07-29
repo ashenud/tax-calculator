@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
 
-  "yearOfAssessment": 12345,
+  "yearOfAssessment": "2025/2026",
   "period": { "from": "2025-04-01", "to": "2026-03-31" },
   "status": "enacted",
   "lastReviewed": "2026-07-28",
